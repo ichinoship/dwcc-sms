@@ -46,13 +46,13 @@
                                         <td><?= $applicant->lastname; ?></td>
                                         <td><?= $applicant->firstname; ?></td>
                                         <td><?= $applicant->scholarship_program; ?></td>
-                                        <td class="status-column"><?=ucfirst($applicant->status); ?></td>
+                                        <td class="status-column"><?= ucfirst($applicant->status); ?></td>
                                         <td>
                                             <a href="<?= site_url('twc/view_applicant/' . $applicant->applicant_no); ?>" class="btn btn-info">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <button class="btn btn-primary evaluate-btn" data-id="<?= $applicant->applicant_no; ?>" data-toggle="modal" data-target="#evaluateModal">
-                                                <i class="fas fa-pencil-alt"></i> 
+                                                <i class="fas fa-pencil-alt"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -124,64 +124,64 @@
             var status = $(this).val();
             if (status === 'not qualified') {
                 $('#discount-group').hide();
-                $('#discount').val(''); 
-                $('#comment').val(''); 
-                $('#comment').closest('.form-group').show(); 
+                $('#discount').val('');
+                $('#comment').val('');
+                $('#comment').closest('.form-group').show();
             } else if (status === 'conditional') {
                 $('#discount-group').hide();
-                $('#discount').val(''); 
-                $('#comment').closest('.form-group').show(); 
+                $('#discount').val('');
+                $('#comment').closest('.form-group').show();
             } else if (status === 'qualified') {
                 $('#discount-group').show();
                 $('#comment').closest('.form-group').hide();
-                $('#comment').val(''); 
+                $('#comment').val('');
             } else {
                 $('#discount-group').show();
-                $('#comment').closest('.form-group').show(); 
+                $('#comment').closest('.form-group').show();
             }
         });
 
         $('#evaluateForm').submit(function(e) {
-    e.preventDefault();
-    
-    // Disable the submit button
-    $(this).find('button[type="submit"]').prop('disabled', true).text('Submitting...');
+            e.preventDefault();
 
-    var formData = $(this).serialize();
-    $.ajax({
-        url: '<?= base_url('twc/evaluate_applicant'); ?>',
-        type: 'POST',
-        data: formData,
-        success: function(response) {
-            if (response === 'success') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Evaluation Submitted',
-                    text: 'The applicant has been evaluated successfully.',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        location.reload();
+            // Disable the submit button
+            $(this).find('button[type="submit"]').prop('disabled', true).text('Submitting...');
+
+            var formData = $(this).serialize();
+            $.ajax({
+                url: '<?= base_url('twc/evaluate_applicant'); ?>',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Evaluation Submitted',
+                            text: 'The applicant has been evaluated successfully.',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'There was an error submitting the evaluation.',
+                        });
                     }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'There was an error submitting the evaluation.',
-                });
-            }
-        },
-        error: function() {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'An unexpected error occurred. Please try again later.',
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An unexpected error occurred. Please try again later.',
+                    });
+                },
+                complete: function() {
+                    $('#evaluateForm').find('button[type="submit"]').prop('disabled', false).text('Submit Evaluation');
+                }
             });
-        },
-        complete: function() {
-            $('#evaluateForm').find('button[type="submit"]').prop('disabled', false).text('Submit Evaluation');
-        }
-    });
-});
+        });
     });
 </script>

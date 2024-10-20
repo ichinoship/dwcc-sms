@@ -233,12 +233,16 @@ class Sc_model extends CI_Model
         return $query->row();
     }
 
-    public function update_discount($shortlist_id, $discount)
-    {
-        $this->db->set('discount', $discount);
-        $this->db->where('shortlist_id', $shortlist_id);
-        $this->db->update('shortlist');
-    }
+    public function update_shortlist($shortlist_id, $status, $discount)
+{
+    $this->db->where('shortlist_id', $shortlist_id);
+    return $this->db->update('shortlist', ['status' => $status, 'discount' => $discount]);
+}
+
+public function insert_into_final_list($data)
+{
+    return $this->db->insert('final_list', $data);
+}
 
     public function get_applicants_by_program($program_code)
     {

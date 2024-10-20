@@ -69,17 +69,17 @@ class Sc extends CI_Controller
         $program_codes = $this->input->post('scholarship_programs');
         $start_date = $this->input->post('start_date');
         $end_date = $this->input->post('end_date');
-    
+
         if ($program_codes && $start_date && $end_date) {
             foreach ($program_codes as $program_code) {
                 $data = [
                     'start_date' => $start_date,
                     'end_date' => $end_date
                 ];
-    
+
                 $this->db->where('program_code', $program_code);
                 $update = $this->db->update('scholarship_programs', $data);
-    
+
                 if (!$update) {
                     echo 'error';
                     return;
@@ -139,7 +139,7 @@ class Sc extends CI_Controller
         }
 
         // Fetch academic years from school_year table
-        $data['academic_years'] = $this->Sc_model->get_all_academic_years(); 
+        $data['academic_years'] = $this->Sc_model->get_all_academic_years();
 
         if ($this->form_validation->run() == FALSE) {
             $data['programs'] = $this->Sc_model->get_all_scholarship_programs();
@@ -293,65 +293,6 @@ class Sc extends CI_Controller
         $this->load->view('sc/app_evaluation', $data);
     }
 
-    public function update_discount()
-    {
-        $shortlist_id = $this->input->post('shortlist_id');
-        $discount = $this->input->post('discount');
-
-        $this->Sc_model->update_discount($shortlist_id, $discount);
-
-        $this->session->set_flashdata('success', 'Discount updated successfully.');
-
-        redirect('sc/app_evaluation');
-    }
-
-    public function submit_final_list()
-    {
-        $selected_applicants = $this->input->post('final_list');
-
-        if (!empty($selected_applicants)) {
-            $this->load->model('Sc_model');
-            $this->load->library('email');
-
-            foreach ($selected_applicants as $shortlist_id) {
-
-                $applicant = $this->Sc_model->get_shortlist_applicant($shortlist_id);
-                $applicant_email = $applicant->email;
-                $applicant_firstname = $applicant->firstname;
-
-                $final_list_data = [
-                    'applicant_no' => $applicant->applicant_no,
-                    'id_number' => $applicant->id_number,
-                    'firstname' => $applicant->firstname,
-                    'middlename' => $applicant->middlename,
-                    'lastname' => $applicant->lastname,
-                    'program' => $applicant->program,
-                    'year' => $applicant->year,
-                    'campus' => $applicant->campus,
-                    'program_type' => $applicant->program_type,
-                    'application_type' => $applicant->application_type,
-                    'academic_year' => $applicant->academic_year,
-                    'semester' => $applicant->semester,
-                    'scholarship_program' => $applicant->scholarship_program,
-                    'discount' => $applicant->discount,
-                ];
-
-                $this->Sc_model->insert_final_list($final_list_data);
-                $this->Sc_model->remove_from_shortlist($shortlist_id);
-                if ($applicant_email) {
-                    $this->send_approval_email($applicant_email, $applicant_firstname);
-                }
-            }
-
-            $this->session->set_flashdata('final_list_success', 'Applicants have been successfully added to the final list.');
-        } else {
-            $this->session->set_flashdata('error', 'No applicants selected.');
-        }
-
-        redirect('sc/app_evaluation');
-    }
-
-
     public function view_shortlist_applicant($shortlist_id)
     {
         $this->load->model('Applicant_model');
@@ -360,6 +301,49 @@ class Sc extends CI_Controller
             show_404();
         }
         $this->load->view('sc/view_applicant', $data);
+    }
+
+    public function update_shortlist()
+    {
+        $shortlist_id = $this->input->post('shortlist_id');
+        $status = $this->input->post('status');
+        $discount = $this->input->post('discount');
+
+        $this->Sc_model->update_shortlist($shortlist_id, $status, $discount);
+
+        redirect('sc/app_evaluation');
+    }
+
+    public function submit_to_final_list()
+    {
+        $shortlist_id = $this->input->post('shortlist_id');
+        $applicant_name = $this->input->post('applicant_name');
+        $discount = $this->input->post('discount');
+
+        $shortlistedApplicant = $this->Sc_model->get_shortlist_applicant($shortlist_id);
+
+        $data = [
+            'applicant_no' => $shortlistedApplicant->applicant_no,
+            'id_number' => $shortlistedApplicant->id_number,
+            'firstname' => $shortlistedApplicant->firstname,
+            'middlename' => $shortlistedApplicant->middlename,
+            'lastname' => $shortlistedApplicant->lastname,
+            'program_type' => $shortlistedApplicant->program_type,
+            'year' => $shortlistedApplicant->year,
+            'program' => $shortlistedApplicant->program,
+            'campus' => $shortlistedApplicant->campus,
+            'application_type' => $shortlistedApplicant->application_type,
+            'academic_year' => $shortlistedApplicant->academic_year,
+            'semester' => $shortlistedApplicant->semester,
+            'scholarship_program' => $shortlistedApplicant->scholarship_program,
+            'discount' => $discount,
+        ];
+
+        // Insert into final list
+        $this->Sc_model->insert_into_final_list($data);
+        $this->Sc_model->remove_from_shortlist($shortlist_id);
+        echo json_encode(['status' => 'success']);
+        
     }
     public function reports()
     {
@@ -378,6 +362,7 @@ class Sc extends CI_Controller
 
         $this->load->view('sc/reports', $data);
     }
+
 
 
     public function update_info()
@@ -507,7 +492,8 @@ class Sc extends CI_Controller
         $this->load->view('sc/program_app_list', $data);
     }
 
-    public function final_list($program_code = null) {
+    public function final_list($program_code = null)
+    {
         // Load the model
         $this->load->model('Sc_model');
 
@@ -518,7 +504,7 @@ class Sc extends CI_Controller
 
 
         $data['applicants'] = $this->Sc_model->get_filter_final_list();
-    
+
 
         // Load the view
         $this->load->view('sc/final_list', $data);
