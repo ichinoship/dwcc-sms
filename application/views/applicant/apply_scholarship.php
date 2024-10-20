@@ -131,17 +131,17 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6 form-group">
-                                    <label for="scholarship_program">Scholarship Program: <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="scholarship_program" name="scholarship_program" required>
-                                        <option value="" disabled <?= empty($selected_program_code) ? 'selected' : ''; ?>>Select Program</option>
-                                        <?php foreach ($scholarship_programs as $program): ?>
-                                            <option value="<?= htmlspecialchars($program->scholarship_program); ?>"
-                                                <?= isset($selected_program_code) && $selected_program_code == $program->program_code ? 'selected' : ''; ?>>
-                                                <?= htmlspecialchars($program->scholarship_program); ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
+    <label for="scholarship_program">Scholarship Program: <span class="text-danger">*</span></label>
+    <select class="form-control" id="scholarship_program" name="scholarship_program" required>
+        <option value="" disabled <?= empty($selected_program_code) ? 'selected' : ''; ?>>Select Program</option>
+        <?php foreach ($scholarship_programs as $program): ?>
+            <option value="<?= htmlspecialchars($program->scholarship_program); ?>"
+                <?= isset($selected_program_code) && $selected_program_code == $program->program_code ? 'selected' : ''; ?>>
+                <?= htmlspecialchars($program->scholarship_program); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="requirements">Upload Requirements: <span class="text-danger">*</span></label>
