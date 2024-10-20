@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2024 at 09:26 AM
+-- Generation Time: Oct 20, 2024 at 05:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -73,7 +73,7 @@ CREATE TABLE `application_form` (
   `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) NOT NULL,
   `birthdate` date NOT NULL,
-  `gender` enum('Male','Female','Other') NOT NULL DEFAULT 'Other',
+  `gender` enum('Male','Female') NOT NULL,
   `contact` char(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `program_type` enum('College','Senior High School','Junior High School','Grade School') NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE `application_form` (
   `applicant_residence` varchar(100) NOT NULL,
   `academic_year` varchar(9) NOT NULL,
   `semester` enum('1st Semester','2nd Semester','Whole Semester') NOT NULL,
-  `application_type` enum('Renewal','New Applicant','','') NOT NULL,
+  `application_type` enum('Renewal','New Applicant') NOT NULL,
   `scholarship_program` varchar(255) NOT NULL,
   `requirements` varchar(255) NOT NULL,
   `comment` text DEFAULT NULL,
@@ -257,7 +257,7 @@ CREATE TABLE `shortlist` (
   `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) NOT NULL,
   `birthdate` date NOT NULL,
-  `gender` enum('Male','Female','Other','') NOT NULL,
+  `gender` enum('Male','Female') NOT NULL,
   `contact` char(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `program_type` enum('College','Senior High School','Junior High School','Grade School') NOT NULL,
@@ -267,7 +267,7 @@ CREATE TABLE `shortlist` (
   `address` varchar(100) NOT NULL,
   `applicant_residence` varchar(100) NOT NULL,
   `academic_year` varchar(9) NOT NULL,
-  `semester` enum('1st Semester','2nd Semester','Full Semester') NOT NULL,
+  `semester` enum('1st Semester','2nd Semester','Whole Semester') NOT NULL,
   `application_type` enum('Renewal','New Applicant') NOT NULL,
   `scholarship_program` varchar(100) NOT NULL,
   `requirements` varchar(255) NOT NULL,
