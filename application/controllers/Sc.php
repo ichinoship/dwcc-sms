@@ -484,10 +484,15 @@ class Sc extends CI_Controller
     {
         $this->load->model('Sc_model');
 
+        // Retrieve available academic years
+        $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
+
+        // Get selected academic year from POST data
+        $selected_year = $this->input->post('academic_year');
+        $data['selected_year'] = $selected_year;
+
         $data['programs'] = $this->Sc_model->get_all_scholarship_programs();
 
-        $selected_program_code = $this->input->get('program_code');
-        $program_code = $selected_program_code ? $selected_program_code : $program_code;
 
         $data['applicants'] = $this->Sc_model->get_final_list($program_code);
         $program = $this->Sc_model->get_program_by_code($program_code);

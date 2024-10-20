@@ -22,33 +22,29 @@
 
     <section class="content">
         <div class="container-fluid">
-            <form method="get" action="<?= base_url('sc/final_list'); ?>">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="input-group">
-                            <select name="program_code" id="program_filter" class="form-control">
-                                <option value="">-- All Program --</option>
-                                <?php foreach ($programs as $program): ?>
-                                    <option value="<?= $program->program_code; ?>" <?= ($program_code == $program->program_code) ? 'selected' : ''; ?>>
-                                        <?= $program->scholarship_program; ?>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Final List</h3>
+
+                    <!-- Filter by Academic Year -->
+                    <div class="float-right">
+                        <form id="filterForm" method="POST" action="<?= base_url('sc/final_list'); ?>">
+                            <select name="academic_year" id="academic_year" class="form-control" onchange="document.getElementById('filterForm').submit();">
+                                <option value="">Select Academic Year</option>
+                                <?php foreach ($academic_years as $year): ?>
+                                    <option value="<?= $year->academic_year; ?>" <?= isset($selected_year) && $selected_year == $year->academic_year ? 'selected' : ''; ?>>
+                                        <?= $year->academic_year; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary">Filter</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                    
-                </div>
-            </form>
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Final List for <?= $program_name; ?></h3>
+
                     <button id="printFinalList" class="btn btn-primary float-right" onclick="printFinalList()">Print Report</button>
                 </div>
                 <div class="card-body">
-                    <table id="finalList" class="table table-bordered table-hover">
+                    <table id="example1" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>Id Number</th>
