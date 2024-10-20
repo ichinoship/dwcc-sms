@@ -46,7 +46,7 @@
                                         <td><?= $applicant->lastname; ?></td>
                                         <td><?= $applicant->firstname; ?></td>
                                         <td><?= $applicant->scholarship_program; ?></td>
-                                        <td class="status-column"><?= $applicant->status; ?></td>
+                                        <td class="status-column"><?=ucfirst($applicant->status); ?></td>
                                         <td>
                                             <a href="<?= site_url('twc/view_applicant/' . $applicant->applicant_no); ?>" class="btn btn-info">
                                                 <i class="fas fa-eye"></i>

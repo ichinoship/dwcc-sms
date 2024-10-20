@@ -60,16 +60,13 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($applications as $application): ?>
-
                                     <tr data-academic-year="<?= htmlspecialchars($application->academic_year); ?>"  data-semester="<?= htmlspecialchars($application->semester); ?>">
-
                                         <td><?= htmlspecialchars($application->applicant_no); ?></td>
                                         <td><?= htmlspecialchars($application->firstname); ?></td>
                                         <td><?= htmlspecialchars($application->middlename); ?></td>
                                         <td><?= htmlspecialchars($application->lastname); ?></td>
                                         <td><?= htmlspecialchars($application->scholarship_program); ?></td>
-                                        
-                                        <td><?= htmlspecialchars($application->status); ?></td>
+                                        <td><?= ucfirst(htmlspecialchars($application->status)); ?></td>
                                         <td>
                                             <a href="<?= site_url('applicant/view_form/' . $application->applicant_no); ?>" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-eye"></i>
