@@ -23,7 +23,7 @@
               <h3 class="card-title">Divine Word College of Calapan (VMGC)</h3>
             </div>
             <div class="card-body">
-              <h4><strong>Vision</strong></h4>
+              
               <p>A globally competitive institution, faithful to the teachings and tradition of the Catholic Church working together towards the development of the persons following the examples of St. Arnold Janssen and St. Joseph Freinademetz.</p>
 
               <h4><strong>Mission</strong></h4>
