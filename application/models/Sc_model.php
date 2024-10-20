@@ -391,4 +391,53 @@ class Sc_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
+    // Function to retrieve the final list of applicants filtered by academic year
+    public function get_final_list_by_academic_year($academic_year) {
+        $this->db->select('*');
+        $this->db->from('final_list'); // Assuming 'final_list' is the table for storing final applicants
+        $this->db->where('academic_year', $academic_year);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+     // Fetch filtered final list of applicants based on academic year and semester
+     public function get_filtered_final_list($academic_year, $semester) {
+        $this->db->select('*');
+        $this->db->from('final_list'); // Adjust to your actual final list table
+
+        // Apply academic year filter
+        if (!empty($academic_year)) {
+            $this->db->where('academic_year', $academic_year);
+        }
+
+        // Apply semester filter
+        if (!empty($semester)) {
+            $this->db->where('semester', $semester);
+        }
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    
+    // Function to get filtered applicants
+    public function get_filter_final_list()
+    {
+        $this->db->select('*');
+        $this->db->from('final_list');
+
+        // Apply filters based on posted values (will be used in JS)
+        if ($this->input->post('academic_year')) {
+            $this->db->where('academic_year', $this->input->post('academic_year'));
+        }
+        if ($this->input->post('semester')) {
+            $this->db->where('semester', $this->input->post('semester'));
+        }
+        if ($this->input->post('scholarship_program')) {
+            $this->db->where('scholarship_program', $this->input->post('scholarship_program'));
+        }
+
+        return $this->db->get()->result();
+    }
 }
