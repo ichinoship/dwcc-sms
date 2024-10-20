@@ -64,6 +64,33 @@ class Sc extends CI_Controller
         $this->load->view('sc/scholarship_program', $data);
     }
 
+    public function set_scholarship_dates()
+    {
+        $program_codes = $this->input->post('scholarship_programs');
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+    
+        if ($program_codes && $start_date && $end_date) {
+            foreach ($program_codes as $program_code) {
+                $data = [
+                    'start_date' => $start_date,
+                    'end_date' => $end_date
+                ];
+    
+                $this->db->where('program_code', $program_code);
+                $update = $this->db->update('scholarship_programs', $data);
+    
+                if (!$update) {
+                    echo 'error';
+                    return;
+                }
+            }
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+    }
+
     public function add_requirements()
     {
         $this->form_validation->set_rules('requirement_name', 'Requirement Name', 'required');

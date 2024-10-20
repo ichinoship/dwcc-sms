@@ -46,14 +46,18 @@
                 <div class="card-header">
                     <h3 class="card-title">List of Scholarship Programs</h3>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProgramModal"><i class="fa fa-plus" aria-hidden="true"></i>
-                            <span class="ml-2">Add Program</span>
+                        <!-- Set Date Button -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#setDateModal"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            <span class="ml-2">Set Date</span>
                         </button>
                         <!-- Add Requirements Button -->
-                        <a href="<?= base_url('sc/add_requirements'); ?>" class="btn btn-secondary ml-2">
+                        <a href="<?= base_url('sc/add_requirements'); ?>" class="btn btn-secondary">
                             <i class="fa fa-file" aria-hidden="true"></i>
                             <span class="ml-2">Add Requirements</span>
                         </a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProgramModal"><i class="fa fa-plus" aria-hidden="true"></i>
+                            <span class="ml-2">Add Program</span>
+                        </button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -73,7 +77,7 @@
                                     <td><?= $program->program_code; ?></td>
                                     <td><?= $program->scholarship_program; ?></td>
                                     <td><?= $program->scholarship_type; ?></td>
-                                    <td><?= $program->program_status; ?></td>
+                                    <td><?= ucfirst($program->program_status); ?></td>
                                     <td>
                                         <!-- View Button -->
                                         <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#viewProgramModal"
@@ -82,6 +86,8 @@
                                             data-campus="<?= $program->campus; ?>"
                                             data-academic-year="<?= $program->academic_year; ?>"
                                             data-semester="<?= $program->semester; ?>"
+                                            data-start_date="<?= $program->start_date; ?>"
+                                            data-end_date="<?= $program->end_date; ?>"
                                             data-scholarship-type="<?= $program->scholarship_type; ?>"
                                             data-percentage="<?= $program->percentage; ?>"
                                             data-requirements="<?= $program->requirements; ?>"
@@ -111,6 +117,56 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Set Date Modal -->
+            <div class="modal fade" id="setDateModal" tabindex="-1" role="dialog" aria-labelledby="setDateModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="setDateModalLabel">Set Dates for Scholarship Program</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="setDateForm">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="start_date">Start Date</label>
+                                    <input type="date" class="form-control" id="start_date" name="start_date" required min="<?= date('Y-m-d'); ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="end_date">End Date</label>
+                                    <input type="date" class="form-control" id="end_date" name="end_date" required min="<?= date('Y-m-d'); ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Scholarship Program</label>
+                                    <div class="form-check mb-2">
+                                        <!-- "Select All" checkbox -->
+                                        <input type="checkbox" class="form-check-input" id="selectAll">
+                                        <label class="form-check-label" for="selectAll">All Program</label>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <?php foreach ($programs as $program): ?>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input program-checkbox" name="scholarship_programs[]" value="<?= $program->program_code; ?>" id="program_<?= $program->program_code; ?>">
+                                                    <label class="form-check-label" for="program_<?= $program->program_code; ?>"><?= $program->scholarship_program; ?></label>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Set Date</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- View Program Modal -->
             <div class="modal fade" id="viewProgramModal" tabindex="-1" role="dialog" aria-labelledby="viewProgramModalLabel" aria-hidden="true">
@@ -222,8 +278,8 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                     <!-- Scholarship Type -->
-                                     <div class="col-md-3">
+                                    <!-- Scholarship Type -->
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="scholarship_type">Scholarship Type</label>
                                             <select class="form-control" id="scholarship_type" name="scholarship_type" required>
@@ -381,9 +437,9 @@
                                     </div>
 
                                 </div>
-                                
+
                                 <div class="row">
-                                <div class="col-md-3">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="edit_scholarship_type">Scholarship Type</label>
                                             <select class="form-control" id="edit_scholarship_type" name="scholarship_type" required>
@@ -492,7 +548,6 @@
     </script>
 <?php endif; ?>
 <script>
-    
     $('button[data-target="#editProgramModal"]').on('click', function() {
         var programCode = $(this).closest('tr').find('td:first').text();
 
@@ -538,6 +593,8 @@
         var scholarshipType = button.data('scholarship-type');
         var academicYear = button.data('academic-year');
         var semester = button.data('semester');
+        var start_date = button.data('start_date');
+        var end_date = button.data('end_date');
         var programStatus = button.data('program_status');
         var assignedTo = button.data('assigned-to');
         var description = button.data('description');
@@ -550,6 +607,8 @@
         $('#viewScholarshipType').text(scholarshipType);
         $('#viewAcademicYear').text(academicYear);
         $('#viewSemester').text(semester);
+        $('#viewStartDate').text(start_date);
+        $('#viewEndDate').text(end_date);
         $('#viewProgramStatus').text(programStatus);
         $('#viewAssignedTo').text(assignedTo);
         $('#viewDescription').text(description);
@@ -567,6 +626,67 @@
         requirementsList.empty();
         requirements.forEach(function(requirement) {
             requirementsList.append('<li>' + requirement.trim() + '</li>');
+        });
+    });
+</script>
+
+<script>
+    document.getElementById('selectAll').addEventListener('change', function() {
+        var checkboxes = document.querySelectorAll('.program-checkbox');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = this.checked;
+        }
+    });
+
+    var programCheckboxes = document.querySelectorAll('.program-checkbox');
+    for (var i = 0; i < programCheckboxes.length; i++) {
+        programCheckboxes[i].addEventListener('change', function() {
+            if (!this.checked) {
+                document.getElementById('selectAll').checked = false;
+            }
+        });
+    }
+    document.getElementById('start_date').addEventListener('change', function() {
+        var startDate = this.value;
+        document.getElementById('end_date').setAttribute('min', startDate);
+    });
+    $(document).ready(function() {
+        $('#setDateForm').submit(function(e) {
+            e.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: '<?= base_url('sc/set_scholarship_dates'); ?>',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Dates Set',
+                            text: 'Start and end dates have been set successfully.',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to set dates. Please try again.',
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An unexpected error occurred. Please try again later.',
+                    });
+                }
+            });
         });
     });
 </script>
