@@ -25,7 +25,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-tools">
+                        <h3 class="card-title">Scholarship Reports</h3>
+                        </div>
+                        <div class="card-body">
+                        <div class="card-tools mb-3">
                                 <form method="post" action="<?= base_url('sc/reports'); ?>" class="form-inline">
                                     <div class="row col-12">
                                         <div class="col-md-4 mb-2">
@@ -73,16 +76,12 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-end">
-                                            <button type="button" class="btn btn-secondary mr-2" id="resetFilters">Reset Filters</button>
-                                            <button type="button" class="btn btn-primary" id="printTable">Print</button>
+                                            <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
+                                            <button type="button" class="btn btn-primary col-md-6" id="printTable">Print</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                        </div>
-
-
-                        <div class="card-body">
                             <table id="applicationsTable" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>

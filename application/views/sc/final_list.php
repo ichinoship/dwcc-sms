@@ -24,7 +24,10 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-tools d-flex justify-content-between align-items-center w-100">
+                <h3 class="card-title">Final List of Applicants</h3>
+                </div>
+                <div class="card-body">
+                <div class="card-tools d-flex justify-content-between align-items-center w-100 mb-3">
                         <form method="post" class="form-inline" id="filterForm" style="flex: 1;">
                             <div class="row w-100 align-items-center">
                                 <div class="col-md-3 mb-2">
@@ -52,14 +55,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3 mb-2 d-flex">
-                                    <button type="button" class="btn btn-secondary mr-2" id="resetFilters">Reset Filters</button>
-                                    <button id="printFinalList" class="btn btn-primary" onclick="printFinalList()">Print</button>
+                                    <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
+                                    <button id="printFinalList" class="btn btn-primary col-md-6" onclick="printFinalList()">Print</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                </div>
-                <div class="card-body">
                     <table id="finalListTable" class="table table-bordered table-hover">
                         <thead>
                             <tr>

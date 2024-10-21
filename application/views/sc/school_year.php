@@ -24,13 +24,13 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">School Year List</h3>
-                    <div class="card-tools">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#addYearModal">
-                            <i class="fa fa-plus" aria-hidden="true"></i> <span class="ml-2">Add School Year</span>
-                        </button>
-                    </div>
                 </div>
                 <div class="card-body">
+                <div class="card-tools mb-3">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addYearModal">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i> <span class="ml-2">Add School Year</span>
+                        </button>
+                    </div>
                     <table id="example4" class="table table-bordered table-striped">
                         <thead>
                             <tr>

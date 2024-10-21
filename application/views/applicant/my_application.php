@@ -25,28 +25,29 @@
                 </div>
                 <div class="card-body">
 
-                <div class="form-group">
-                    <select id="filter_academic_year" class="form-control">
-                        <option value="" disabled selected>Filter by Academic Year:</option>
-                        <option value="">All Academic Years</option>
-                        <?php foreach ($academic_filter_years as $year): ?>
-                            <option value="<?= $year->academic_year ?>"><?= $year->academic_year ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <select id="filter_academic_year" class="form-control">
+                                <option value="" disabled selected>Filter by Academic Year:</option>
+                                <option value="">All Academic Years</option>
+                                <?php foreach ($academic_filter_years as $year): ?>
+                                    <option value="<?= $year->academic_year ?>"><?= $year->academic_year ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-                <!-- Add Semester Filter -->
-                <div class="form-group">
-                    <select id="filter_semester" class="form-control">
-                        <option value="" disabled selected>Filter by Semester:</option>
-                        <option value="">All Semesters</option>
-                        <option value="1st Semester">1st Semester</option>
-                        <option value="2nd Semester">2nd Semester</option>
-                        <option value="Whole Semester">Whole Semester</option>
-                    </select>
-                </div>
-                        <div class="table-responsive">
-                        <table id="" class="table table-bordered table-striped">
+                        <div class="form-group col-md-6">
+                            <select id="filter_semester" class="form-control">
+                                <option value="" disabled selected>Filter by Semester:</option>
+                                <option value="">All Semesters</option>
+                                <option value="1st Semester">1st Semester</option>
+                                <option value="2nd Semester">2nd Semester</option>
+                                <option value="Whole Semester">Whole Semester</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Applicant No</th>
@@ -60,7 +61,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($applications as $application): ?>
-                                    <tr data-academic-year="<?= htmlspecialchars($application->academic_year); ?>"  data-semester="<?= htmlspecialchars($application->semester); ?>">
+                                    <tr data-academic-year="<?= htmlspecialchars($application->academic_year); ?>" data-semester="<?= htmlspecialchars($application->semester); ?>">
                                         <td><?= htmlspecialchars($application->applicant_no); ?></td>
                                         <td><?= htmlspecialchars($application->firstname); ?></td>
                                         <td><?= htmlspecialchars($application->middlename); ?></td>
@@ -71,7 +72,7 @@
                                             <a href="<?= site_url('applicant/view_form/' . $application->applicant_no); ?>" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="#" 
+                                            <a href="#"
                                                 class="btn btn-success btn-sm edit-btn"
                                                 data-status="<?= htmlspecialchars($application->status); ?>"
                                                 data-url="<?= site_url('applicant/edit_application/' . $application->applicant_no); ?>">
@@ -135,16 +136,12 @@
         var modal = $(this);
         modal.find('#commentModalBody').text(comment);
     });
-
-
-    
-
 </script>
 
 
 <script>
-    $(document).ready(function () {
-        $('.edit-btn').click(function (e) {
+    $(document).ready(function() {
+        $('.edit-btn').click(function(e) {
             e.preventDefault();
             var status = $(this).data('status');
             var url = $(this).data('url');

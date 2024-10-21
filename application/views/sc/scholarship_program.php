@@ -45,22 +45,27 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">List of Scholarship Programs</h3>
-                    <div class="card-tools">
+                </div>
+                <div class="card-body">
+                    <div class="card-tools mb-3">
                         <!-- Set Date Button -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#setDateModal"><i class="fa fa-calendar" aria-hidden="true"></i>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#setDateModal">
+                            <i class="fa fa-calendar-alt" aria-hidden="true"></i> <!-- Updated icon -->
                             <span class="ml-2">Set Date</span>
                         </button>
+
                         <!-- Add Requirements Button -->
                         <a href="<?= base_url('sc/add_requirements'); ?>" class="btn btn-secondary">
-                            <i class="fa fa-file" aria-hidden="true"></i>
+                            <i class="fa fa-file-alt" aria-hidden="true"></i> <!-- Updated icon -->
                             <span class="ml-2">Add Requirements</span>
                         </a>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProgramModal"><i class="fa fa-plus" aria-hidden="true"></i>
+
+                        <!-- Add Scholarship Program Button -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProgramModal">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i> <!-- Updated icon -->
                             <span class="ml-2">Add Program</span>
                         </button>
                     </div>
-                </div>
-                <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -130,13 +135,15 @@
                         </div>
                         <form id="setDateForm">
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="start_date">Start Date</label>
-                                    <input type="date" class="form-control" id="start_date" name="start_date" required min="<?= date('Y-m-d'); ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="end_date">End Date</label>
-                                    <input type="date" class="form-control" id="end_date" name="end_date" required min="<?= date('Y-m-d'); ?>">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="start_date">Start Date</label>
+                                        <input type="date" class="form-control" id="start_date" name="start_date" required min="<?= date('Y-m-d'); ?>">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="end_date">End Date</label>
+                                        <input type="date" class="form-control" id="end_date" name="end_date" required min="<?= date('Y-m-d'); ?>">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Select Scholarship Program</label>

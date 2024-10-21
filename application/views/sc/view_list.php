@@ -21,37 +21,41 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Applicants for <?php echo $academic_year; ?></h3>
-                    <div class="ml-auto d-flex align-items-center float-right">
-                        <div class="mr-2">
-                            <select id="campusFilter" class="form-control">
-                                <option value="All" selected>All Campuses</option>
-                                <option value="Janssen">Janssen</option>
-                                <option value="Freinademetz">Freinademetz</option>
-                            </select>
-                        </div>
-                        <div class="mr-2">
-                            <select id="semesterFilter" class="form-control">
-                                <option value="All" selected>All Semesters</option>
-                                <option value="1st Semester">1st Semester</option>
-                                <option value="2nd Semester">2nd Semester</option>
-                                <option value="Whole Semester">Whole Semester</option>
-                            </select>
-                        </div>
-                        <div class="mr-2">
-                            <select id="scholarshipProgramFilter" class="form-control">
-                                <option value="All" selected>All Scholarship Programs</option>
-                                <?php foreach ($programs as $program): ?>
-                                    <option value="<?= $program->scholarship_program; ?>"><?= $program->scholarship_program; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
+                    <div class="card-tools mb-3">
+                        <div class="row col-12">
+                            <div class="col-md-3 mb-2">
+                                <select id="campusFilter" class="form-control">
+                                    <option value="All" selected>All Campuses</option>
+                                    <option value="Janssen">Janssen</option>
+                                    <option value="Freinademetz">Freinademetz</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <select id="semesterFilter" class="form-control">
+                                    <option value="All" selected>All Semesters</option>
+                                    <option value="1st Semester">1st Semester</option>
+                                    <option value="2nd Semester">2nd Semester</option>
+                                    <option value="Whole Semester">Whole Semester</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <select id="scholarshipProgramFilter" class="form-control">
+                                    <option value="All" selected>All Scholarship Programs</option>
+                                    <?php foreach ($programs as $program): ?>
+                                        <option value="<?= $program->scholarship_program; ?>"><?= $program->scholarship_program; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2 d-flex align-items-end">
+                                <button id="resetFilters" class="btn btn-secondary col-md-12">Reset Filters</button>
+                            </div>
+                        </div>
+                    </div>
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -109,6 +113,15 @@
             });
         }
 
+        // Apply filtering when dropdown values change
         $('#scholarshipProgramFilter, #campusFilter, #semesterFilter').on('change', filterApplicants);
+
+        // Reset filters
+        $('#resetFilters').on('click', function() {
+            $('#scholarshipProgramFilter').val('All');
+            $('#campusFilter').val('All');
+            $('#semesterFilter').val('All');
+            filterApplicants(); // Show all applicants
+        });
     });
 </script>
