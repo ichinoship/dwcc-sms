@@ -106,7 +106,7 @@ class Sc_model extends CI_Model
         if (!empty($filters['application_type'])) {
             $this->db->where('af.application_type', $filters['application_type']);
         }
-            // Filter for statuses 'qualified' and 'not qualified'
+        // Filter for statuses 'qualified' and 'not qualified'
         if (!empty($filters['status']) && is_array($filters['status'])) {
             $this->db->where_in('af.status', $filters['status']);
         }
@@ -135,8 +135,22 @@ class Sc_model extends CI_Model
         return $this->db->delete('school_year');
     }
 
-    public function get_shortlist()
+
+
+    public function get_shortlist($scholarship_program = null)
     {
+        if ($scholarship_program) {
+            $this->db->where('scholarship_program', $scholarship_program);
+        }
+
+        $query = $this->db->get('shortlist');
+        return $query->result();
+    }
+
+    public function get_shortlist_scholarship_program()
+    {
+        $this->db->distinct();
+        $this->db->select('scholarship_program');
         $query = $this->db->get('shortlist');
         return $query->result();
     }
@@ -235,15 +249,15 @@ class Sc_model extends CI_Model
     }
 
     public function update_shortlist($shortlist_id, $status, $discount)
-{
-    $this->db->where('shortlist_id', $shortlist_id);
-    return $this->db->update('shortlist', ['status' => $status, 'discount' => $discount]);
-}
+    {
+        $this->db->where('shortlist_id', $shortlist_id);
+        return $this->db->update('shortlist', ['status' => $status, 'discount' => $discount]);
+    }
 
-public function insert_into_final_list($data)
-{
-    return $this->db->insert('final_list', $data);
-}
+    public function insert_into_final_list($data)
+    {
+        return $this->db->insert('final_list', $data);
+    }
 
     public function get_applicants_by_program($program_code)
     {
@@ -254,6 +268,7 @@ public function insert_into_final_list($data)
         $query = $this->db->get();
         return $query->result();
     }
+
 
     public function get_programs_with_applicant_count()
     {
@@ -379,7 +394,7 @@ public function insert_into_final_list($data)
         $query = $this->db->get('scholarship_programs');
         return $query->row();
     }
-    
+
     public function get_filtered_school_years($filter_semester = null, $filter_campus = null)
     {
         $this->db->select('*');
@@ -398,7 +413,8 @@ public function insert_into_final_list($data)
     }
 
     // Function to retrieve the final list of applicants filtered by academic year
-    public function get_final_list_by_academic_year($academic_year) {
+    public function get_final_list_by_academic_year($academic_year)
+    {
         $this->db->select('*');
         $this->db->from('final_list'); // Assuming 'final_list' is the table for storing final applicants
         $this->db->where('academic_year', $academic_year);
@@ -406,8 +422,9 @@ public function insert_into_final_list($data)
         return $query->result();
     }
 
-     // Fetch filtered final list of applicants based on academic year and semester
-     public function get_filtered_final_list($academic_year, $semester) {
+    // Fetch filtered final list of applicants based on academic year and semester
+    public function get_filtered_final_list($academic_year, $semester)
+    {
         $this->db->select('*');
         $this->db->from('final_list'); // Adjust to your actual final list table
 
@@ -425,7 +442,7 @@ public function insert_into_final_list($data)
         return $query->result();
     }
 
-    
+
     // Function to get filtered applicants
     public function get_filter_final_list()
     {

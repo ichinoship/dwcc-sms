@@ -66,7 +66,7 @@
                                         <td><?= htmlspecialchars($application->middlename); ?></td>
                                         <td><?= htmlspecialchars($application->lastname); ?></td>
                                         <td><?= htmlspecialchars($application->scholarship_program); ?></td>
-                                        <td><?= ucfirst(htmlspecialchars($application->status)); ?></td>
+                                        <td><?= ucwords(htmlspecialchars($application->status)); ?></td>
                                         <td>
                                             <a href="<?= site_url('applicant/view_form/' . $application->applicant_no); ?>" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-eye"></i>

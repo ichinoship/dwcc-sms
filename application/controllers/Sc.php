@@ -288,8 +288,17 @@ class Sc extends CI_Controller
 
     public function app_evaluation()
     {
-        $shortlist = $this->Sc_model->get_shortlist();
+        // Fetch the scholarship programs for the filter
+        $this->load->model('Sc_model');
+        $data['scholarship_programs'] = $this->Sc_model->get_shortlist_scholarship_program();
+
+        // Get the selected scholarship program from the request
+        $scholarship_program = $this->input->get('scholarship_program');
+
+        // Get the shortlisted applicants, filtered by scholarship program if set
+        $shortlist = $this->Sc_model->get_shortlist($scholarship_program);
         $data['shortlist'] = $shortlist;
+
         $this->load->view('sc/app_evaluation', $data);
     }
 
@@ -319,7 +328,7 @@ class Sc extends CI_Controller
         $shortlist_id = $this->input->post('shortlist_id');
         $discount = $this->input->post('discount');
         $shortlistedApplicant = $this->Sc_model->get_shortlist_applicant($shortlist_id);
-    
+
         $data = [
             'applicant_no' => $shortlistedApplicant->applicant_no,
             'id_number' => $shortlistedApplicant->id_number,
@@ -336,15 +345,15 @@ class Sc extends CI_Controller
             'scholarship_program' => $shortlistedApplicant->scholarship_program,
             'discount' => $discount,
         ];
-    
+
         $this->Sc_model->insert_into_final_list($data);
         $this->Sc_model->remove_from_shortlist($shortlist_id);
 
         $this->send_email_notification($shortlistedApplicant->email, $shortlistedApplicant->firstname);
-    
+
         echo json_encode(['status' => 'success']);
     }
-    
+
     private function send_email_notification($email, $firstname)
     {
         $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
@@ -358,7 +367,7 @@ class Sc extends CI_Controller
             Divine Word College of Calapan<br>
             Scholarship Management Team
         ");
-    
+
         if (!$this->email->send()) {
             log_message('error', 'Email not sent: ' . $this->email->print_debugger());
         }

@@ -99,9 +99,6 @@ class Twc extends CI_Controller
                 $result = $this->Twc_model->evaluate_applicant($applicant_no, $status, $comment, $discount);
             } elseif ($status === 'not qualified') {
                 $result = $this->Twc_model->evaluate_applicant($applicant_no, $status, $comment, $discount);
-                if ($result) {
-                    $this->send_not_qualified_email($applicant_no, $comment); 
-                }
             }
 
             if ($result) {
@@ -145,33 +142,6 @@ class Twc extends CI_Controller
         }
     }
 
-    private function send_not_qualified_email($applicant_no, $comment)
-    {
-        $this->load->library('email');
-
-        $applicant = $this->Twc_model->get_applicant_details($applicant_no);
-        $email = $applicant->email;
-        $firstname = $applicant->firstname;
-
-        $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
-        $this->email->to($email);
-        $this->email->subject('Scholarship Application Status');
-
-        $this->email->message("
-        Dear $firstname, <br><br>
-        We regret to inform you that your scholarship application status has been marked as <strong>Not Qualified</strong>.<br><br>
-        The reason for this decision is as follows: <br><br>
-        <em>{$comment}</em> <br><br>
-        If you have any questions or need further assistance, please feel free to contact us.<br><br>
-        Best regards,<br>
-        Divine Word College of Calapan<br>
-        Scholarship Management Team
-    ");
-
-        if (!$this->email->send()) {
-            log_message('error', 'Email not sent to applicant: ' . $applicant_no . ' - ' . $this->email->print_debugger());
-        }
-    }
 
     public function shortlist()
     {
