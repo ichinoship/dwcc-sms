@@ -115,11 +115,13 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
+        // When the evaluation button is clicked
         $('.evaluate-btn').click(function() {
             var applicantNo = $(this).data('id');
             $('#applicantNo').val(applicantNo);
         });
 
+        // Show or hide fields based on status change
         $('#status').change(function() {
             var status = $(this).val();
             if (status === 'not qualified') {
@@ -142,34 +144,51 @@
         });
 
         $('#evaluateForm').submit(function(e) {
-            e.preventDefault();
+    e.preventDefault();
 
-            var formData = $(this).serialize();
+    var formData = $(this).serialize();
+    var submitButton = $(this).find('button[type="submit"]');
 
-            $.ajax({
-                url: '<?= base_url("twc/evaluate_applicant") ?>',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    Swal.fire({
-                        title: 'Evaluation Submitted',
-                        text: 'The applicant has been successfully evaluated.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(function() {
-                        $('#evaluateModal').modal('hide');
-                        location.reload();
-                    });
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'There was a problem submitting the evaluation. Please try again.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
+    submitButton.prop('disabled', true).html('Submitting...');
+
+    $.ajax({
+        url: '<?= base_url("twc/evaluate_applicant") ?>',
+        type: 'POST',
+        data: formData,
+        dataType: 'json', // Ensure the response is treated as JSON
+        success: function(response) {
+            if (response.status === 'success') {
+                Swal.fire({
+                    title: 'Evaluation Submitted',
+                    text: 'The applicant has been successfully evaluated.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(function() {
+                    $('#evaluateModal').modal('hide');
+                    location.reload();
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: response.message || 'There was a problem submitting the evaluation. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was a problem submitting the evaluation. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
             });
-        });
+        },
+        complete: function() {
+            // Re-enable submit button and reset its text
+            submitButton.prop('disabled', false).html('Submit Evaluation');
+        }
+    });
+});
     });
 </script>
