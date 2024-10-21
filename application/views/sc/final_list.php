@@ -24,31 +24,39 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Final List</h3>
-                    <div class="card-tools">
-                        <form method="post" class="form-inline" id="filterForm">
-                            <select name="academic_year" class="form-control" id="academicYearFilter">
-                                <option value="">Select Academic Year</option>
-                                <?php foreach ($academic_years as $year): ?>
-                                    <option value="<?= $year->academic_year; ?>"><?= $year->academic_year; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <select name="semester" class="form-control" id="semesterFilter">
-                                <option value="">Select Semester</option>
-                                <option value="1st Semester">1st Semester</option>
-                                <option value="2nd Semester">2nd Semester</option>
-                                <option value="Whole Semester">Whole Semester</option>
-                            </select>
-                            <select name="scholarship_program" class="form-control" id="scholarshipProgramFilter">
-                                <option value="">Select Scholarship Program</option>
-                                <?php foreach ($scholarship_programs as $program): ?>
-                                    <option value="<?= $program->scholarship_program; ?>"><?= $program->scholarship_program; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <button type="button" class="btn btn-secondary ml-2" id="resetFilters">Reset Filters</button>
-                            
+                    <div class="card-tools d-flex justify-content-between align-items-center w-100">
+                        <form method="post" class="form-inline" id="filterForm" style="flex: 1;">
+                            <div class="row w-100 align-items-center">
+                                <div class="col-md-3 mb-2">
+                                    <select name="academic_year" class="form-control w-100" id="academicYearFilter">
+                                        <option value="">Select Academic Year</option>
+                                        <?php foreach ($academic_years as $year): ?>
+                                            <option value="<?= $year->academic_year; ?>"><?= $year->academic_year; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <select name="semester" class="form-control w-100" id="semesterFilter">
+                                        <option value="">Select Semester</option>
+                                        <option value="1st Semester">1st Semester</option>
+                                        <option value="2nd Semester">2nd Semester</option>
+                                        <option value="Whole Semester">Whole Semester</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <select name="scholarship_program" class="form-control w-100" id="scholarshipProgramFilter">
+                                        <option value="">Select Scholarship Program</option>
+                                        <?php foreach ($scholarship_programs as $program): ?>
+                                            <option value="<?= $program->scholarship_program; ?>"><?= $program->scholarship_program; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-2 d-flex">
+                                    <button type="button" class="btn btn-secondary mr-2" id="resetFilters">Reset Filters</button>
+                                    <button id="printFinalList" class="btn btn-primary" onclick="printFinalList()">Print</button>
+                                </div>
+                            </div>
                         </form>
-                        <button id="printFinalList" class="btn btn-primary float-right" onclick="printFinalList()">Print</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -98,57 +106,56 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
 <script>
+    $(document).ready(function() {
+        var table = $('#finalListTable').DataTable(); // Initialize DataTable
 
-$(document).ready(function() {
-    var table = $('#finalListTable').DataTable();  // Initialize DataTable
+        // Function to apply filters
+        function filterTable() {
+            var academicYear = $('#academicYearFilter').val();
+            var semester = $('#semesterFilter').val();
+            var scholarshipProgram = $('#scholarshipProgramFilter').val();
 
-    // Function to apply filters
-    function filterTable() {
-        var academicYear = $('#academicYearFilter').val();
-        var semester = $('#semesterFilter').val();
-        var scholarshipProgram = $('#scholarshipProgramFilter').val();
+            // Apply the filter to the DataTable
+            table
+                .columns(5).search(academicYear) // Filter by Academic Year (Column 5)
+                .columns(6).search(semester) // Filter by Semester (Column 6)
+                .columns(7).search(scholarshipProgram) // Filter by Scholarship Program (Column 7)
+                .draw();
+        }
 
-        // Apply the filter to the DataTable
-        table
-            .columns(5).search(academicYear)         // Filter by Academic Year (Column 5)
-            .columns(6).search(semester)             // Filter by Semester (Column 6)
-            .columns(7).search(scholarshipProgram)   // Filter by Scholarship Program (Column 7)
-            .draw();
-    }
+        // Apply filters on selection change
+        $('#academicYearFilter, #semesterFilter, #scholarshipProgramFilter').change(function() {
+            filterTable();
+        });
 
-    // Apply filters on selection change
-    $('#academicYearFilter, #semesterFilter, #scholarshipProgramFilter').change(function() {
-        filterTable();
+        // Reset filters
+        $('#resetFilters').on('click', function() {
+            $('#academicYearFilter').val('');
+            $('#semesterFilter').val('');
+            $('#scholarshipProgramFilter').val('');
+            table
+                .columns().search('')
+                .draw();
+        });
     });
 
-    // Reset filters
-    $('#resetFilters').on('click', function() {
-        $('#academicYearFilter').val('');
-        $('#semesterFilter').val('');
-        $('#scholarshipProgramFilter').val('');
-        table
-            .columns().search('')
-            .draw();
-    });
-});
 
+    function printFinalList() {
+        // Get the header image URL
+        var headerImageUrl = '<?= base_url('assets/images/header.png'); ?>';
 
-function printFinalList() {
-    // Get the header image URL
-    var headerImageUrl = '<?= base_url('assets/images/header.png'); ?>';
-
-    // Define the print header
-    var printHeader = `
+        // Define the print header
+        var printHeader = `
         <div style="text-align: center; margin-bottom: 50px;">
             <img src="${headerImageUrl}" alt="Header Image" style="max-width: 100%; height: auto; width: 100%; max-height: 100px;">
         </div>
     `;
 
-    // Get the contents of the table to print
-    var printContents = document.querySelector('#finalListTable').outerHTML;
+        // Get the contents of the table to print
+        var printContents = document.querySelector('#finalListTable').outerHTML;
 
-    // Define the signatories HTML (can be optional or customized as required)
-    var signatoriesHTML = `
+        // Define the signatories HTML (can be optional or customized as required)
+        var signatoriesHTML = `
         <div class="signatories" style="margin-top: 90px; text-align: center; width: 100%;">
             <!-- Prepared by Section on the Left -->
             <div style="text-align: left; width: 50%;">
@@ -202,22 +209,21 @@ function printFinalList() {
         </div>
     `;
 
-    // Combine the header, the table, and the signatories
-    var finalPrintContent = printHeader + printContents + signatoriesHTML;
+        // Combine the header, the table, and the signatories
+        var finalPrintContent = printHeader + printContents + signatoriesHTML;
 
-    // Open a new window for printing
-    var printWindow = window.open('', '', 'height=600,width=800');
-    printWindow.document.write('<html><head>');
-    printWindow.document.write('<style>body {font-family: Arial, sans-serif; margin: 0; padding: 20px;} table {border-collapse: collapse; width: 100%;} th, td {border: 1px solid black; padding: 8px; text-align: center;} th {background-color: #f2f2f2;}</style>');
-    printWindow.document.write('</head><body>');
-    printWindow.document.write(finalPrintContent);
-    printWindow.document.write('</body></html>');
+        // Open a new window for printing
+        var printWindow = window.open('', '', 'height=600,width=800');
+        printWindow.document.write('<html><head>');
+        printWindow.document.write('<style>body {font-family: Arial, sans-serif; margin: 0; padding: 20px;} table {border-collapse: collapse; width: 100%;} th, td {border: 1px solid black; padding: 8px; text-align: center;} th {background-color: #f2f2f2;}</style>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(finalPrintContent);
+        printWindow.document.write('</body></html>');
 
-    // Automatically trigger the print dialog
-    printWindow.document.close();
-    printWindow.print();
-}
-
+        // Automatically trigger the print dialog
+        printWindow.document.close();
+        printWindow.print();
+    }
 </script>
 
 <?php $this->load->view('includes/footer'); ?>
