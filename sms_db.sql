@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2024 at 04:13 PM
+-- Generation Time: Oct 21, 2024 at 10:40 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -53,7 +53,7 @@ CREATE TABLE `applicants` (
 --
 
 INSERT INTO `applicants` (`account_no`, `id_number`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `password`, `status`, `account_status`) VALUES
-(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya Lopez, Calapan City', 'With Relative', '$2y$10$HRqmcLYuVkMzE08IBmHaQu1woMOXC1yh1JhTJinc89nDGQgZR5dAW', 'accepted', 'active'),
+(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya Lopez, Calapan City', 'With Relative', '$2y$10$HRqmcLYuVkMzE08IBmHaQu1woMOXC1yh1JhTJinc89nDGQgZR5dAW', 'accepted', 'active'),
 (2, 41234, 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-01', 'Female', '09123456788', 'ensrineyna@gmail.com', 'Senior High School', 'Grade 12', 'Science, Technology, Engineering and Mathematics (STEM)', 'Freinademetz', 'Baruyan, Calapan City', 'With Relative', '$2y$10$KnUg.E5vhFGDZVhKURsTqehBPxTX3YMpxYYcKFPILM/DhF9yK6YNy', 'accepted', 'active'),
 (3, 41235, 'Kenn ', 'Jaiven', 'Acedillo', '1998-10-01', 'Male', '09123456781', 'kenn.acedillo@gmail.com', 'Junior High School', 'Grade 7', 'Special Science Class', 'Freinademetz', 'Tibag, Calapan City', 'DWCC Dormitory', '$2y$10$oDiKYmGn9pmWa6.T4EFeAu1dpBK0pQcsUM3cIkpvpTcEdzk9YRTwe', 'accepted', 'active'),
 (4, 41236, 'Nicko', 'Zeus', 'Agarin', '2001-10-07', 'Male', '09123456782', 'nicko.agarin@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Baruyan, Calapan City', 'DWCC Dormitory', '', 'pending', 'active');
@@ -96,7 +96,9 @@ CREATE TABLE `application_form` (
 --
 
 INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `status`) VALUES
-(1, 1, 47293, 'profile_picture_1728ecf2bd51.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya Lopez, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'My_Family_Tree133.docx', NULL, 'pending');
+(1, 1, 47293, 'profile_picture_1728ecf2bd51.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya Lopez, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'My_Family_Tree133.docx', 'No COE', 'qualified'),
+(2, 2, 41234, 'profile_picture_1728ecf2bd52.jpg', 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-01', 'Female', '09123456788', 'ensrineyna@gmail.com', 'Senior High School', 'Grade 12', 'Science, Technology, Engineering and Mathematics (STEM)', 'Freinademetz', 'Baruyan, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholarship (BE)', 'My_Family_Tree134.docx', NULL, 'qualified'),
+(3, 3, 41235, '92037647.png', 'Kenn ', 'Jaiven', 'Acedillo', '1998-10-01', 'Male', '09123456781', 'kenn.acedillo@gmail.com', 'Junior High School', 'Grade 7', 'Special Science Class', 'Freinademetz', 'Tibag, Calapan City', 'DWCC Dormitory', '2024-2025', 'Whole Semester', 'New Applicant', 'Sports Scholarship Program', '92037648.png', NULL, 'qualified');
 
 -- --------------------------------------------------------
 
@@ -121,13 +123,6 @@ CREATE TABLE `final_list` (
   `scholarship_program` varchar(100) NOT NULL,
   `discount` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `final_list`
---
-
-INSERT INTO `final_list` (`final_list_id`, `applicant_no`, `id_number`, `firstname`, `middlename`, `lastname`, `program_type`, `year`, `program`, `campus`, `application_type`, `academic_year`, `semester`, `scholarship_program`, `discount`) VALUES
-(1, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2024-2025', '1st Semester', 'Academic Scholar (Dean’s Lister)', 50);
 
 -- --------------------------------------------------------
 
@@ -271,11 +266,11 @@ CREATE TABLE `shortlist` (
   `academic_year` varchar(9) NOT NULL,
   `semester` enum('1st Semester','2nd Semester','Whole Semester') NOT NULL,
   `application_type` enum('Renewal','New Applicant') NOT NULL,
-  `scholarship_program` varchar(100) NOT NULL,
+  `scholarship_program` varchar(255) NOT NULL,
   `requirements` varchar(255) NOT NULL,
   `comment` text DEFAULT NULL,
   `discount` int(3) NOT NULL,
-  `status` enum('qualified','not qualified','conditional') DEFAULT NULL
+  `status` enum('qualified','not qualified') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -283,7 +278,9 @@ CREATE TABLE `shortlist` (
 --
 
 INSERT INTO `shortlist` (`shortlist_id`, `applicant_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`) VALUES
-(3, 1, 47293, 'profile_picture_1728ecf2bd51.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya Lopez, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'My_Family_Tree133.docx', '', 60, 'qualified');
+(1, 1, 47293, 'profile_picture_1728ecf2bd51.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya Lopez, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'My_Family_Tree133.docx', '', 100, 'qualified'),
+(2, 2, 41234, 'profile_picture_1728ecf2bd52.jpg', 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-01', 'Female', '09123456788', 'ensrineyna@gmail.com', 'Senior High School', 'Grade 12', 'Science, Technology, Engineering and Mathematics (STEM)', 'Freinademetz', 'Baruyan, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholarship (BE)', 'My_Family_Tree134.docx', '', 50, 'qualified'),
+(3, 3, 41235, '92037647.png', 'Kenn ', 'Jaiven', 'Acedillo', '1998-10-01', 'Male', '09123456781', 'kenn.acedillo@gmail.com', 'Junior High School', 'Grade 7', 'Special Science Class', 'Freinademetz', 'Tibag, Calapan City', 'DWCC Dormitory', '2024-2025', 'Whole Semester', 'New Applicant', 'Sports Scholarship Program', '92037648.png', '', 60, 'qualified');
 
 -- --------------------------------------------------------
 
@@ -379,7 +376,8 @@ ALTER TABLE `school_year`
 --
 ALTER TABLE `shortlist`
   ADD PRIMARY KEY (`shortlist_id`),
-  ADD KEY `applicant_no` (`applicant_no`);
+  ADD KEY `applicant_no` (`applicant_no`),
+  ADD KEY `shortlist_ibfk_2` (`scholarship_program`);
 
 --
 -- Indexes for table `users`
@@ -401,13 +399,13 @@ ALTER TABLE `applicants`
 -- AUTO_INCREMENT for table `application_form`
 --
 ALTER TABLE `application_form`
-  MODIFY `applicant_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `applicant_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `final_list`
 --
 ALTER TABLE `final_list`
-  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `requirements`
@@ -454,7 +452,8 @@ ALTER TABLE `application_form`
 -- Constraints for table `shortlist`
 --
 ALTER TABLE `shortlist`
-  ADD CONSTRAINT `shortlist_ibfk_1` FOREIGN KEY (`applicant_no`) REFERENCES `application_form` (`applicant_no`) ON DELETE CASCADE;
+  ADD CONSTRAINT `shortlist_ibfk_1` FOREIGN KEY (`applicant_no`) REFERENCES `application_form` (`applicant_no`) ON DELETE CASCADE,
+  ADD CONSTRAINT `shortlist_ibfk_2` FOREIGN KEY (`scholarship_program`) REFERENCES `scholarship_programs` (`scholarship_program`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
