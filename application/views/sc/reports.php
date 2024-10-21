@@ -49,8 +49,6 @@
                         </select>
                         <select name="status" class="form-control">
                             <option value="">Select Status</option>
-                            <option value="pending" <?= ($this->input->post('status') == 'pending') ? 'selected' : ''; ?>>Pending</option>
-                            <option value="conditional" <?= ($this->input->post('status') == 'conditional') ? 'selected' : ''; ?>>Conditional</option>
                             <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
                             <option value="not qualified" <?= ($this->input->post('status') == 'not qualified') ? 'selected' : ''; ?>>Not Qualified</option>
                         </select>

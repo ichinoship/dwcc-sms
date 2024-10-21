@@ -376,6 +376,9 @@ class Sc extends CI_Controller
             'scholarship_program' => $this->input->post('scholarship_program')
         );
 
+        // Filter the statuses in the query
+        $filters['status'] = array('qualified', 'not qualified');
+
         $data['applications'] = $this->Sc_model->get_applications($filters);
 
         $this->load->view('sc/reports', $data);

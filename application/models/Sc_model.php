@@ -106,8 +106,9 @@ class Sc_model extends CI_Model
         if (!empty($filters['application_type'])) {
             $this->db->where('af.application_type', $filters['application_type']);
         }
-        if (!empty($filters['status'])) {
-            $this->db->where('af.status', $filters['status']);
+            // Filter for statuses 'qualified' and 'not qualified'
+        if (!empty($filters['status']) && is_array($filters['status'])) {
+            $this->db->where_in('af.status', $filters['status']);
         }
         if (!empty($filters['scholarship_program'])) {
             $this->db->where('af.scholarship_program', $filters['scholarship_program']);
