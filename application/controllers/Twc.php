@@ -80,113 +80,36 @@ class Twc extends CI_Controller
 
 
     public function evaluate_applicant()
-    {
-        $applicant_no = $this->input->post('applicant_no');
-        $status = $this->input->post('status');
-        $comment = $this->input->post('comment');
-        $discount = $this->input->post('discount');
+{
+    $applicant_no = $this->input->post('applicant_no');
+    $status = $this->input->post('status');
+    $comment = $this->input->post('comment');
+    $discount = $this->input->post('discount');
 
-        if ($applicant_no && $status) {
-            $this->load->model('Twc_model');
+    if ($applicant_no && $status) {
+        $this->load->model('Twc_model');
+        $result = false;
 
-            $applicant_email = $this->Twc_model->get_applicant_email($applicant_no);
-            $applicant_firstname = $this->Twc_model->get_applicant_firstname($applicant_no);
-            $result = false;
+        if ($status === 'conditional') {
+            $result = $this->Twc_model->update_conditional_applicant($applicant_no, $status, $comment);
+        } elseif ($status === 'qualified') {
+            $result = $this->Twc_model->evaluate_applicant($applicant_no, $status, $comment, $discount);
+        } elseif ($status === 'not qualified') {
+            $result = $this->Twc_model->evaluate_applicant($applicant_no, $status, $comment, $discount);
+        }
 
-            if ($status === 'conditional') {
-                $result = $this->Twc_model->update_conditional_applicant($applicant_no, $status, $comment);
-                if ($result && $applicant_email) {
-                    $this->send_conditional_email($applicant_email, $comment, $applicant_firstname);
-                }
-            } elseif ($status === 'qualified') {
-                $result = $this->Twc_model->evaluate_applicant($applicant_no, $status, $comment, $discount);
-                if ($result && $applicant_email) {
-                    $this->send_approval_email($applicant_email, $applicant_firstname);
-                }
-            } elseif ($status === 'not qualified') {
-                $result = $this->Twc_model->evaluate_applicant($applicant_no, $status, $comment, $discount);
-                if ($result && $applicant_email) {
-                    $this->send_decline_email($applicant_email, $comment, $applicant_firstname);
-                }
-            }
-
-            if ($result) {
-                echo 'success';
-            } else {
-                log_message('error', 'Evaluation failed for applicant: ' . $applicant_no);
-                echo 'error';
-            }
+        if ($result) {
+            echo 'success';
         } else {
-            log_message('error', 'Missing data: applicant_no or status is not set.');
+            log_message('error', 'Evaluation failed for applicant: ' . $applicant_no);
             echo 'error';
         }
+    } else {
+        log_message('error', 'Missing data: applicant_no or status is not set.');
+        echo 'error';
     }
+}
 
-
-    private function send_approval_email($email, $firstname)
-    {
-        $this->load->library('email');
-        $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
-        $this->email->to($email);
-        $this->email->subject('Application Approved');
-        $this->email->message("
-        Dear $firstname,<br><br>
-        We are pleased to inform you that your application has been <strong>approved</strong> by the Technical Working Committee (TWC).<br><br>
-        Please note that you will now need to wait for the final evaluation from the Scholarship Coordinator.<br><br>
-        If you have any questions or need further information, please feel free to reach out.<br><br>
-        Best regards,<br>
-        Divine Word College of Calapan<br>
-        Scholarship Management Team
-    ");
-
-        if (!$this->email->send()) {
-            log_message('error', 'Email not sent: ' . $this->email->print_debugger());
-        }
-    }
-
-    private function send_decline_email($email, $comment, $firstname)
-    {
-        $this->load->library('email');
-        $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
-        $this->email->to($email);
-        $this->email->subject('Application Declined');
-        $this->email->message("
-        Dear $firstname,<br><br>
-        We regret to inform you that your application has been <strong>declined</strong>.<br><br>
-        TWC Note:<br>
-        <p>$comment</p><br>
-        If you have any questions or would like further clarification, please do not hesitate to reach out.<br><br>
-        Best regards,<br>
-        Divine Word College of Calapan<br>
-        Scholarship Management Team
-    ");
-
-        if (!$this->email->send()) {
-            log_message('error', 'Email not sent: ' . $this->email->print_debugger());
-        }
-    }
-
-    private function send_conditional_email($email, $comment, $firstname)
-    {
-        $this->load->library('email');
-        $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
-        $this->email->to($email);
-        $this->email->subject('Conditional Application Status');
-        $this->email->message("
-        Dear $firstname,<br><br>
-        Your application has been evaluated and is currently marked as <strong>conditional</strong>.<br><br>
-        TWC Note:<br>
-        <p>$comment</p><br>
-        Please address the comments and update your application accordingly.<br><br>
-        If you have any questions, feel free to reach out.<br><br>
-        Best regards,<br>
-        Divine Word College of Calapan<br>
-        Scholarship Management Team
-    ");
-        if (!$this->email->send()) {
-            log_message('error', 'Email not sent: ' . $this->email->print_debugger());
-        }
-    }
     public function shortlist()
     {
         $this->load->model('Twc_model');

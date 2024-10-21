@@ -144,42 +144,30 @@
         $('#evaluateForm').submit(function(e) {
             e.preventDefault();
 
-            // Disable the submit button
-            $(this).find('button[type="submit"]').prop('disabled', true).text('Submitting...');
-
             var formData = $(this).serialize();
+
             $.ajax({
-                url: '<?= base_url('twc/evaluate_applicant'); ?>',
+                url: '<?= base_url("twc/evaluate_applicant") ?>',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
-                    if (response === 'success') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Evaluation Submitted',
-                            text: 'The applicant has been evaluated successfully.',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'There was an error submitting the evaluation.',
-                        });
-                    }
-                },
-                error: function() {
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'An unexpected error occurred. Please try again later.',
+                        title: 'Evaluation Submitted',
+                        text: 'The applicant has been successfully evaluated.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(function() {
+                        $('#evaluateModal').modal('hide');
+                        location.reload();
                     });
                 },
-                complete: function() {
-                    $('#evaluateForm').find('button[type="submit"]').prop('disabled', false).text('Submit Evaluation');
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'There was a problem submitting the evaluation. Please try again.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                 }
             });
         });

@@ -317,11 +317,12 @@ class Sc extends CI_Controller
     public function submit_to_final_list()
     {
         $shortlist_id = $this->input->post('shortlist_id');
-        $applicant_name = $this->input->post('applicant_name');
         $discount = $this->input->post('discount');
-
+    
+        // Fetch the shortlisted applicant details
         $shortlistedApplicant = $this->Sc_model->get_shortlist_applicant($shortlist_id);
-
+    
+        // Prepare data for final list
         $data = [
             'applicant_no' => $shortlistedApplicant->applicant_no,
             'id_number' => $shortlistedApplicant->id_number,
@@ -338,12 +339,34 @@ class Sc extends CI_Controller
             'scholarship_program' => $shortlistedApplicant->scholarship_program,
             'discount' => $discount,
         ];
-
+    
         // Insert into final list
         $this->Sc_model->insert_into_final_list($data);
         $this->Sc_model->remove_from_shortlist($shortlist_id);
-        echo json_encode(['status' => 'success']);
         
+        // Send email notification
+        $this->send_email_notification($shortlistedApplicant->email, $shortlistedApplicant->firstname);
+    
+        echo json_encode(['status' => 'success']);
+    }
+    
+    private function send_email_notification($email, $firstname)
+    {
+        $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
+        $this->email->to($email);
+        $this->email->subject('Congratulations on making it to the final list!');
+        $this->email->message("
+            Dear $firstname, <br><br>
+            We are pleased to inform you that you have been successfully selected for the final list of scholars. <br><br>
+            Congratulations on this achievement! If you have any questions or require further assistance, please feel free to contact us. <br><br>
+            Best regards,<br>
+            Divine Word College of Calapan<br>
+            Scholarship Management Team
+        ");
+    
+        if (!$this->email->send()) {
+            log_message('error', 'Email not sent: ' . $this->email->print_debugger());
+        }
     }
     public function reports()
     {

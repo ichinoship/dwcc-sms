@@ -56,33 +56,6 @@ class Twc_model extends CI_Model
         $this->db->where('applicant_no', $applicant_no);
         return $this->db->update('application_form');
     }
-    
-
-    public function get_applicant_email($applicant_no)
-    {
-        $this->db->select('email');
-        $this->db->from('application_form');
-        $this->db->where('applicant_no', $applicant_no);
-        $query = $this->db->get();
-
-        if ($query->num_rows() > 0) {
-            return $query->row()->email;
-        }
-        return false;
-    }
-
-    public function get_applicant_firstname($applicant_no)
-    {
-        $this->db->select('firstname');
-        $this->db->from('application_form');
-        $this->db->where('applicant_no', $applicant_no);
-        $query = $this->db->get();
-
-        if ($query->num_rows() > 0) {
-            return $query->row()->firstname;
-        }
-        return false;
-    }
 
     public function search_applicants_by_programs($search_query, $assigned_programs)
     {

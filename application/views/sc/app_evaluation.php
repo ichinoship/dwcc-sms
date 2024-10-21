@@ -133,13 +133,16 @@
     var shortlistId = $('#shortlist_id').val();
     var name = $('#applicant_name').val();
     var discount = $('#discount').val();
-    
+
     var data = {
         shortlist_id: shortlistId,
         applicant_name: name,
         discount: discount,
     };
-    
+
+    // Disable the button and show loading text
+    $(this).prop('disabled', true).text('Submitting...');
+
     $.ajax({
         url: "<?= site_url('sc/submit_to_final_list'); ?>", 
         type: "POST",
@@ -152,6 +155,10 @@
         },
         error: function(xhr, status, error) {
             Swal.fire('Error', 'There was an error submitting the applicant.', 'error');
+        },
+        complete: function() {
+            // Re-enable the button and reset text
+            $('#submitToFinalList').prop('disabled', false).text('Submit to Final List');
         }
     });
 });
