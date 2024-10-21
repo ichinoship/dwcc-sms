@@ -52,7 +52,7 @@
                                                 </a>
                                                 <!-- Button to open evaluation modal -->
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#evaluateModal" data-id="<?= $entry->shortlist_id ?>" data-name="<?= htmlspecialchars($entry->firstname . ' ' . $entry->lastname) ?>" data-status="<?= $entry->status ?>" data-discount="<?= $entry->discount ?>">
-                                                <i class="fas fa-edit"></i>
+                                                    <i class="fas fa-edit"></i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -101,9 +101,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
                     <button type="button" class="btn btn-success" id="submitToFinalList">Submit to Final List</button>
+                    <div class="ml-auto">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -114,8 +116,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    $('#evaluateModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); 
+    $('#evaluateModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
         var id = button.data('id');
         var name = button.data('name');
         var status = button.data('status');
@@ -133,32 +135,46 @@
     var shortlistId = $('#shortlist_id').val();
     var name = $('#applicant_name').val();
     var discount = $('#discount').val();
+    var status = $('#status').val();
 
-    var data = {
-        shortlist_id: shortlistId,
-        applicant_name: name,
-        discount: discount,
-    };
+    if (status.toLowerCase() !== 'qualified') {
+        Swal.fire('Error', 'Only qualified applicants can be submitted to the final list.', 'error');
+        return; 
+    }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: `You are about to submit ${name} to the final list.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, submit!',
+        cancelButtonText: 'No, cancel!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var data = {
+                shortlist_id: shortlistId,
+                applicant_name: name,
+                discount: discount,
+            };
+            $(this).prop('disabled', true).text('Submitting...');
 
-    // Disable the button and show loading text
-    $(this).prop('disabled', true).text('Submitting...');
-
-    $.ajax({
-        url: "<?= site_url('sc/submit_to_final_list'); ?>", 
-        type: "POST",
-        data: data,
-        success: function(response) {
-            Swal.fire('Success', 'Applicant submitted to final list!', 'success').then(() => {
-                location.reload();
+            $.ajax({
+                url: "<?= site_url('sc/submit_to_final_list'); ?>",
+                type: "POST",
+                data: data,
+                success: function(response) {
+                    Swal.fire('Success', 'Applicant submitted to final list!', 'success').then(() => {
+                        location.reload();
+                    });
+                    $('#evaluateModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire('Error', 'There was an error submitting the applicant.', 'error');
+                },
+                complete: function() {
+                    // Re-enable the button and reset text
+                    $('#submitToFinalList').prop('disabled', false).text('Submit to Final List');
+                }
             });
-            $('#evaluateModal').modal('hide');
-        },
-        error: function(xhr, status, error) {
-            Swal.fire('Error', 'There was an error submitting the applicant.', 'error');
-        },
-        complete: function() {
-            // Re-enable the button and reset text
-            $('#submitToFinalList').prop('disabled', false).text('Submit to Final List');
         }
     });
 });

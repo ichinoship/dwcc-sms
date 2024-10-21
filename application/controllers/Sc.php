@@ -318,11 +318,8 @@ class Sc extends CI_Controller
     {
         $shortlist_id = $this->input->post('shortlist_id');
         $discount = $this->input->post('discount');
-    
-        // Fetch the shortlisted applicant details
         $shortlistedApplicant = $this->Sc_model->get_shortlist_applicant($shortlist_id);
     
-        // Prepare data for final list
         $data = [
             'applicant_no' => $shortlistedApplicant->applicant_no,
             'id_number' => $shortlistedApplicant->id_number,
@@ -340,11 +337,9 @@ class Sc extends CI_Controller
             'discount' => $discount,
         ];
     
-        // Insert into final list
         $this->Sc_model->insert_into_final_list($data);
         $this->Sc_model->remove_from_shortlist($shortlist_id);
-        
-        // Send email notification
+
         $this->send_email_notification($shortlistedApplicant->email, $shortlistedApplicant->firstname);
     
         echo json_encode(['status' => 'success']);
