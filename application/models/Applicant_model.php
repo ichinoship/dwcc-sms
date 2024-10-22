@@ -378,6 +378,17 @@ class Applicant_model extends CI_Model
         return $this->db->count_all_results();
     }
 
+    public function get_uploaded_requirements($applicant_no)
+{
+    // Query to fetch uploaded requirements
+    $this->db->select('requirements');
+    $this->db->from('application_form'); // Change to your actual table name
+    $this->db->where('applicant_no', $applicant_no);
+    $query = $this->db->get();
+
+    return $query->result_array(); // Assuming the file names are stored in this format
+}
+
     public function check_duplicate_application($id_number, $scholarship_program, $semester, $academic_year)
     {
         $this->db->where('id_number', $id_number);

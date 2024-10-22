@@ -484,6 +484,8 @@ class Applicant extends CI_Controller
         $data['application'] = $this->Applicant_model->get_application_by_no($applicant_no);
         $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
 
+        $data['existing_requirements'] = !empty($data['application']->requirements) ? explode(',', $data['application']->requirements) : [];
+
         $this->load->view('applicant/edit_application', $data);
     }
 
@@ -504,6 +506,8 @@ class Applicant extends CI_Controller
             'applicant_residence' => $this->input->post('applicant_residence'),
             'application_type' => $this->input->post('application_type'),
         ];
+
+        // Handle applicant photo upload
         if (!empty($_FILES['applicant_photo']['name'])) {
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -514,6 +518,13 @@ class Applicant extends CI_Controller
                 $data['applicant_photo'] = $this->upload->data('file_name');
             }
         }
+        $existing_application = $this->Applicant_model->get_application_by_no($applicant_no);
+        $existing_requirements = !empty($existing_application->requirements) ? explode(',', $existing_application->requirements) : [];
+
+        $remove_requirements = $this->input->post('remove_requirements');
+        if ($remove_requirements) {
+            $existing_requirements = array_diff($existing_requirements, $remove_requirements);
+        }
         if (!empty($_FILES['requirements']['name'][0])) {
             $files = $_FILES['requirements'];
             $file_count = count($files['name']);
@@ -523,11 +534,13 @@ class Applicant extends CI_Controller
                 redirect('applicant/edit_application/' . $applicant_no);
                 return;
             }
+
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|docx';
             $config['max_size'] = 10240;
 
             $this->load->library('upload', $config);
+            $uploaded_data = [];
 
             for ($i = 0; $i < $file_count; $i++) {
                 $_FILES['file']['name'] = $files['name'][$i];
@@ -546,9 +559,10 @@ class Applicant extends CI_Controller
                 }
             }
 
-            $data['requirements'] = implode(',', $uploaded_data);
+            $data['requirements'] = implode(',', array_merge($existing_requirements, $uploaded_data));
+        } else {
+            $data['requirements'] = implode(',', $existing_requirements);
         }
-
         $this->Applicant_model->update_application($applicant_no, $data);
         $this->session->set_flashdata('success', 'Application updated successfully.');
         redirect('applicant/view_form/' . $applicant_no);

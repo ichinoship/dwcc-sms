@@ -137,8 +137,7 @@
                                     <input type="text" class="form-control" id="scholarshipProgram" name="scholarship_program" value="<?= htmlspecialchars($application->scholarship_program); ?>" readonly>
                                 </div>
                             </div>
-
-                            <!-- Uploaded Requirements -->
+                            <input type="hidden" id="remove-requirements" name="remove_requirements[]" value="">
                             <h5 class="mb-3 mt-4">Uploaded Requirements:</h5>
                             <div class="input-group">
                                 <div class="custom-file">
@@ -149,8 +148,19 @@
                             <small class="form-text text-muted">
                                 <strong>Note:</strong> Please upload your documents in the format: [Document-Type]-[Surname] (e.g., Certificate-of-Enrollment-Doe).
                             </small>
-                            <ul id="file-list" class="list-group mt-2"></ul>
+                            <ul id="file-list" class="list-group mt-2">
 
+                                <?php if (!empty($existing_requirements)): ?>
+                                    <?php foreach ($existing_requirements as $file): ?>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <?php echo htmlspecialchars($file); ?>
+                                            <button class="btn btn-danger btn-sm remove-file" title="Remove" data-file="<?php echo htmlspecialchars($file); ?>">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </li>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </ul>
                             <!-- Buttons -->
                             <div class="form-group mt-2 text-right">
                                 <button type="submit" class="btn btn-primary">Update Application</button>
@@ -171,6 +181,7 @@
         const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf', 'docx'];
         const files = e.target.files;
 
+        // Check for valid file extensions
         for (let i = 0; i < files.length; i++) {
             const fileExtension = files[i].name.split('.').pop().toLowerCase();
             if (!allowedExtensions.includes(fileExtension)) {
@@ -184,8 +195,7 @@
             }
         }
         const fileList = document.getElementById('file-list');
-        fileList.innerHTML = '';
-
+        // Append new files to the existing list
         Array.from(files).forEach((file, index) => {
             const listItem = document.createElement('li');
             listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
@@ -208,6 +218,20 @@
 
             listItem.appendChild(removeButton);
             fileList.appendChild(listItem);
+        });
+    });
+
+    document.querySelectorAll('.remove-file').forEach(button => {
+        button.addEventListener('click', function() {
+            const fileName = this.getAttribute('data-file');
+            const listItem = this.parentElement;
+
+            listItem.remove();
+
+            const removeRequirementsInput = document.getElementById('remove-requirements');
+            let removedFiles = removeRequirementsInput.value.split(',').filter(Boolean);
+            removedFiles.push(fileName); // Add the removed file
+            removeRequirementsInput.value = removedFiles.join(',');
         });
     });
 
