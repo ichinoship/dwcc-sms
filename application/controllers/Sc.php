@@ -377,6 +377,12 @@ class Sc extends CI_Controller
         $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
         $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
 
+        $data['academic_year'] = $this->Sc_model->get_academic_years();
+        $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
+        $data['applicant_counts'] = $this->Applicant_model->get_applicant_counts();
+        $data['total_programs'] = $this->Sc_model->count_scholarship_programs();
+        $data['final_list'] = $this->Sc_model->get_final_list_reports();
+
         $filters = array(
             'academic_year' => $this->input->post('academic_year'),
             'semester' => $this->input->post('semester'),
@@ -384,6 +390,10 @@ class Sc extends CI_Controller
             'status' => $this->input->post('status'),
             'scholarship_program' => $this->input->post('scholarship_program')
         );
+
+        foreach ($data['scholarship_programs'] as $program) {
+            $program->number_of_grantees = $this->Applicant_model->count_grantees_by_program($program->scholarship_program, $program->academic_year, $program->semester );
+        }
 
         // Filter the statuses in the query
         $filters['status'] = array('qualified', 'not qualified');
