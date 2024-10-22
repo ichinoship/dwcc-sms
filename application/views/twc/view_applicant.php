@@ -2,147 +2,116 @@
 <?php $this->load->view('includes/sidebar'); ?>
 
 <div class="content-wrapper">
-    <section class="content-header">
-    </section>
-    <section class="content">
-        <div class="card">
-            <div class="card-header">
-                <section class="content-header">
-                    <div class="text-center">
-                        <img src="<?= base_url('assets/images/logo.svg'); ?>" alt="Logo" class="img-fluid" style="max-width: 130px;">
-                        <h5 class="mt-1 mb-0">Divine Word College of Calapan</h5>
-                        <p class="mt-0">Scholarship Management System</p>
-                        <p class="mb-0 mt-3 font-weight-bold">APPLICANT FORM</p>
-                    </div>
-                </section>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <!-- Applicant Photo -->
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <p><strong>Applicant Photo:</strong></p>
-                            <img src="<?= base_url('uploads/' . $applicant->applicant_photo); ?>" alt="Applicant Photo" class="img-fluid mb-2" style="width:350px; height:350px; object-fit:cover; border: 1px solid black;">
-                        </div>
-                    </div>
-
-                    <!-- Application Details -->
-                    <div class="col-md-8">
-                        <form method="post" action="">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="applicantNo">Applicant No:</label>
-                                    <input type="text" class="form-control" id="applicantNo" value="<?= htmlspecialchars($applicant->applicant_no); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="idNumber">ID Number:</label>
-                                    <input type="text" class="form-control" id="idNumber" value="<?= htmlspecialchars($applicant->id_number); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="firstName">First Name:</label>
-                                    <input type="text" class="form-control" id="firstName" value="<?= htmlspecialchars($applicant->firstname); ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="middleName">Middle Name:</label>
-                                    <input type="text" class="form-control" id="middleName" value="<?= htmlspecialchars($applicant->middlename); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="lastName">Last Name:</label>
-                                    <input type="text" class="form-control" id="lastName" value="<?= htmlspecialchars($applicant->lastname); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="birthdate">Birthdate:</label>
-                                    <input type="text" class="form-control" id="birthdate" value="<?= htmlspecialchars($applicant->birthdate); ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="gender">Gender:</label>
-                                    <input type="text" class="form-control" id="gender" value="<?= htmlspecialchars($applicant->gender); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="contact">Contact:</label>
-                                    <input type="text" class="form-control" id="contact" value="<?= htmlspecialchars($applicant->contact); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="email">Email:</label>
-                                    <input type="email" class="form-control" id="email" value="<?= htmlspecialchars($applicant->email); ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="address">Address:</label>
-                                    <input type="text" class="form-control" id="address" value="<?= htmlspecialchars($applicant->address); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="applicationType">Application Type:</label>
-                                    <input type="text" class="form-control" id="applicationType" value="<?= htmlspecialchars($applicant->application_type); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="applicantResidence">Applicant Residence:</label>
-                                    <input type="text" class="form-control" id="applicantResidence" value="<?= htmlspecialchars($applicant->applicant_residence); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="year">Year Level:</label>
-                                    <input type="text" class="form-control" id="year" value="<?= htmlspecialchars($applicant->year); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label for="program">Program:</label>
-                                    <input type="text" class="form-control" id="program" value="<?= htmlspecialchars($applicant->program); ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-4 form-group">
-                                    <label for="academic_year">Academic Year</label>
-                                    <input type="text" class="form-control" id="academic_year" name="academic_year" value="<?= htmlspecialchars($applicant->academic_year); ?>" readonly>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label for="semester">Semester</label>
-                                    <input type="text" class="form-control" id="semester" value="<?= htmlspecialchars($applicant->semester); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="campus">Campus:</label>
-                                    <input type="text" class="form-control" id="campus" value="<?= htmlspecialchars($applicant->campus); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="program_type">Program Type:</label>
-                                    <input type="text" class="form-control" id="program_type" value="<?= htmlspecialchars($applicant->program_type); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label for="scholarshipProgram">Scholarship Program:</label>
-                                    <input type="text" class="form-control" id="scholarshipProgram" value="<?= htmlspecialchars($applicant->scholarship_program); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-12">
-                                <!-- Uploaded Requirements -->
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <strong>Uploaded Requirements:</strong>
-                                    </div>
-                                    <div class="card-body">
-                                        <?php
-                                        $requirements = explode(',', $applicant->requirements);
-                                        foreach ($requirements as $file_name):
-                                            $file_path = base_url('uploads/' . $file_name);
-                                            $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
-                                        ?>
-                                            <div class="mb-2">
-                                                <a href="<?= $file_path; ?>" target="_blank" class="btn btn-link"><?= htmlspecialchars($file_name); ?></a>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </form>
-                        <a href="<?= site_url('twc/app-review'); ?>" class="btn btn-secondary">Back to List</a>
-                    </div>
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">View Application</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="<?= base_url('twc/dashboard'); ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url('twc/app_review'); ?>">Application Review</a></li>
+                        <li class="breadcrumb-item active">View Application</li>
+                    </ol>
                 </div>
             </div>
         </div>
-    </section>
-</div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Applicant Profile -->
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="card-title">Applicant Profile</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center align-items-center flex-column">
+                                <img src="<?= base_url('uploads/' . $applicant->applicant_photo); ?>" alt="Applicant Photo" class="mb-3" style="width:200px; height:200px; object-fit:cover; border: 1px solid black;">
+                            </div>
+                            <h3 class="font-weight-bold"><?= htmlspecialchars($applicant->firstname) . ' ' . htmlspecialchars($applicant->lastname); ?></h3>
+                            <p class="text-muted"><strong>Applicant No:</strong> <?= htmlspecialchars($applicant->applicant_no); ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Application Details -->
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="card-title">Applicant Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>ID Number:</strong> <?= htmlspecialchars($applicant->id_number); ?></p>
+                                    <p><strong>Full Name: </strong><?= htmlspecialchars($applicant->firstname) . ' ' . htmlspecialchars($applicant->middlename) . ' ' . htmlspecialchars($applicant->lastname); ?></p>
+                                    <p><strong>Birthdate:</strong> <?= htmlspecialchars($applicant->birthdate); ?></p>
+                                    <p><strong>Gender:</strong> <?= htmlspecialchars($applicant->gender); ?></p>
+                                    <p><strong>Year:</strong> <?= htmlspecialchars($applicant->year); ?></p>
+                                    <p><strong>Program:</strong> <?= htmlspecialchars($applicant->program); ?></p>
+                                    <p><strong>Academic Year:</strong> <?= htmlspecialchars($applicant->academic_year); ?></p>
+                                    <p><strong>Semester:</strong> <?= htmlspecialchars($applicant->semester); ?></p>
+                                    <p><strong>Application Type:</strong> <?= htmlspecialchars($applicant->application_type); ?></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Scholarship Program:</strong> <?= htmlspecialchars($applicant->scholarship_program); ?></p>
+                                    <p><strong>Campus:</strong> <?= htmlspecialchars($applicant->campus); ?></p>
+                                    <p><strong>Program Type:</strong> <?= htmlspecialchars($applicant->program_type); ?></p>
+                                    <p><strong>Contact:</strong> <?= htmlspecialchars($applicant->contact); ?></p>
+                                    <p><strong>Email:</strong> <?= htmlspecialchars($applicant->email); ?></p>
+                                    <p><strong>Address:</strong> <?= htmlspecialchars($applicant->address); ?></p>
+                                    <p><strong>Applicant Residence:</strong> <?= htmlspecialchars($applicant->applicant_residence); ?></p>
+                                    <p><strong>Status:</strong> <?= ucwords(htmlspecialchars($applicant->status)); ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Uploaded Requirements -->
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="card-title">Requirements</h5>
+                        </div>
+                        <div class="card-body">
+                            <?php if ($applicant->requirements): ?>
+                                <?php $requirements = explode(',', $applicant->requirements); ?>
+                                <div class="list-group">
+                                    <?php foreach ($requirements as $file_name): ?>
+                                        <?php
+                                        $file_path = base_url('uploads/' . trim($file_name));
+                                        $file_ext = pathinfo(trim($file_name), PATHINFO_EXTENSION);
+                                        ?>
+                                        <a href="<?= $file_path; ?>" target="_blank" class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1"><?= htmlspecialchars(trim($file_name)); ?></h6>
+                                                <small class="text-muted"><?= strtoupper($file_ext); ?></small>
+                                            </div>
+                                        </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php else: ?>
+                                <p>No requirements files available</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3 text-right">
+                <a href="<?= site_url('twc/app-review'); ?>" class="btn btn-secondary">Back to App Review</a>
+            </div>
+        </div>
+    </section>
+
+</div>
 
 <?php $this->load->view('includes/footer'); ?>

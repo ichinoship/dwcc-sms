@@ -1,9 +1,8 @@
 <?php $this->load->view('includes/applicant_header') ?>
 <?php $this->load->view('includes/applicant_sidebar') ?>
+ <!-- Applicant Dashboard -->
 <title>Applicant Dashboard</title>
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Banner Section -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 mt-1">

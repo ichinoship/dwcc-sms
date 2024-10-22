@@ -147,17 +147,14 @@
             var endDate = new Date($(this).data('end-date'));
             var today = new Date();
 
-            // Check the status
             if (status === 'qualified' || status === 'not qualified') {
-                // Show SweetAlert warning
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Action Denied',
+                    title: 'Access Denied',
                     text: 'You are already ' + status + '. You cannot edit this application.',
                     showConfirmButton: true
                 });
             } else {
-                // Allow the user to proceed to the edit page if the status is not restricted and dates are valid
                 window.location.href = url;
             }
         });

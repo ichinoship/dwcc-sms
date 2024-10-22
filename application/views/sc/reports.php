@@ -25,10 +25,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                        <h3 class="card-title">Scholarship Reports</h3>
+                            <h3 class="card-title">Scholarship Reports</h3>
                         </div>
                         <div class="card-body">
-                        <div class="card-tools mb-3">
+                            <div class="card-tools mb-3">
                                 <form method="post" action="<?= base_url('sc/reports'); ?>" class="form-inline">
                                     <div class="row col-12">
                                         <div class="col-md-4 mb-2">
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-end">
                                             <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
-                                            <button type="button" class="btn btn-primary col-md-6" id="printTable">Print</button>
+                                            <button type="button" class="btn btn-primary col-md-6" id="printTable">Print Report</button>
                                         </div>
                                     </div>
                                 </form>
@@ -117,57 +117,63 @@
         </div>
 
         <!-- Scholarship Grants -->
-<div class="row report-section scholarship-program-report">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Scholarship Grants</h3>
-                <!-- Add Print Button -->
-                <button id="printScholarshipButton" class="btn btn-primary float-right" onclick="printScholarshipReport()">Print Report</button>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <strong>Total Programs:</strong> <?= $total_programs ?>
+        <div class="row report-section scholarship-program-report">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Scholarship Grants</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tools mb-3">
+
+                            <div class="mb-3">
+                                <strong>Total Programs:</strong> <?= $total_programs ?>
+                            </div>
+
+                            <div class="form-row align-items-end">
+                                <div class="form-group col-md-3">
+                                    <select id="filter_academic_year" class="form-control">
+                                        <option value="" disabled selected>Filter by Academic Year:</option>
+                                        <option value="">All Academic Years</option>
+                                        <?php foreach ($academic_filter_years as $year): ?>
+                                            <option value="<?= $year->academic_year ?>"><?= $year->academic_year ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <button id="printScholarshipButton" class="btn btn-primary col-md-6" onclick="printScholarshipReport()">Print Report</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <table id="scholarshipTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Program Code</th>
+                                    <th>Program Name</th>
+                                    <th>Academic Year</th>
+                                    <th>Semester</th>
+                                    <th>Percentage</th>
+                                    <th>Number of Grantees</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($scholarship_programs as $program): ?>
+                                    <tr>
+                                        <td><?= $program->program_code ?></td>
+                                        <td><?= $program->scholarship_program ?></td>
+                                        <td><?= $program->academic_year ?></td>
+                                        <td><?= $program->semester ?></td>
+                                        <td><?= $program->percentage ?></td>
+                                        <td><?= $program->number_of_grantees ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <select id="filter_academic_year" class="form-control">
-                        <option value="" disabled selected>Filter by Academic Year:</option>
-                        <option value="">All Academic Years</option>
-                        <?php foreach ($academic_filter_years as $year): ?>
-                            <option value="<?= $year->academic_year ?>"><?= $year->academic_year ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                
-                <table id="scholarshipTable" class="table table-bordered table-striped mt-4">
-                    <thead>
-                        <tr>
-                            <th>Program Code</th>
-                            <th>Program Name</th>
-                            <th>Academic Year</th>
-                            <th>Semester</th>
-                            <th>Percentage</th>
-                            <th>Number of Grantees</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($scholarship_programs as $program): ?>
-                            <tr>
-                                <td><?= $program->program_code ?></td>
-                                <td><?= $program->scholarship_program ?></td>
-                                <td><?= $program->academic_year ?></td>
-                                <td><?= $program->semester ?></td>
-                                <td><?= $program->percentage ?></td>
-                                <td><?= $program->number_of_grantees ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
             </div>
         </div>
-    </div>
-</div>
     </section>
 </div>
 

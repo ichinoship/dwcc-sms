@@ -48,10 +48,10 @@
                                         <td><?= $applicant->scholarship_program; ?></td>
                                         <td class="status-column"><?= ucwords($applicant->status); ?></td>
                                         <td>
-                                            <a href="<?= site_url('twc/view_applicant/' . $applicant->applicant_no); ?>" class="btn btn-info">
+                                            <a href="<?= site_url('twc/view_applicant/' . $applicant->applicant_no); ?>" class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <button class="btn btn-primary evaluate-btn" data-id="<?= $applicant->applicant_no; ?>" data-toggle="modal" data-target="#evaluateModal">
+                                            <button class="btn btn-primary evaluate-btn btn-sm" data-id="<?= $applicant->applicant_no; ?>" data-toggle="modal" data-target="#evaluateModal">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </button>
                                         </td>

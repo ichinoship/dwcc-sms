@@ -1,5 +1,6 @@
 <?php $this->load->view('includes/applicant_header') ?>
 <?php $this->load->view('includes/applicant_sidebar') ?>
+<!-- Apply Scholarship -->
 <title>Application Form</title>
 <div class="content-wrapper">
     <div class="content-header">
@@ -70,7 +71,6 @@
                                     <label for="gender">Gender:</label>
                                     <input type="text" class="form-control" id="gender" name="gender" value="<?= htmlspecialchars($applicant->gender); ?>" readonly>
                                 </div>
-
                                 <div class="col-md-4 form-group">
                                     <label for="contact">Contact Number: </label>
                                     <input type="number" class="form-control" id="contact" name="contact" value="<?= htmlspecialchars($applicant->contact); ?>" readonly>
@@ -79,7 +79,6 @@
                                     <label for="email">Email: </label>
                                     <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($applicant->email); ?>" readonly>
                                 </div>
-
                                 <div class="col-md-4 form-group">
                                     <label for="program_type">Program Type:</label>
                                     <input type="text" class="form-control" id="program_type" name="program_type" value="<?= htmlspecialchars($applicant->program_type); ?>" readonly>
@@ -160,7 +159,7 @@
                                 <button type="submit" class="btn btn-primary">Submit Application</button>
                                 <a href="<?= base_url('applicant/dashboard_applicant'); ?>" class="btn btn-secondary">Back</a>
                             </div>
-                    </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -276,7 +275,6 @@
                 }
             }
         }
-
         if (programType === "College") {
             for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
                 if (semesterSelect.options[i].value === "Whole Semester" || semesterSelect.options[i].value === "") {
