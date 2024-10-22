@@ -97,6 +97,16 @@ class Applicant_model extends CI_Model
             return null;
         }
     }
+
+    public function get_application_count($id_number, $academic_year, $semester)
+    {
+        $this->db->where('id_number', $id_number);
+        $this->db->where('academic_year', $academic_year);
+        $this->db->where('semester', $semester);
+        $query = $this->db->get('application_form');
+
+        return $query->num_rows(); // Returns the count of applications for this semester and academic year
+    }
     /**
      * Update applicant details.
      *
@@ -240,7 +250,7 @@ class Applicant_model extends CI_Model
         $query = $this->db->get('scholarship_programs');
         return $query->row();
     }
-    
+
     public function get_next_applicant_no()
     {
         $this->db->select_max('applicant_no');
@@ -368,10 +378,12 @@ class Applicant_model extends CI_Model
         return $this->db->count_all_results();
     }
 
-    public function check_duplicate_application($id_number, $scholarship_program)
+    public function check_duplicate_application($id_number, $scholarship_program, $semester, $academic_year)
     {
         $this->db->where('id_number', $id_number);
         $this->db->where('scholarship_program', $scholarship_program);
+        $this->db->where('semester', $semester);
+        $this->db->where('academic_year', $academic_year);
         $query = $this->db->get('application_form');
 
         if ($query->num_rows() > 0) {

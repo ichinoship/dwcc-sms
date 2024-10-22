@@ -131,17 +131,17 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6 form-group">
-    <label for="scholarship_program">Scholarship Program: <span class="text-danger">*</span></label>
-    <select class="form-control" id="scholarship_program" name="scholarship_program" required>
-        <option value="" disabled <?= empty($selected_program_code) ? 'selected' : ''; ?>>Select Program</option>
-        <?php foreach ($scholarship_programs as $program): ?>
-            <option value="<?= htmlspecialchars($program->scholarship_program); ?>"
-                <?= isset($selected_program_code) && $selected_program_code == $program->program_code ? 'selected' : ''; ?>>
-                <?= htmlspecialchars($program->scholarship_program); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
+                                    <label for="scholarship_program">Scholarship Program: <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="scholarship_program" name="scholarship_program" required>
+                                        <option value="" disabled <?= empty($selected_program_code) ? 'selected' : ''; ?>>Select Program</option>
+                                        <?php foreach ($scholarship_programs as $program): ?>
+                                            <option value="<?= htmlspecialchars($program->scholarship_program); ?>"
+                                                <?= isset($selected_program_code) && $selected_program_code == $program->program_code ? 'selected' : ''; ?>>
+                                                <?= htmlspecialchars($program->scholarship_program); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="requirements">Upload Requirements: <span class="text-danger">*</span></label>
@@ -167,6 +167,22 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php $this->load->view('includes/applicant_footer') ?>
+<?php if ($this->session->flashdata('error')): ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Application Limit Reached',
+                text: 'You have reached the 2-application limit for this semester.',
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false,
+            });
+        });
+    </script>
+<?php endif; ?>
 <?php if ($this->session->flashdata('error')): ?>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -247,23 +263,23 @@
     });
 
     document.addEventListener("DOMContentLoaded", function() {
-    const programType = document.getElementById("program_type").value;
-    const semesterSelect = document.getElementById("semester");
+        const programType = document.getElementById("program_type").value;
+        const semesterSelect = document.getElementById("semester");
 
-    if (programType === "Junior High School" || programType === "Grade School") {
-        for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
-            if (semesterSelect.options[i].value !== "Whole Semester" && semesterSelect.options[i].value !== "") {
-                semesterSelect.remove(i);
+        if (programType === "Junior High School" || programType === "Grade School") {
+            for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
+                if (semesterSelect.options[i].value !== "Whole Semester" && semesterSelect.options[i].value !== "") {
+                    semesterSelect.remove(i);
+                }
             }
         }
-    }
-    
-    if (programType === "College") {
-        for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
-            if (semesterSelect.options[i].value === "Whole Semester" || semesterSelect.options[i].value === "") {
-                semesterSelect.remove(i);
+
+        if (programType === "College") {
+            for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
+                if (semesterSelect.options[i].value === "Whole Semester" || semesterSelect.options[i].value === "") {
+                    semesterSelect.remove(i);
+                }
             }
         }
-    }
-});
+    });
 </script>

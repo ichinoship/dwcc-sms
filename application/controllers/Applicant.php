@@ -49,65 +49,65 @@ class Applicant extends CI_Controller
     }
 
     public function register()
-{
-    $this->form_validation->set_rules('id_number', 'ID Number', 'required|max_length[5]|is_unique[applicants.id_number]');
-    $this->form_validation->set_rules('firstname', 'First Name', 'required');
-    $this->form_validation->set_rules('middlename', 'Middle Name');
-    $this->form_validation->set_rules('lastname', 'Last Name', 'required');
-    $this->form_validation->set_rules('birthdate', 'Birthdate', 'required');
-    $this->form_validation->set_rules('gender', 'Gender', 'required');
-    $this->form_validation->set_rules('program_type', 'Program Type', 'required');
-    $this->form_validation->set_rules('year', 'Year', 'required');
-    $this->form_validation->set_rules('contact', 'Contact', 'required|numeric|is_unique[applicants.contact]');
-    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-    $this->form_validation->set_rules('program', 'Program', 'required');
-    $this->form_validation->set_rules('address', 'Address', 'required');
-    $this->form_validation->set_rules('applicant_residence', 'Residence', 'required');
+    {
+        $this->form_validation->set_rules('id_number', 'ID Number', 'required|max_length[5]|is_unique[applicants.id_number]');
+        $this->form_validation->set_rules('firstname', 'First Name', 'required');
+        $this->form_validation->set_rules('middlename', 'Middle Name');
+        $this->form_validation->set_rules('lastname', 'Last Name', 'required');
+        $this->form_validation->set_rules('birthdate', 'Birthdate', 'required');
+        $this->form_validation->set_rules('gender', 'Gender', 'required');
+        $this->form_validation->set_rules('program_type', 'Program Type', 'required');
+        $this->form_validation->set_rules('year', 'Year', 'required');
+        $this->form_validation->set_rules('contact', 'Contact', 'required|numeric|is_unique[applicants.contact]');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('program', 'Program', 'required');
+        $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('applicant_residence', 'Residence', 'required');
 
-    if ($this->form_validation->run() === FALSE) {
-        $this->load->view('applicant_registration');
-    } else {
-        
-        $firstname = ucwords(strtolower($this->input->post('firstname')));
-        $middlename = ucwords(strtolower($this->input->post('middlename')));
-        $lastname = ucwords(strtolower($this->input->post('lastname')));
-
-        $program_type = $this->input->post('program_type');
-        $campus = ''; 
-
-        if ($program_type == 'College') {
-            $campus = 'Janssen';
-        } elseif (in_array($program_type, ['Senior High School', 'Junior High School', 'Grade School'])) {
-            $campus = 'Freinademetz';
-        }
-
-        $data = array(
-            'id_number' => $this->input->post('id_number'),
-            'firstname' => $firstname,
-            'middlename' => $middlename,
-            'lastname' => $lastname,
-            'birthdate' => $this->input->post('birthdate'),
-            'gender' => $this->input->post('gender'),
-            'contact' => $this->input->post('contact'),
-            'email' => $this->input->post('email'),
-            'program_type' => $this->input->post('program_type'),
-            'year' => $this->input->post('year'),
-            'program' => $this->input->post('program'),
-            'address' => $this->input->post('address'),
-            'applicant_residence' => $this->input->post('applicant_residence'),
-            'campus' => $campus 
-        );
-
-        // Register applicant
-        if ($this->Applicant_model->register_applicant($data)) {
-            $this->session->set_flashdata('success', 'Registration successful! We will send you an email once you are approved.');
-            redirect('applicant/register');
+        if ($this->form_validation->run() === FALSE) {
+            $this->load->view('applicant_registration');
         } else {
-            $this->session->set_flashdata('error', 'Registration failed. Please try again.');
-            redirect('applicant/register');
+
+            $firstname = ucwords(strtolower($this->input->post('firstname')));
+            $middlename = ucwords(strtolower($this->input->post('middlename')));
+            $lastname = ucwords(strtolower($this->input->post('lastname')));
+
+            $program_type = $this->input->post('program_type');
+            $campus = '';
+
+            if ($program_type == 'College') {
+                $campus = 'Janssen';
+            } elseif (in_array($program_type, ['Senior High School', 'Junior High School', 'Grade School'])) {
+                $campus = 'Freinademetz';
+            }
+
+            $data = array(
+                'id_number' => $this->input->post('id_number'),
+                'firstname' => $firstname,
+                'middlename' => $middlename,
+                'lastname' => $lastname,
+                'birthdate' => $this->input->post('birthdate'),
+                'gender' => $this->input->post('gender'),
+                'contact' => $this->input->post('contact'),
+                'email' => $this->input->post('email'),
+                'program_type' => $this->input->post('program_type'),
+                'year' => $this->input->post('year'),
+                'program' => $this->input->post('program'),
+                'address' => $this->input->post('address'),
+                'applicant_residence' => $this->input->post('applicant_residence'),
+                'campus' => $campus
+            );
+
+            // Register applicant
+            if ($this->Applicant_model->register_applicant($data)) {
+                $this->session->set_flashdata('success', 'Registration successful! We will send you an email once you are approved.');
+                redirect('applicant/register');
+            } else {
+                $this->session->set_flashdata('error', 'Registration failed. Please try again.');
+                redirect('applicant/register');
+            }
         }
     }
-}
     public function accept($applicant_no)
     {
         $applicant = $this->Applicant_model->get_applicant_by_id($applicant_no);
@@ -313,43 +313,52 @@ class Applicant extends CI_Controller
         }
     }
     public function apply_scholarship()
-{
-    $this->load->model('Applicant_model');
-    $this->load->model('Sc_model');
+    {
+        $this->load->model('Applicant_model');
+        $this->load->model('Sc_model');
 
-    $id_number = $this->session->userdata('user_id_number');
+        $id_number = $this->session->userdata('user_id_number');
 
-    // Get the latest academic year from the SchoolYear_model
-    $latest_academic_year = $this->Applicant_model->get_latest_academic_year();
+        $latest_academic_year = $this->Applicant_model->get_latest_academic_year();
 
-    $program_code = $this->input->get('program_code', TRUE);
-    $applicant = $this->Applicant_model->get_info($id_number);
-    $data['applicant'] = $applicant;
-    $data['latest_academic_year'] = $latest_academic_year;
+        $program_code = $this->input->get('program_code', TRUE);
+        $applicant = $this->Applicant_model->get_info($id_number);
+        $data['applicant'] = $applicant;
+        $data['latest_academic_year'] = $latest_academic_year;
 
-    // Get all active scholarship programs
-    $scholarship_programs = $this->Sc_model->get_all_active_scholarship_programs();
-    
-    // Get current date
-    $current_date = date('Y-m-d');
-    
-    // Filter programs by campus and availability based on start_date and end_date
-    $filtered_programs = array_filter($scholarship_programs, function ($program) use ($applicant, $current_date) {
-        return ($program->campus == $applicant->campus || $program->campus == 'All Campus')
-            && ($program->start_date <= $current_date && $program->end_date >= $current_date); // Check date range
-    });
+        $scholarship_programs = $this->Sc_model->get_all_active_scholarship_programs();
 
-    $data['scholarship_programs'] = $filtered_programs;
-    $data['selected_program_code'] = $program_code;
+        $current_date = date('Y-m-d');
 
-    $this->load->view('applicant/apply_scholarship', $data);
-}
+        $filtered_programs = array_filter($scholarship_programs, function ($program) use ($applicant, $current_date) {
+            return ($program->campus == $applicant->campus || $program->campus == 'All Campus')
+                && ($program->start_date <= $current_date && $program->end_date >= $current_date); // Check date range
+        });
+
+        $data['scholarship_programs'] = $filtered_programs;
+        $data['selected_program_code'] = $program_code;
+
+        $this->load->view('applicant/apply_scholarship', $data);
+    }
 
     public function submit_application()
     {
         $this->load->model('Applicant_model');
         $this->load->library('upload');
         $this->form_validation->set_rules('contact', 'Contact', 'required|numeric|max_length[11]|is_unique[applicants.contact]');
+
+        $id_number = $this->input->post('id_number');
+        $academic_year = $this->input->post('academic_year');
+        $semester = $this->input->post('semester');
+        $scholarship_program = $this->input->post('scholarship_program');
+
+        $application_count = $this->Applicant_model->get_application_count($id_number, $academic_year, $semester);
+
+        if ($application_count >= 2) {
+            $this->session->set_flashdata('error', 'You have reached the 2-application limit for this semester.');
+            redirect('applicant/apply_scholarship');
+            return;
+        }
 
         $account_no = $this->Applicant_model->get_account_no($this->session->userdata('user_id_number'));
         if (!$account_no) {
@@ -363,17 +372,17 @@ class Applicant extends CI_Controller
         $id_number = $this->input->post('id_number');
         $scholarship_program = $this->input->post('scholarship_program');
 
-        $existing_application = $this->Applicant_model->check_duplicate_application($id_number, $scholarship_program);
+        $existing_application = $this->Applicant_model->check_duplicate_application($id_number, $scholarship_program, $semester, $academic_year);
 
         if ($existing_application) {
-            $this->session->set_flashdata('error', 'You have already applied for this scholarship program.');
+            $this->session->set_flashdata('error', 'You have already applied for this scholarship program in the same semester and academic year.');
             redirect('applicant/apply_scholarship');
             return;
         }
 
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'jpg|png|jpeg|pdf|docx';
-        $config['max_size'] = 10240; // 10MB
+        $config['max_size'] = 10240;
 
         $this->upload->initialize($config);
         if (!$this->upload->do_upload('applicant_photo')) {
