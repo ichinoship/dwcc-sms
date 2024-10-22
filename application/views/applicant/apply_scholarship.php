@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <form action="<?= base_url('applicant/submit_application'); ?>" method="post" enctype="multipart/form-data">
                             <div id="photo_preview" class="mt-2 mb-3">
-                                <img id="photo_preview_img" src="#" alt="2x2 Photo Preview" style="display:none; width:200px; height:200px; object-fit:cover; border: 1px solid black;">
+                                <img id="photo_preview_img" src="#" alt="2x2 Photo Preview" style="display:none; max-width: 200px; object-fit:cover; border: 1px solid black;">
                             </div>
                             <div class="row">
                                 <div class="col-md-4 form-group">
@@ -156,14 +156,17 @@
                                 </small>
                                 <ul id="file-list" class="list-group mt-2"></ul>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit Application</button>
-                            <a href="<?= base_url('applicant/dashboard_applicant'); ?>" class="btn btn-secondary">Back</a>
-                        </form>
+                            <div class="form-group mt-2 text-right">
+                                <button type="submit" class="btn btn-primary">Submit Application</button>
+                                <a href="<?= base_url('applicant/dashboard_applicant'); ?>" class="btn btn-secondary">Back</a>
+                            </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php $this->load->view('includes/applicant_footer') ?>

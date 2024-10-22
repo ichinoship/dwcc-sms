@@ -37,7 +37,7 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <p><?= htmlspecialchars($program->description) ?></p>
-                                                    <button class="btn btn-primary btn-sm apply-now-btn" data-program-code="<?= htmlspecialchars($program->program_code) ?>">Apply Now</button>
+                                                    <a href="<?= base_url('applicant/apply_scholarship'); ?>" class="btn btn-primary btn-sm apply-now-btn">Apply Now</a>
                                                     <button data-program-code="<?= htmlspecialchars($program->program_code) ?>" class="btn btn-secondary btn-sm view-info-btn">View Info</button>
                                                 </div>
                                             </div>
@@ -70,6 +70,7 @@
                     <!-- Program details will be loaded here -->
                     <h5 id="programTitle"></h5>
                     <p><strong>Description:</strong> <span id="programDescription"></span></p>
+                    <p><strong>Campus:</strong> <span id="programCampus"></span></p>
                     <p><strong>Academic Year:</strong> <span id="programAcademicYear"></span></p>
                     <p><strong>Semester:</strong> <span id="programSemester"></span></p>
                     <p><strong>Qualifications:</strong> <span id="programQualifications"></span></p>
@@ -100,6 +101,7 @@
                 var program = JSON.parse(response);
                 $('#programTitle').text(program.scholarship_program);
                 $('#programDescription').text(program.description);
+                $('#programCampus').text(program.campus);
                 var qualifications = program.qualifications.split(';');
                 var qualificationsList = $('#programQualificationsList');
                 qualificationsList.empty();

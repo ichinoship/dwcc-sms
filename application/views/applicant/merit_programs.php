@@ -37,7 +37,7 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <p><strong>Description:</strong> <?= htmlspecialchars($program->description) ?></p>
-                                                    <button class="btn btn-primary btn-sm apply-now-btn" data-program-code="<?= htmlspecialchars($program->program_code) ?>">Apply Now</button>
+                                                    <a href="<?= base_url('applicant/apply_scholarship'); ?>" class="btn btn-primary btn-sm apply-now-btn">Apply Now</a>
                                                     <button data-program-code="<?= htmlspecialchars($program->program_code) ?>" class="btn btn-secondary btn-sm view-info-btn">View Info</button>
                                                 </div>
                                             </div>

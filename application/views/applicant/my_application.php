@@ -50,11 +50,10 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Applicant No</th>
-                                    <th>First Name</th>
-                                    <th>Middle Name</th>
-                                    <th>Last Name</th>
+                                    <th>Full Name</th>
                                     <th>Scholarship Program</th>
+                                    <th>Academic Year</th>
+                                    <th>Semester</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -62,11 +61,10 @@
                             <tbody>
                                 <?php foreach ($applications as $application): ?>
                                     <tr data-academic-year="<?= htmlspecialchars($application->academic_year); ?>" data-semester="<?= htmlspecialchars($application->semester); ?>">
-                                        <td><?= htmlspecialchars($application->applicant_no); ?></td>
-                                        <td><?= htmlspecialchars($application->firstname); ?></td>
-                                        <td><?= htmlspecialchars($application->middlename); ?></td>
-                                        <td><?= htmlspecialchars($application->lastname); ?></td>
+                                        <td> <?= htmlspecialchars($application->firstname . ' ' . $application->middlename . ' ' . $application->lastname); ?></td>
                                         <td><?= htmlspecialchars($application->scholarship_program); ?></td>
+                                        <td><?= htmlspecialchars($application->academic_year); ?></td>
+                                        <td><?= htmlspecialchars($application->semester); ?></td>
                                         <td><?= ucwords(htmlspecialchars($application->status)); ?></td>
                                         <td>
                                             <a href="<?= site_url('applicant/view_form/' . $application->applicant_no); ?>" class="btn btn-primary btn-sm">
