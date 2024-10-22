@@ -24,7 +24,6 @@
                     <h3 class="card-title">My Scholarship Applications</h3>
                 </div>
                 <div class="card-body">
-
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <select id="filter_academic_year" class="form-control">
@@ -147,11 +146,11 @@
             var endDate = new Date($(this).data('end-date'));
             var today = new Date();
 
-            if (status === 'qualified' || status === 'not qualified') {
+            if (status === 'qualified' || status === 'not qualified' || status === 'pending') {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Access Denied',
-                    text: 'You are already ' + status + '. You cannot edit this application.',
+                    text: 'You are currently ' + status + '. You cannot edit this application.',
                     showConfirmButton: true
                 });
             } else {

@@ -55,9 +55,9 @@
                                     <p><strong>Program:</strong> <?= htmlspecialchars($application->program); ?></p>
                                     <p><strong>Academic Year:</strong> <?= htmlspecialchars($application->academic_year); ?></p>
                                     <p><strong>Semester:</strong> <?= htmlspecialchars($application->semester); ?></p>
-                                    <p><strong>Application Type:</strong> <?= htmlspecialchars($application->application_type); ?></p>
                                 </div>
                                 <div class="col-md-6">
+                                    <p><strong>Application Type:</strong> <?= htmlspecialchars($application->application_type); ?></p>
                                     <p><strong>Scholarship Program:</strong> <?= htmlspecialchars($application->scholarship_program); ?></p>
                                     <p><strong>Campus:</strong> <?= htmlspecialchars($application->campus); ?></p>
                                     <p><strong>Contact:</strong> <?= htmlspecialchars($application->contact); ?></p>
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <div class="form-group mt-3 text-right">
-                <?php if ($application->status == 'qualified' || $application->status == 'not qualified'): ?>
+                <?php if ($application->status == 'qualified' || $application->status == 'not qualified' || $application->status == 'pending'): ?>
                     <button type="button" class="btn btn-primary" onclick="showAlert()">Edit Application</button>
                 <?php else: ?>
                     <a href="<?= site_url('applicant/edit_application/' . $application->applicant_no); ?>" class="btn btn-primary">Edit Application</a>

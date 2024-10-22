@@ -229,6 +229,9 @@ class Applicant extends CI_Controller
             $new_data = [
                 'contact' => $this->input->post('contact'),
                 'email' => $this->input->post('email'),
+                'year' => $this->input->post('year'),
+                'address' => $this->input->post('address'),
+                'applicant_residence' => $this->input->post('applicant_residence'),
             ];
 
             $changes_made = false;

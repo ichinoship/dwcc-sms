@@ -7,8 +7,9 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
-                    </div>
+                <div class="col-sm-6">
+                   
+                </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="<?= base_url('applicant/dashboard_applicant'); ?>">Home</a></li>
@@ -26,6 +27,9 @@
                         </div>
                     </div>
                     <div class="card-body">
+                    <div class="alert alert-warning text-center">
+                            <strong>Important:</strong> Please double-check all your information. Ensure that all uploaded documents are correct before submitting your application.
+                        </div>
                         <form action="<?= base_url('applicant/submit_application'); ?>" method="post" enctype="multipart/form-data">
                             <div id="photo_preview" class="mt-2 mb-3">
                                 <img id="photo_preview_img" src="#" alt="2x2 Photo Preview" style="display:none; max-width: 200px; object-fit:cover; border: 1px solid black;">
