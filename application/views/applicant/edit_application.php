@@ -99,7 +99,6 @@
                                         <option value="DWCC Dormitory" <?= $application->applicant_residence == 'DWCC Dormitory' ? 'selected' : ''; ?>>DWCC Dormitory</option>
                                         <option value="Off-Campus Boarding House" <?= $application->applicant_residence == 'Off-Campus Boarding House' ? 'selected' : ''; ?>>Off-Campus Boarding House</option>
                                         <option value="With a Relative" <?= $application->applicant_residence == 'With a Relative' ? 'selected' : ''; ?>>With a Relative</option>
-                                        <option value="Other" <?= $application->applicant_residence == 'Other' ? 'selected' : ''; ?>>Other</option>
                                     </select>
                                 </div>
                             </div>

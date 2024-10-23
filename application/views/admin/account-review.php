@@ -45,7 +45,7 @@
                     <?php endif; ?>
 
                     <div class="table-responsive">
-                        <table id="applicantTable" class="table table-bordered table-hover table-sm">
+                        <table id="applicantTable" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>ID Number</th>

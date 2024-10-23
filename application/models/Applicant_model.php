@@ -389,6 +389,8 @@ class Applicant_model extends CI_Model
     return $query->result_array(); // Assuming the file names are stored in this format
 }
 
+
+
     public function check_duplicate_application($id_number, $scholarship_program, $semester, $academic_year)
     {
         $this->db->where('id_number', $id_number);

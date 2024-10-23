@@ -82,7 +82,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <table id="applicationsTable" class="table table-bordered table-hover">
+                            <table id="applicationsTable" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>Applicant No</th>
@@ -146,7 +146,7 @@
                             </div>
 
                         </div>
-                        <table id="scholarshipTable" class="table table-bordered table-striped">
+                        <table id="scholarshipTable" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Program Code</th>

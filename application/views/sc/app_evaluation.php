@@ -39,7 +39,7 @@
                 </form>
                 <form id="finalListForm" method="POST" action="<?= site_url('sc/submit_final_list'); ?>">
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Id Number</th>
