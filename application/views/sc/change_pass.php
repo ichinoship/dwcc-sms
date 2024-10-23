@@ -17,7 +17,6 @@
             </div>
         </div>
     </div>
-
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
@@ -34,24 +33,23 @@
                                 <input type="password" name="current_password" class="form-control" id="current_password" required>
                                 <?= form_error('current_password'); ?>
                             </div>
-
                             <div class="form-group">
                                 <label for="new_password">New Password</label>
                                 <input type="password" name="new_password" class="form-control" id="new_password" required>
                                 <?= form_error('new_password'); ?>
                             </div>
-
                             <div class="form-group">
                                 <label for="confirm_password">Confirm New Password</label>
                                 <input type="password" name="confirm_password" class="form-control" id="confirm_password" required>
                                 <?= form_error('confirm_password'); ?>
                             </div>
-
+                        </div>
+                        <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Change Password</button>
                             <a href="<?= base_url('sc/dashboard'); ?>" class="btn btn-secondary">Back</a>
-                            <?= form_close(); ?>
                         </div>
                     </div>
+                    <?= form_close(); ?>
                 </div>
             </div>
         </div>
@@ -62,7 +60,7 @@
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         <?php if ($this->session->flashdata('success')): ?>
             Swal.fire({
                 icon: 'success',

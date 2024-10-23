@@ -102,13 +102,14 @@
                                 <p>No requirements files available</p>
                             <?php endif; ?>
                         </div>
+                        <div class="card-footer">
+                <a href="<?= site_url('twc/app-review'); ?>" class="btn btn-secondary">Back to App Review</a>
+            </div>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group mt-3 text-right">
-                <a href="<?= site_url('twc/app-review'); ?>" class="btn btn-secondary">Back to App Review</a>
-            </div>
+           
         </div>
     </section>
 

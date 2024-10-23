@@ -106,11 +106,11 @@
                                 <p>No requirements files available</p>
                             <?php endif; ?>
                         </div>
-                    </div>
-                    <!-- Back Button -->
-                    <div class="form-group mt-3 text-right">
+                        <div class="card-footer">
                         <a href="<?= site_url('twc/shortlist'); ?>" class="btn btn-secondary">Back to Shortlist</a>
                     </div>
+                    </div>
+                   
                 </div>
             </div>
         </div>

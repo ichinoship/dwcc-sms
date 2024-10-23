@@ -159,11 +159,12 @@
                                 </small>
                                 <ul id="file-list" class="list-group mt-2"></ul>
                             </div>
-                            <div class="form-group mt-2 text-right">
+                           
+                        </div>
+                        <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit Application</button>
                                 <a href="<?= base_url('applicant/dashboard_applicant'); ?>" class="btn btn-secondary">Back</a>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>

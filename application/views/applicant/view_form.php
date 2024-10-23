@@ -99,16 +99,16 @@
                                 <p>No requirements files available</p>
                             <?php endif; ?>
                         </div>
+                        <div class="card-footer">
+                            <?php if ($application->status == 'qualified' || $application->status == 'not qualified' || $application->status == 'pending'): ?>
+                                <button type="button" class="btn btn-primary" onclick="showAlert()">Edit Application</button>
+                            <?php else: ?>
+                                <a href="<?= site_url('applicant/edit_application/' . $application->applicant_no); ?>" class="btn btn-primary">Edit Application</a>
+                            <?php endif; ?>
+                            <a href="<?= site_url('applicant/my_application'); ?>" class="btn btn-secondary">Back</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group mt-3 text-right">
-                <?php if ($application->status == 'qualified' || $application->status == 'not qualified' || $application->status == 'pending'): ?>
-                    <button type="button" class="btn btn-primary" onclick="showAlert()">Edit Application</button>
-                <?php else: ?>
-                    <a href="<?= site_url('applicant/edit_application/' . $application->applicant_no); ?>" class="btn btn-primary">Edit Application</a>
-                <?php endif; ?>
-                <a href="<?= site_url('applicant/my_application'); ?>" class="btn btn-secondary">Back</a>
             </div>
         </div>
     </section>

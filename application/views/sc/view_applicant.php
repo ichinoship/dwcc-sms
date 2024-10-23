@@ -59,7 +59,7 @@
                                     <p><strong>Application Type:</strong> <?= htmlspecialchars($applicant->application_type); ?></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Discount:</strong> <?= htmlspecialchars($applicant->discount). '%'; ?></p>
+                                    <p><strong>Discount:</strong> <?= htmlspecialchars($applicant->discount) . '%'; ?></p>
                                     <p><strong>Scholarship Program:</strong> <?= htmlspecialchars($applicant->scholarship_program); ?></p>
                                     <p><strong>Campus:</strong> <?= htmlspecialchars($applicant->campus); ?></p>
                                     <p><strong>Program Type:</strong> <?= htmlspecialchars($applicant->program_type); ?></p>
@@ -102,11 +102,11 @@
                                 <p>No requirements files available</p>
                             <?php endif; ?>
                         </div>
+                        <div class="card-footer">
+                            <a href="<?= site_url('sc/app_evaluation'); ?>" class="btn btn-secondary">Back to App Evaluation</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group mt-3 text-right">
-                <a href="<?= site_url('sc/app_evaluation'); ?>" class="btn btn-secondary">Back to App Evaluation</a>
             </div>
         </div>
     </section>

@@ -149,7 +149,6 @@
                                 <strong>Note:</strong> Please upload your documents in the format: [Document-Type]-[Surname] (e.g., Certificate-of-Enrollment-Doe).
                             </small>
                             <ul id="file-list" class="list-group mt-2">
-
                                 <?php if (!empty($existing_requirements)): ?>
                                     <?php foreach ($existing_requirements as $file): ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -161,17 +160,17 @@
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </ul>
-                            <!-- Buttons -->
-                            <div class="form-group mt-2 text-right">
-                                <button type="submit" class="btn btn-primary">Update Application</button>
-                                <a href="<?= site_url('applicant/view_form/' . $application->applicant_no); ?>" class="btn btn-secondary">Back</a>
-                            </div>
-                        </form>
                     </div>
                 </div>
-                <?= form_close(); ?>
             </div>
+            <!-- Buttons -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Update Application</button>
+                <a href="<?= site_url('applicant/view_form/' . $application->applicant_no); ?>" class="btn btn-secondary">Back</a>
+            </div>
+            </form>
         </div>
+        <?= form_close(); ?>
     </section>
 </div>
 <?php $this->load->view('includes/applicant_footer'); ?>

@@ -1,4 +1,4 @@
-<?php $this->load->view('includes/applicant_header'); ?>
+<!-- <?php $this->load->view('includes/applicant_header'); ?>
 <?php $this->load->view('includes/applicant_sidebar'); ?>
  <!-- Applicant Change Password -->
 <title>Change Password</title>
@@ -44,11 +44,13 @@
                                 <input type="password" name="confirm_password" class="form-control" id="confirm_password" required>
                                 <?= form_error('confirm_password'); ?>
                             </div>
-                            <button type="submit" class="btn btn-primary">Change Password</button>
-                            <a href="<?= base_url('applicant/dashboard_applicant'); ?>" class="btn btn-secondary">Back</a>
-                            <?= form_close(); ?>
                         </div>
+                        <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                                <a href="<?= base_url('applicant/dashboard_applicant'); ?>" class="btn btn-secondary">Back</a>
+                            </div>
                     </div>
+                    <?= form_close(); ?>
                 </div>
             </div>
         </div>
@@ -76,3 +78,4 @@
         <?php endif; ?>
     });
 </script>
+ -->

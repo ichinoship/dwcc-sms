@@ -225,7 +225,9 @@ class Applicant extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->edit_info();
         } else {
+            // Get current data from the database
             $current_data = $this->Applicant_model->get_info($id_number);
+            // Collect new data from the form
             $new_data = [
                 'contact' => $this->input->post('contact'),
                 'email' => $this->input->post('email'),
@@ -234,6 +236,7 @@ class Applicant extends CI_Controller
                 'applicant_residence' => $this->input->post('applicant_residence'),
             ];
 
+            // Check if any changes were made
             $changes_made = false;
             foreach ($new_data as $key => $value) {
                 if ($current_data->$key != $value) {
@@ -242,6 +245,7 @@ class Applicant extends CI_Controller
                 }
             }
 
+            // Update information if changes were made, otherwise display 'No changes detected'
             if ($changes_made) {
                 if ($this->Applicant_model->update_info($id_number, $new_data)) {
                     $this->session->set_flashdata('success', 'Information updated successfully.');
@@ -252,6 +256,7 @@ class Applicant extends CI_Controller
                 $this->session->set_flashdata('info', 'No changes detected.');
             }
 
+            // Redirect to the edit info page
             redirect('applicant/edit_info');
         }
     }
@@ -485,8 +490,13 @@ class Applicant extends CI_Controller
         $this->load->model('Sc_model');
 
         $data['application'] = $this->Applicant_model->get_application_by_no($applicant_no);
-        $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
 
+        if (in_array($data['application']->status, ['qualified', 'not qualified', 'pending'])) {
+            redirect('applicant/my_application');
+            return;
+        }
+
+        $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
         $data['existing_requirements'] = !empty($data['application']->requirements) ? explode(',', $data['application']->requirements) : [];
 
         $this->load->view('applicant/edit_application', $data);

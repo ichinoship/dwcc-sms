@@ -46,12 +46,13 @@
                                 <input type="password" name="confirm_password" class="form-control" id="confirm_password" required>
                                 <?= form_error('confirm_password'); ?>
                             </div>
-
+                        </div>
+                        <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Change Password</button>
                             <a href="<?= base_url('twc/dashboard'); ?>" class="btn btn-secondary">Back</a>
-                            <?= form_close(); ?>
                         </div>
                     </div>
+                    <?= form_close(); ?>
                 </div>
             </div>
         </div>
@@ -62,7 +63,7 @@
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         <?php if ($this->session->flashdata('success')): ?>
             Swal.fire({
                 icon: 'success',
