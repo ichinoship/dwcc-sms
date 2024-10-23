@@ -67,29 +67,42 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'menu-open' : ''; ?>">
-                        <a href="#" class="nav-link <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'active' : ''; ?>">
-                            <i class="nav-icon fas fa-users-cog"></i>
-                            <p>
-                                Account Settings
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?= base_url('applicant/update_info'); ?>" class="nav-link <?= $this->uri->segment(2) == 'update_info' ? 'active' : ''; ?>">
-                                    <i class="fas fa-edit"></i>
-                                    <p>Edit Information</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('applicant/change_password'); ?>" class="nav-link <?= $this->uri->segment(2) == 'change_password' ? 'active' : ''; ?>">
-                                    <i class="fas fa-key"></i>
-                                    <p>Change Password</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <a href="#" class="nav-link <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>
+                            Account Settings
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('applicant/update_info'); ?>" class="nav-link <?= $this->uri->segment(2) == 'update_info' ? 'active' : ''; ?>">
+                                <i class="fas fa-edit"></i>
+                                <p>Edit Information</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('applicant/change_password'); ?>" class="nav-link <?= $this->uri->segment(2) == 'change_password' ? 'active' : ''; ?>">
+                                <i class="fas fa-key"></i>
+                                <p>Change Password</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
+            <!-- Logout Link -->
+            <div class="sidebar-bottom">
+                <nav>
+                    <ul class="nav nav-pills nav-sidebar">
+                        <li class="nav-item">
+                            <a href="<?= base_url('auth/applicant_logout'); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>Logout</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </nav>
         <!-- /.sidebar-menu -->
     </div>

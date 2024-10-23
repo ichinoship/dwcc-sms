@@ -33,7 +33,7 @@
                                         <p>Number of Applicants: <?= $program->applicant_count; ?></p>
                                     </div>
                                     <div class="icon">
-                                        <i class="fas fa-users"></i>
+                                        <i class="fas fa-graduation-cap"></i>
                                     </div>
                                     <a href="<?= site_url('sc/app_list/'.$program->program_code); ?>" class="small-box-footer">
                                         View Applicants <i class="fas fa-arrow-circle-right"></i>
@@ -60,7 +60,7 @@
                                         <p>Number of Applicants: <?= $program->applicant_count; ?></p>
                                     </div>
                                     <div class="icon">
-                                        <i class="fas fa-users"></i>
+                                        <i class="fas fa-graduation-cap"></i>
                                     </div>
                                     <a href="<?= site_url('sc/app_list/'.$program->program_code); ?>" class="small-box-footer">
                                         View Applicants <i class="fas fa-arrow-circle-right"></i>

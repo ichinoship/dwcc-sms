@@ -74,6 +74,19 @@
                             <p>Account Review</p>
                         </a>
                     </li>
+                    <!-- Logout Link -->
+                    <div class="sidebar-bottom">
+                        <nav>
+                            <ul class="nav nav-pills nav-sidebar">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('auth/logout'); ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                                        <p>Logout</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 <?php elseif ($user_type == 'Scholarship Coordinator'): ?>
                     <li class="nav-item">
                         <a href="<?= base_url('sc/dashboard'); ?>" class="nav-link <?= $this->uri->segment(1) == 'sc' && $this->uri->segment(2) == 'dashboard' ? 'active' : ''; ?>">
@@ -97,7 +110,7 @@
                     <li class="nav-item">
                         <a href="<?= base_url('sc/program_app_list'); ?>"
                             class="nav-link <?= $this->uri->segment(1) == 'sc' && ($this->uri->segment(2) == 'program_app_list' || $this->uri->segment(2) == 'app_list') ? 'active' : ''; ?>">
-                             <i class="nav-icon fas fa-list"></i>
+                            <i class="nav-icon fas fa-list"></i>
                             <p>Applicant List</p>
                         </a>
                     </li>
@@ -144,6 +157,19 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- Logout Link -->
+                    <div class="sidebar-bottom">
+                        <nav>
+                            <ul class="nav nav-pills nav-sidebar">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('auth/logout'); ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                                        <p>Logout</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
 
                 <?php elseif ($user_type == 'TWC'): ?>
                     <li class="nav-item">
@@ -193,10 +219,24 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- Logout Link -->
+                    <div class="sidebar-bottom">
+                        <nav>
+                            <ul class="nav nav-pills nav-sidebar">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('auth/logout'); ?>" class="nav-link">
+                                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                                        <p>Logout</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 <?php endif; ?>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+
 </aside>
