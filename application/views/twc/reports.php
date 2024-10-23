@@ -65,6 +65,26 @@
                                 </tbody>
                             </table>
                         </div>
+                        <table id="example3" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Total Applicants</th>
+                                    <th>Qualified</th>
+                                    <th>Not Qualified</th>
+                                    <th>Conditional</th>
+                                    <th>Pending</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><?= $report_counts['total'] ?></td>
+                                    <td><?= $report_counts['qualified'] ?></td>
+                                    <td><?= $report_counts['not_qualified'] ?></td>
+                                    <td><?= $report_counts['conditional'] ?></td>
+                                    <td><?= $report_counts['pending'] ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

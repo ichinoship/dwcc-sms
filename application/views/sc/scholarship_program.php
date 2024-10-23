@@ -66,7 +66,7 @@
                             <span class="ml-2">Add Program</span>
                         </button>
                     </div>
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="example1" class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>Program Code</th>

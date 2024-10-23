@@ -58,6 +58,8 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
+    
+
     public function get_scholarship_program_by_code($program_code)
     {
         return $this->db->get_where('scholarship_programs', ['program_code' => $program_code])->row();

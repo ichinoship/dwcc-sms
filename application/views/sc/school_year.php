@@ -31,7 +31,7 @@
                             <i class="fa fa-plus-circle" aria-hidden="true"></i> <span class="ml-2">Add School Year</span>
                         </button>
                     </div>
-                    <table id="example4" class="table table-bordered table-striped">
+                    <table id="example4" class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>Academic Year</th>

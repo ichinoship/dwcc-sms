@@ -54,7 +54,7 @@
                             <h3 class="card-title">List of Requirements</h3>
                         </div>
                         <div class="card-body">
-                            <table id="add_reqs" class="table table-bordered">
+                            <table id="add_reqs" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
