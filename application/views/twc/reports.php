@@ -26,16 +26,66 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example1" class="table table-bordered table-hover table-sm">
+                        <div class="card-tools mb-3">
+                                <form method="post" action="<?= base_url('sc/reports'); ?>" class="form-inline">
+                                    <div class="row col-12">
+                                        <div class="col-md-4 mb-2">
+                                            <select name="academic_year" class="form-control w-100">
+                                                <option value="">Select Academic Year</option>
+                                                <?php foreach ($academic_years as $year): ?>
+                                                    <option value="<?= $year->academic_year; ?>" <?= ($this->input->post('academic_year') == $year->academic_year) ? 'selected' : ''; ?>>
+                                                        <?= $year->academic_year; ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select name="semester" class="form-control w-100">
+                                                <option value="">Select Semester</option>
+                                                <option value="1st Semester" <?= ($this->input->post('semester') == '1st Semester') ? 'selected' : ''; ?>>1st Semester</option>
+                                                <option value="2nd Semester" <?= ($this->input->post('semester') == '2nd Semester') ? 'selected' : ''; ?>>2nd Semester</option>
+                                                <option value="Whole Semester" <?= ($this->input->post('semester') == 'Whole Semester') ? 'selected' : ''; ?>>Whole Semester</option>
+                                            </select>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row col-12">
+                                        <div class="col-md-4 mb-2">
+                                            <select name="status" class="form-control w-100">
+                                                <option value="">Select Status</option>
+                                                <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
+                                                <option value="not qualified" <?= ($this->input->post('status') == 'not qualified') ? 'selected' : ''; ?>>Not Qualified</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select name="scholarship_program" class="form-control w-100">
+                                                <option value="">Select Scholarship Program</option>
+                                                <?php foreach ($scholarship_programs as $program): ?>
+                                                    <option value="<?= $program->scholarship_program; ?>" <?= ($this->input->post('scholarship_program') == $program->scholarship_program) ? 'selected' : ''; ?>>
+                                                        <?= $program->scholarship_program; ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2 d-flex align-items-end">
+                                            <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
+                                            <button type="button" class="btn btn-primary col-md-6" id="printTable">Print Report</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <table id="applicantsTable" class="table table-bordered table-hover table-sm">
                                 <thead>
                                     <tr>
                                         
                                         <th>ID Number</th>
                                         <th>Last Name</th>
                                         <th>First Name</th>
+                                        <th>Academic Year</th>
+                                        <th>Semester</th>
                                         <th>Scholarship Program</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                     
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,16 +95,11 @@
                                                 <td><?= $applicant->id_number; ?></td>
                                                 <td><?= $applicant->lastname; ?></td>
                                                 <td><?= $applicant->firstname; ?></td>
+                                                <td><?= $applicant->academic_year; ?></td>
+                                                <td><?= $applicant->semester; ?></td>
                                                 <td><?= $applicant->scholarship_program; ?></td>
                                                 <td class="status-column"><?= ucwords($applicant->status); ?></td>
-                                                <td>
-                                                    <a href="<?= site_url('twc/view_applicant/' . $applicant->applicant_no); ?>" class="btn btn-info btn-sm">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <button class="btn btn-primary evaluate-btn btn-sm" data-id="<?= $applicant->applicant_no; ?>" data-toggle="modal" data-target="#evaluateModal">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </button>
-                                                </td>
+                                                
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
@@ -65,26 +110,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <table id="example3" class="table table-bordered table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Total Applicants</th>
-                                    <th>Qualified</th>
-                                    <th>Not Qualified</th>
-                                    <th>Conditional</th>
-                                    <th>Pending</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><?= $report_counts['total'] ?></td>
-                                    <td><?= $report_counts['qualified'] ?></td>
-                                    <td><?= $report_counts['not_qualified'] ?></td>
-                                    <td><?= $report_counts['conditional'] ?></td>
-                                    <td><?= $report_counts['pending'] ?></td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -97,4 +122,52 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
+
+<script>
+
+$(document).ready(function() {
+    // Initialize DataTable with the new table ID
+    var table = $('#applicantsTable').DataTable({
+        "processing": true,
+        "serverSide": false,
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+    });
+
+    // Apply filters on change
+    $('select[name="academic_year"], select[name="semester"], select[name="status"], select[name="scholarship_program"]').on('change', function() {
+        var academic_year = $('select[name="academic_year"]').val();
+        var semester = $('select[name="semester"]').val();
+        var scholarship_program = $('select[name="scholarship_program"]').val();
+        var status = $('select[name="status"]').val();
+
+        // Apply column-specific filters and redraw
+        table.column(3).search(academic_year)   // Academic Year column
+            .column(4).search(semester)         // Semester column
+            .column(5).search(scholarship_program) // Scholarship Program column
+            .column(6).search(status)           // Status column
+            .draw();                            // Redraw the table with new filters
+    });
+
+    // Reset filters functionality
+    $('#resetFilters').on('click', function() {
+        $('select[name="academic_year"]').val('');
+        $('select[name="semester"]').val('');
+        $('select[name="scholarship_program"]').val('');
+        $('select[name="status"]').val('');
+
+        // Clear all search filters and redraw
+        table.columns().search('').draw();
+    });
+
+    // Print functionality
+    $('#printTable').on('click', function() {
+        window.print();
+    });
+});
+</script>
 <?php $this->load->view('includes/footer'); ?>

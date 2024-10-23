@@ -149,7 +149,7 @@ class Twc_model extends CI_Model
         $query = $this->db->get('application_form');
         return $query->result();
     }
-
+    
     public function get_application_by_shortlist_id($shortlist_id)
     {
         $this->db->where('shortlist_id', $shortlist_id);
@@ -184,5 +184,29 @@ class Twc_model extends CI_Model
         $this->db->group_by('sp.program_code, sp.scholarship_program, sp.percentage');
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+    public function get_filtered_report_applicants($filters = array()) {
+        $this->db->select('*');
+        $this->db->from('application_form');
+    
+        // Apply filters
+        if (!empty($filters)) {
+            if (isset($filters['academic_year'])) {
+                $this->db->where('academic_year', $filters['academic_year']);
+            }
+            if (isset($filters['semester'])) {
+                $this->db->where('semester', $filters['semester']);
+            }
+            if (isset($filters['status'])) {
+                $this->db->where('status', $filters['status']);
+            }
+            if (isset($filters['scholarship_program'])) {
+                $this->db->where('scholarship_program', $filters['scholarship_program']);
+            }
+        }
+    
+        $query = $this->db->get();
+        return $query->result();
     }
 }

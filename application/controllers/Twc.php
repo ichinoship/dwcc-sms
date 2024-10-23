@@ -172,14 +172,43 @@ class Twc extends CI_Controller
     public function reports()
     {
         $this->load->model('Twc_model');
+        $this->load->model('Sc_model');
+
         $user_id = $this->session->userdata('user_id');
+        $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
+        $data['scholarship_programs'] = $this->Twc_model->get_scholarship_programs_by_user($user_id);
 
-        $assigned_programs = $this->Twc_model->get_scholarship_programs_by_user($user_id);
-        $program_codes = array_column($assigned_programs, 'scholarship_program');
+        $academic_year = $this->input->post('academic_year');
+        $semester = $this->input->post('semester');
+        $status = $this->input->post('status');
+        $scholarship_program = $this->input->post('scholarship_program');
 
-        $data['report_counts'] = $this->Twc_model->get_report_counts_by_programs($program_codes);
-        $data['scholarship_programs'] = $this->Twc_model->get_scholarship_programs_with_grantees($program_codes);
+        // Prepare filters array
+        $filters = array();
+        if (!empty($academic_year)) {
+            $filters['academic_year'] = $academic_year;
+        }
+        if (!empty($semester)) {
+            $filters['semester'] = $semester;
+        }
+        if (!empty($status)) {
+            $filters['status'] = $status;
+        }
+        if (!empty($scholarship_program)) {
+            $filters['scholarship_program'] = $scholarship_program;
+        }
+
+
+        $data['applicants'] = $this->Applicant_model->get_applicants_report_by_twc($user_id, $filters);
+        $data['applicants'] = array_filter($data['applicants'], function ($applicant) {
+            return in_array($applicant->status, ['qualified', 'not qualified']);
+        });
+
+        
+     
         $this->load->view('twc/reports', $data);
+
+      
     }
 
     public function update_info()
