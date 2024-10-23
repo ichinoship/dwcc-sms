@@ -48,6 +48,12 @@ class Sc_model extends CI_Model
         return $query->result_array();
     }
 
+    public function get_scholarship_program_by_name($scholarship_program)
+    {
+        $this->db->where('scholarship_program', $scholarship_program);
+        return $this->db->get('scholarship_programs')->row();
+    }
+
 
     public function get_twcs()
     {
@@ -58,7 +64,7 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    
+
 
     public function get_scholarship_program_by_code($program_code)
     {

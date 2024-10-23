@@ -74,7 +74,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <table id="applicantsTable" class="table table-bordered table-hover table-sm">
+                            <table id="applicantsTable" class="table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
                                         

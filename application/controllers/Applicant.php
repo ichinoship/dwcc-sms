@@ -505,7 +505,9 @@ class Applicant extends CI_Controller
     public function update_application()
     {
         $this->load->model('Applicant_model');
+        $this->load->model('Sc_model');  // Load model to get scholarship details
         $this->load->library('upload');
+        $this->load->library('email');   // Load email library
 
         $applicant_no = $this->input->post('applicant_no');
         $data = [
@@ -531,6 +533,7 @@ class Applicant extends CI_Controller
                 $data['applicant_photo'] = $this->upload->data('file_name');
             }
         }
+
         $existing_application = $this->Applicant_model->get_application_by_no($applicant_no);
         $existing_requirements = !empty($existing_application->requirements) ? explode(',', $existing_application->requirements) : [];
 
@@ -576,8 +579,37 @@ class Applicant extends CI_Controller
         } else {
             $data['requirements'] = implode(',', $existing_requirements);
         }
+
         $this->Applicant_model->update_application($applicant_no, $data);
-        $this->session->set_flashdata('success', 'Application updated successfully.');
+
+        $scholarship_program = $this->input->post('scholarship_program');
+        $scholarship = $this->Sc_model->get_scholarship_program_by_name($scholarship_program);
+
+        if (!empty($scholarship) && !empty($scholarship->assigned_to)) {
+            $twc_user = $this->Applicant_model->get_user_by_id($scholarship->assigned_to);
+            if (!empty($twc_user)) {
+
+                $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
+                $this->email->to($twc_user->email);
+                $this->email->subject('Applicant Resubmitted Application');
+                $message = "
+                    <p>Dear {$twc_user->name},</p>
+                    <p>The applicant with number <strong>{$applicant_no}</strong> has resubmitted their application for the scholarship program <strong>{$scholarship_program}</strong>.</p>
+                    <p>Please review the updated application at your earliest convenience.</p>
+                    <p>Thank you.</p>
+                    <p>Best regards,<br>
+                    Divine Word College of Calapan<br>
+                    Scholarship Management Team</p>
+                ";
+                $this->email->message($message);
+
+                if ($this->email->send()) {
+                    $this->session->set_flashdata('success', 'Application updated successfully, and notification sent to TWC.');
+                } else {
+                    $this->session->set_flashdata('error', 'Application updated, but failed to send notification to TWC.');
+                }
+            }
+        }
         redirect('applicant/view_form/' . $applicant_no);
     }
 }

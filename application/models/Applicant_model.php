@@ -32,6 +32,12 @@ class Applicant_model extends CI_Model
         return $query->row();
     }
 
+    public function get_user_by_id($user_id)
+    {
+        $this->db->where('id', $user_id);
+        return $this->db->get('users')->row();
+    }
+
     public function get_application_status($id_number)
     {
         $this->db->select('status');
@@ -305,8 +311,8 @@ class Applicant_model extends CI_Model
         $this->db->join('scholarship_programs', 'application_form.scholarship_program = scholarship_programs.scholarship_program');
         $this->db->where('scholarship_programs.assigned_to', $twc_id);
 
-         // Apply filters
-         if (!empty($filters)) {
+        // Apply filters
+        if (!empty($filters)) {
             if (isset($filters['academic_year'])) {
                 $this->db->where('academic_year', $filters['academic_year']);
             }
@@ -406,15 +412,15 @@ class Applicant_model extends CI_Model
     }
 
     public function get_uploaded_requirements($applicant_no)
-{
-    // Query to fetch uploaded requirements
-    $this->db->select('requirements');
-    $this->db->from('application_form'); // Change to your actual table name
-    $this->db->where('applicant_no', $applicant_no);
-    $query = $this->db->get();
+    {
+        // Query to fetch uploaded requirements
+        $this->db->select('requirements');
+        $this->db->from('application_form'); // Change to your actual table name
+        $this->db->where('applicant_no', $applicant_no);
+        $query = $this->db->get();
 
-    return $query->result_array(); // Assuming the file names are stored in this format
-}
+        return $query->result_array(); // Assuming the file names are stored in this format
+    }
 
 
 

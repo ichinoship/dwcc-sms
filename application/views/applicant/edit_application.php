@@ -164,7 +164,7 @@
             </div>
             <!-- Buttons -->
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Update Application</button>
+                <button type="submit" class="btn btn-primary" id="updateButton">Update Application</button>
                 <a href="<?= site_url('applicant/view_form/' . $application->applicant_no); ?>" class="btn btn-secondary">Back</a>
             </div>
             </form>
@@ -250,4 +250,16 @@
             previewContainer.style.display = 'none';
         }
     }
+
+    const form = document.querySelector('form'); // Or use a specific ID for the form
+    const updateButton = document.getElementById('updateButton');
+
+    // Add a submit event listener to the form
+    form.addEventListener('submit', function(event) {
+        // Disable the button and change its text
+        updateButton.disabled = true;
+        updateButton.textContent = 'Updating...';
+    });
+
+   
 </script>
