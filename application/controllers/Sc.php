@@ -532,21 +532,24 @@ class Sc extends CI_Controller
         $this->load->view('sc/program_app_list', $data);
     }
 
-    public function final_list($program_code = null)
-    {
-        // Load the model
-        $this->load->model('Sc_model');
+    public function final_list()
+{
+    // Load the model
+    $this->load->model('Sc_model');
+    
+    // Get filter input values
+    $academic_year = $this->input->get('academic_year');
+    $semester = $this->input->get('semester');
+    $scholarship_program = $this->input->get('scholarship_program');
+    
+    // Get filters for the dropdowns
+    $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
+    $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
 
-        // Retrieve available academic years and applicants data
-        $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
-        $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
-
-
-
-        $data['applicants'] = $this->Sc_model->get_filter_final_list();
-
-
-        // Load the view
-        $this->load->view('sc/final_list', $data);
-    }
+    // Pass filter parameters to the model
+    $data['applicants'] = $this->Sc_model->get_filter_final_list($academic_year, $semester, $scholarship_program);
+    
+    // Load the view
+    $this->load->view('sc/final_list', $data);
+}
 }

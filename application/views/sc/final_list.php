@@ -24,51 +24,53 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                <h3 class="card-title">Final List of Applicants</h3>
+                    <h3 class="card-title">Final List of Applicants</h3>
                 </div>
                 <div class="card-body">
-                <div class="card-tools d-flex justify-content-between align-items-center w-100 mb-3">
-                        <form method="post" class="form-inline" id="filterForm" style="flex: 1;">
-                            <div class="row w-100 align-items-center">
-                                <div class="col-md-3 mb-2">
-                                    <select name="academic_year" class="form-control w-100" id="academicYearFilter">
+                    <div class="card-tools mb-3">
+                        <form action="<?= base_url('sc/final_list'); ?>" method="GET" class="d-flex">
+                            <div class="row align-items-end">
+                                <div class="form-group col-md-3">
+                                    <select name="academic_year" id="academic_year" class="form-control">
                                         <option value="">Select Academic Year</option>
                                         <?php foreach ($academic_years as $year): ?>
-                                            <option value="<?= $year->academic_year; ?>"><?= $year->academic_year; ?></option>
+                                            <option value="<?= htmlspecialchars($year->academic_year); ?>" <?= set_value('academic_year') == $year->academic_year ? 'selected' : ''; ?>>
+                                                <?= htmlspecialchars($year->academic_year); ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <div class="col-md-3 mb-2">
-                                    <select name="semester" class="form-control w-100" id="semesterFilter">
+                                <div class="form-group col-md-3">
+                                    <select name="semester" id="semester" class="form-control">
                                         <option value="">Select Semester</option>
-                                        <option value="1st Semester">1st Semester</option>
-                                        <option value="2nd Semester">2nd Semester</option>
-                                        <option value="Whole Semester">Whole Semester</option>
+                                        <option value="1st Semester" <?= set_value('semester') == '1st Semester' ? 'selected' : ''; ?>>1st Semester</option>
+                                        <option value="2nd Semester" <?= set_value('semester') == '2nd Semester' ? 'selected' : ''; ?>>2nd Semester</option>
+                                        <option value="Whole Semester" <?= set_value('semester') == 'Whole Semester' ? 'selected' : ''; ?>>Whole Semester</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3 mb-2">
-                                    <select name="scholarship_program" class="form-control w-100" id="scholarshipProgramFilter">
+                                <div class="form-group col-md-4">
+                                    <select name="scholarship_program" id="scholarship_program" class="form-control">
                                         <option value="">Select Scholarship Program</option>
                                         <?php foreach ($scholarship_programs as $program): ?>
-                                            <option value="<?= $program->scholarship_program; ?>"><?= $program->scholarship_program; ?></option>
+                                            <option value="<?= htmlspecialchars($program->scholarship_program); ?>" <?= set_value('scholarship_program') == $program->scholarship_program ? 'selected' : ''; ?>>
+                                                <?= htmlspecialchars($program->scholarship_program); ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <div class="col-md-3 mb-2 d-flex">
-                                    <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
-                                    <button id="printFinalList" class="btn btn-primary col-md-6" onclick="printFinalList()">Print</button>
+                                <div class="form-group col-md-2">
+                                    <button type="submit" class="btn btn-secondary btn-block">Filter</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <table id="finalListTable" class="table table-bordered table-hover">
+
+
+                    <table id="finalListTable" class="table table-bordered table-hover mt-3">
                         <thead>
                             <tr>
                                 <th>Id Number</th>
                                 <th>Full Name</th>
-                                <th>Program Type</th>
-                                <th>Year</th>
-                                <th>Campus</th>
                                 <th>Academic Year</th>
                                 <th>Semester</th>
                                 <th>Scholarship Program</th>
@@ -80,19 +82,16 @@
                                 <?php foreach ($applicants as $applicant): ?>
                                     <tr>
                                         <td><?= $applicant->id_number; ?></td>
-                                        <td><?= htmlspecialchars($applicant->firstname . ' ' . (!empty($applicant->middlename) ? $applicant->middlename . ' ' : '') . $applicant->lastname); ?></td>
-                                        <td><?= $applicant->program_type; ?></td>
-                                        <td><?= $applicant->year; ?></td>
-                                        <td><?= $applicant->campus; ?></td>
+                                        <td><?= htmlspecialchars($applicant->firstname . ' ' . $applicant->lastname); ?></td>
                                         <td><?= $applicant->academic_year; ?></td>
                                         <td><?= $applicant->semester; ?></td>
                                         <td><?= $applicant->scholarship_program; ?></td>
-                                        <td><?= $applicant->discount; ?></td>
+                                        <td><?= $applicant->discount; ?>%</td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="9" class="text-center">No applicants found.</td>
+                                    <td colspan="6" class="text-center">No applicants found.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
@@ -108,123 +107,276 @@
 
 <script>
     $(document).ready(function() {
-        var table = $('#finalListTable').DataTable(); // Initialize DataTable
+        var table = $('#finalListTable').DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": [{
+                    extend: "copy",
+                    text: "Copy",
+                },
+                {
+                    extend: "pdf",
+                    text: "Export to PDF",
+                    title: '', // Set your desired title here
+                    customize: function(doc) {
 
-        // Function to apply filters
-        function filterTable() {
-            var academicYear = $('#academicYearFilter').val();
-            var semester = $('#semesterFilter').val();
-            var scholarshipProgram = $('#scholarshipProgramFilter').val();
 
-            // Apply the filter to the DataTable
-            table
-                .columns(5).search(academicYear) // Filter by Academic Year (Column 5)
-                .columns(6).search(semester) // Filter by Semester (Column 6)
-                .columns(7).search(scholarshipProgram) // Filter by Scholarship Program (Column 7)
-                .draw();
-        }
+                        // Page margins for PDF
+                        doc.pageMargins = [50, 115, 50, 115];
 
-        // Apply filters on selection change
-        $('#academicYearFilter, #semesterFilter, #scholarshipProgramFilter').change(function() {
-            filterTable();
+                        // Set background image
+                        doc.background = [{
+                            image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
+                            width: 624,
+                            height: 830
+                        }];
+
+                        // Title
+                        doc.content.splice(0, 0, {
+                            text: 'SCHOLARSHIP COMMITTEE',
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: true,
+                            margin: [0, 20, 0, 0]
+                        });
+
+                        // Subtitle
+                        doc.content.splice(1, 0, {
+                            text: 'Recommendation for Scholarship',
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: false,
+                            margin: [0, 0, 0, 20]
+                        });
+
+                        var table = doc.content[2];
+                        if (table && table.table) {
+                            table.layout = {
+                                hLineWidth: function() {
+                                    return 0.5;
+                                },
+                                vLineWidth: function() {
+                                    return 0.5;
+                                },
+                                hLineColor: function() {
+                                    return '#000';
+                                },
+                                vLineColor: function() {
+                                    return '#000';
+                                },
+                                paddingLeft: function() {
+                                    return 2;
+                                },
+                                paddingRight: function() {
+                                    return 2;
+                                },
+                                paddingTop: function() {
+                                    return 2;
+                                },
+                                paddingBottom: function() {
+                                    return 2;
+                                },
+                            };
+
+                            for (var i = 0; i < table.table.body.length; i++) {
+                                for (var j = 0; j < table.table.body[i].length; j++) {
+                                    table.table.body[i][j].fillColor = '#FFFFFF';
+                                    table.table.body[i][j].fontSize = 11;
+                                }
+                            }
+
+                            // Set header row styling
+                            var header = table.table.body[0];
+                            for (var j = 0; j < header.length; j++) {
+                                header[j].fillColor = '#A6D18A';
+                                header[j].color = '#000000';
+                            }
+                        }
+
+                        // Prepared by
+                        doc.content.push({
+                            text: 'Prepared by:',
+                            alignment: 'left',
+                            margin: [0, 30, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
+                            text: 'DIANA KYTH P. CONTI\n',
+                            alignment: 'left',
+                            margin: [0, 0, 0, 0],
+                            fontSize: 12,
+                            bold: true
+                        });
+                        doc.content.push({
+                            text: 'Scholarship Coordinator',
+                            alignment: 'left',
+                            margin: [0, 0, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        // Evaluated and Recommended by
+                        doc.content.push({
+                            text: 'Evaluated and Recommended by:',
+                            alignment: 'left',
+                            margin: [0, 10, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        // First row of signatories
+                        doc.content.push({
+                            columns: [{
+                                    stack: [{
+                                            text: 'MS. CLAUDETTE SIM, MBA',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: true
+                                        },
+                                        {
+                                            text: 'Member',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: false
+                                        }
+                                    ],
+                                    width: '50%'
+                                },
+                                {
+                                    stack: [{
+                                            text: 'MS. GRACE D. LUZON, MSEco',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: true
+                                        },
+                                        {
+                                            text: 'Member',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: false
+                                        }
+                                    ],
+                                    width: '50%'
+                                }
+                            ],
+                            margin: [0, 0, 0, 30]
+                        });
+                        // Second row of signatories
+                        doc.content.push({
+                            columns: [{
+                                    stack: [{
+                                            text: 'DR. MARY JANE D. CASTILLO, LPT',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: true
+                                        },
+                                        {
+                                            text: 'Member',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: false
+                                        }
+                                    ],
+                                    width: '50%'
+                                },
+                                {
+                                    stack: [{
+                                            text: 'REV. FR. JEROME A. ORMITA, SVD',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: true
+                                        },
+                                        {
+                                            text: 'Member',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: false
+                                        }
+                                    ],
+                                    width: '50%'
+                                }
+                            ],
+                            margin: [0, 0, 0, 30]
+                        });
+                        // Third row of signatories
+                        doc.content.push({
+                            columns: [{
+                                stack: [{
+                                        text: 'REV. FR. VICENTE D. CASTRO JR, SVD',
+                                        alignment: 'center',
+                                        fontSize: 12,
+                                        bold: true
+                                    },
+                                    {
+                                        text: 'Vice Chairperson',
+                                        alignment: 'center',
+                                        fontSize: 12,
+                                        bold: false
+                                    }
+                                ],
+                                width: '100%'
+                            }],
+                            margin: [0, 0, 0, 30]
+                        });
+                        doc.content.push({
+                            columns: [{
+                                stack: [{
+                                        text: 'BR. HUBERTUS GURU, SVD, Ed.D',
+                                        alignment: 'center',
+                                        fontSize: 12,
+                                        bold: true
+                                    },
+                                    {
+                                        text: 'Scholarship Chairperson',
+                                        alignment: 'center',
+                                        fontSize: 12,
+                                        bold: false
+                                    }
+                                ],
+                                width: '100%'
+                            }],
+                            margin: [0, 0, 0, 20]
+                        });
+                        // Final Approver 
+                        doc.content.push({
+                            text: 'Approved by:',
+                            alignment: 'left',
+                            margin: [0, 10, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
+                            stack: [{
+                                    text: 'REV. FR. RENATO A. TAMPOL, SVD, PhD',
+                                    alignment: 'center',
+                                    fontSize: 12,
+                                    bold: true
+                                },
+                                {
+                                    text: 'President',
+                                    alignment: 'center',
+                                    fontSize: 12,
+                                    bold: false
+                                }
+                            ],
+                            margin: [0, 5, 0, 0]
+                        });
+                    }
+                },
+                {
+                    extend: "colvis",
+                    text: "Column Visibility",
+                }
+            ],
+            "initComplete": function() {
+                this.api().buttons().container().appendTo('#finalListTable_wrapper .col-md-6:eq(0)');
+            }
         });
-
-        // Reset filters
-        $('#resetFilters').on('click', function() {
-            $('#academicYearFilter').val('');
-            $('#semesterFilter').val('');
-            $('#scholarshipProgramFilter').val('');
-            table
-                .columns().search('')
-                .draw();
+        // Print button functionality
+        $('#printButton').on('click', function() {
+            table.button('.buttons-print').trigger();
         });
     });
-
-
-    function printFinalList() {
-        // Get the header image URL
-        var headerImageUrl = '<?= base_url('assets/images/header.png'); ?>';
-
-        // Define the print header
-        var printHeader = `
-        <div style="text-align: center; margin-bottom: 50px;">
-            <img src="${headerImageUrl}" alt="Header Image" style="max-width: 100%; height: auto; width: 100%; max-height: 100px;">
-        </div>
-    `;
-
-        // Get the contents of the table to print
-        var printContents = document.querySelector('#finalListTable').outerHTML;
-
-        // Define the signatories HTML (can be optional or customized as required)
-        var signatoriesHTML = `
-        <div class="signatories" style="margin-top: 90px; text-align: center; width: 100%;">
-            <!-- Prepared by Section on the Left -->
-            <div style="text-align: left; width: 50%;">
-                <p style="font-weight: bold; margin-bottom: 30px;">Prepared by:</p>
-                <p style="font-weight: bold; margin: 0;">DIANA KYTH P. CONTI</p>
-                <p style="margin-bottom: 30px;">Scholarship Coordinator</p>
-            </div>
-
-            <!-- Scholarship Committee -->
-            <div style="margin-bottom: 40px; text-align: center;">
-                <p style="text-align: left;">Evaluated and Recommended by:</p>
-                <p style="font-weight: bold; margin-bottom:30px">SCHOLARSHIP COMMITTEE</p>
-
-                <!-- Committee Members -->
-                <div style="display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
-                    <div style="margin: 20px; text-align: center;">
-                        <p style="font-weight: bold; margin: 0;">MS. CLAUDETTE SIM, MBA</p>
-                        <p style="margin: 0;"><i>Member</i></p>
-                    </div>
-                    <div style="margin: 20px; text-align: center;">
-                        <p style="font-weight: bold; margin: 0;">MS. GRACE D. LUZON, MSEco</p>
-                        <p style="margin: 0;"><i>Member</i></p>
-                    </div>
-                    <div style="margin: 20px; text-align: center;">
-                        <p style="font-weight: bold; margin: 0;">DR. MARY JANE D. CASTILLO, LPT</p>
-                        <p style="margin: 0;"><i>Member</i></p>
-                    </div>
-                    <div style="margin: 20px; text-align: center;">
-                        <p style="font-weight: bold; margin: 0;">REV. FR. JEROME A. ORMITA, SVD</p>
-                        <p style="margin: 0;"><i>Member</i></p>
-                    </div>
-                </div>
-
-                <!-- Vice Chairperson and Chairperson -->
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <p style="font-weight: bold; margin: 0;">REV. FR. VICENTE D. CASTRO JR, SVD</p>
-                    <p style="margin: 0; padding-top: 5px;"> <i>Vice Chairperson</i></p>
-                </div>
-                <div style="text-align: center;">
-                    <p style="font-weight: bold; margin: 0;">BR. HUBERTUS GURU, SVD, Ed.D.</p>
-                    <p style="margin: 0; padding-top: 5px;"> <i>Scholarship Chairperson</i></p>
-                </div>
-            </div>
-
-            <!-- Approved by -->
-            <div>
-                <p style="text-align:left;">Approved by:</p>
-                <p style="font-weight: bold; margin: 0;">REV. FR. RENATO A. TAMPOL, SVD, PhD</p>
-                <p style="margin: 0;"><i>President</i></p>
-            </div>
-        </div>
-    `;
-
-        // Combine the header, the table, and the signatories
-        var finalPrintContent = printHeader + printContents + signatoriesHTML;
-
-        // Open a new window for printing
-        var printWindow = window.open('', '', 'height=600,width=800');
-        printWindow.document.write('<html><head>');
-        printWindow.document.write('<style>body {font-family: Arial, sans-serif; margin: 0; padding: 20px;} table {border-collapse: collapse; width: 100%;} th, td {border: 1px solid black; padding: 8px; text-align: center;} th {background-color: #f2f2f2;}</style>');
-        printWindow.document.write('</head><body>');
-        printWindow.document.write(finalPrintContent);
-        printWindow.document.write('</body></html>');
-
-        // Automatically trigger the print dialog
-        printWindow.document.close();
-        printWindow.print();
-    }
 </script>
 
 <?php $this->load->view('includes/footer'); ?>
