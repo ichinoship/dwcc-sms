@@ -61,6 +61,7 @@
 <script src="<?= base_url('assets/') ?>plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?= base_url('assets/') ?>plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
+
 <!-- Page specific script -->
 <script>
     $(function() {
@@ -250,6 +251,119 @@
             }
         }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
 
+        var table = $("#grants").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": [{
+                    extend: "copy",
+                    text: "Copy",
+                },
+                {
+                    extend: "pdf",
+                    text: "PDF",
+                    title: '',
+                    customize: function(doc) {
+                        // Define margins for the document
+                        doc.pageMargins = [20, 115, 20, 115]; // Margins: left, top, right, bottom
+
+                        // Adding the background image
+                        doc.background = [{
+                            image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
+                            width: 624, // Width of A4 paper in points
+                            height: 830 // Height of A4 paper in points
+                        }];
+
+                        // Title at the top
+                        doc.content.splice(0, 0, {
+                            text: 'SCHOLARSHIP GRANTS', // Optional title at the top
+                            alignment: 'center',
+                            fontSize: 12, // Larger font size for title
+                            bold: true, // Bold title for emphasis
+                            margin: [0, 20, 0, 10] // Adjusted margin for title spacing
+                        });
+
+                        // Subtitle under the title
+                        doc.content.splice(1, 0, {
+                            text: 'ACADEMIC YEAR 2024-2025 | FIRST SEMESTER', // Subtitle text
+                            alignment: 'center',
+                            fontSize: 10, // Font size for subtitle
+                            bold: true,
+                            margin: [0, 0, 0, 20] // Margin for spacing around subtitle
+                        });
+
+                        // Customize the table style
+                        var table = doc.content[2]; // Accessing the table content
+                        if (table && table.table) {
+                            table.layout = {
+                                hLineWidth: function() {
+                                    return 0.5;
+                                }, // Border line width
+                                vLineWidth: function() {
+                                    return 0.5;
+                                },
+                                hLineColor: function() {
+                                    return '#000';
+                                }, // Black color for lines
+                                vLineColor: function() {
+                                    return '#000';
+                                },
+                                paddingLeft: function() {
+                                    return 2;
+                                }, // Reduced padding for smaller cells
+                                paddingRight: function() {
+                                    return 2;
+                                },
+                                paddingTop: function() {
+                                    return 2;
+                                },
+                                paddingBottom: function() {
+                                    return 2;
+                                },
+                            };
+
+                            // Set the default font size and background color for table cells
+                            table.table.widths = Array(table.table.body[0].length + 1).join('*').split('');
+
+                            // Remove background color from each cell in the table
+                            for (var i = 0; i < table.table.body.length; i++) {
+                                for (var j = 0; j < table.table.body[i].length; j++) {
+                                    table.table.body[i][j].fillColor = '#FFFFFF'; // Set background to white
+                                    table.table.body[i][j].fontSize = 10; // Set font size
+                                }
+                            }
+
+                            // Set header font color to black
+                            var header = table.table.body[0]; // Accessing the header row
+                            for (var j = 0; j < header.length; j++) {
+                                header[j].fillColor = '#A6D18A'; // Make sure header background is white
+                                header[j].color = '#000000'; // Set header font color to black
+                            }
+                        }
+                    }
+                },
+                {
+                    extend: "colvis",
+                    text: "Column Visibility",
+                }
+            ],
+            initComplete: function() {
+                this.api().columns(4).every(function() {
+                    var column = this;
+                    $('#userTypeFilter').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+                });
+            }
+        }).buttons().container().appendTo('#grants_wrapper .col-md-6:eq(0)');
+
+
+
 
         $(document).ready(function() {
             // Initialize DataTable with pagination
@@ -289,10 +403,10 @@
 <!-- Generate the image URL with PHP and pass it to JavaScript -->
 <script>
     var headerImageUrl = '<?= base_url('assets/images/header.png'); ?>';
-    
+
     function printTable() {
-     // Remove body margins and set to zero
-     document.body.style.margin = "0";
+        // Remove body margins and set to zero
+        document.body.style.margin = "0";
         document.body.style.padding = "0";
 
         var printHeader = `
@@ -300,26 +414,25 @@
                 <img src="${headerImageUrl}" alt="Header Image" style="max-width: 100%; height: auto; width: 100%; max-height: 100px;">
             </div>
         `;
-    var printContents = document.querySelector('#academicYearTable').outerHTML;
+        var printContents = document.querySelector('#academicYearTable').outerHTML;
 
-    // Add signatories HTML
-    var signatoriesHTML = `
+        // Add signatories HTML
+        var signatoriesHTML = `
     
     `;
-    
-    var originalContents = document.body.innerHTML;
 
-    // Combine the image header, the table, and the signatories for printing
-    document.body.innerHTML = printHeader + printContents + signatoriesHTML;
-    window.print();
+        var originalContents = document.body.innerHTML;
 
-    // Restore the original page content after printing
-    document.body.innerHTML = originalContents;
-    
-    // Reload to restore event listeners or dynamic content
-    window.location.reload();
-}
+        // Combine the image header, the table, and the signatories for printing
+        document.body.innerHTML = printHeader + printContents + signatoriesHTML;
+        window.print();
 
+        // Restore the original page content after printing
+        document.body.innerHTML = originalContents;
+
+        // Reload to restore event listeners or dynamic content
+        window.location.reload();
+    }
 </script>
 
 
@@ -345,7 +458,7 @@
 
 
         `;
-        
+
         var originalContents = document.body.innerHTML;
 
         // Combine the image header, the table, and the signatories for printing
@@ -354,7 +467,7 @@
 
         // Restore the original page content after printing
         document.body.innerHTML = originalContents;
-        
+
         // Reload to restore event listeners or dynamic content
         window.location.reload();
     }

@@ -2,6 +2,7 @@
 <?php $this->load->view('includes/sidebar') ?>
 <title>Reports</title>
 
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -77,7 +78,6 @@
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-end">
                                             <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
-                                            <button type="button" class="btn btn-primary col-md-6" id="printTable">Print Report</button>
                                         </div>
                                     </div>
                                 </form>
@@ -124,37 +124,18 @@
                         <h3 class="card-title">Scholarship Grants</h3>
                     </div>
                     <div class="card-body">
-                        <div class="card-tools mb-3">
-
+                        <div class="card-tools">
                             <div class="mb-3">
                                 <strong>Total Programs:</strong> <?= $total_programs ?>
                             </div>
-
-                            <div class="form-row align-items-end">
-                                <div class="form-group col-md-3">
-                                    <select id="filter_academic_year" class="form-control">
-                                        <option value="" disabled selected>Filter by Academic Year:</option>
-                                        <option value="">All Academic Years</option>
-                                        <?php foreach ($academic_filter_years as $year): ?>
-                                            <option value="<?= $year->academic_year ?>"><?= $year->academic_year ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <button id="printScholarshipButton" class="btn btn-primary col-md-6" onclick="printScholarshipReport()">Print Report</button>
-                                </div>
-                            </div>
-
                         </div>
-                        <table id="scholarshipTable" class="table table-bordered table-hover table-striped">
+                        <table id="grant" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>Program Code</th>
+                                    <th>No.</th>
                                     <th>Program Name</th>
-                                    <th>Academic Year</th>
-                                    <th>Semester</th>
                                     <th>Percentage</th>
-                                    <th>Number of Grantees</th>
+                                    <th>No. of Grantees</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -162,8 +143,6 @@
                                     <tr>
                                         <td><?= $program->program_code ?></td>
                                         <td><?= $program->scholarship_program ?></td>
-                                        <td><?= $program->academic_year ?></td>
-                                        <td><?= $program->semester ?></td>
                                         <td><?= $program->percentage ?></td>
                                         <td><?= $program->number_of_grantees ?></td>
                                     </tr>
@@ -174,11 +153,13 @@
                 </div>
             </div>
         </div>
+
     </section>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -198,7 +179,6 @@
                 .columns(4).search(scholarship_program)
                 .draw();
         });
-
         // Reset filters
         $('#resetFilters').on('click', function() {
             $('select[name="academic_year"]').val('');
@@ -210,35 +190,211 @@
             table.destroy();
             table = $('#applicationsTable').DataTable();
         });
-
-        // Print functionality
         $('#printTable').on('click', function() {
-            var currentDate = new Date().toLocaleString();
-            var printedBy = "<?= $this->session->userdata('user_name'); ?>"; // Adjust as necessary
-            var headerImage = "<?= base_url('assets/images/header.png'); ?>"; // Adjust the path to your header image
-
-            var printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Print Report</title>');
-            printWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">');
-            printWindow.document.write('<style>');
-            printWindow.document.write('body { margin: 0; padding: 0; }'); // Remove default body margins
-            printWindow.document.write('img { width: 100%; height: auto; display: block; }'); // Image styles
-            printWindow.document.write('</style>');
-            printWindow.document.write('</head><body>');
-
-            // Add the header image
-            printWindow.document.write('<img src="' + headerImage + '" alt="Header Image">');
-
-
-            printWindow.document.write('<p class="text-right">Printed by: ' + printedBy + '</p>');
-            printWindow.document.write('<p class="text-right">Date: ' + currentDate + '</p>');
-            printWindow.document.write($('#applicationsTable').parent().html()); // This will get the HTML of the DataTable
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
+            window.print();
         });
-
     });
+
+    <?php
+    $years = array_column($scholarship_programs, 'academic_year');
+    $semesters = array_column($scholarship_programs, 'semester');
+
+    $most_common_year = array_count_values($years);
+    $most_common_year = array_search(max($most_common_year), $most_common_year);
+
+    $most_common_semester = array_count_values($semesters);
+    $most_common_semester = array_search(max($most_common_semester), $most_common_semester);
+    ?>
+
+$(function() {
+    var table = $("#grant").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": [{
+                extend: "copy",
+                text: "Copy",
+            },
+            {
+                extend: "pdf",
+                text: "PDF",
+                title: '',
+                customize: function(doc) {
+                    // Page margins for PDF
+                    doc.pageMargins = [30, 115, 30, 115]; 
+
+                    // Set background image
+                    doc.background = [{
+                        image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
+                        width: 624,
+                        height: 830
+                    }];
+
+                    // Title
+                    doc.content.splice(0, 0, {
+                        text: 'SCHOLARSHIP GRANTS',
+                        alignment: 'center',
+                        fontSize: 12,
+                        bold: true,
+                        margin: [0, 20, 0, 0]
+                    });
+
+                    // Subtitle
+                    doc.content.splice(1, 0, {
+                        text: 'ACADEMIC YEAR <?= $most_common_year ?> | <?= strtoupper($most_common_semester) ?>',
+                        alignment: 'center',
+                        fontSize: 12,
+                        bold: true,
+                        margin: [0, 0, 0, 20]
+                    });
+
+                    var table = doc.content[2];
+                    if (table && table.table) {
+                        table.layout = {
+                            hLineWidth: function() {
+                                return 0.5;
+                            },
+                            vLineWidth: function() {
+                                return 0.5;
+                            },
+                            hLineColor: function() {
+                                return '#000';
+                            },
+                            vLineColor: function() {
+                                return '#000';
+                            },
+                            paddingLeft: function() {
+                                return 2;
+                            },
+                            paddingRight: function() {
+                                return 2;
+                            },
+                            paddingTop: function() {
+                                return 2;
+                            },
+                            paddingBottom: function() {
+                                return 2;
+                            },
+                        };
+
+                        for (var i = 0; i < table.table.body.length; i++) {
+                            for (var j = 0; j < table.table.body[i].length; j++) {
+                                table.table.body[i][j].fillColor = '#FFFFFF'; 
+                                table.table.body[i][j].fontSize = 10;  
+                            }
+                        }
+
+                        // Set header row styling
+                        var header = table.table.body[0];
+                        for (var j = 0; j < header.length; j++) {
+                            header[j].fillColor = '#A6D18A'; 
+                            header[j].color = '#000000';   
+                        }
+                    }
+
+                    doc.content.push({
+                        text: 'Prepared by:',
+                        alignment: 'left',
+                        margin: [0, 30, 0, 20],
+                        fontSize: 12,
+                        bold: false
+                    });
+                    doc.content.push({
+                        text: 'DIANA KYTH P. CONTI\n',
+                        alignment: 'left',
+                        margin: [0, 0, 0, 0],
+                        fontSize: 12,
+                        bold: true
+                    });
+                    doc.content.push({
+                        text: 'Scholarship Coordinator',
+                        alignment: 'left',
+                        margin: [0, 0, 0, 50],
+                        fontSize: 12,
+                        bold: false 
+                    });
+
+                    doc.content.push({
+                        text: 'Evaluated and Recommended by:',
+                        alignment: 'left',
+                        margin: [0, 30, 0, 20],
+                        fontSize: 12,
+                        bold: false
+                    });
+                    doc.content.push({
+                        text: 'REV. FR. VICENTE D. CASTRO JR, SVD\n',
+                        alignment: 'center',
+                        margin: [0, 0, 0, 0],
+                        fontSize: 12,
+                        bold: true
+                    });
+                    doc.content.push({
+                        text: 'Vice Chairperson',
+                        alignment: 'center',
+                        margin: [0, 0, 0, 10],
+                        fontSize: 12,
+                        bold: false 
+                    });
+                    doc.content.push({
+                        text: 'BR. HUBERTUS GURU, SVD, Ed.D\n',
+                        alignment: 'center',
+                        margin: [0, 30, 0, 0],
+                        fontSize: 12,
+                        bold: true
+                    });
+                    doc.content.push({
+                        text: 'Scholarship Chairperson',
+                        alignment: 'center',
+                        margin: [0, 0, 0, 10],
+                        fontSize: 12,
+                        bold: false 
+                    });
+
+                    doc.content.push({
+                        text: 'Approved by:',
+                        alignment: 'left',
+                        margin: [0, 30, 0, 20],
+                        fontSize: 12,
+                        bold: false
+                    });
+                    doc.content.push({
+                        text: 'REV. FR. RENATO A. TAMPOL, SVD, PhD\n',
+                        alignment: 'center',
+                        margin: [0, 0, 0, 0],
+                        fontSize: 12,
+                        bold: true
+                    });
+                    doc.content.push({
+                        text: 'President',
+                        alignment: 'center',
+                        margin: [0, 0, 0, 0],
+                        fontSize: 12,
+                        bold: false 
+                    });
+                }
+            },
+            {
+                extend: "colvis",
+                text: "Column Visibility",
+            }
+        ],
+        initComplete: function() {
+            this.api().columns(4).every(function() {
+                var column = this;
+                $('#userTypeFilter').on('change', function() {
+                    var val = $.fn.dataTable.util.escapeRegex(
+                        $(this).val()
+                    );
+                    column
+                        .search(val ? '^' + val + '$' : '', true, false)
+                        .draw();
+                });
+            });
+        }
+    }).buttons().container().appendTo('#grant_wrapper .col-md-6:eq(0)');
+});
+
+
 </script>
 
 <?php $this->load->view('includes/footer') ?>
