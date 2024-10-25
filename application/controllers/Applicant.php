@@ -450,7 +450,7 @@ class Applicant extends CI_Controller
 
         $this->Applicant_model->insert_application($form_data);
         $this->session->set_flashdata('success', 'Your application has been successfully submitted and is currently under review for approval.');
-        redirect('applicant/dashboard_applicant');
+        redirect('applicant/my_application');
     }
 
     public function my_application()
