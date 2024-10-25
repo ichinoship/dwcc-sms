@@ -220,7 +220,7 @@
                         doc.content.push({
                             text: 'Evaluated and Recommended by:',
                             alignment: 'left',
-                            margin: [0, 10, 0, 20],
+                            margin: [0, 30, 0, 20],
                             fontSize: 12,
                             bold: false
                         });

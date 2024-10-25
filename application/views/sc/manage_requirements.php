@@ -1,6 +1,6 @@
 <?php $this->load->view('includes/header'); ?>
 <?php $this->load->view('includes/sidebar'); ?>
-<title>Add Requirements</title>
+<title>Manage Requirements</title>
 
 <!-- Content Wrapper -->
 <div class="content-wrapper">
@@ -9,11 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Add Requirements</h1>
+                    <h1 class="m-0">Manage Requirements</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= base_url('sc/dashboard'); ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url('sc/scholarship_program'); ?>">Scholarship Program</a></li>
                         <li class="breadcrumb-item active">Add Requirements</li>
                     </ol>
                 </div>
@@ -21,39 +22,23 @@
         </div>
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <!-- Form Card -->
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Add New Requirement</h3>
-                        </div>
-                        <form method="post" action="<?= base_url('sc/add_requirements'); ?>">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="requirement_name">Requirement Name</label>
-                                    <input type="text" class="form-control" id="requirement_name" name="requirement_name" required>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Add Requirement</button>
-                                <a href="<?= base_url('sc/scholarship_program'); ?>" class="btn btn-secondary ml-2">Back</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Requirements Table Card -->
+                <!-- Requirements Table -->
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">List of Requirements</h3>
                         </div>
                         <div class="card-body">
+                            <!-- Button to Open Modal -->
+                            <div class="card-tools mb-3">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRequirementModal"> <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    <span class="ml-2">Add Requirement</span>
+                                </button>
+                            </div>
                             <table id="add_reqs" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -69,7 +54,7 @@
                                                 <td><?= $requirement['id']; ?></td>
                                                 <td><?= $requirement['requirement_name']; ?></td>
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm editRequirementBtn" data-id="<?= $requirement['id']; ?>" data-name="<?= $requirement['requirement_name']; ?>">
+                                                    <button class="btn btn-primary btn-sm editRequirementBtn" data-id="<?= $requirement['id']; ?>" data-name="<?= $requirement['requirement_name']; ?>" data-toggle="modal" data-target="#editRequirementModal">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <button class="btn btn-danger btn-sm deleteRequirementBtn" data-id="<?= $requirement['id']; ?>">
@@ -80,7 +65,7 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="2" class="text-center">No requirements added yet.</td>
+                                            <td colspan="3" class="text-center">No requirements added yet.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -88,6 +73,32 @@
                         </div>
                     </div>
                 </div>
+                <!-- Add Requirement Modal -->
+                <div class="modal fade" id="addRequirementModal" tabindex="-1" aria-labelledby="addRequirementModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="post" action="<?= base_url('sc/manage_requirements'); ?>">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addRequirementModalLabel">Add New Requirement</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="requirement_name">Requirement Name</label>
+                                        <input type="text" class="form-control" id="requirement_name" name="requirement_name" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add Requirement</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Edit Requirement Modal -->
                 <div class="modal fade" id="editRequirementModal" tabindex="-1" aria-labelledby="editRequirementModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -142,12 +153,9 @@
             });
         <?php endif; ?>
     });
-</script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.deleteRequirementBtn').forEach(function(button) {
-        button.addEventListener('click', function(event) {
+    document.querySelectorAll('.deleteRequirementBtn').forEach(button => {
+        button.addEventListener('click', function() {
             const requirementId = this.getAttribute('data-id');
 
             Swal.fire({
@@ -161,11 +169,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirect to delete URL if confirmed
                     window.location.href = `<?= base_url('sc/delete_requirement/'); ?>${requirementId}`;
                 }
             });
         });
     });
-});
 </script>

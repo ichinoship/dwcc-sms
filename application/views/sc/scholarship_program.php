@@ -55,9 +55,9 @@
                         </button>
 
                         <!-- Add Requirements Button -->
-                        <a href="<?= base_url('sc/add_requirements'); ?>" class="btn btn-secondary">
+                        <a href="<?= base_url('sc/manage_requirements'); ?>" class="btn btn-secondary">
                             <i class="fa fa-file-alt" aria-hidden="true"></i> <!-- Updated icon -->
-                            <span class="ml-2">Add Requirements</span>
+                            <span class="ml-2">Requirements List</span>
                         </a>
 
                         <!-- Add Scholarship Program Button -->

@@ -91,13 +91,13 @@ class Sc extends CI_Controller
         }
     }
 
-    public function add_requirements()
+    public function manage_requirements()
     {
         $this->form_validation->set_rules('requirement_name', 'Requirement Name', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $data['requirements'] = $this->Sc_model->get_all_requirements();
-            $this->load->view('sc/add_requirements', $data);
+            $this->load->view('sc/manage_requirements', $data);
         } else {
             $program_code = $this->input->post('program_name');
             $data = array(
@@ -106,7 +106,7 @@ class Sc extends CI_Controller
 
             $this->Sc_model->insert_requirement($data);
             $this->session->set_flashdata('success_message', 'Requirement added successfully!');
-            redirect('sc/add_requirements');
+            redirect('sc/manage_requirements');
         }
     }
     public function update_requirement()
@@ -118,13 +118,13 @@ class Sc extends CI_Controller
 
         $this->Sc_model->update_requirement($id, $updated_data);
         $this->session->set_flashdata('success_message', 'Requirement updated successfully!');
-        redirect('sc/add_requirements');
+        redirect('sc/manage_requirements');
     }
     public function delete_requirement($id)
     {
         $this->Sc_model->delete_requirement($id);
         $this->session->set_flashdata('success_message', 'Requirement deleted successfully!');
-        redirect('sc/add_requirements');
+        redirect('sc/manage_requirements');
     }
 
     public function add_scholarship_program()

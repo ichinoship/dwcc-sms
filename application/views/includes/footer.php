@@ -254,22 +254,32 @@
         $(document).ready(function() {
             // Initialize DataTable with pagination
             var table = $("#add_reqs").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                initComplete: function() {
-                    this.api().columns(4).every(function() {
-                        var column = this;
-                        $('#userTypeFilter').on('change', function() {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
-                    });
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": [{
+                    extend: "copy",
+                    text: "Copy",
+                },
+                
+                {
+                    extend: "colvis",
+                    text: "Column Visibility",
                 }
+            ],
+            initComplete: function() {
+                this.api().columns(4).every(function() {
+                    var column = this;
+                    $('#userTypeFilter').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+                });
+            }
             }).buttons().container().appendTo('#add_reqs_wrapper .col-md-6:eq(0)');
 
             // Event delegation for edit button

@@ -24,7 +24,7 @@ $route['sc/dashboard'] = 'sc/dashboard';
 $route['sc/app-list'] = 'sc/app_list';   
 
 $route['sc/scholarship-program'] = 'sc/scholarship_program';
-$route['sc/add_requirements'] = 'sc/add_requirements';
+$route['sc/manage_requirements'] = 'sc/manage_requirements';
 $route['sc/school-year'] = 'sc/school_year';
 $route['sc/app_evaluation'] = 'sc/app_evaluation';    
 $route['sc/view_list/(:any)/(:any)'] = 'sc/view_list/$1/$2';

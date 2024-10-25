@@ -102,7 +102,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('sc/scholarship_program'); ?>" class="nav-link <?= ($this->uri->segment(1) == 'sc' && ($this->uri->segment(2) == 'scholarship_program' || $this->uri->segment(2) == 'add_requirements' || $this->uri->segment(2) == 'add_scholarship_program' || $this->uri->segment(2) == 'edit_scholarship_program')) ? 'active' : ''; ?>">
+                        <a href="<?= base_url('sc/scholarship_program'); ?>" class="nav-link <?= ($this->uri->segment(1) == 'sc' && ($this->uri->segment(2) == 'scholarship_program' || $this->uri->segment(2) == 'manage_requirements' || $this->uri->segment(2) == 'add_scholarship_program' || $this->uri->segment(2) == 'edit_scholarship_program')) ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-book"></i>
                             <p>Scholarship Program</p>
                         </a>
