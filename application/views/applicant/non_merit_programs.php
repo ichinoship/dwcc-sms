@@ -71,6 +71,8 @@
                     <h5 id="programTitle"></h5>
                     <p><strong>Description:</strong> <span id="programDescription"></span></p>
                     <p><strong>Campus:</strong> <span id="programCampus"></span></p>
+                    <p><strong>Start Date:</strong> <span id="programStartDate"></span></p>
+                    <p><strong>End Date:</strong> <span id="programEndDate"></span></p>
                     <p><strong>Academic Year:</strong> <span id="programAcademicYear"></span></p>
                     <p><strong>Semester:</strong> <span id="programSemester"></span></p>
                     <p><strong>Qualifications:</strong> <span id="programQualifications"></span></p>
@@ -102,6 +104,9 @@
                 $('#programTitle').text(program.scholarship_program);
                 $('#programDescription').text(program.description);
                 $('#programCampus').text(program.campus);
+                $('#programStartDate').text(program.start_date);
+                $('#programEndDate').text(program.end_date);
+                
                 var qualifications = program.qualifications.split(';');
                 var qualificationsList = $('#programQualificationsList');
                 qualificationsList.empty();

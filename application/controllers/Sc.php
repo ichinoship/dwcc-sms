@@ -486,30 +486,7 @@ class Sc extends CI_Controller
             redirect('sc/change_password');
         }
     }
-    private function send_approval_email($email, $firstname)
-    {
-        $this->load->library('email');
-        $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
-        $this->email->to($email);
-        $this->email->subject('Congratulations! Your Application is Fully Approved');
-
-        $message = "
-        Dear $firstname,<br><br>
-        <strong>Congratulations!</strong><br>
-        We are thrilled to inform you that your scholarship application has been <strong>fully approved</strong> by the Scholarship Coordinator.<br><br>
-        You are now officially part of the scholarship program, and we look forward to your academic success.<br><br>
-        If you have any questions or need further information, please feel free to reach out to us.<br><br>
-        Best regards,<br>
-        Divine Word College of Calapan<br>
-        Scholarship Management Team
-        ";
-
-        $this->email->message($message);
-
-        if (!$this->email->send()) {
-            log_message('error', 'Email not sent: ' . $this->email->print_debugger());
-        }
-    }
+   
 
     public function program_list()
     {
