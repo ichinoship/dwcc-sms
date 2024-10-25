@@ -65,7 +65,7 @@
                                 <?php else: ?>
                                     <?php foreach ($applications as $application): ?>
                                         <tr data-academic-year="<?= htmlspecialchars($application->academic_year); ?>" data-semester="<?= htmlspecialchars($application->semester); ?>">
-                                            <td> <?= htmlspecialchars($application->firstname . ' ' . $application->middlename . ' ' . $application->lastname); ?></td>
+                                            <td><?= htmlspecialchars($application->firstname . ' ' . $application->middlename . ' ' . $application->lastname); ?></td>
                                             <td><?= htmlspecialchars($application->scholarship_program); ?></td>
                                             <td><?= htmlspecialchars($application->academic_year); ?></td>
                                             <td><?= htmlspecialchars($application->semester); ?></td>
@@ -74,22 +74,20 @@
                                                 <a href="<?= site_url('applicant/view_form/' . $application->applicant_no); ?>" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="#"
-                                                    class="btn btn-success btn-sm edit-btn"
-                                                    data-status="<?= htmlspecialchars($application->status); ?>"
-                                                    data-url="<?= site_url('applicant/edit_application/' . $application->applicant_no); ?>">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <?php if ($application->status === 'conditional'): ?>
-                                                    <?php if (!empty($application->comment)): ?>
-                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#commentModal" data-comment="<?= htmlspecialchars($application->comment); ?>">
-                                                            <i class="fas fa-comments"></i>
-                                                        </button>
-                                                    <?php else: ?>
-                                                        <button class="btn btn-secondary btn-sm" disabled>
-                                                            No Comment
-                                                        </button>
-                                                    <?php endif; ?>
+                                                <?php if (!in_array($application->status, ['pending', 'qualified', 'not qualified'])): ?>
+                                                    <a href="#"
+                                                        class="btn btn-success btn-sm edit-btn"
+                                                        data-status="<?= htmlspecialchars($application->status); ?>"
+                                                        data-url="<?= site_url('applicant/edit_application/' . $application->applicant_no); ?>">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($application->status === 'conditional' && !empty($application->comment)): ?>
+                                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#commentModal" data-comment="<?= htmlspecialchars($application->comment); ?>">
+                                                        <i class="fas fa-comments"></i>
+                                                    </button>
+                                                <?php elseif ($application->status === 'conditional'): ?>
+                                                    <button class="btn btn-secondary btn-sm" disabled>No Comment</button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
