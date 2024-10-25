@@ -43,9 +43,9 @@
                                 <div class="form-group col-md-3">
                                     <select name="semester" id="semester" class="form-control">
                                         <option value="">Select Semester</option>
-                                        <option value="1st Semester" <?= set_value('semester') == '1st Semester' ? 'selected' : ''; ?>>1st Semester</option>
-                                        <option value="2nd Semester" <?= set_value('semester') == '2nd Semester' ? 'selected' : ''; ?>>2nd Semester</option>
-                                        <option value="Whole Semester" <?= set_value('semester') == 'Whole Semester' ? 'selected' : ''; ?>>Whole Semester</option>
+                                        <option value="1st Semester" <?= ($this->input->post('semester') == '1st Semester') ? 'selected' : ''; ?>>1st Semester</option>
+                                        <option value="2nd Semester" <?= ($this->input->post('semester') == '2nd Semester') ? 'selected' : ''; ?>>2nd Semester</option>
+                                        <option value="Whole Semester" <?= ($this->input->post('semester') == 'Whole Semester') ? 'selected' : ''; ?>>Whole Semester</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
@@ -59,7 +59,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <button type="submit" class="btn btn-secondary btn-block">Filter</button>
+                                    <button type="button" class="btn btn-secondary btn-block" id="resetFilters">Reset Filters</button>
                                 </div>
                             </div>
                         </form>
@@ -120,8 +120,6 @@
                     text: "Export to PDF",
                     title: '', // Set your desired title here
                     customize: function(doc) {
-
-
                         // Page margins for PDF
                         doc.pageMargins = [50, 115, 50, 115];
 
@@ -372,6 +370,27 @@
                 this.api().buttons().container().appendTo('#finalListTable_wrapper .col-md-6:eq(0)');
             }
         });
+
+        // Filtering functionality
+        $('select[name="academic_year"], select[name="semester"], select[name="scholarship_program"]').on('change', function() {
+            var academic_year = $('select[name="academic_year"]').val();
+            var semester = $('select[name="semester"]').val();
+            var scholarship_program = $('select[name="scholarship_program"]').val();
+
+            table.columns(2).search(academic_year)
+                .columns(3).search(semester)
+                .columns(4).search(scholarship_program)
+                .draw();
+        });
+
+        // Reset filters
+        $('#resetFilters').on('click', function() {
+            $('select[name="academic_year"]').val('');
+            $('select[name="semester"]').val('');
+            $('select[name="scholarship_program"]').val('');
+            table.columns().search('').draw();
+        });
+
         // Print button functionality
         $('#printButton').on('click', function() {
             table.button('.buttons-print').trigger();

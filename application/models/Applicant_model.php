@@ -422,6 +422,17 @@ class Applicant_model extends CI_Model
         return $query->result_array(); // Assuming the file names are stored in this format
     }
 
+    public function count_qualified_applicants()
+    {
+        return $this->db->where('status', 'qualified')->count_all_results('shortlist');
+    }
+
+    public function count_not_qualified_applicants()
+    {
+        return $this->db->where('status', 'not qualified')->count_all_results('shortlist');
+    }
+
+
 
 
     public function check_duplicate_application($id_number, $scholarship_program, $semester, $academic_year)

@@ -48,25 +48,23 @@
                 </div>
                 <div class="card-body">
                     <div class="card-tools mb-3">
+                         <!-- Add Scholarship Program Button -->
+                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addProgramModal">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i> <!-- Updated icon -->
+                            <span class="ml-2">Add Program</span>
+                        </button>
                         <!-- Set Date Button -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#setDateModal">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#setDateModal">
                             <i class="fa fa-calendar-alt" aria-hidden="true"></i> <!-- Updated icon -->
                             <span class="ml-2">Set Date</span>
                         </button>
-
                         <!-- Add Requirements Button -->
                         <a href="<?= base_url('sc/manage_requirements'); ?>" class="btn btn-secondary">
                             <i class="fa fa-file-alt" aria-hidden="true"></i> <!-- Updated icon -->
                             <span class="ml-2">Requirements List</span>
                         </a>
-
-                        <!-- Add Scholarship Program Button -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProgramModal">
-                            <i class="fa fa-plus-circle" aria-hidden="true"></i> <!-- Updated icon -->
-                            <span class="ml-2">Add Program</span>
-                        </button>
                     </div>
-                    <table id="example1" class="table table-bordered table-hover table-striped">
+                    <table id="SCtable" class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>Program Code</th>

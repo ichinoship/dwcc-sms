@@ -450,27 +450,24 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    
-
-
     // Function to get filtered applicants
     public function get_filter_final_list($academic_year = null, $semester = null, $scholarship_program = null)
-{
-    $this->db->select('*');
-    $this->db->from('final_list');
+    {
+        $this->db->select('*');
+        $this->db->from('final_list');
 
-    // Apply filters if provided
-    if ($academic_year) {
-        $this->db->where('academic_year', $academic_year);
-    }
-    if ($semester) {
-        $this->db->where('semester', $semester);
-    }
-    if ($scholarship_program) {
-        $this->db->where('scholarship_program', $scholarship_program);
-    }
+        // Apply filters if provided
+        if ($academic_year) {
+            $this->db->where('academic_year', $academic_year);
+        }
+        if ($semester) {
+            $this->db->where('semester', $semester);
+        }
+        if ($scholarship_program) {
+            $this->db->where('scholarship_program', $scholarship_program);
+        }
 
-    $query = $this->db->get();
-    return $query->result();
-}
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

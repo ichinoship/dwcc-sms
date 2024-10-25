@@ -29,7 +29,6 @@ class Sc extends CI_Controller
         $data['not_approve_applicants'] = $this->Applicant_model->count_not_approve_applicants();
         $data['total_school_years'] = $this->Sc_model->count_school_years();
         $data['total_scholarship_programs'] = $this->Sc_model->count_scholarship_programs();
-
         $this->load->view('sc/dashboard', $data);
     }
 
@@ -392,7 +391,7 @@ class Sc extends CI_Controller
         );
 
         foreach ($data['scholarship_programs'] as $program) {
-            $program->number_of_grantees = $this->Applicant_model->count_grantees_by_program($program->scholarship_program, $program->academic_year, $program->semester );
+            $program->number_of_grantees = $this->Applicant_model->count_grantees_by_program($program->scholarship_program, $program->academic_year, $program->semester);
         }
 
         // Filter the statuses in the query
@@ -487,9 +486,6 @@ class Sc extends CI_Controller
             redirect('sc/change_password');
         }
     }
-
-
-
     private function send_approval_email($email, $firstname)
     {
         $this->load->library('email');
@@ -525,31 +521,20 @@ class Sc extends CI_Controller
     public function program_app_list()
     {
         $this->load->model('Sc_model');
-
-        // Retrieve scholarship programs with applicant counts
         $data['programs'] = $this->Sc_model->get_programs_with_applicant_count();
-
         $this->load->view('sc/program_app_list', $data);
     }
 
     public function final_list()
-{
-    // Load the model
-    $this->load->model('Sc_model');
-    
-    // Get filter input values
-    $academic_year = $this->input->get('academic_year');
-    $semester = $this->input->get('semester');
-    $scholarship_program = $this->input->get('scholarship_program');
-    
-    // Get filters for the dropdowns
-    $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
-    $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
+    {
 
-    // Pass filter parameters to the model
-    $data['applicants'] = $this->Sc_model->get_filter_final_list($academic_year, $semester, $scholarship_program);
-    
-    // Load the view
-    $this->load->view('sc/final_list', $data);
-}
+        $this->load->model('Sc_model');
+        $academic_year = $this->input->get('academic_year');
+        $semester = $this->input->get('semester');
+        $scholarship_program = $this->input->get('scholarship_program');
+        $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
+        $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
+        $data['applicants'] = $this->Sc_model->get_filter_final_list($academic_year, $semester, $scholarship_program);
+        $this->load->view('sc/final_list', $data);
+    }
 }

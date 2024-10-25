@@ -31,7 +31,7 @@
                             <div class="ml-auto d-flex align-items-center">
                                 <div class="mr-2">
                                     <select id="userTypeFilter" class="form-control">
-                                    <option value="" disabled selected>Filter by User Type:</option>
+                                        <option value="" disabled selected>Filter by User Type:</option>
                                         <option value="">All</option>
                                         <option value="Admin">Admin</option>
                                         <option value="TWC">Technical Working Committee</option>
@@ -70,12 +70,14 @@
                                                     <span class="badge badge-danger">Inactive</span>
                                                 <?php endif; ?>
                                             </td>
-                                      
+
                                             <td class="project-actions">
                                                 <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#editModal"
                                                     data-id="<?php echo $user->id; ?>"
                                                     data-id_number="<?php echo $user->id_number; ?>"
                                                     data-name="<?php echo $user->name; ?>"
+                                                    data-birthdate="<?php echo $user->birthdate; ?>"
+                                                    data-gender="<?php echo $user->gender; ?>"
                                                     data-contact="<?php echo $user->contact; ?>"
                                                     data-email="<?php echo $user->email; ?>"
                                                     data-usertype="<?php echo $user->usertype; ?>"
@@ -129,7 +131,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="birthdate">Birthdate</label>
-                            <input type="date" class="form-control" id="birthdate" name="birthdate"  max="<?= date('Y-m-d'); ?>">
+                            <input type="date" class="form-control" id="birthdate" name="birthdate" max="<?= date('Y-m-d'); ?>">
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="gender">Gender</label>
@@ -162,7 +164,7 @@
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>
                             </select>
-                        </div> 
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -170,7 +172,6 @@
                     </div>
                 </div>
         </div>
-
         </form>
     </div>
 </div>
@@ -201,7 +202,7 @@
     <?php endif; ?>
 
     $('#editModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget); 
+        var button = $(event.relatedTarget);
         var user_id = button.data('id');
         var id_number = button.data('id_number');
         var name = button.data('name');
@@ -286,7 +287,7 @@
         if (userType) {
             // Set the select option to the passed user type
             $('#userTypeFilter').val(userType);
-            
+
             // Filter the DataTable based on the selected user type
             var table = $('#example1').DataTable();
             table.column(4).search(userType).draw();

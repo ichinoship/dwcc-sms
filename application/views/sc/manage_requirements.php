@@ -35,11 +35,11 @@
                         <div class="card-body">
                             <!-- Button to Open Modal -->
                             <div class="card-tools mb-3">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRequirementModal"> <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addRequirementModal"> <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                     <span class="ml-2">Add Requirement</span>
                                 </button>
                             </div>
-                            <table id="add_reqs" class="table table-bordered table-hover table-striped">
+                            <table id="SCtable" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>ID</th>

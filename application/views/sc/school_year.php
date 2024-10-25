@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-body">
                 <div class="card-tools mb-3">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#addYearModal">
+                        <button class="btn btn-secondary" data-toggle="modal" data-target="#addYearModal">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i> <span class="ml-2">Add School Year</span>
                         </button>
                     </div>

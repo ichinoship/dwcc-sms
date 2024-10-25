@@ -253,7 +253,7 @@
 
         $(document).ready(function() {
             // Initialize DataTable with pagination
-            var table = $("#add_reqs").DataTable({
+            var table = $("#SCtable").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
@@ -280,7 +280,7 @@
                     });
                 });
             }
-            }).buttons().container().appendTo('#add_reqs_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#SCtable_wrapper .col-md-6:eq(0)');
 
             // Event delegation for edit button
             $(document).on('click', '.editRequirementBtn', function() {

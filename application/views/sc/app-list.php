@@ -55,7 +55,7 @@
                                             <td><?= $applicant->program_type; ?></td>
                                             <td><?= $applicant->scholarship_program; ?></td>
                                             <td><?= $applicant->application_type; ?></td>
-                                            <td><?= $applicant->status; ?></td>
+                                            <td><?= ucwords($applicant->status); ?></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewModal"
                                                     data-id="<?= $applicant->applicant_no; ?>"

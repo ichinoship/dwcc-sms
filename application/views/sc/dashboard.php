@@ -6,136 +6,65 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-        
         <div class="container-fluid">
             <div class="row">
-            <div class="col-12 mt-1">
-                <div class="card bg-dark">
-                    <img src="<?= base_url('assets/images/sc-banner.svg'); ?>" alt="Logo" class="img-fluid">
+                <div class="col-12 mt-1">
+                    <div class="card bg-dark">
+                        <img src="<?= base_url('assets/images/sc-banner.svg'); ?>" alt="Logo" class="img-fluid">
+                    </div>
                 </div>
             </div>
-        </div>
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <!-- Row for the cards -->
+            <!-- Chart and Navigation Section -->
+            <!-- Chart and Navigation Section -->
             <div class="row">
-                <!-- Total Applicants Card -->
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3><?= $total_applicants ?></h3>
-                            <p>Total Applicants</p>
+                <div class="col-md-8 d-flex align-items-stretch">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h3 class="card-title">Application Status</h3>
                         </div>
-                        <div class="icon">
-                            <i class="fas fa-users"></i>
+                        <div class="card-body">
+                            <canvas id="applicantsChart"></canvas>
                         </div>
-                        <a href="<?= base_url('sc/program_app_list') ?>" class="small-box-footer">
-                            View List <i class="fas fa-arrow-circle-right"></i>
-                        </a>
                     </div>
                 </div>
 
-                <!-- Approved Applicants Card -->
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3><?= $approve_applicants ?></h3>
-                            <p>Approved Applicants</p>
+                <!-- Cards Section -->
+                <div class="col-md-4 d-flex flex-column">
+                    <div class="card mb-3" style="height: 150px;">
+                        <div class="card-header bg-success">
+                            <h5 class="card-title">Final List Overview</h5>
                         </div>
-                        <div class="icon">
-                            <i class="fas fa-check-circle"></i>
+                        <div class="card-body">
+                            <p class="card-text">Would you like to view the final list of applicants?</p>
+                            <a href="<?= base_url('sc/final_list'); ?>" class="text-primary">View Final List</a>
                         </div>
-                        <a href="<?= base_url('sc/program_app_list') ?>" class="small-box-footer">
-                            View List <i class="fas fa-arrow-circle-right"></i>
-                        </a>
                     </div>
-                </div>
 
-                <!-- Not Approved Applicants Card -->
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3><?= $not_approve_applicants ?></h3>
-                            <p>Not Approved Applicants</p>
+                    <div class="card mb-3" style="height: 150px;">
+                        <div class="card-header bg-info">
+                            <h5 class="card-title">Evaluate Applicants</h5>
                         </div>
-                        <div class="icon">
-                            <i class="fas fa-times-circle"></i>
+                        <div class="card-body">
+                            <p class="card-text">Are you ready to evaluate the applicants?</p>
+                            <a href="<?= base_url('sc/app_evaluation'); ?>" class="text-primary">Evaluate Applicants</a>
                         </div>
-                        <a href="<?= base_url('sc/program_app_list') ?>" class="small-box-footer">
-                            View List <i class="fas fa-arrow-circle-right"></i>
-                        </a>
                     </div>
-                </div>
 
-                <!-- Conditional Applicants Card -->
-                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3><?= $conditional_applicants ?></h3>
-                            <p>Conditional Applicants</p>
+                    <div class="card mb-3" style="height: 150px;">
+                        <div class="card-header bg-purple">
+                            <h5 class="card-title">Reports Overview</h5>
                         </div>
-                        <div class="icon">
-                            <i class="fas fa-exclamation-circle"></i>
+                        <div class="card-body">
+                            <p class="card-text">Would you like to view the reports?</p>
+                            <a href="<?= base_url('sc/reports'); ?>" class="text-primary">View Reports</a>
                         </div>
-                        <a href="<?= base_url('sc/program_app_list') ?>" class="small-box-footer">
-                            View List <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Pending Applicants Card -->
-                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="small-box bg-secondary">
-                        <div class="inner">
-                            <h3><?= $pending_applicants ?></h3>
-                            <p>Pending Applicants</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-hourglass-half"></i>
-                        </div>
-                        <a href="<?= base_url('sc/program_app_list') ?>" class="small-box-footer">
-                            View List <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
-
-            <!-- Row for School Year and Scholarship Programs -->
-            <div class="row">
-                <!-- School Year Card -->
-                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="small-box bg-primary">
-                        <div class="inner">
-                            <h3><?= $total_school_years ?></h3>
-                            <p>School Year</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <a href="<?= base_url('sc/school_year') ?>" class="small-box-footer">
-                            View List <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Scholarship Programs Card -->
-                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="small-box bg-purple">
-                        <div class="inner">
-                            <h3><?= $total_scholarship_programs ?></h3>
-                            <p>Scholarship Programs</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-university"></i>
-                        </div>
-                        <a href="<?= base_url('sc/scholarship_program') ?>" class="small-box-footer">
-                            View List <i class="fas fa-arrow-circle-right"></i>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -144,29 +73,39 @@
     </div><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
-<?php $this->load->view('includes/footer') ?>
-
-<script src="<?= base_url('assets/plugins/chart.js/Chart.min.js') ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    $(function() {
-        var ctx = document.getElementById('applicantsChart').getContext('2d');
-        var applicantsChart = new Chart(ctx, {
-            type: 'doughnut',
+    document.addEventListener('DOMContentLoaded', function() {
+        // Application Status Area Chart
+        const ctx = document.getElementById('applicantsChart').getContext('2d');
+        const applicantsChart = new Chart(ctx, {
+            type: 'line', // Change to line chart for area effect
             data: {
-                labels: ['Qualified', 'Not Qualified', 'Pending', 'Conditional'],
+                labels: ['Pending', 'Qualified', 'Not Qualified', 'Conditional'],
                 datasets: [{
-                    data: [<?= $approved_applicants ?>, <?= $not_approved_applicants ?>, <?= $pending_applicants ?>, <?= $conditional_applicants ?>],
-                    backgroundColor: ['#28a745', '#dc3545', '#ffc107', '#17a2b8'],
-                    hoverOffset: 4
+                    label: 'Applicants',
+                    data: [<?= $pending_applicants ?>, <?= $approve_applicants ?>, <?= $not_approve_applicants ?>, <?= $conditional_applicants ?>],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Light Blue for area
+                    borderColor: 'rgba(54, 162, 235, 1)', // Blue for line
+                    borderWidth: 2,
+                    fill: true // Fill the area under the line
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    position: 'right',
-                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Applicants Status Distribution'
+                    }
+                }
             }
         });
+
     });
 </script>
+
+<?php $this->load->view('includes/footer') ?>
