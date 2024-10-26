@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2024 at 10:40 AM
+-- Generation Time: Oct 26, 2024 at 11:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -53,10 +53,10 @@ CREATE TABLE `applicants` (
 --
 
 INSERT INTO `applicants` (`account_no`, `id_number`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `password`, `status`, `account_status`) VALUES
-(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya Lopez, Calapan City', 'With Relative', '$2y$10$HRqmcLYuVkMzE08IBmHaQu1woMOXC1yh1JhTJinc89nDGQgZR5dAW', 'accepted', 'active'),
+(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '5th', 'Bachelor of Science in Information Technology', 'Janssen', 'Camilmil, Calapan City', 'With Relative', '$2y$10$HRqmcLYuVkMzE08IBmHaQu1woMOXC1yh1JhTJinc89nDGQgZR5dAW', 'accepted', 'active'),
 (2, 41234, 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-01', 'Female', '09123456788', 'ensrineyna@gmail.com', 'Senior High School', 'Grade 12', 'Science, Technology, Engineering and Mathematics (STEM)', 'Freinademetz', 'Baruyan, Calapan City', 'With Relative', '$2y$10$KnUg.E5vhFGDZVhKURsTqehBPxTX3YMpxYYcKFPILM/DhF9yK6YNy', 'accepted', 'active'),
 (3, 41235, 'Kenn ', 'Jaiven', 'Acedillo', '1998-10-01', 'Male', '09123456781', 'kenn.acedillo@gmail.com', 'Junior High School', 'Grade 7', 'Special Science Class', 'Freinademetz', 'Tibag, Calapan City', 'DWCC Dormitory', '$2y$10$oDiKYmGn9pmWa6.T4EFeAu1dpBK0pQcsUM3cIkpvpTcEdzk9YRTwe', 'accepted', 'active'),
-(4, 41236, 'Nicko', 'Zeus', 'Agarin', '2001-10-07', 'Male', '09123456782', 'nicko.agarin@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Baruyan, Calapan City', 'DWCC Dormitory', '', 'pending', 'active');
+(4, 41236, 'Nicko', 'Zeus', 'Agarin', '2001-10-07', 'Male', '09123456782', 'nicko.agarin@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Baruyan, Calapan City', 'DWCC Dormitory', '$2y$10$PJxiQyg7qroMU.bXX44fbOA5ChZStGYMy3xdIaagazhSz3662FBXO', 'accepted', 'active');
 
 -- --------------------------------------------------------
 
@@ -96,9 +96,10 @@ CREATE TABLE `application_form` (
 --
 
 INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `status`) VALUES
-(1, 1, 47293, 'profile_picture_1728ecf2bd51.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya Lopez, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'My_Family_Tree133.docx', 'No COE', 'qualified'),
-(2, 2, 41234, 'profile_picture_1728ecf2bd52.jpg', 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-01', 'Female', '09123456788', 'ensrineyna@gmail.com', 'Senior High School', 'Grade 12', 'Science, Technology, Engineering and Mathematics (STEM)', 'Freinademetz', 'Baruyan, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholarship (BE)', 'My_Family_Tree134.docx', NULL, 'qualified'),
-(3, 3, 41235, '92037647.png', 'Kenn ', 'Jaiven', 'Acedillo', '1998-10-01', 'Male', '09123456781', 'kenn.acedillo@gmail.com', 'Junior High School', 'Grade 7', 'Special Science Class', 'Freinademetz', 'Tibag, Calapan City', 'DWCC Dormitory', '2024-2025', 'Whole Semester', 'New Applicant', 'Sports Scholarship Program', '92037648.png', NULL, 'qualified');
+(1, 1, 47293, '2x2_girl.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '5th', 'Bachelor of Science in Information Technology', 'Janssen', 'Camilmil, Calapan City', 'DWCC Dormitory', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', 'Requirements not visible.', 'qualified'),
+(2, 2, 41234, '2x2_girl2.jpg', 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-01', 'Female', '09123456788', 'ensrineyna@gmail.com', 'Senior High School', 'Grade 12', 'Science, Technology, Engineering and Mathematics (STEM)', 'Freinademetz', 'Baruyan, Calapan City', 'With Relative', '2024-2025', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'Certificate-of-Enrollment-Calderon.docx', NULL, 'pending'),
+(3, 3, 41235, '2X2_boy1.png', 'Kenn ', 'Jaiven', 'Acedillo', '1998-10-01', 'Male', '09123456781', 'kenn.acedillo@gmail.com', 'Junior High School', 'Grade 7', 'Special Science Class', 'Freinademetz', 'Tibag, Calapan City', 'DWCC Dormitory', '2025-2026', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS1.pdf', NULL, 'pending'),
+(4, 4, 41236, '2X2_boy2.jpg', 'Nicko', 'Zeus', 'Agarin', '2001-10-07', 'Male', '09123456782', 'nicko.agarin@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Baruyan, Calapan City', 'DWCC Dormitory', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'REQUIREMENTS-SMS2.pdf', 'Please re-upload requirements', 'not qualified');
 
 -- --------------------------------------------------------
 
@@ -123,6 +124,13 @@ CREATE TABLE `final_list` (
   `scholarship_program` varchar(100) NOT NULL,
   `discount` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `final_list`
+--
+
+INSERT INTO `final_list` (`final_list_id`, `applicant_no`, `id_number`, `firstname`, `middlename`, `lastname`, `program_type`, `year`, `program`, `campus`, `application_type`, `academic_year`, `semester`, `scholarship_program`, `discount`) VALUES
+(1, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '5th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2024-2025', '1st Semester', 'Academic Scholar (Dean’s Lister)', 100);
 
 -- --------------------------------------------------------
 
@@ -170,8 +178,7 @@ INSERT INTO `requirements` (`id`, `requirement_name`) VALUES
 (28, 'Parental consent addressed to the Scholarship Committee allowing the student to work at DWCC and should be submitted to the Administrative Office'),
 (29, 'Senior High School card with a general average of at least 83% for incoming freshmen, or MAMS grades with an average of at least 83%'),
 (30, 'Letter of Intent addressed to the College President through the DWCC Human Resource Office'),
-(31, 'Submit requirements only in the first semester, except for: down payment receipt, certificate of good moral character, class schedule copy, and MAMS grades printout'),
-(33, 'No Requirements');
+(31, 'Submit requirements only in the first semester, except for: down payment receipt, certificate of good moral character, class schedule copy, and MAMS grades printout');
 
 -- --------------------------------------------------------
 
@@ -187,7 +194,7 @@ CREATE TABLE `scholarship_programs` (
   `semester` enum('1st Semester','2nd Semester','Whole Semester') NOT NULL,
   `description` text DEFAULT NULL,
   `qualifications` text DEFAULT NULL,
-  `requirements` text DEFAULT NULL,
+  `requirements` text NOT NULL,
   `percentage` text NOT NULL,
   `scholarship_type` enum('Non-Merit','Merit') NOT NULL,
   `assigned_to` int(11) DEFAULT NULL,
@@ -218,8 +225,7 @@ INSERT INTO `scholarship_programs` (`program_code`, `scholarship_program`, `camp
 (14, 'Brother/Sister Discount', 'All Campus', '2024-2025', '1st Semester', 'This program reflects the commitment in promoting family values, inclusivity, and the importance of sibling relationships by offering financial incentives to families with more than one child attending our school.', 'Must have one sibling or more than that is concurrently enrolled in our institution.', 'NSO/PSA Birth Certificate;Submissions must be made through the Accounting Office during official enrollment ', '5%', 'Non-Merit', 16, '2024-10-20', '2024-12-31', 'active', '2024-09-12 13:30:27'),
 (15, 'Faculty/Employee Privilege Discount', 'All Campus', '2024-2025', '1st Semester', 'This program extends benefits to the families of our valued staff by offering tuition discounts for their dependents. \r\nThe program allows eligible employees to provide quality education to a maximum of two of their children, creating \r\na supportive and inclusive environment for our school community.', 'Employees must be in active employment with our institution.', 'NSO/PSA Birth Certificate;Certificate of Employment;Submissions must be made through the Accounting Office during official enrollment ', '100%', 'Non-Merit', 17, '2024-10-20', '2024-12-31', 'active', '2024-09-12 13:33:02'),
 (16, 'Faculty/Employees Graduate Studies', 'All Campus', '2024-2025', '1st Semester', 'This program is designed to assist our employees in pursuing graduate studies, enhancing their qualifications, and \r\nexpanding their knowledge and expertise in their respective fields. The importance of investing in our employees\' \r\ncontinued education to strengthen our institution\'s capabilities and promote lifelong learning.', 'Must have at least two (2) years of continuous service and satisfactory job performance based on the Performance Evaluation submitted by the immediate head.; Must have a satisfactory grade from his/her undergraduate (for Master’s degree applicants) and graduate degrees (for Doctorate degree applicants).; Performance rating 75%; Average/Grade 25%', 'Certificate of Employment;Recommendation letter from the immediate head;Letter of Intent addressed to the College President through the DWCC Human Resource Office', 'Permanent - 100% tuition fee for child; Probationary - 75% tuition fee for each child; Full Time - Contractual - 50% tuition fee for each child', 'Non-Merit', 18, '2024-10-20', '2024-12-31', 'active', '2024-09-12 13:37:20'),
-(17, 'NSTP Scholarship Program', 'Janssen', '2024-2025', '1st Semester', 'This program is founded on the belief that community service and civic engagement are essential components of a \r\nholistic education. It provides financial support to students who have demonstrated commitment and excellence in \r\nNSTP-related activities.', 'Should pass the interview and qualify in the background investigation and ocular visit on applicant’s residence.; Should be endorsed by the NSTP Director and Vice President for Academic Affairs.; Must not have failing grades for the semester.; Scholar should enroll a regular unit load specified in the curriculum.; Must be freshmen enrolled in NSTP in this institution.; Must not receive any government scholarship grant.; Must be poor but deserving student with an average grade of EIGHTY percent (80%) in high school.', 'Certificate of Good Moral Character;Copy of Grades from MAMS ', '100%', 'Non-Merit', 16, '2024-10-20', '2024-12-31', 'active', '2024-09-12 13:39:46'),
-(18, 'Test Program', 'Janssen', '2024-2025', '1st Semester', 'n/a', 'n/a', 'Certificate of Enrollment from the Registrar;Certificate of Good Moral Character;Copy of Grades from MAMS ', '100', 'Non-Merit', 3, '2024-10-20', '2024-12-31', 'deactivated', '2024-10-20 14:10:37');
+(17, 'NSTP Scholarship Program', 'Janssen', '2024-2025', '1st Semester', 'This program is founded on the belief that community service and civic engagement are essential components of a \r\nholistic education. It provides financial support to students who have demonstrated commitment and excellence in \r\nNSTP-related activities.', 'Should pass the interview and qualify in the background investigation and ocular visit on applicant’s residence.; Should be endorsed by the NSTP Director and Vice President for Academic Affairs.; Must not have failing grades for the semester.; Scholar should enroll a regular unit load specified in the curriculum.; Must be freshmen enrolled in NSTP in this institution.; Must not receive any government scholarship grant.; Must be poor but deserving student with an average grade of EIGHTY percent (80%) in high school.', 'Certificate of Good Moral Character;Copy of Grades from MAMS ', '100%', 'Non-Merit', 16, '2024-10-20', '2024-12-31', 'active', '2024-09-12 13:39:46');
 
 -- --------------------------------------------------------
 
@@ -237,7 +243,8 @@ CREATE TABLE `school_year` (
 --
 
 INSERT INTO `school_year` (`school_year_id`, `academic_year`) VALUES
-(1, '2024-2025');
+(1, '2024-2025'),
+(2, '2025-2026');
 
 -- --------------------------------------------------------
 
@@ -278,9 +285,8 @@ CREATE TABLE `shortlist` (
 --
 
 INSERT INTO `shortlist` (`shortlist_id`, `applicant_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`) VALUES
-(1, 1, 47293, 'profile_picture_1728ecf2bd51.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya Lopez, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'My_Family_Tree133.docx', '', 100, 'qualified'),
-(2, 2, 41234, 'profile_picture_1728ecf2bd52.jpg', 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-01', 'Female', '09123456788', 'ensrineyna@gmail.com', 'Senior High School', 'Grade 12', 'Science, Technology, Engineering and Mathematics (STEM)', 'Freinademetz', 'Baruyan, Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholarship (BE)', 'My_Family_Tree134.docx', '', 50, 'qualified'),
-(3, 3, 41235, '92037647.png', 'Kenn ', 'Jaiven', 'Acedillo', '1998-10-01', 'Male', '09123456781', 'kenn.acedillo@gmail.com', 'Junior High School', 'Grade 7', 'Special Science Class', 'Freinademetz', 'Tibag, Calapan City', 'DWCC Dormitory', '2024-2025', 'Whole Semester', 'New Applicant', 'Sports Scholarship Program', '92037648.png', '', 60, 'qualified');
+(1, 1, 47293, '2x2_girl.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '5th', 'Bachelor of Science in Information Technology', 'Janssen', 'Camilmil, Calapan City', 'DWCC Dormitory', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', '', 50, 'qualified'),
+(2, 4, 41236, '2X2_boy2.jpg', 'Nicko', 'Zeus', 'Agarin', '2001-10-07', 'Male', '09123456782', 'nicko.agarin@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Baruyan, Calapan City', 'DWCC Dormitory', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'REQUIREMENTS-SMS2.pdf', 'Please re-upload requirements', 0, 'not qualified');
 
 -- --------------------------------------------------------
 
@@ -292,7 +298,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `id_number` varchar(50) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `contact` varchar(15) NOT NULL,
+  `contact` char(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `birthdate` date DEFAULT NULL,
   `gender` enum('male','female','other') NOT NULL,
@@ -307,26 +313,26 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_number`, `name`, `contact`, `email`, `birthdate`, `gender`, `password`, `usertype`, `status`, `created_at`) VALUES
-(1, 'A001', 'Admins', '09123456789', 'djanica21@gmail.com', '1990-01-05', 'male', '66f5b0a363ec5413c51c2785cd61e579', 'Admin', 1, '2024-09-05 09:27:14'),
-(2, 'SC001', 'Scholarship Coodinator', '09123456786', 'ichibparadiang@gmail.com', '1990-02-14', 'female', '1bfe895c6878ef32f981ab8239a54c3d', 'Scholarship Coordinator', 1, '2024-09-05 09:32:04'),
-(3, 'TWC001', 'TWC1', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1996-09-04', 'male', '3c5915ec253b0aa5e4b7328890cf2962', 'TWC', 1, '2024-09-05 09:33:45'),
-(4, 'TWC002', 'TWC2', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1990-09-05', 'female', '293e631f6745d546a9383ae8352c0e51', 'TWC', 1, '2024-09-05 09:34:48'),
-(5, 'TWC003', 'TWC3', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1996-12-11', 'female', '0c86f0ade55e83cffb94dec827f4a626', 'TWC', 1, '2024-09-05 09:49:51'),
-(6, 'TWC004', 'TWC4', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1990-09-02', 'male', 'c8874012555bf45a9e63a3defef61324', 'TWC', 1, '2024-09-05 09:53:15'),
-(7, 'TWC005', 'TWC5', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1990-06-05', 'female', '169fdd6b440050d53075e03f0e4d7a1a', 'TWC', 1, '2024-09-05 09:54:31'),
-(8, 'TWC006', 'TWC6', '09123456789', 'dwcc.twc@dwcc.edu.ph', '2001-07-05', 'male', '283cfc10b34d0289cae3e1a71ad80945', 'TWC', 1, '2024-09-05 09:59:10'),
-(9, 'TWC007', 'TWC7', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1998-11-29', 'female', 'a70f11f76f3cfb81622fe7a29da8b6bc', 'TWC', 1, '2024-09-05 10:00:51'),
-(10, 'TWC008', 'Annie Amuguis', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1990-02-11', 'female', '013fc6eeccba5f4ec6adce2d5715ff63', 'TWC', 1, '2024-09-05 10:09:28'),
-(11, 'TWC009', 'TWC9', '09123456789', 'dwcc.twc@dwcc.edu.ph', '2001-09-03', 'female', 'a13b3087490e52b10bf6b2028123745e', 'TWC', 1, '2024-09-05 10:13:22'),
-(12, 'TWC010', 'TWC10', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1997-02-05', 'female', '01287255c3268be2b66fe7cf9cd9b021', 'TWC', 1, '2024-09-05 10:16:28'),
-(13, 'TWC011', 'TWC11', '09123456789', 'dwcc.twc@dwcc.edu.ph', '2000-08-05', 'male', 'aeeb785b142bb2b74a05540f5c5f8bba', 'TWC', 1, '2024-09-05 10:17:39'),
-(14, 'TWC012', 'TWC12', '09123456789', 'dwcc.twc@dwcc.edu.ph', '2002-04-05', 'female', '589853179cfef0f8659d5e85a5d33c12', 'TWC', 1, '2024-09-05 10:18:28'),
-(15, 'TWC013', 'TWC13', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1990-04-05', 'female', '6459c229c3eedb34962237c532e744bd', 'TWC', 1, '2024-09-05 10:19:42'),
-(16, 'TWC014', 'TWC14', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1990-12-23', 'female', '3771326e5a7bd6005c276978afb3404a', 'TWC', 1, '2024-09-05 10:20:26'),
-(17, 'TWC015', 'TWC15', '09123456789', 'dwcc.twc@dwcc.edu.ph', '2000-03-13', 'male', '2af57afed53a11c80a436b571bc16110', 'TWC', 1, '2024-09-05 10:21:10'),
-(18, 'TWC016', 'TWC16', '09123456789', 'dwcc.twc@dwcc.edu.ph', '2001-08-05', 'male', '506eaacd17c44e384399f85cfc2f4a0f', 'TWC', 1, '2024-09-05 10:21:39'),
-(19, 'TWC017', 'TWC17', '09123456789', 'dwcc.twc@dwcc.edu.ph', '1998-12-22', 'male', '3aa03f8481b3f90747d9e6fe0d5c5274', 'TWC', 1, '2024-09-05 10:22:15'),
-(20, 'TWC018', 'TWC18', '09123456789', 'dwcc.twc@dwcc.edu.ph', '2000-09-01', 'female', 'aa7b2d96d287131c2133b60c728e3174', 'TWC', 1, '2024-09-05 10:22:50');
+(1, 'A001', 'Admin', '09123456780', 'admin@gmail.com', '1990-01-05', 'male', '66f5b0a363ec5413c51c2785cd61e579', 'Admin', 1, '2024-09-05 09:27:14'),
+(2, 'SC001', 'Scholarship Coodinator', '09123456781', 'dwcc-sms@gmail.com', '1990-02-14', 'female', '1bfe895c6878ef32f981ab8239a54c3d', 'Scholarship Coordinator', 1, '2024-09-05 09:32:04'),
+(3, 'TWC001', 'TWC1', '09123456782', 'twc1@gmail.com', '1996-09-04', 'male', '3c5915ec253b0aa5e4b7328890cf2962', 'TWC', 1, '2024-09-05 09:33:45'),
+(4, 'TWC002', 'TWC2', '09123456783', 'twc2@gmail.com', '1990-09-05', 'female', '293e631f6745d546a9383ae8352c0e51', 'TWC', 1, '2024-09-05 09:34:48'),
+(5, 'TWC003', 'TWC3', '09123456784', 'twc3@gmail.com', '1996-12-11', 'female', '0c86f0ade55e83cffb94dec827f4a626', 'TWC', 1, '2024-09-05 09:49:51'),
+(6, 'TWC004', 'TWC4', '09123456785', 'twc4@gmail.com', '1990-09-02', 'male', 'c8874012555bf45a9e63a3defef61324', 'TWC', 1, '2024-09-05 09:53:15'),
+(7, 'TWC005', 'TWC5', '09123456786', 'twc5@gmail.com', '1990-06-05', 'female', '169fdd6b440050d53075e03f0e4d7a1a', 'TWC', 1, '2024-09-05 09:54:31'),
+(8, 'TWC006', 'TWC6', '09123456787', 'twc6@gmail.com', '2001-07-05', 'male', '283cfc10b34d0289cae3e1a71ad80945', 'TWC', 1, '2024-09-05 09:59:10'),
+(9, 'TWC007', 'TWC7', '09123456788', 'twc7@gmail.com', '1998-11-29', 'female', 'a70f11f76f3cfb81622fe7a29da8b6bc', 'TWC', 1, '2024-09-05 10:00:51'),
+(10, 'TWC008', 'TWC8', '09123456789', 'twc8@gmail.com', '1990-02-11', 'female', '013fc6eeccba5f4ec6adce2d5715ff63', 'TWC', 1, '2024-09-05 10:09:28'),
+(11, 'TWC009', 'TWC9', '09123456710', 'twc9@gmail.com', '2001-09-03', 'female', 'a13b3087490e52b10bf6b2028123745e', 'TWC', 1, '2024-09-05 10:13:22'),
+(12, 'TWC010', 'TWC10', '09123456711', 'twc10@gmail.com', '1997-02-05', 'female', '01287255c3268be2b66fe7cf9cd9b021', 'TWC', 1, '2024-09-05 10:16:28'),
+(13, 'TWC011', 'TWC11', '09123456712', 'twc11@gmail.com', '2000-08-05', 'male', 'aeeb785b142bb2b74a05540f5c5f8bba', 'TWC', 1, '2024-09-05 10:17:39'),
+(14, 'TWC012', 'TWC12', '09123456713', 'twc12@gmail.com', '2002-04-05', 'female', '589853179cfef0f8659d5e85a5d33c12', 'TWC', 1, '2024-09-05 10:18:28'),
+(15, 'TWC013', 'TWC13', '09123456714', 'twc13@gmail.com', '1990-04-05', 'female', '6459c229c3eedb34962237c532e744bd', 'TWC', 1, '2024-09-05 10:19:42'),
+(16, 'TWC014', 'TWC14', '09123456715', 'twc14@gmail.com', '1990-12-23', 'female', '3771326e5a7bd6005c276978afb3404a', 'TWC', 1, '2024-09-05 10:20:26'),
+(17, 'TWC015', 'TWC15', '09123456716', 'twc15@gmail.com', '2000-03-13', 'male', '2af57afed53a11c80a436b571bc16110', 'TWC', 1, '2024-09-05 10:21:10'),
+(18, 'TWC016', 'TWC16', '09123456717', 'twc16@gmail.com', '2001-08-05', 'male', '506eaacd17c44e384399f85cfc2f4a0f', 'TWC', 1, '2024-09-05 10:21:39'),
+(19, 'TWC017', 'TWC17', '09123456718', 'twc17@gmail.com', '1998-12-22', 'male', '3aa03f8481b3f90747d9e6fe0d5c5274', 'TWC', 1, '2024-09-05 10:22:15'),
+(20, 'TWC018', 'TWC18', '09123456719', 'twc18@gmail.com', '2000-09-01', 'female', 'aa7b2d96d287131c2133b60c728e3174', 'TWC', 1, '2024-09-05 10:22:50');
 
 --
 -- Indexes for dumped tables
@@ -344,7 +350,8 @@ ALTER TABLE `applicants`
 ALTER TABLE `application_form`
   ADD PRIMARY KEY (`applicant_no`),
   ADD KEY `account_no` (`account_no`),
-  ADD KEY `fk_scholarship_program` (`scholarship_program`);
+  ADD KEY `fk_scholarship_program` (`scholarship_program`),
+  ADD KEY `fk_academic_year` (`academic_year`);
 
 --
 -- Indexes for table `final_list`
@@ -363,13 +370,15 @@ ALTER TABLE `requirements`
 --
 ALTER TABLE `scholarship_programs`
   ADD PRIMARY KEY (`program_code`),
-  ADD UNIQUE KEY `program_unique` (`scholarship_program`,`campus`,`academic_year`,`semester`);
+  ADD UNIQUE KEY `program_unique` (`scholarship_program`,`campus`,`academic_year`,`semester`),
+  ADD KEY `fk_assigned_to_user` (`assigned_to`);
 
 --
 -- Indexes for table `school_year`
 --
 ALTER TABLE `school_year`
-  ADD PRIMARY KEY (`school_year_id`);
+  ADD PRIMARY KEY (`school_year_id`),
+  ADD UNIQUE KEY `academic_year` (`academic_year`);
 
 --
 -- Indexes for table `shortlist`
@@ -383,7 +392,10 @@ ALTER TABLE `shortlist`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_number` (`id_number`),
+  ADD UNIQUE KEY `contact` (`contact`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -399,43 +411,43 @@ ALTER TABLE `applicants`
 -- AUTO_INCREMENT for table `application_form`
 --
 ALTER TABLE `application_form`
-  MODIFY `applicant_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `applicant_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `final_list`
 --
 ALTER TABLE `final_list`
-  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `requirements`
 --
 ALTER TABLE `requirements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `scholarship_programs`
 --
 ALTER TABLE `scholarship_programs`
-  MODIFY `program_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `program_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `school_year`
 --
 ALTER TABLE `school_year`
-  MODIFY `school_year_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `school_year_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shortlist`
 --
 ALTER TABLE `shortlist`
-  MODIFY `shortlist_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `shortlist_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -446,7 +458,14 @@ ALTER TABLE `users`
 --
 ALTER TABLE `application_form`
   ADD CONSTRAINT `application_form_ibfk_1` FOREIGN KEY (`account_no`) REFERENCES `applicants` (`account_no`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_academic_year` FOREIGN KEY (`academic_year`) REFERENCES `school_year` (`academic_year`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_scholarship_program` FOREIGN KEY (`scholarship_program`) REFERENCES `scholarship_programs` (`scholarship_program`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `scholarship_programs`
+--
+ALTER TABLE `scholarship_programs`
+  ADD CONSTRAINT `fk_assigned_to_user` FOREIGN KEY (`assigned_to`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `shortlist`
