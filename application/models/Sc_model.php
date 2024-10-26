@@ -450,6 +450,23 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
+    public function get_filter_short_list($academic_year = null, $semester = null)
+    {
+        $this->db->select('*');
+        $this->db->from('shortlist');
+
+        // Apply filters if provided
+        if ($academic_year) {
+            $this->db->where('academic_year', $academic_year);
+        }
+        if ($semester) {
+            $this->db->where('semester', $semester);
+        }
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     // Function to get filtered applicants
     public function get_filter_final_list($academic_year = null, $semester = null, $scholarship_program = null)
     {

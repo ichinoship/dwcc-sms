@@ -28,14 +28,14 @@
                 <div class="card-body">
                     <div class="card-tools mb-3">
                         <div class="row col-12">
-                            <div class="col-md-3 mb-2">
+                            <div class="form-group col-md-3">
                                 <select id="campusFilter" class="form-control">
                                     <option value="All" selected>All Campuses</option>
                                     <option value="Janssen">Janssen</option>
                                     <option value="Freinademetz">Freinademetz</option>
                                 </select>
                             </div>
-                            <div class="col-md-3 mb-2">
+                            <div class="form-group col-md-3">
                                 <select id="semesterFilter" class="form-control">
                                     <option value="All" selected>All Semesters</option>
                                     <option value="1st Semester">1st Semester</option>
@@ -43,7 +43,7 @@
                                     <option value="Whole Semester">Whole Semester</option>
                                 </select>
                             </div>
-                            <div class="col-md-3 mb-2">
+                            <div class="form-group col-md-3">
                                 <select id="scholarshipProgramFilter" class="form-control">
                                     <option value="All" selected>All Scholarship Programs</option>
                                     <?php foreach ($programs as $program): ?>
@@ -51,7 +51,7 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="col-md-3 mb-2 d-flex align-items-end">
+                            <div class="form-group col-md-2">
                                 <button id="resetFilters" class="btn btn-secondary col-md-12">Reset Filters</button>
                             </div>
                         </div>

@@ -39,11 +39,11 @@
                 <div class="col-md-4 d-flex flex-column">
                     <div class="card mb-3" style="height: 150px;">
                         <div class="card-header bg-success">
-                            <h5 class="card-title">Final List Overview</h5>
+                            <h5 class="card-title">Applicant List Overview</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">Would you like to view the final list of applicants?</p>
-                            <a href="<?= base_url('sc/final_list'); ?>" class="text-primary">View Final List</a>
+                            <p class="card-text">Would you like to view the list of applicants?</p>
+                            <a href="<?= base_url('sc/program_app_list'); ?>" class="text-primary">View Applicant List</a>
                         </div>
                     </div>
 
@@ -79,16 +79,16 @@
         // Application Status Area Chart
         const ctx = document.getElementById('applicantsChart').getContext('2d');
         const applicantsChart = new Chart(ctx, {
-            type: 'line', // Change to line chart for area effect
+            type: 'line', 
             data: {
                 labels: ['Pending', 'Qualified', 'Not Qualified', 'Conditional'],
                 datasets: [{
                     label: 'Applicants',
                     data: [<?= $pending_applicants ?>, <?= $approve_applicants ?>, <?= $not_approve_applicants ?>, <?= $conditional_applicants ?>],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Light Blue for area
-                    borderColor: 'rgba(54, 162, 235, 1)', // Blue for line
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', 
+                    borderColor: 'rgba(54, 162, 235, 1)', 
                     borderWidth: 2,
-                    fill: true // Fill the area under the line
+                    fill: true 
                 }]
             },
             options: {

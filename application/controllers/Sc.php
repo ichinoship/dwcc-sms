@@ -287,14 +287,19 @@ class Sc extends CI_Controller
 
     public function app_evaluation()
     {
-        // Fetch the scholarship programs for the filter
+    
         $this->load->model('Sc_model');
-        $data['scholarship_programs'] = $this->Sc_model->get_shortlist_scholarship_program();
-
-        // Get the selected scholarship program from the request
+        
         $scholarship_program = $this->input->get('scholarship_program');
+        $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
 
-        // Get the shortlisted applicants, filtered by scholarship program if set
+        $academic_year = $this->input->get('academic_year');
+        $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
+        
+        $semester = $this->input->get('semester');
+        
+        $data['applicants'] = $this->Sc_model->get_filter_short_list($academic_year, $semester);
+
         $shortlist = $this->Sc_model->get_shortlist($scholarship_program);
         $data['shortlist'] = $shortlist;
 
@@ -515,3 +520,4 @@ class Sc extends CI_Controller
         $this->load->view('sc/final_list', $data);
     }
 }
+

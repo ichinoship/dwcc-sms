@@ -24,26 +24,52 @@
                 <h3 class="card-title">List of Shortlisted Applicants</h3>
             </div>
             <div class="card-body">
-                <form id="filterForm" method="GET" action="<?= site_url('sc/app_evaluation'); ?>" class="col-md-4">
-                    <div class="form-group">
-                        <select name="scholarship_program" id="scholarship_program" class="form-control" onchange="this.form.submit()">
-                            <option value="" disabled selected>Filter by Scholarship Program</option>
-                            <option value="">All Programs</option>
-                            <?php foreach ($scholarship_programs as $program): ?>
-                                <option value="<?= $program->scholarship_program; ?>" <?= (isset($_GET['scholarship_program']) && $_GET['scholarship_program'] == $program->scholarship_program) ? 'selected' : ''; ?>>
-                                    <?= htmlspecialchars($program->scholarship_program); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </form>
+                <div class="card-tools mb-3">
+                    <form id="filterForm" class="d-flex">
+                        <div class="row align-items-end">
+                            <div class="form-group col-md-3">
+                                <select name="academic_year" id="academic_year" class="form-control">
+                                    <option value="">Select Academic Year</option>
+                                    <?php foreach ($academic_years as $year): ?>
+                                        <option value="<?= htmlspecialchars($year->academic_year); ?>" <?= set_value('academic_year') == $year->academic_year ? 'selected' : ''; ?>>
+                                            <?= htmlspecialchars($year->academic_year); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select name="semester" id="semester" class="form-control">
+                                    <option value="">Select Semester</option>
+                                    <option value="1st Semester" <?= ($this->input->post('semester') == '1st Semester') ? 'selected' : ''; ?>>1st Semester</option>
+                                    <option value="2nd Semester" <?= ($this->input->post('semester') == '2nd Semester') ? 'selected' : ''; ?>>2nd Semester</option>
+                                    <option value="Whole Semester" <?= ($this->input->post('semester') == 'Whole Semester') ? 'selected' : ''; ?>>Whole Semester</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select name="scholarship_program" id="scholarship_program" class="form-control">
+                                    <option value="">Select Scholarship Program</option>
+                                    <?php foreach ($scholarship_programs as $program): ?>
+                                        <option value="<?= htmlspecialchars($program->scholarship_program); ?>" <?= set_value('scholarship_program') == $program->scholarship_program ? 'selected' : ''; ?>>
+                                            <?= htmlspecialchars($program->scholarship_program); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <button type="button" class="btn btn-secondary btn-block" id="resetFilters">Reset Filters</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <form id="finalListForm" method="POST" action="<?= site_url('sc/submit_final_list'); ?>">
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-hover table-striped">
+                        <table id="apptable" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Id Number</th>
                                     <th>Full Name</th>
+                                    <th>Academic Year</th>
+                                    <th>Semester</th>
                                     <th>Scholarship Program</th>
                                     <th>Application Type</th>
                                     <th>Status</th>
@@ -56,6 +82,8 @@
                                         <tr>
                                             <td><?= $entry->id_number; ?></td>
                                             <td><?= htmlspecialchars($entry->firstname . ' ' . (!empty($entry->middlename) ? $entry->middlename . ' ' : '') . $entry->lastname); ?></td>
+                                            <td><?= $entry->academic_year; ?></td>
+                                            <td><?= $entry->semester; ?></td>
                                             <td><?= $entry->scholarship_program; ?></td>
                                             <td><?= $entry->application_type; ?></td>
                                             <td><?= ucwords($entry->status); ?></td>
@@ -128,66 +156,94 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    $('#evaluateModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var id = button.data('id');
-        var name = button.data('name');
-        var status = button.data('status');
-        var discount = button.data('discount');
+    $(document).ready(function() {
+        var table = $('#apptable').DataTable({
 
-        // Update the modal's content
-        var modal = $(this);
-        modal.find('#shortlist_id').val(id);
-        modal.find('#applicant_name').val(name);
-        modal.find('#status').val(status);
-        modal.find('#discount').val(discount);
-    });
+        });
 
-    $('#submitToFinalList').on('click', function() {
-        var shortlistId = $('#shortlist_id').val();
-        var name = $('#applicant_name').val();
-        var discount = $('#discount').val();
-        var status = $('#status').val();
+        $('select[name="academic_year"], select[name="semester"], select[name="scholarship_program"]').on('change', function() {
+            var academic_year = $('select[name="academic_year"]').val();
+            var semester = $('select[name="semester"]').val();
+            var scholarship_program = $('select[name="scholarship_program"]').val();
 
-        if (status.toLowerCase() !== 'qualified') {
-            Swal.fire('Error', 'Only qualified applicants can be submitted to the final list.', 'error');
-            return;
-        }
-        Swal.fire({
-            title: 'Are you sure?',
-            text: `You are about to submit ${name} to the final list.`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, submit!',
-            cancelButtonText: 'No, cancel!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                var data = {
-                    shortlist_id: shortlistId,
-                    applicant_name: name,
-                    discount: discount,
-                };
-                $(this).prop('disabled', true).text('Submitting...');
+            table.columns(2).search(academic_year)
+                .columns(3).search(semester)
+                .columns(4).search(scholarship_program)
+                .draw();
+        });
 
-                $.ajax({
-                    url: "<?= site_url('sc/submit_to_final_list'); ?>",
-                    type: "POST",
-                    data: data,
-                    success: function(response) {
-                        Swal.fire('Success', 'Applicant submitted to final list!', 'success').then(() => {
-                            location.reload();
-                        });
-                        $('#evaluateModal').modal('hide');
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire('Error', 'There was an error submitting the applicant.', 'error');
-                    },
-                    complete: function() {
-                        // Re-enable the button and reset text
-                        $('#submitToFinalList').prop('disabled', false).text('Submit to Final List');
-                    }
-                });
+        // Reset filters
+        $('#resetFilters').on('click', function() {
+            $('select[name="academic_year"]').val('');
+            $('select[name="semester"]').val('');
+            $('select[name="scholarship_program"]').val('');
+            table.columns().search('').draw();
+        });
+
+        // Modal functionality for evaluating applicants
+        $('#evaluateModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var name = button.data('name');
+            var status = button.data('status');
+            var discount = button.data('discount');
+
+            // Update the modal's content
+            var modal = $(this);
+            modal.find('#shortlist_id').val(id);
+            modal.find('#applicant_name').val(name);
+            modal.find('#status').val(status);
+            modal.find('#discount').val(discount);
+        });
+
+        // Submit to Final List
+        $('#submitToFinalList').on('click', function() {
+            var shortlistId = $('#shortlist_id').val();
+            var name = $('#applicant_name').val();
+            var discount = $('#discount').val();
+            var status = $('#status').val();
+
+            if (status.toLowerCase() !== 'qualified') {
+                Swal.fire('Error', 'Only qualified applicants can be submitted to the final list.', 'error');
+                return;
             }
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `You are about to submit ${name} to the final list.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, submit!',
+                cancelButtonText: 'No, cancel!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var data = {
+                        shortlist_id: shortlistId,
+                        applicant_name: name,
+                        discount: discount,
+                    };
+                    $(this).prop('disabled', true).text('Submitting...');
+
+                    $.ajax({
+                        url: "<?= site_url('sc/submit_to_final_list'); ?>",
+                        type: "POST",
+                        data: data,
+                        success: function(response) {
+                            Swal.fire('Success', 'Applicant submitted to final list!', 'success').then(() => {
+                                location.reload();
+                            });
+                            $('#evaluateModal').modal('hide');
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire('Error', 'There was an error submitting the applicant.', 'error');
+                        },
+                        complete: function() {
+                            // Re-enable the button and reset text
+                            $('#submitToFinalList').prop('disabled', false).text('Submit to Final List');
+                        }
+                    });
+                }
+            });
         });
     });
 </script>
