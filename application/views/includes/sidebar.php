@@ -55,8 +55,8 @@
                         </a>
                     </li>
 
-                    <li class="nav-item <?= ($this->uri->segment(1) == 'admin' && ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'add')) ? 'menu-open' : ''; ?>">
-                        <a href="<?= base_url('admin/manage'); ?>" class="nav-link <?= $this->uri->segment(1) == 'admin' && ($this->uri->segment(2) == 'manage' || $this->uri->segment(2) == 'add') ? 'active' : ''; ?>">
+                    <li class="nav-item <?= ($this->uri->segment(1) == 'admin' && ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'add' || $this->uri->segment(2) == 'insert')) ? 'menu-open' : ''; ?>">
+                        <a href="<?= base_url('admin/manage'); ?>" class="nav-link <?= $this->uri->segment(1) == 'admin' && ($this->uri->segment(2) == 'manage' || $this->uri->segment(2) == 'add' || $this->uri->segment(2) == 'insert') ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Manage Users</p>
                         </a>

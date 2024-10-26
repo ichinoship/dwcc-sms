@@ -85,13 +85,16 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('name', 'Name', 'required');
         $this->form_validation->set_rules('birthdate', 'Birthdate', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required|in_list[male,female,other]');
-        $this->form_validation->set_rules('contact_number', 'Contact Number', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('contact_number', 'Contact Number', 'required|is_unique[users.contact]|regex_match[/^\d{11}$/]', [
+            'regex_match' => 'Contact number must be 11 digits.'
+        ]);
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('user_type', 'User Type', 'required');
-        $this->form_validation->set_rules('status', 'Status', 'required');
 
         if ($this->form_validation->run() === FALSE) {
+            $errors = validation_errors();
+            $this->session->set_flashdata('error', $errors);
             $this->load->view('admin/add_user');
         } else {
             $data = array(
@@ -102,8 +105,7 @@ class Admin extends CI_Controller
                 'contact' => $this->input->post('contact_number'),
                 'email' => $this->input->post('email'),
                 'password' => md5($this->input->post('password')),
-                'usertype' => $this->input->post('user_type'),
-                'status' => $this->input->post('status')
+                'usertype' => $this->input->post('user_type')
             );
 
             $this->Admin_model->insert_user($data);
@@ -111,8 +113,6 @@ class Admin extends CI_Controller
             redirect('admin/manage');
         }
     }
-
-
 
     public function update()
     {

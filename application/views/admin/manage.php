@@ -28,21 +28,26 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h3 class="card-title">User Lists</h3>
-                            <div class="ml-auto d-flex align-items-center">
-                                <div class="mr-2">
-                                    <select id="userTypeFilter" class="form-control">
-                                        <option value="" disabled selected>Filter by User Type:</option>
-                                        <option value="">All</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="TWC">Technical Working Committee</option>
-                                        <option value="Scholarship Coordinator">Scholarship Coordinator</option>
-                                    </select>
-                                </div>
-                                <a href="<?php echo site_url('admin/add'); ?>" class="btn btn-primary">Add User</a>
-                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <div class="card-tools mb-3">
+                                <div class="row align-items-end">
+                                    <div class="form-group col-md-3">
+                                        <select id="userTypeFilter" class="form-control">
+                                            <option value="" disabled selected>Filter by User Type:</option>
+                                            <option value="">All</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="TWC">Technical Working Committee</option>
+                                            <option value="Scholarship Coordinator">Scholarship Coordinator</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <button type="button" class="btn btn-secondary" onclick="window.location.href='<?php echo site_url('admin/add'); ?>'"> 
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i> <span class="ml-2">Add User</span></button>
+                                    </div>
+                                </div>
+                            </div>
                             <table id="example1" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>

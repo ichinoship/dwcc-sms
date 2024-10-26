@@ -74,10 +74,6 @@
                     text: "Copy",
                 },
                 {
-                    extend: "csv",
-                    text: "CSV",
-                },
-                {
                     extend: "excel",
                     text: "Excel",
                 },
@@ -93,18 +89,6 @@
                             margin: [0, 0, 0, 10]
                         });
                         doc.defaultStyle.fontSize = 12;
-                    }
-                },
-                {
-                    extend: "print",
-                    text: "Print",
-                    title: '',
-                    message: '<div style="text-align: center;">' +
-                        '<img src="<?= base_url('assets/images/logo-preloader.png'); ?>" alt="Logo" style="max-width: 200px; margin-bottom:10px;"><br>' +
-                        '</div>',
-                    customize: function(win) {
-                        $(win.document.body)
-                            .css('font-size', '15pt')
                     }
                 },
                 {
@@ -136,10 +120,6 @@
                     text: "Copy",
                 },
                 {
-                    extend: "csv",
-                    text: "CSV",
-                },
-                {
                     extend: "excel",
                     text: "Excel",
                 },
@@ -155,18 +135,6 @@
                             margin: [0, 0, 0, 10]
                         });
                         doc.defaultStyle.fontSize = 12;
-                    }
-                },
-                {
-                    extend: "print",
-                    text: "Print",
-                    title: '',
-                    message: '<div style="text-align: center;">' +
-                        '<img src="<?= base_url('assets/images/logo-preloader.png'); ?>" alt="Logo" style="max-width: 200px; margin-bottom:10px;"><br>' +
-                        '</div>',
-                    customize: function(win) {
-                        $(win.document.body)
-                            .css('font-size', '15pt')
                     }
                 },
                 {
@@ -198,10 +166,6 @@
                     text: "Copy",
                 },
                 {
-                    extend: "csv",
-                    text: "CSV",
-                },
-                {
                     extend: "excel",
                     text: "Excel",
                 },
@@ -217,18 +181,6 @@
                             margin: [0, 0, 0, 10]
                         });
                         doc.defaultStyle.fontSize = 12;
-                    }
-                },
-                {
-                    extend: "print",
-                    text: "Print",
-                    title: '',
-                    message: '<div style="text-align: center;">' +
-                        '<img src="<?= base_url('assets/images/logo-preloader.png'); ?>" alt="Logo" style="max-width: 200px; margin-bottom:10px;"><br>' +
-                        '</div>',
-                    customize: function(win) {
-                        $(win.document.body)
-                            .css('font-size', '15pt')
                     }
                 },
                 {
