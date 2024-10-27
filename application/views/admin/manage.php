@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <button type="button" class="btn btn-secondary" onclick="window.location.href='<?php echo site_url('admin/add'); ?>'"> 
-                                        <i class="fa fa-user-plus" aria-hidden="true"></i> <span class="ml-2">Add User</span></button>
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> <span class="ml-2">Add User</span></button>
                                     </div>
                                 </div>
                             </div>

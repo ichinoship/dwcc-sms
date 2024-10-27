@@ -242,12 +242,14 @@ class Applicant_model extends CI_Model
     public function get_merit_programs()
     {
         $this->db->where('scholarship_type', 'Merit');
+        $this->db->where('program_status', 'active'); 
         return $this->db->get('scholarship_programs')->result();
     }
 
     public function get_non_merit_programs()
     {
         $this->db->where('scholarship_type', 'Non-Merit');
+        $this->db->where('program_status', 'active');
         return $this->db->get('scholarship_programs')->result();
     }
     public function get_program_by_code($program_code)
