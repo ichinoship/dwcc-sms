@@ -261,6 +261,8 @@ class Twc extends CI_Controller
                     $this->session->set_flashdata('error', 'Profile update failed.');
                 }
             }
+             // Update the session with the new name
+            $this->session->set_userdata('user_name', $data['name']);
             redirect('twc/update_info');
         }
     }
