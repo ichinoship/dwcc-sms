@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2024 at 11:12 AM
+-- Generation Time: Oct 28, 2024 at 06:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -53,10 +53,9 @@ CREATE TABLE `applicants` (
 --
 
 INSERT INTO `applicants` (`account_no`, `id_number`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `password`, `status`, `account_status`) VALUES
-(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '5th', 'Bachelor of Science in Information Technology', 'Janssen', 'Camilmil, Calapan City', 'With Relative', '$2y$10$HRqmcLYuVkMzE08IBmHaQu1woMOXC1yh1JhTJinc89nDGQgZR5dAW', 'accepted', 'active'),
-(2, 41234, 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-01', 'Female', '09123456788', 'ensrineyna@gmail.com', 'Senior High School', 'Grade 12', 'Science, Technology, Engineering and Mathematics (STEM)', 'Freinademetz', 'Baruyan, Calapan City', 'With Relative', '$2y$10$KnUg.E5vhFGDZVhKURsTqehBPxTX3YMpxYYcKFPILM/DhF9yK6YNy', 'accepted', 'active'),
-(3, 41235, 'Kenn ', 'Jaiven', 'Acedillo', '1998-10-01', 'Male', '09123456781', 'kenn.acedillo@gmail.com', 'Junior High School', 'Grade 7', 'Special Science Class', 'Freinademetz', 'Tibag, Calapan City', 'DWCC Dormitory', '$2y$10$oDiKYmGn9pmWa6.T4EFeAu1dpBK0pQcsUM3cIkpvpTcEdzk9YRTwe', 'accepted', 'active'),
-(4, 41236, 'Nicko', 'Zeus', 'Agarin', '2001-10-07', 'Male', '09123456782', 'nicko.agarin@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Baruyan, Calapan City', 'DWCC Dormitory', '$2y$10$PJxiQyg7qroMU.bXX44fbOA5ChZStGYMy3xdIaagazhSz3662FBXO', 'accepted', 'active');
+(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '$2y$10$UClhW/aH7suBl6Av7dk19u.7ZMmpNpfHXi//v3pW/0pi0qfsc91wq', 'accepted', 'active'),
+(2, 41231, 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-08', 'Female', '09123456781', 'enshrineyna@gmail.com', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'Lalud, Calapan City', 'With Relative', '$2y$10$uWXt9OhcXVpq8OXyvhI39uMEOdhlnvm8de2h9ZNPbRTRKe7eQI6NC', 'accepted', 'active'),
+(3, 47123, 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '$2y$10$T19zsC6hA00pZnP8zEweDu6ztesxmQwoBEPPuA/HlnQaEUPJ6iwiW', 'accepted', 'active');
 
 -- --------------------------------------------------------
 
@@ -96,10 +95,9 @@ CREATE TABLE `application_form` (
 --
 
 INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `status`) VALUES
-(1, 1, 47293, '2x2_girl.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '5th', 'Bachelor of Science in Information Technology', 'Janssen', 'Camilmil, Calapan City', 'DWCC Dormitory', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', 'Requirements not visible.', 'qualified'),
-(2, 2, 41234, '2x2_girl2.jpg', 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-01', 'Female', '09123456788', 'ensrineyna@gmail.com', 'Senior High School', 'Grade 12', 'Science, Technology, Engineering and Mathematics (STEM)', 'Freinademetz', 'Baruyan, Calapan City', 'With Relative', '2024-2025', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'Certificate-of-Enrollment-Calderon.docx', NULL, 'pending'),
-(3, 3, 41235, '2X2_boy1.png', 'Kenn ', 'Jaiven', 'Acedillo', '1998-10-01', 'Male', '09123456781', 'kenn.acedillo@gmail.com', 'Junior High School', 'Grade 7', 'Special Science Class', 'Freinademetz', 'Tibag, Calapan City', 'DWCC Dormitory', '2025-2026', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS1.pdf', NULL, 'pending'),
-(4, 4, 41236, '2X2_boy2.jpg', 'Nicko', 'Zeus', 'Agarin', '2001-10-07', 'Male', '09123456782', 'nicko.agarin@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Baruyan, Calapan City', 'DWCC Dormitory', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'REQUIREMENTS-SMS2.pdf', 'Please re-upload requirements', 'not qualified');
+(1, 1, 47293, '2x2_girl7.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS3.pdf', NULL, 'pending'),
+(2, 3, 47123, '2X2_boy6.png', 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '2024-2025', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS10.pdf', NULL, 'pending'),
+(3, 3, 47123, '2X2_boy7.png', 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '2024-2025', 'Whole Semester', 'New Applicant', 'Special College Scholarship Program  for  The Children of DWCC Security Force', 'REQUIREMENTS-SMS11.pdf', NULL, 'pending');
 
 -- --------------------------------------------------------
 
@@ -243,8 +241,29 @@ CREATE TABLE `school_year` (
 --
 
 INSERT INTO `school_year` (`school_year_id`, `academic_year`) VALUES
-(1, '2024-2025'),
-(2, '2025-2026');
+(1, '2024-2025');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `semester`
+--
+
+CREATE TABLE `semester` (
+  `semester_id` int(5) NOT NULL,
+  `semester` enum('1st Semester','2nd Semester','Whole Semester') NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `semester`
+--
+
+INSERT INTO `semester` (`semester_id`, `semester`, `start_date`, `end_date`) VALUES
+(1, '1st Semester', '2024-10-28', '2024-12-28'),
+(2, '2nd Semester', '2025-01-29', '2025-08-28'),
+(3, 'Whole Semester', '2024-10-28', '2024-12-28');
 
 -- --------------------------------------------------------
 
@@ -279,14 +298,6 @@ CREATE TABLE `shortlist` (
   `discount` int(3) NOT NULL,
   `status` enum('qualified','not qualified') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `shortlist`
---
-
-INSERT INTO `shortlist` (`shortlist_id`, `applicant_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`) VALUES
-(1, 1, 47293, '2x2_girl.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456787', 'ichinoship@gmail.com', 'College', '5th', 'Bachelor of Science in Information Technology', 'Janssen', 'Camilmil, Calapan City', 'DWCC Dormitory', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', '', 50, 'qualified'),
-(2, 4, 41236, '2X2_boy2.jpg', 'Nicko', 'Zeus', 'Agarin', '2001-10-07', 'Male', '09123456782', 'nicko.agarin@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Baruyan, Calapan City', 'DWCC Dormitory', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'REQUIREMENTS-SMS2.pdf', 'Please re-upload requirements', 0, 'not qualified');
 
 -- --------------------------------------------------------
 
@@ -351,7 +362,8 @@ ALTER TABLE `application_form`
   ADD PRIMARY KEY (`applicant_no`),
   ADD KEY `account_no` (`account_no`),
   ADD KEY `fk_scholarship_program` (`scholarship_program`),
-  ADD KEY `fk_academic_year` (`academic_year`);
+  ADD KEY `fk_academic_year` (`academic_year`),
+  ADD KEY `fk_application_form_semester` (`semester`);
 
 --
 -- Indexes for table `final_list`
@@ -370,7 +382,7 @@ ALTER TABLE `requirements`
 --
 ALTER TABLE `scholarship_programs`
   ADD PRIMARY KEY (`program_code`),
-  ADD UNIQUE KEY `program_unique` (`scholarship_program`,`campus`,`academic_year`,`semester`),
+  ADD UNIQUE KEY `program_unique` (`scholarship_program`,`campus`,`semester`) USING BTREE,
   ADD KEY `fk_assigned_to_user` (`assigned_to`);
 
 --
@@ -379,6 +391,13 @@ ALTER TABLE `scholarship_programs`
 ALTER TABLE `school_year`
   ADD PRIMARY KEY (`school_year_id`),
   ADD UNIQUE KEY `academic_year` (`academic_year`);
+
+--
+-- Indexes for table `semester`
+--
+ALTER TABLE `semester`
+  ADD PRIMARY KEY (`semester_id`),
+  ADD UNIQUE KEY `semester` (`semester`);
 
 --
 -- Indexes for table `shortlist`
@@ -405,7 +424,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `application_form`
@@ -435,7 +454,13 @@ ALTER TABLE `scholarship_programs`
 -- AUTO_INCREMENT for table `school_year`
 --
 ALTER TABLE `school_year`
-  MODIFY `school_year_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `school_year_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `semester`
+--
+ALTER TABLE `semester`
+  MODIFY `semester_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `shortlist`
@@ -459,6 +484,7 @@ ALTER TABLE `users`
 ALTER TABLE `application_form`
   ADD CONSTRAINT `application_form_ibfk_1` FOREIGN KEY (`account_no`) REFERENCES `applicants` (`account_no`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_academic_year` FOREIGN KEY (`academic_year`) REFERENCES `school_year` (`academic_year`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_application_form_semester` FOREIGN KEY (`semester`) REFERENCES `semester` (`semester`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_scholarship_program` FOREIGN KEY (`scholarship_program`) REFERENCES `scholarship_programs` (`scholarship_program`) ON DELETE CASCADE;
 
 --
