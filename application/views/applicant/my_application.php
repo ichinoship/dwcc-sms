@@ -154,3 +154,18 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if ($this->session->flashdata('success')): ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '<?= $this->session->flashdata('success'); ?>',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true
+            });
+        <?php endif; ?>
+    });
+</script>

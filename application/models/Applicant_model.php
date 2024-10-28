@@ -422,13 +422,11 @@ class Applicant_model extends CI_Model
 
     public function get_uploaded_requirements($applicant_no)
     {
-        // Query to fetch uploaded requirements
         $this->db->select('requirements');
-        $this->db->from('application_form'); // Change to your actual table name
+        $this->db->from('application_form');
         $this->db->where('applicant_no', $applicant_no);
         $query = $this->db->get();
-
-        return $query->result_array(); // Assuming the file names are stored in this format
+        return $query->result_array();
     }
 
     public function count_qualified_applicants()
@@ -439,5 +437,18 @@ class Applicant_model extends CI_Model
     public function count_not_qualified_applicants()
     {
         return $this->db->where('status', 'not qualified')->count_all_results('shortlist');
+    }
+
+    public function check_duplicate_application($id_number, $scholarship_program)
+    {
+        $this->db->where('id_number', $id_number);
+        $this->db->where('scholarship_program', $scholarship_program);
+        $query = $this->db->get('application_form');
+
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
