@@ -194,16 +194,6 @@ class Applicant_model extends CI_Model
         return null;
     }
 
-    public function count_applications($id_number, $academic_year, $semester)
-    {
-        $this->db->where('id_number', $id_number);
-        $this->db->where('academic_year', $academic_year);
-        $this->db->where('semester', $semester);
-        $this->db->from('application_form');
-
-        return $this->db->count_all_results();
-    }
-
     public function get_all_accepted_applicants()
     {
         $this->db->where('status', 'accepted');
@@ -449,20 +439,5 @@ class Applicant_model extends CI_Model
     public function count_not_qualified_applicants()
     {
         return $this->db->where('status', 'not qualified')->count_all_results('shortlist');
-    }
-
-    public function check_duplicate_application($id_number, $scholarship_program, $semester, $academic_year)
-    {
-        $this->db->where('id_number', $id_number);
-        $this->db->where('scholarship_program', $scholarship_program);
-        $this->db->where('semester', $semester);
-        $this->db->where('academic_year', $academic_year);
-        $query = $this->db->get('application_form');
-
-        if ($query->num_rows() > 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

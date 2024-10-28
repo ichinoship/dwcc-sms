@@ -125,7 +125,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
 <script>
     $('#commentModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
@@ -133,10 +132,6 @@
         var modal = $(this);
         modal.find('#commentModalBody').text(comment);
     });
-</script>
-
-
-<script>
     $(document).ready(function() {
         $('.edit-btn').click(function(e) {
             e.preventDefault();
@@ -157,21 +152,5 @@
                 window.location.href = url;
             }
         });
-    });
-</script>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        <?php if ($this->session->flashdata('success')): ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: '<?= $this->session->flashdata('success'); ?>',
-                showConfirmButton: false,
-                timer: 5000,
-                timerProgressBar: true
-            });
-        <?php endif; ?>
     });
 </script>

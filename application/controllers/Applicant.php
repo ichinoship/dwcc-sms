@@ -369,44 +369,21 @@ class Applicant extends CI_Controller
     {
         $this->load->model('Applicant_model');
         $this->load->library('upload');
-        $this->form_validation->set_rules('contact', 'Contact', 'required|numeric|max_length[11]|is_unique[applicants.contact]');
-
-        $id_number = $this->input->post('id_number');
-        $academic_year = $this->input->post('academic_year');
-        $semester = $this->input->post('semester');
-        $scholarship_program = $this->input->post('scholarship_program');
-
+    
+    
+        // Check for account number existence
         $account_no = $this->Applicant_model->get_account_no($this->session->userdata('user_id_number'));
         if (!$account_no) {
             $this->session->set_flashdata('error', 'Account number does not exist. Please register first.');
             redirect('applicant/apply_scholarship');
             return;
         }
-
-        $application_count = $this->Applicant_model->count_applications($id_number, $academic_year, $semester);
-        if ($application_count >= 2) {
-            $this->session->set_flashdata('error', 'You have reached the maximum number of applications allowed for this academic year and semester.');
-            redirect('applicant/apply_scholarship');
-            return;
-        }
-
-        $data['applicant_no'] = $this->Applicant_model->get_next_applicant_no();
-
-        $id_number = $this->input->post('id_number');
-        $scholarship_program = $this->input->post('scholarship_program');
-
-        $existing_application = $this->Applicant_model->check_duplicate_application($id_number, $scholarship_program, $semester, $academic_year);
-
-        if ($existing_application) {
-            $this->session->set_flashdata('error', 'You have already applied for this scholarship program in the same semester and academic year.');
-            redirect('applicant/apply_scholarship');
-            return;
-        }
-
+    
+        // File upload configuration
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'jpg|png|jpeg|pdf|docx';
         $config['max_size'] = 10240;
-
+    
         $this->upload->initialize($config);
         if (!$this->upload->do_upload('applicant_photo')) {
             $error = $this->upload->display_errors();
@@ -415,10 +392,10 @@ class Applicant extends CI_Controller
             return;
         }
         $applicant_photo = $this->upload->data('file_name');
-
+    
+        // Handle requirements file uploads
         $requirements_files = $_FILES['requirements'];
         $requirements = [];
-
         for ($i = 0; $i < count($requirements_files['name']); $i++) {
             $_FILES['file'] = [
                 'name'     => $requirements_files['name'][$i],
@@ -427,17 +404,19 @@ class Applicant extends CI_Controller
                 'error'    => $requirements_files['error'][$i],
                 'size'     => $requirements_files['size'][$i]
             ];
-
+    
             if (!$this->upload->do_upload('file')) {
                 $error = $this->upload->display_errors();
                 $this->session->set_flashdata('error', "Error uploading requirements: " . $error);
                 redirect('applicant/apply_scholarship');
                 return;
             }
-
+    
             $requirements[] = $this->upload->data('file_name');
         }
-
+    
+        // Prepare form data for insertion
+        $data['applicant_no'] = $this->Applicant_model->get_next_applicant_no();
         $form_data = [
             'applicant_no' => $data['applicant_no'],
             'account_no' => $account_no,
@@ -462,11 +441,18 @@ class Applicant extends CI_Controller
             'scholarship_program' => $this->input->post('scholarship_program'),
             'requirements' => implode(',', $requirements)
         ];
-
-        $this->Applicant_model->insert_application($form_data);
-        $this->session->set_flashdata('success', 'Your application has been successfully submitted and is currently under review for approval.');
-        redirect('applicant/my_application');
+    
+        // Insert application into the database and check for success
+        if ($this->Applicant_model->insert_application($form_data)) {
+            $this->session->set_flashdata('success', 'Your application has been successfully submitted and is currently under review for approval.');
+        } else {
+            $this->session->set_flashdata('error', 'Failed to submit your application. Please try again.');
+        }
+        redirect('applicant/apply_scholarship');
     }
+
+    
+
 
     public function my_application()
     {

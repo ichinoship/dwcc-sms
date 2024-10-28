@@ -174,38 +174,31 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php $this->load->view('includes/applicant_footer') ?>
-<?php if ($this->session->flashdata('error')): ?>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+
+<script>
+  $(document).ready(function() {
+        // Check if there's a success message
+        <?php if ($this->session->flashdata('success')): ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '<?= $this->session->flashdata('success') ?>',
+                confirmButtonText: 'OK'
+            });
+        <?php endif; ?>
+
+        // Check if there's an error message
+        <?php if ($this->session->flashdata('error')): ?>
             Swal.fire({
                 icon: 'error',
-                title: 'Application Limit Reached',
-                text: 'You have reached the 2-application limit for this semester.',
-                confirmButtonText: 'OK',
-                customClass: {
-                    confirmButton: 'btn btn-primary'
-                },
-                buttonsStyling: false,
+                title: 'Error',
+                text: '<?= $this->session->flashdata('error') ?>',
+                confirmButtonText: 'OK'
             });
-        });
-    </script>
-<?php endif; ?>
-<?php if ($this->session->flashdata('error')): ?>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                icon: 'error',
-                title: 'Application Error',
-                text: '<?= $this->session->flashdata('error'); ?>',
-                confirmButtonText: 'OK',
-                customClass: {
-                    confirmButton: 'btn btn-primary'
-                },
-                buttonsStyling: false,
-            });
-        });
-    </script>
-<?php endif; ?>
+        <?php endif; ?>
+    });
+</script>
+
 <script>
     function updateFileName(input) {
         const label = input.nextElementSibling;
@@ -269,5 +262,4 @@
         });
     });
 
-    
 </script>
