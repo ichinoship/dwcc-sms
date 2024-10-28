@@ -2,7 +2,6 @@
 <?php $this->load->view('includes/header'); ?>
 <?php $this->load->view('includes/sidebar'); ?>
 <title>Scholarship Program</title>
-
 <!-- Content Wrapper -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -22,7 +21,6 @@
         </div>
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
@@ -120,7 +118,6 @@
                     </table>
                 </div>
             </div>
-
             <!-- Set Date Modal -->
             <div class="modal fade" id="setDateModal" tabindex="-1" role="dialog" aria-labelledby="setDateModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -171,8 +168,6 @@
                     </div>
                 </div>
             </div>
-
-
             <!-- View Program Modal -->
             <div class="modal fade" id="viewProgramModal" tabindex="-1" role="dialog" aria-labelledby="viewProgramModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">

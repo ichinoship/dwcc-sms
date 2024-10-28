@@ -241,13 +241,14 @@ class Sc extends CI_Controller
     }
 
     public function school_year()
-    {
-        $filter_semester = $this->input->get('filter_semester');
-        $filter_campus = $this->input->get('filter_campus');
+{
+    $filter_semester = $this->input->get('filter_semester');
+    $filter_campus = $this->input->get('filter_campus');
 
-        $data['school_years'] = $this->Sc_model->get_filtered_school_years($filter_semester, $filter_campus);
-        $this->load->view('sc/school_year', $data);
-    }
+    $data['school_years'] = $this->Sc_model->get_filtered_school_years($filter_semester, $filter_campus);
+    $data['semesters'] = $this->Sc_model->get_all_semesters(); // Fetch semesters
+    $this->load->view('sc/school_year', $data);
+}
 
     public function add_school_year()
     {
@@ -265,6 +266,46 @@ class Sc extends CI_Controller
             $this->session->set_flashdata('message', 'School Year added successfully!');
             redirect('sc/school_year');
         }
+    }
+
+    public function add_semester() {
+        // Set validation rules for the form
+        $this->form_validation->set_rules('semester', 'Semester', 'required|in_list[1st Semester,2nd Semester,Whole Semester]');
+        $this->form_validation->set_rules('start_date', 'Start Date', 'required');
+        $this->form_validation->set_rules('end_date', 'End Date', 'required');
+    
+        // Run validation
+        if ($this->form_validation->run() === FALSE) {
+            $this->session->set_flashdata('message', validation_errors());
+            redirect('sc/school_year');
+        } else {
+            // Prepare data for insertion
+            $data = [
+                'semester' => $this->input->post('semester'),
+                'start_date' => $this->input->post('start_date'),
+                'end_date' => $this->input->post('end_date')
+            ];
+    
+            // Insert semester data into the database
+            if ($this->Sc_model->insert_semester($data)) {
+                $this->session->set_flashdata('message', 'Semester added successfully!');
+            } else {
+                $this->session->set_flashdata('message', 'Failed to add semester.');
+            }
+            redirect('sc/school_year');
+        }
+    }
+    
+    public function edit_semester() {
+        $semester_id = $this->input->post('semester_id');
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+    
+        // Update the semester dates in the database
+        $this->Sc_model->update_semester_dates($semester_id, $start_date, $end_date);
+    
+        // Redirect back to the school year page
+        redirect('sc/school_year');
     }
 
     public function view_list($school_year_id)

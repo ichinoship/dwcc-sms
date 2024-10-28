@@ -29,6 +29,31 @@ class Sc_model extends CI_Model
         $this->db->update('scholarship_programs', $data);
     }
 
+    public function update_semester_dates($semester_id, $start_date, $end_date) {
+
+        $data = [
+            'start_date' => $start_date,
+            'end_date' => $end_date
+        ];
+
+        $this->db->where('semester_id', $semester_id);
+        return $this->db->update('semester', $data); 
+    }
+
+    public function get_all_semesters()
+    {
+        $this->db->select('*');
+        $this->db->from('semester');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function update_semester_status($id, $status)
+    {
+        $this->db->where('semester_id', $id);
+        $this->db->update('semester', ['semester_status' => $status]);
+    }
+
     public function delete_scholarship_program($program_code)
     {
         $this->db->where('program_code', $program_code);
@@ -39,6 +64,11 @@ class Sc_model extends CI_Model
         $this->db->where('scholarship_type', $type);
         $query = $this->db->get('scholarship_programs');
         return $query->result();
+    }
+
+    public function insert_semester($data)
+    {
+        return $this->db->insert('semester', $data);
     }
 
     public function get_all_academic_years()
@@ -462,7 +492,7 @@ class Sc_model extends CI_Model
         if ($semester) {
             $this->db->where('semester', $semester);
         }
-        
+
         $query = $this->db->get();
         return $query->result();
     }

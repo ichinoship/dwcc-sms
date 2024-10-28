@@ -7,9 +7,9 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row mb-2">
-                <div class="col-sm-6">
-                   
-                </div>
+                    <div class="col-sm-6">
+
+                    </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="<?= base_url('applicant/dashboard_applicant'); ?>">Home</a></li>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                    <div class="alert alert-warning text-center">
+                        <div class="alert alert-warning text-center">
                             <strong>Important:</strong> Please double-check all your information. Ensure that all uploaded documents are correct before submitting your application.
                         </div>
                         <form action="<?= base_url('applicant/submit_application'); ?>" method="post" enctype="multipart/form-data">
@@ -118,9 +118,9 @@
                                     <label for="semester">Semester <span class="text-danger">*</span></label>
                                     <select class="form-control" id="semester" name="semester" required>
                                         <option value="">Select Semester</option>
-                                        <option value="Whole Semester">Whole Semester</option>
-                                        <option value="1st Semester">1st Semester</option>
-                                        <option value="2nd Semester">2nd Semester</option>
+                                        <?php foreach ($available_semesters as $semester): ?>
+                                            <option value="<?= $semester->semester_id ?>"><?= $semester->semester ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
@@ -159,12 +159,12 @@
                                 </small>
                                 <ul id="file-list" class="list-group mt-2"></ul>
                             </div>
-                           
-                        </div>
-                        <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit Application</button>
-                                <a href="<?= base_url('applicant/dashboard_applicant'); ?>" class="btn btn-secondary">Back</a>
-                            </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                        <a href="<?= base_url('applicant/dashboard_applicant'); ?>" class="btn btn-secondary">Back</a>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -269,23 +269,5 @@
         });
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const programType = document.getElementById("program_type").value;
-        const semesterSelect = document.getElementById("semester");
-
-        if (programType === "Junior High School" || programType === "Grade School") {
-            for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
-                if (semesterSelect.options[i].value !== "Whole Semester" && semesterSelect.options[i].value !== "") {
-                    semesterSelect.remove(i);
-                }
-            }
-        }
-        if (programType === "College") {
-            for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
-                if (semesterSelect.options[i].value === "Whole Semester" || semesterSelect.options[i].value === "") {
-                    semesterSelect.remove(i);
-                }
-            }
-        }
-    });
+    
 </script>
