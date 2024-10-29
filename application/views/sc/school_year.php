@@ -39,34 +39,39 @@
                                 <thead>
                                     <tr>
                                         <th>Academic Year</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($school_years as $year): ?>
+                                    <?php if (!empty($school_years)): ?>
+                                        <?php foreach ($school_years as $year): ?>
+                                            <tr>
+                                                <td><?php echo $year->academic_year; ?></td>
+                                                <td><?php echo ucfirst($year->year_status); ?></td>
+                                                <td>
+                                                    <a href="<?php echo site_url('sc/view_list/' . $year->school_year_id); ?>" class="btn btn-info btn-sm">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
                                         <tr>
-                                            <td><?php echo $year->academic_year; ?></td>
-                                            <td>
-                                                <a href="<?php echo site_url('sc/view_list/' . $year->school_year_id); ?>" class="btn btn-info btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </td>
+                                            <td colspan="3" class="text-center">No academic year found</td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
 <!-- Add Year Modal -->
 <div class="modal fade" id="addYearModal" tabindex="-1" role="dialog" aria-labelledby="addYearModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -81,7 +86,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="academic_year">Academic Year</label>
-                        <input type="text" class="form-control" id="academic_year" name="academic_year" required>
+                        <input type="text" class="form-control" id="academic_year" name="academic_year" placeholder="yyyy-yyyy" required>
                     </div>
                 </div>
                 <div class="modal-footer">

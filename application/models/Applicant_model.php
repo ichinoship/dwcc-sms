@@ -220,19 +220,6 @@ class Applicant_model extends CI_Model
         }
     }
 
-    public function get_latest_academic_year()
-    {
-        // Fetch the latest academic year from the school_year table
-        $this->db->select('academic_year');
-        $this->db->from('school_year');
-        $this->db->order_by('school_year_id', 'DESC');
-        $this->db->limit(1);
-        $query = $this->db->get();
-
-        // Return the latest academic year or an empty string if none exists
-        return $query->row() ? $query->row()->academic_year : '';
-    }
-
     public function update_password($id_number, $hashed_password)
     {
         $this->db->where('id_number', $id_number);
@@ -464,4 +451,17 @@ class Applicant_model extends CI_Model
         }
     }
 
+    public function get_active_academic_year()
+    {
+        $this->db->select('academic_year');
+        $this->db->from('school_year');
+        $this->db->where('year_status', 'active');
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->academic_year;
+        } else {
+            return null;
+        }
+    }
 }

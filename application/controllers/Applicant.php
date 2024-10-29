@@ -333,14 +333,13 @@ class Applicant extends CI_Controller
         $applicant = $this->Applicant_model->get_info($id_number);
         $data['applicant'] = $applicant;
 
-        $data['latest_academic_year'] = $this->Applicant_model->get_latest_academic_year();
         $scholarship_programs = $this->Sc_model->get_all_active_scholarship_programs();
-
         $filtered_programs = array_filter($scholarship_programs, function ($program) use ($applicant, $current_date) {
             return ($program->campus == $applicant->campus || $program->campus == 'All Campus')
                 && ($program->start_date <= $current_date && $program->end_date >= $current_date);
         });
         $data['scholarship_programs'] = $filtered_programs;
+        $data['active_academic_year'] = $this->Applicant_model->get_active_academic_year();
 
         $this->load->view('applicant/apply_scholarship', $data);
     }

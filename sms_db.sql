@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2024 at 05:15 AM
+-- Generation Time: Oct 29, 2024 at 05:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -89,16 +89,6 @@ CREATE TABLE `application_form` (
   `comment` text DEFAULT NULL,
   `status` enum('pending','qualified','not qualified','conditional') DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `application_form`
---
-
-INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `status`) VALUES
-(1, 1, 47293, '2x2_girl7.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS3.pdf', NULL, 'pending'),
-(2, 3, 47123, '2X2_boy6.png', 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '2024-2025', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS10.pdf', NULL, 'pending'),
-(3, 3, 47123, '2X2_boy7.png', 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '2024-2025', 'Whole Semester', 'New Applicant', 'Special College Scholarship Program  for  The Children of DWCC Security Force', 'REQUIREMENTS-SMS11.pdf', NULL, 'pending'),
-(4, 1, 47293, '2x2_girl12.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2024-2025', '1st Semester', 'New Applicant', 'School Band Scholarship Program', 'REQUIREMENTS-SMS16.pdf', NULL, 'pending');
 
 -- --------------------------------------------------------
 
@@ -234,15 +224,17 @@ INSERT INTO `scholarship_programs` (`program_code`, `scholarship_program`, `camp
 
 CREATE TABLE `school_year` (
   `school_year_id` int(11) NOT NULL,
-  `academic_year` varchar(9) NOT NULL
+  `academic_year` varchar(9) NOT NULL,
+  `year_status` enum('active','deactivated') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `school_year`
 --
 
-INSERT INTO `school_year` (`school_year_id`, `academic_year`) VALUES
-(1, '2024-2025');
+INSERT INTO `school_year` (`school_year_id`, `academic_year`, `year_status`) VALUES
+(1, '2024-2025', 'deactivated'),
+(2, '2025-2026', 'active');
 
 -- --------------------------------------------------------
 
@@ -425,7 +417,7 @@ ALTER TABLE `scholarship_programs`
 -- AUTO_INCREMENT for table `school_year`
 --
 ALTER TABLE `school_year`
-  MODIFY `school_year_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `school_year_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shortlist`

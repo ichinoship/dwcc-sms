@@ -241,27 +241,30 @@ class Sc extends CI_Controller
     }
 
     public function school_year()
-{
-    $filter_semester = $this->input->get('filter_semester');
-    $filter_campus = $this->input->get('filter_campus');
+    {
+        $filter_semester = $this->input->get('filter_semester');
+        $filter_campus = $this->input->get('filter_campus');
 
-    $data['school_years'] = $this->Sc_model->get_filtered_school_years($filter_semester, $filter_campus);
-    $this->load->view('sc/school_year', $data);
-}
+        $data['school_years'] = $this->Sc_model->get_filtered_school_years($filter_semester, $filter_campus);
+        $this->load->view('sc/school_year', $data);
+    }
 
     public function add_school_year()
     {
         $this->form_validation->set_rules('academic_year', 'Academic Year', 'required');
 
-
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('sc/school_year');
         } else {
-            $data = array(
-                'academic_year' => $this->input->post('academic_year')
-            );
+            $this->Sc_model->deactivate_all_school_years();
 
+            $data = array(
+                'academic_year' => $this->input->post('academic_year'),
+                'year_status' => 'active'
+            );
+            // Insert the new academic year
             $this->Sc_model->insert_school_year($data);
+            // Set success message and redirect
             $this->session->set_flashdata('message', 'School Year added successfully!');
             redirect('sc/school_year');
         }
@@ -288,17 +291,17 @@ class Sc extends CI_Controller
 
     public function app_evaluation()
     {
-    
+
         $this->load->model('Sc_model');
-        
+
         $scholarship_program = $this->input->get('scholarship_program');
         $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
 
         $academic_year = $this->input->get('academic_year');
         $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
-        
+
         $semester = $this->input->get('semester');
-        
+
         $data['applicants'] = $this->Sc_model->get_filter_short_list($academic_year, $semester);
 
         $shortlist = $this->Sc_model->get_shortlist($scholarship_program);
@@ -494,7 +497,7 @@ class Sc extends CI_Controller
             redirect('sc/change_password');
         }
     }
-   
+
 
     public function program_list()
     {
@@ -512,7 +515,6 @@ class Sc extends CI_Controller
 
     public function final_list()
     {
-
         $this->load->model('Sc_model');
         $academic_year = $this->input->get('academic_year');
         $semester = $this->input->get('semester');
@@ -523,4 +525,3 @@ class Sc extends CI_Controller
         $this->load->view('sc/final_list', $data);
     }
 }
-

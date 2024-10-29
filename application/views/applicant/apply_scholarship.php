@@ -112,7 +112,7 @@
                                 <div class="col-md-6 form-group">
                                     <label for="academic_year">Academic Year <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="academic_year" name="academic_year"
-                                        value="<?= htmlspecialchars($latest_academic_year); ?>" placeholder="yyyy-yyyy" readonly>
+                                        value="<?php echo isset($active_academic_year) ? $active_academic_year : ''; ?>" placeholder="yyyy-yyyy" readonly>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="semester">Semester <span class="text-danger">*</span></label>
