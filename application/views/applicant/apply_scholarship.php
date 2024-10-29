@@ -118,9 +118,9 @@
                                     <label for="semester">Semester <span class="text-danger">*</span></label>
                                     <select class="form-control" id="semester" name="semester" required>
                                         <option value="">Select Semester</option>
-                                        <?php foreach ($available_semesters as $semester): ?>
-                                            <option value="<?= $semester->semester_id ?>"><?= $semester->semester ?></option>
-                                        <?php endforeach; ?>
+                                        <option value="Whole Semester">Whole Semester</option>
+                                        <option value="1st Semester">1st Semester</option>
+                                        <option value="2nd Semester">2nd Semester</option>
                                     </select>
                                 </div>
                             </div>
@@ -181,8 +181,25 @@
         document.addEventListener("DOMContentLoaded", function() {
             Swal.fire({
                 icon: 'error',
-                title: 'Application Error',
+                title: 'Application Limit Reached',
                 text: '<?= $this->session->flashdata('error'); ?>',
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false,
+            });
+        });
+    </script>
+<?php endif; ?>
+
+<?php if ($this->session->flashdata('success')): ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Application Submitted',
+                text: '<?= $this->session->flashdata('success'); ?>',
                 confirmButtonText: 'OK',
                 customClass: {
                     confirmButton: 'btn btn-primary'
@@ -253,5 +270,25 @@
             listItem.appendChild(removeButton);
             fileList.appendChild(listItem);
         });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const programType = document.getElementById("program_type").value;
+        const semesterSelect = document.getElementById("semester");
+
+        if (programType === "Junior High School" || programType === "Grade School") {
+            for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
+                if (semesterSelect.options[i].value !== "Whole Semester" && semesterSelect.options[i].value !== "") {
+                    semesterSelect.remove(i);
+                }
+            }
+        }
+        if (programType === "College") {
+            for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
+                if (semesterSelect.options[i].value === "Whole Semester" || semesterSelect.options[i].value === "") {
+                    semesterSelect.remove(i);
+                }
+            }
+        }
     });
 </script>
