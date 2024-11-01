@@ -58,8 +58,8 @@ class Applicant extends CI_Controller
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('program_type', 'Program Type', 'required');
         $this->form_validation->set_rules('year', 'Year', 'required');
-        $this->form_validation->set_rules('contact', 'Contact', 'required|numeric|is_unique[applicants.contact]');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('contact', 'Contact', 'required|max_length[11]|numeric|is_unique[applicants.contact]');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[applicants.email]');
         $this->form_validation->set_rules('program', 'Program', 'required');
         $this->form_validation->set_rules('address', 'Address', 'required');
         $this->form_validation->set_rules('applicant_residence', 'Residence', 'required');
@@ -385,7 +385,7 @@ class Applicant extends CI_Controller
 
         // File upload configuration
         $config['upload_path'] = './uploads/';
-        $config['allowed_types'] = 'jpg|png|jpeg|pdf|docx';
+        $config['allowed_types'] = 'jpg|png|jpeg';
         $config['max_size'] = 10240;
 
         $this->upload->initialize($config);
