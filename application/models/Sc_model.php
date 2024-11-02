@@ -480,7 +480,7 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    public function get_filter_short_list($academic_year = null, $semester = null)
+    public function get_filter_short_list($academic_year = null, $semester = null, $status = null)
     {
         $this->db->select('*');
         $this->db->from('shortlist');
@@ -492,7 +492,9 @@ class Sc_model extends CI_Model
         if ($semester) {
             $this->db->where('semester', $semester);
         }
-
+        if ($status) {
+            $this->db->where('status', $status);
+        }
         $query = $this->db->get();
         return $query->result();
     }

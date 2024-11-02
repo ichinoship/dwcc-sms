@@ -302,8 +302,11 @@ class Sc extends CI_Controller
 
         $semester = $this->input->get('semester');
 
-        $data['applicants'] = $this->Sc_model->get_filter_short_list($academic_year, $semester);
+        $status = $this->input->get('status');
 
+        $data['applicants'] = $this->Sc_model->get_filter_short_list($academic_year, $semester, $status);
+
+    
         $shortlist = $this->Sc_model->get_shortlist($scholarship_program);
         $data['shortlist'] = $shortlist;
 

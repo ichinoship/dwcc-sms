@@ -55,6 +55,13 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+                            <div class="form-group col-md-3">
+                                <select name="status" id="status" class="form-control">
+                                    <option value="" > Select Status</option>
+                                    <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
+                                    <option value="not qualified" <?= ($this->input->post('status') == 'not qualified') ? 'selected' : ''; ?>>Not Qualified</option>
+                                </select>
+                            </div>
                             <div class="form-group col-md-2">
                                 <button type="button" class="btn btn-secondary btn-block" id="resetFilters">Reset Filters</button>
                             </div>
@@ -99,7 +106,7 @@
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <td colspan="6" class="text-center">No shortlisted applicants found</td>
+                                        <td colspan="9" class="text-center">No shortlisted applicants found</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -155,28 +162,35 @@
 <?php $this->load->view('includes/footer'); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     $(document).ready(function() {
         var table = $('#apptable').DataTable({
 
         });
 
-        $('select[name="academic_year"], select[name="semester"], select[name="scholarship_program"]').on('change', function() {
+        // Apply filters when any dropdown is changed
+        $('select[name="academic_year"], select[name="semester"], select[name="scholarship_program"], select[name="status"]').on('change', function() {
             var academic_year = $('select[name="academic_year"]').val();
             var semester = $('select[name="semester"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
+            var status = $('select[name="status"]').val();
+
+            
 
             table.columns(2).search(academic_year)
                 .columns(3).search(semester)
                 .columns(4).search(scholarship_program)
+                .columns(6).search(status ? '^' + status + '$' : '', true, false)
                 .draw();
         });
 
-        // Reset filters
+        // Reset all filters
         $('#resetFilters').on('click', function() {
             $('select[name="academic_year"]').val('');
             $('select[name="semester"]').val('');
             $('select[name="scholarship_program"]').val('');
+            $('select[name="status"]').val('');
             table.columns().search('').draw();
         });
 
