@@ -51,9 +51,9 @@ class Applicant extends CI_Controller
     public function register()
     {
         $this->form_validation->set_rules('id_number', 'ID Number', 'required|max_length[5]|is_unique[applicants.id_number]');
-        $this->form_validation->set_rules('firstname', 'First Name', 'required');
-        $this->form_validation->set_rules('middlename', 'Middle Name');
-        $this->form_validation->set_rules('lastname', 'Last Name', 'required');
+        $this->form_validation->set_rules('firstname', 'First Name', 'required|regex_match[/^[a-zA-Z\s-]+$/]');
+        $this->form_validation->set_rules('middlename', 'Middle Name', 'regex_match[/^[a-zA-Z\s-]+$/]');
+        $this->form_validation->set_rules('lastname', 'Last Name', 'required|regex_match[/^[a-zA-Z\s-]+$/]');
         $this->form_validation->set_rules('birthdate', 'Birthdate', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('program_type', 'Program Type', 'required');
