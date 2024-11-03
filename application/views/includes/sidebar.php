@@ -2,7 +2,20 @@
 
 <aside class="main-sidebar sidebar-dark-success elevation-1">
     <!-- Brand Logo -->
-    <a href="<?= base_url('dashboard'); ?>" class="brand-link">
+    <?php
+    // Determine the base URL based on user type
+    $user_type = $this->session->userdata('user_type');
+    $dashboard_url = ''; // Initialize the variable
+
+    if ($user_type == 'Admin') {
+        $dashboard_url = base_url('admin/dashboard');
+    } elseif ($user_type == 'Scholarship Coordinator') {
+        $dashboard_url = base_url('sc/dashboard');
+    } elseif ($user_type == 'TWC') {
+        $dashboard_url = base_url('twc/dashboard');
+    }
+    ?>
+    <a href="<?= $dashboard_url; ?>" class="brand-link">
         <img src="<?= base_url('assets/images/logo-white.png'); ?>" alt="SMS-LOGO" class="brand-image">
         <span class="brand-text font-weight-bold">DWCC SMS</span>
     </a>
