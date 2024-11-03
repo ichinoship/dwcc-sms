@@ -10,11 +10,7 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <?php
-                $user_image = $this->session->userdata('user_image');
-                $image_path = $user_image ? 'uploads/' . $user_image : 'assets/images/user.png';
-                ?>
-                <img src="<?= base_url($image_path); ?>" class="img-circle elevation-2" alt="" style="width: 40px; height: 40px; object-fit: cover;">
+                <i class="fas fa-user-circle text-white" style="font-size: 40px;"></i>
             </div>
             <div class="info mt-1">
                 <a href="<?= base_url('applicant/update_info'); ?>" class="d-block"><?= $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name'); ?></a>

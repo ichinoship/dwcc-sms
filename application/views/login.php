@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,13 +11,14 @@
   <link rel="stylesheet" href="<?= base_url('assets/') ?>plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/') ?>dist/css/adminlte.css">
 </head>
+
 <body class="hold-transition login-page">
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="<?= base_url('assets/') ?>images/logo.svg" alt="sms-logo" style="max-width: 250px;">
-      <h5 class="mt-2 mb-0">Divine Word College of Calapan</h5>
-      <p>Scholarship Management System</p>
-    </div>
+    <img class="animation__shake" src="<?= base_url('assets/') ?>images/logo.svg" alt="sms-logo" style="max-width: 250px;">
+    <h5 class="mt-2 mb-0">Divine Word College of Calapan</h5>
+    <p>Scholarship Management System</p>
+  </div>
   <div class="login-box shadow-lg">
     <div class="card">
       <div class="card-body login-card-body">
@@ -53,14 +55,8 @@
             <?php endif; ?>
           </div>
           <!-- Forgot Password Link -->
-          <div class="d-flex justify-content-between mb-3 align-items-center">
-            <div class="icheck-primary checkbox-label">
-              <input type="checkbox" id="remember">
-              <label for="remember" style="font-weight: 500; font-size: 14px;">
-                Remember Me
-              </label>
-            </div>
-            <a href="<?php echo site_url('auth/user_forgot_password'); ?>" class="text-muted forgot-password-link">Forgot Password?</a>
+          <div class="d-flex mb-3">
+            <a href="<?php echo site_url('auth/user_forgot_password'); ?>" class="text-muted forgot-password-link ml-auto">Forgot Password?</a>
           </div>
           <div class="row">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
@@ -79,4 +75,5 @@
   <!-- AdminLTE App -->
   <script src="<?= base_url('assets/') ?>dist/js/adminlte.min.js"></script>
 </body>
+
 </html>

@@ -12,56 +12,56 @@ class Auth extends CI_Controller
     }
 
     public function login()
-{
-    $this->form_validation->set_rules('id_number', 'ID Number', 'required', [
-        'required' => 'ID Number is required.'
-    ]);
-    $this->form_validation->set_rules('password', 'Password', 'required', [
-        'required' => 'Password is required.'
-    ]);
+    {
+        $this->form_validation->set_rules('id_number', 'ID Number', 'required', [
+            'required' => 'ID Number is required.'
+        ]);
+        $this->form_validation->set_rules('password', 'Password', 'required', [
+            'required' => 'Password is required.'
+        ]);
 
-    if ($this->form_validation->run() === FALSE) {
-        $this->load->view('login');
-    } else {
-        $id_number = $this->input->post('id_number');
-        $password = md5($this->input->post('password'));
-        $user = $this->Admin_model->get_user_by_credentials($id_number, $password);
+        if ($this->form_validation->run() === FALSE) {
+            $this->load->view('login');
+        } else {
+            $id_number = $this->input->post('id_number');
+            $password = md5($this->input->post('password'));
+            $user = $this->Admin_model->get_user_by_credentials($id_number, $password);
 
-        if ($user) {
-            if ($user->status == 1) {
-                $this->session->set_userdata([
-                    'user_id' => $user->id,
-                    'user_type' => $user->usertype,
-                    'user_name' => $user->name,
-                    'user_email' => $user->email,
-                    'user_image' => $user->image
-                ]);
+            if ($user) {
+                if ($user->status == 1) {
+                    $this->session->set_userdata([
+                        'user_id' => $user->id,
+                        'user_type' => $user->usertype,
+                        'user_name' => $user->name,
+                        'user_email' => $user->email,
+                        'user_image' => $user->image
+                    ]);
 
-                switch ($user->usertype) {
-                    case 'Admin':
-                        redirect('admin/dashboard');
-                        break;
-                    case 'Scholarship Coordinator':
-                        redirect('sc/dashboard');
-                        break;
-                    default:
-                        redirect('twc/dashboard');
-                        break;
+                    switch ($user->usertype) {
+                        case 'Admin':
+                            redirect('admin/dashboard');
+                            break;
+                        case 'Scholarship Coordinator':
+                            redirect('sc/dashboard');
+                            break;
+                        default:
+                            redirect('twc/dashboard');
+                            break;
+                    }
+                } else {
+                    $this->session->set_flashdata('error_account', 'Your account is inactive. Please contact the admin.');
+                    redirect('auth/login');
                 }
             } else {
-                $this->session->set_flashdata('error_account', 'Your account is inactive. Please contact the admin.');
+                $id_number_exists = $this->Admin_model->get_user_by_id_number($id_number);
+                if (!$id_number_exists) {
+                    $this->session->set_flashdata('error_id_number', 'Invalid ID number. Please try again.');
+                }
+                $this->session->set_flashdata('error_password', 'Invalid password. Please try again.');
                 redirect('auth/login');
             }
-        } else {
-            $id_number_exists = $this->Admin_model->get_user_by_id_number($id_number); 
-            if (!$id_number_exists) {
-                $this->session->set_flashdata('error_id_number', 'Invalid ID number. Please try again.');
-            }
-            $this->session->set_flashdata('error_password', 'Invalid password. Please try again.');
-            redirect('auth/login');
         }
     }
-}
 
 
     public function applicant_login()
@@ -334,7 +334,7 @@ class Auth extends CI_Controller
     <p>Your password has been successfully reset. You can now log in using your new password.</p>
     <p>Thank you,<br>DWCC Scholarship Management System</p>
     ";
-
+    
         $this->email->message($message);
         $this->email->send();
     }
