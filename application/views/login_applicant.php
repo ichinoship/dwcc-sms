@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,13 +11,14 @@
   <link rel="stylesheet" href="<?= base_url('assets/') ?>plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/') ?>dist/css/adminlte.css">
 </head>
+
 <body class="hold-transition login-page">
- <!-- Preloader -->
- <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="<?= base_url('assets/') ?>images/logo.svg" alt="sms-logo" style="max-width: 250px;">
-      <h5 class="mt-2 mb-0">Divine Word College of Calapan</h5>
-      <p>Scholarship Management System</p>
-    </div>
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="<?= base_url('assets/') ?>images/logo.svg" alt="sms-logo" style="max-width: 250px;">
+    <h5 class="mt-2 mb-0">Divine Word College of Calapan</h5>
+    <p>Scholarship Management System</p>
+  </div>
   <div class="login-box shadow-lg">
     <div class="card">
       <div class="card-body login-card-body">
@@ -59,6 +61,7 @@
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
         </form>
+
         <!-- Registration link -->
         <div class="text-center mt-3">
           <p class="mb-0">
@@ -75,4 +78,5 @@
   <!-- AdminLTE App -->
   <script src="<?= base_url('assets/') ?>dist/js/adminlte.min.js"></script>
 </body>
+
 </html>
