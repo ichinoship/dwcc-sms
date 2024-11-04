@@ -52,14 +52,8 @@
               <div class="invalid-feedback"><?= $this->session->flashdata('error_password'); ?></div>
             <?php endif; ?>
           </div>
-          <div class="d-flex justify-content-between mb-3 align-items-center">
-            <div class="icheck-primary checkbox-label">
-              <input type="checkbox" id="remember">
-              <label for="remember" style="font-weight: 500; font-size: 14px;">
-                Remember Me
-              </label>
-            </div>
-            <a href="<?php echo site_url('auth/applicant_forgot_password'); ?>" class="text-muted forgot-password-link">Forgot Password?</a>
+          <div class="d-flex mb-3">
+            <a href="<?php echo site_url('auth/applicant_forgot_password'); ?>" class="text-muted forgot-password-link ml-auto">Forgot Password?</a>
           </div>
           <div class="row">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>

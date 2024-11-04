@@ -354,8 +354,6 @@ class Applicant extends CI_Controller
         $semester = $this->input->post('semester');
         $scholarship_program = $this->input->post('scholarship_program');
 
-
-        // Check for account number existence
         $account_no = $this->Applicant_model->get_account_no($this->session->userdata('user_id_number'));
         if (!$account_no) {
             $this->session->set_flashdata('error', 'Account number does not exist. Please register first.');
@@ -370,37 +368,45 @@ class Applicant extends CI_Controller
             return;
         }
 
-        $data['applicant_no'] = $this->Applicant_model->get_next_applicant_no();
-
-        $id_number = $this->input->post('id_number');
-        $scholarship_program = $this->input->post('scholarship_program');
-
         $existing_application = $this->Applicant_model->check_duplicate_application($id_number, $scholarship_program, $semester, $academic_year);
-
         if ($existing_application) {
             $this->session->set_flashdata('error', 'You have already applied for this scholarship program in the same semester and academic year.');
             redirect('applicant/apply_scholarship');
             return;
         }
 
-        // File upload configuration
-        $config['upload_path'] = './uploads/';
-        $config['allowed_types'] = 'jpg|png|jpeg';
-        $config['max_size'] = 10240;
+        $photo_config['upload_path'] = './uploads/';
+        $photo_config['allowed_types'] = 'jpg|png|jpeg';
+        $photo_config['max_size'] = 10240;
 
-        $this->upload->initialize($config);
+        $this->upload->initialize($photo_config);
         if (!$this->upload->do_upload('applicant_photo')) {
             $error = $this->upload->display_errors();
-            $this->session->set_flashdata('error', "Error uploading applicant photo: " . $error);
+            $this->session->set_flashdata('error', "Invalid file format for 2x2 photo. Only JPG, JPEG, and PNG format are allowed.");
             redirect('applicant/apply_scholarship');
             return;
         }
         $applicant_photo = $this->upload->data('file_name');
 
-        // Handle requirements file uploads
         $requirements_files = $_FILES['requirements'];
         $requirements = [];
+        $requirement_config['upload_path'] = './uploads/requirements/';
+        $requirement_config['allowed_types'] = 'pdf|docx';
+        $requirement_config['max_size'] = 10240;
+
+        if (!is_dir($requirement_config['upload_path'])) {
+            mkdir($requirement_config['upload_path'], 0755, true);
+        }
+
         for ($i = 0; $i < count($requirements_files['name']); $i++) {
+            // Check file type before uploading
+            $file_type = pathinfo($requirements_files['name'][$i], PATHINFO_EXTENSION);
+            if (!in_array($file_type, explode('|', $requirement_config['allowed_types']))) {
+                $this->session->set_flashdata('error', "Please upload files in the format: docx or pdf only.");
+                redirect('applicant/apply_scholarship');
+                return;
+            }
+
             $_FILES['file'] = [
                 'name'     => $requirements_files['name'][$i],
                 'type'     => $requirements_files['type'][$i],
@@ -409,6 +415,8 @@ class Applicant extends CI_Controller
                 'size'     => $requirements_files['size'][$i]
             ];
 
+            // Initialize the upload configuration for requirements
+            $this->upload->initialize($requirement_config);
             if (!$this->upload->do_upload('file')) {
                 $error = $this->upload->display_errors();
                 $this->session->set_flashdata('error', "Error uploading requirements: " . $error);
@@ -420,9 +428,8 @@ class Applicant extends CI_Controller
         }
 
         // Prepare form data for insertion
-        $data['applicant_no'] = $this->Applicant_model->get_next_applicant_no();
         $form_data = [
-            'applicant_no' => $data['applicant_no'],
+            'applicant_no' => $this->Applicant_model->get_next_applicant_no(),
             'account_no' => $account_no,
             'applicant_photo' => $applicant_photo,
             'id_number' => $this->input->post('id_number'),
@@ -454,6 +461,7 @@ class Applicant extends CI_Controller
         }
         redirect('applicant/my_application');
     }
+
 
     public function my_application()
     {

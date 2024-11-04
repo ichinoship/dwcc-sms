@@ -2,7 +2,20 @@
 
 <aside class="main-sidebar sidebar-dark-success elevation-1">
     <!-- Brand Logo -->
-    <a href="<?= base_url('dashboard'); ?>" class="brand-link">
+    <?php
+    // Determine the base URL based on user type
+    $user_type = $this->session->userdata('user_type');
+    $dashboard_url = ''; // Initialize the variable
+
+    if ($user_type == 'Admin') {
+        $dashboard_url = base_url('admin/dashboard');
+    } elseif ($user_type == 'Scholarship Coordinator') {
+        $dashboard_url = base_url('sc/dashboard');
+    } elseif ($user_type == 'TWC') {
+        $dashboard_url = base_url('twc/dashboard');
+    }
+    ?>
+    <a href="<?= $dashboard_url; ?>" class="brand-link">
         <img src="<?= base_url('assets/images/logo-white.png'); ?>" alt="SMS-LOGO" class="brand-image">
         <span class="brand-text font-weight-bold">DWCC SMS</span>
     </a>
@@ -10,12 +23,8 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <?php
-                $user_image = $this->session->userdata('user_image');
-                $image_path = $user_image ? 'uploads/' . $user_image : 'assets/images/user.png';
-                ?>
-                <img src="<?= base_url($image_path); ?>" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px; object-fit: cover;">
+        <div class="image">
+                <i class="fas fa-user-circle text-white" style="font-size: 40px;"></i>
             </div>
             <div class="info mt-1">
                 <?php

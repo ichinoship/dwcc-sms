@@ -181,7 +181,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             Swal.fire({
                 icon: 'error',
-                title: 'Application Limit Reached',
+                title: 'Application Error',
                 text: '<?= $this->session->flashdata('error'); ?>',
                 confirmButtonText: 'OK',
                 customClass: {
@@ -226,7 +226,7 @@
     });
 
     document.getElementById('requirements').addEventListener('change', function(e) {
-        const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf', 'docx'];
+        const allowedExtensions = ['pdf', 'docx'];
         const files = e.target.files;
 
         for (let i = 0; i < files.length; i++) {
@@ -235,7 +235,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Invalid File Type',
-                    text: 'Please upload files in the format: jpg, jpeg, png, docx or pdf only.',
+                    text: 'Please upload files in the format: docx or pdf only.',
                 });
                 e.target.value = '';
                 break;
