@@ -375,7 +375,7 @@ class Applicant extends CI_Controller
             return;
         }
 
-        $photo_config['upload_path'] = './uploads/';
+        $photo_config['upload_path'] = './uploads/applicant_photo/';
         $photo_config['allowed_types'] = 'jpg|png|jpeg';
         $photo_config['max_size'] = 10240;
 
