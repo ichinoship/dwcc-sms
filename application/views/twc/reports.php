@@ -1,5 +1,6 @@
 <?php $this->load->view('includes/header'); ?>
 <?php $this->load->view('includes/sidebar'); ?>
+<title>TWC Reports</title>
 
 <div class="content-wrapper">
     <div class="content-header">

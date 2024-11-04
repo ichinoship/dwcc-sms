@@ -293,20 +293,15 @@ class Sc extends CI_Controller
     {
 
         $this->load->model('Sc_model');
-
         $scholarship_program = $this->input->get('scholarship_program');
         $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
-
-        $academic_year = $this->input->get('academic_year');
-        $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
 
         $semester = $this->input->get('semester');
 
         $status = $this->input->get('status');
 
-        $data['applicants'] = $this->Sc_model->get_filter_short_list($academic_year, $semester, $status);
+        $data['applicants'] = $this->Sc_model->get_filter_short_list($semester, $status);
 
-    
         $shortlist = $this->Sc_model->get_shortlist($scholarship_program);
         $data['shortlist'] = $shortlist;
 

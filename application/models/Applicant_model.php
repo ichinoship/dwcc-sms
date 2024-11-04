@@ -292,14 +292,17 @@ class Applicant_model extends CI_Model
     }
     public function get_applicants_by_twc($twc_id)
     {
-        $this->db->select('application_form.applicant_no, application_form.id_number,  application_form.lastname,  application_form.firstname, application_form.program, application_form.year, scholarship_programs.scholarship_program, application_form.status');
+        $this->db->select('application_form.applicant_no, application_form.id_number, application_form.lastname, application_form.firstname, application_form.program, application_form.year, scholarship_programs.scholarship_program, application_form.status');
         $this->db->from('application_form');
         $this->db->join('scholarship_programs', 'application_form.scholarship_program = scholarship_programs.scholarship_program');
+        $this->db->join('school_year', 'application_form.academic_year = school_year.academic_year');
         $this->db->where('scholarship_programs.assigned_to', $twc_id);
+        $this->db->where('school_year.year_status', 'active'); // Only get applicants in the active academic year
 
         $query = $this->db->get();
         return $query->result();
     }
+
 
     public function get_applicants_report_by_twc($twc_id, $filters = array())
     {

@@ -28,16 +28,6 @@
                     <form id="filterForm" class="d-flex">
                         <div class="row align-items-end">
                             <div class="form-group col-md-3">
-                                <select name="academic_year" id="academic_year" class="form-control">
-                                    <option value="">Select Academic Year</option>
-                                    <?php foreach ($academic_years as $year): ?>
-                                        <option value="<?= htmlspecialchars($year->academic_year); ?>" <?= set_value('academic_year') == $year->academic_year ? 'selected' : ''; ?>>
-                                            <?= htmlspecialchars($year->academic_year); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
                                 <select name="semester" id="semester" class="form-control">
                                     <option value="">Select Semester</option>
                                     <option value="1st Semester" <?= ($this->input->post('semester') == '1st Semester') ? 'selected' : ''; ?>>1st Semester</option>
@@ -170,16 +160,12 @@
         });
 
         // Apply filters when any dropdown is changed
-        $('select[name="academic_year"], select[name="semester"], select[name="scholarship_program"], select[name="status"]').on('change', function() {
-            var academic_year = $('select[name="academic_year"]').val();
+        $('select[name="semester"], select[name="scholarship_program"], select[name="status"]').on('change', function() {
             var semester = $('select[name="semester"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
             var status = $('select[name="status"]').val();
 
-            
-
-            table.columns(2).search(academic_year)
-                .columns(3).search(semester)
+            table .columns(3).search(semester)
                 .columns(4).search(scholarship_program)
                 .columns(6).search(status ? '^' + status + '$' : '', true, false)
                 .draw();
@@ -187,7 +173,7 @@
 
         // Reset all filters
         $('#resetFilters').on('click', function() {
-            $('select[name="academic_year"]').val('');
+
             $('select[name="semester"]').val('');
             $('select[name="scholarship_program"]').val('');
             $('select[name="status"]').val('');

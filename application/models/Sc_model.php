@@ -172,18 +172,21 @@ class Sc_model extends CI_Model
         $this->db->where('school_year_id', $school_year_id);
         return $this->db->delete('school_year');
     }
-
-
-
-    public function get_shortlist($scholarship_program = null)
-    {
-        if ($scholarship_program) {
-            $this->db->where('scholarship_program', $scholarship_program);
-        }
-
-        $query = $this->db->get('shortlist');
-        return $query->result();
+   public function get_shortlist($scholarship_program = null)
+{
+    $this->db->select('shortlist.shortlist_id, shortlist.applicant_no, shortlist.id_number, shortlist.lastname, shortlist.middlename, shortlist.firstname, shortlist.academic_year,  shortlist.semester, shortlist.scholarship_program,  shortlist.application_type, shortlist.discount, shortlist.status');
+    $this->db->from('shortlist');
+    $this->db->join('school_year', 'shortlist.academic_year = school_year.academic_year');
+    $this->db->where('school_year.year_status', 'active'); // Only include active academic year
+    
+    if ($scholarship_program) {
+        $this->db->where('shortlist.scholarship_program', $scholarship_program);
     }
+
+    $query = $this->db->get();
+    return $query->result();
+}
+
 
     public function get_shortlist_scholarship_program()
     {
@@ -480,15 +483,11 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    public function get_filter_short_list($academic_year = null, $semester = null, $status = null)
+    public function get_filter_short_list($semester = null, $status = null)
     {
         $this->db->select('*');
         $this->db->from('shortlist');
 
-        // Apply filters if provided
-        if ($academic_year) {
-            $this->db->where('academic_year', $academic_year);
-        }
         if ($semester) {
             $this->db->where('semester', $semester);
         }

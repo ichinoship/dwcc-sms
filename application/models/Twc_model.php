@@ -136,9 +136,13 @@ class Twc_model extends CI_Model
 
     public function get_shortlist_by_programs($program_codes)
     {
-        $this->db->where_in('scholarship_program', $program_codes);
-        $this->db->where_in('status', ['qualified', 'not qualified', 'conditional']);
-        $query = $this->db->get('shortlist');
+        $this->db->select('shortlist.shortlist_id, shortlist.applicant_no, shortlist.id_number, shortlist.lastname, shortlist.firstname, shortlist.scholarship_program, shortlist.status');
+        $this->db->from('shortlist');
+        $this->db->join('school_year', 'shortlist.academic_year = school_year.academic_year');
+        $this->db->where('school_year.year_status', 'active');
+        $this->db->where_in('shortlist.scholarship_program', $program_codes);
+        $this->db->where_in('shortlist.status', ['qualified', 'not qualified', 'conditional']);
+        $query = $this->db->get();
         return $query->result();
     }
 
@@ -149,7 +153,7 @@ class Twc_model extends CI_Model
         $query = $this->db->get('application_form');
         return $query->result();
     }
-    
+
     public function get_application_by_shortlist_id($shortlist_id)
     {
         $this->db->where('shortlist_id', $shortlist_id);
@@ -186,10 +190,11 @@ class Twc_model extends CI_Model
         return $query->result_array();
     }
 
-    public function get_filtered_report_applicants($filters = array()) {
+    public function get_filtered_report_applicants($filters = array())
+    {
         $this->db->select('*');
         $this->db->from('application_form');
-    
+
         // Apply filters
         if (!empty($filters)) {
             if (isset($filters['academic_year'])) {
@@ -205,7 +210,7 @@ class Twc_model extends CI_Model
                 $this->db->where('scholarship_program', $filters['scholarship_program']);
             }
         }
-    
+
         $query = $this->db->get();
         return $query->result();
     }
