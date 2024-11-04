@@ -29,7 +29,8 @@ class Sc_model extends CI_Model
         $this->db->update('scholarship_programs', $data);
     }
 
-    public function update_semester_dates($semester_id, $start_date, $end_date) {
+    public function update_semester_dates($semester_id, $start_date, $end_date)
+    {
 
         $data = [
             'start_date' => $start_date,
@@ -37,7 +38,7 @@ class Sc_model extends CI_Model
         ];
 
         $this->db->where('semester_id', $semester_id);
-        return $this->db->update('semester', $data); 
+        return $this->db->update('semester', $data);
     }
 
     public function get_all_semesters()
@@ -172,20 +173,20 @@ class Sc_model extends CI_Model
         $this->db->where('school_year_id', $school_year_id);
         return $this->db->delete('school_year');
     }
-   public function get_shortlist($scholarship_program = null)
-{
-    $this->db->select('shortlist.shortlist_id, shortlist.applicant_no, shortlist.id_number, shortlist.lastname, shortlist.middlename, shortlist.firstname, shortlist.academic_year,  shortlist.semester, shortlist.scholarship_program,  shortlist.application_type, shortlist.discount, shortlist.status');
-    $this->db->from('shortlist');
-    $this->db->join('school_year', 'shortlist.academic_year = school_year.academic_year');
-    $this->db->where('school_year.year_status', 'active'); // Only include active academic year
-    
-    if ($scholarship_program) {
-        $this->db->where('shortlist.scholarship_program', $scholarship_program);
-    }
+    public function get_shortlist($scholarship_program = null)
+    {
+        $this->db->select('shortlist.shortlist_id, shortlist.applicant_no, shortlist.id_number, shortlist.lastname, shortlist.middlename, shortlist.firstname, shortlist.academic_year,  shortlist.semester, shortlist.scholarship_program,  shortlist.application_type, shortlist.discount, shortlist.status');
+        $this->db->from('shortlist');
+        $this->db->join('school_year', 'shortlist.academic_year = school_year.academic_year');
+        $this->db->where('school_year.year_status', 'active');
 
-    $query = $this->db->get();
-    return $query->result();
-}
+        if ($scholarship_program) {
+            $this->db->where('shortlist.scholarship_program', $scholarship_program);
+        }
+
+        $query = $this->db->get();
+        return $query->result();
+    }
 
 
     public function get_shortlist_scholarship_program()

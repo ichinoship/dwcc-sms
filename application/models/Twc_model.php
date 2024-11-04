@@ -146,6 +146,7 @@ class Twc_model extends CI_Model
         return $query->result();
     }
 
+
     public function get_applicants_by_twc($user_id)
     {
         $this->db->where('scholarship_program', $user_id);
