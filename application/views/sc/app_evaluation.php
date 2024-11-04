@@ -47,7 +47,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <select name="status" id="status" class="form-control">
-                                    <option value="" > Select Status</option>
+                                    <option value=""> Select Status</option>
                                     <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
                                     <option value="not qualified" <?= ($this->input->post('status') == 'not qualified') ? 'selected' : ''; ?>>Not Qualified</option>
                                 </select>
@@ -165,7 +165,7 @@
             var scholarship_program = $('select[name="scholarship_program"]').val();
             var status = $('select[name="status"]').val();
 
-            table .columns(3).search(semester)
+            table.columns(3).search(semester)
                 .columns(4).search(scholarship_program)
                 .columns(6).search(status ? '^' + status + '$' : '', true, false)
                 .draw();
@@ -203,11 +203,6 @@
             var discount = $('#discount').val();
             var status = $('#status').val();
 
-            if (status.toLowerCase() !== 'qualified') {
-                Swal.fire('Error', 'Only qualified applicants can be submitted to the final list.', 'error');
-                return;
-            }
-
             Swal.fire({
                 title: 'Are you sure?',
                 text: `You are about to submit ${name} to the final list.`,
@@ -228,17 +223,21 @@
                         url: "<?= site_url('sc/submit_to_final_list'); ?>",
                         type: "POST",
                         data: data,
+                        dataType: "json",
                         success: function(response) {
-                            Swal.fire('Success', 'Applicant submitted to final list!', 'success').then(() => {
-                                location.reload();
-                            });
-                            $('#evaluateModal').modal('hide');
+                            if (response.status === 'success') {
+                                Swal.fire('Success', 'Applicant submitted to final list!', 'success').then(() => {
+                                    location.reload();
+                                });
+                                $('#evaluateModal').modal('hide');
+                            } else {
+                                Swal.fire('Error', response.message || 'An unexpected error occurred.', 'error');
+                            }
                         },
                         error: function(xhr, status, error) {
-                            Swal.fire('Error', 'There was an error submitting the applicant.', 'error');
+                            Swal.fire('Error', xhr.responseJSON?.message || 'There was an error submitting the applicant.', 'error');
                         },
                         complete: function() {
-                            // Re-enable the button and reset text
                             $('#submitToFinalList').prop('disabled', false).text('Submit to Final List');
                         }
                     });

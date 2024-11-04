@@ -335,6 +335,11 @@ class Sc extends CI_Controller
         $discount = $this->input->post('discount');
         $shortlistedApplicant = $this->Sc_model->get_shortlist_applicant($shortlist_id);
 
+        if ($shortlistedApplicant->status !== "qualified") {
+            echo json_encode(['status' => 'error', 'message' => 'Only qualified applicant can be submitted to the final list.']);
+            return;
+        }
+
         $data = [
             'applicant_no' => $shortlistedApplicant->applicant_no,
             'id_number' => $shortlistedApplicant->id_number,
