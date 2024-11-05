@@ -59,8 +59,6 @@
                     </div>
                     <div class="card-body">
                       <p><strong>Type:</strong> <?= $program->scholarship_type ?></p>
-                      <p><strong>Academic Year:</strong> <?= $program->academic_year ?></p>
-                      <p><strong>Semester:</strong> <?= $program->semester ?></p>
                       <p><strong>Percentage:</strong></p>
                       <ul>
                         <?php
