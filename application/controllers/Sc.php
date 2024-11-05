@@ -494,7 +494,8 @@ class Sc extends CI_Controller
             'academic_year' => $this->input->post('academic_year'),
             'semester' => $this->input->post('semester'),
             'program_type' => $this->input->post('program_type'),
-            'scholarship_program' => $this->input->post('scholarship_program')
+            'scholarship_program' => $this->input->post('scholarship_program'),
+            'discount' => $this->input->post('discount')
         );
 
         foreach ($data['scholarship_programs'] as $program) {

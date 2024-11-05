@@ -72,6 +72,24 @@
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <select name="discount" class="form-control w-100">
+                                                <option value="">Select Discount</option>
+                                                
+                                                <option value="5" <?= ($this->input->post('discount') == '5') ? 'selected' : ''; ?>>5%</option>
+                                                <option value="10" <?= ($this->input->post('discount') == '10') ? 'selected' : ''; ?>>10%</option>
+                                                <option value="15" <?= ($this->input->post('discount') == '15') ? 'selected' : ''; ?>>15%</option>
+                                                <option value="20" <?= ($this->input->post('discount') == '20') ? 'selected' : ''; ?>>20%</option>
+                                                <option value="25" <?= ($this->input->post('discount') == '25') ? 'selected' : ''; ?>>25%</option>
+                                                <option value="50" <?= ($this->input->post('discount') == '50') ? 'selected' : ''; ?>>50%</option>
+                                                <option value="60" <?= ($this->input->post('discount') == '60') ? 'selected' : ''; ?>>60%</option>
+                                                <option value="75" <?= ($this->input->post('discount') == '75') ? 'selected' : ''; ?>>75%</option>
+                                                <option value="80" <?= ($this->input->post('discount') == '80') ? 'selected' : ''; ?>>80%</option>
+                                                <option value="100" <?= ($this->input->post('discount') == '100') ? 'selected' : ''; ?>>100%</option>
+                                            </select>
+                                        </div>
+                                        
                                         <div class="col-md-4 mb-2 d-flex align-items-end">
                                             <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
                                         </div>
@@ -166,6 +184,7 @@
         var semester = $('select[name="semester"]').val();
         var program_type = $('select[name="program_type"]').val();
         var scholarship_program = $('select[name="scholarship_program"]').val();
+        var discount = $('select[name="discount"]').val();
 
         // Initialize the base title
         var title = "Scholarship Reports";
@@ -183,23 +202,36 @@
         if (program_type) {
             title += " (" + program_type + ")";
         }
+        if (discount) {
+        title += " with " + discount + "% Discount";
+        }
 
         // Update the card title element
         $('#reportTitle').text(title);
     }
 
 
-        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="scholarship_program"]').on('change', function() {
+        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="scholarship_program"], select[name="discount"]').on('change', function() {
             var academic_year = $('select[name="academic_year"]').val();
             var semester = $('select[name="semester"]').val();
             var program_type = $('select[name="program_type"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
+            var discount = $('select[name="discount"]').val();
 
             table.columns(2).search(academic_year)
                 .columns(3).search(semester)
                 .columns(4).search(program_type)
                 .columns(5).search(scholarship_program)
+                .columns(6).search(discount)
                 .draw();
+
+                // Use regex for exact match on discount
+                if (discount) {
+                    table.columns(6).search('^' + discount + '$', true, false).draw();
+                } else {
+                    table.columns(6).search('').draw();
+                }
+
                 updateTitle();
         });
         // Reset filters
@@ -208,6 +240,7 @@
             $('select[name="semester"]').val('');
             $('select[name="program_type"]').val('');
             $('select[name="scholarship_program"]').val('');
+            $('select[name="discount"]').val('');
             table.columns().search('').draw();
 
             updateTitle();
