@@ -3,7 +3,7 @@
 <title>Add Announcement</title>
 
 <div class="content-wrapper">
-<div class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -35,8 +35,16 @@
                                     <input type="text" class="form-control" id="title" name="title" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="statement">Statement</label>
-                                    <textarea class="form-control" id="statement" name="statement" rows="4" required></textarea>
+                                    <label for="content">Content</label>
+                                    <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="author">Author Name</label>
+                                    <input type="text" class="form-control" id="author" name="author" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">Upload Image</label>
+                                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Publish Announcement</button>
                             </form>
@@ -55,8 +63,6 @@
                                 <thead>
                                     <tr>
                                         <th>Title</th>
-                                        <th>Date</th>
-                                        <th>Time</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -69,15 +75,20 @@
                                         <?php foreach ($announcements as $announcement): ?>
                                             <tr>
                                                 <td><?= htmlspecialchars($announcement->title) ?></td>
-                                                <td><?= htmlspecialchars($announcement->announcement_date) ?></td>
-                                                <td><?= htmlspecialchars($announcement->announcement_time) ?></td>
                                                 <td>
-                                                    <button class="btn btn-info btn-sm" onclick="openViewModal('<?= addslashes($announcement->title) ?>', '<?= addslashes($announcement->statement) ?>')" title="View">
+                                                    <button class="btn btn-info btn-sm"
+                                                        onclick="openViewModal('<?= addslashes($announcement->title) ?>', 
+                                '<?= addslashes($announcement->content) ?>', 
+                                '<?= addslashes($announcement->author) ?>', 
+                                '<?= date('F j, Y', strtotime($announcement->announcement_date)) ?> at <?= date('g:i A', strtotime($announcement->announcement_time)) ?>', 
+                                '<?= !empty($announcement->image) ? base_url('uploads/' . $announcement->image) : '' ?>')"
+                                                        title="View">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
-                                                    <button class="btn btn-warning btn-sm" onclick="openEditModal(<?= $announcement->id ?>, '<?= addslashes($announcement->title) ?>', '<?= addslashes($announcement->statement) ?>')" title="Edit">
+                                                    <button class="btn btn-warning btn-sm" onclick="openEditModal(<?= $announcement->id ?>, '<?= addslashes($announcement->title) ?>', '<?= addslashes($announcement->content) ?>', '<?= addslashes($announcement->author) ?>', '<?= base_url('uploads/' . $announcement->image) ?>')" title="Edit">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
+
                                                     <button class="btn btn-danger btn-sm" onclick="deleteAnnouncement(<?= $announcement->id ?>)" title="Delete">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
@@ -107,7 +118,12 @@
             </div>
             <div class="modal-body">
                 <h5 id="view-announcement-title"></h5>
-                <p id="view-announcement-statement"></p>
+                <p id="view-announcement-content"></p>
+                <p><strong id="view-announcement-author"></strong></p>
+                <p><small id="view-announcement-datetime" class="text-muted"></small></p>
+                <div id="view-announcement-image" class="mt-2" style="display:none;">
+                    <img src="" alt="Announcement Image" class="img-fluid" style="max-width: 100%; height: auto;">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -129,13 +145,32 @@
             <div class="modal-body">
                 <form id="editAnnouncementForm" action="<?= base_url('sc/update_announcement'); ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="edit-announcement-id">
+
                     <div class="form-group">
                         <label for="edit-title">Announcement Title</label>
                         <input type="text" class="form-control" id="edit-title" name="title" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="edit-statement">Statement</label>
-                        <textarea class="form-control" id="edit-statement" name="statement" rows="4" required></textarea>
+                        <label for="edit-author">Author</label>
+                        <input type="text" class="form-control" id="edit-author" name="author" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-content">Content</label>
+                        <textarea class="form-control" id="edit-content" name="content" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Current Image</label>
+                        <div id="current-image-container" class="mb-2">
+                            <img id="current-image" src="" alt="Current Announcement Image" class="img-fluid" style="max-width: 100%; height: auto;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-image">Change Image (optional)</label>
+                        <input type="file" class="form-control" id="edit-image" name="image" accept="image/*">
                     </div>
                 </form>
             </div>
@@ -146,6 +181,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Delete Announcement Modal -->
 <div class="modal fade" id="deleteAnnouncementModal" tabindex="-1" role="dialog" aria-labelledby="deleteAnnouncementModalLabel" aria-hidden="true">
@@ -186,16 +222,41 @@
 <?php endif; ?>
 
 <script>
-    function openViewModal(title, statement) {
-        document.getElementById('view-announcement-title').innerText = title;
-        document.getElementById('view-announcement-statement').innerText = statement;
+    function openViewModal(title, content, author, datetime, image) {
+        document.getElementById('view-announcement-title').innerHTML = "<strong>" + title + "</strong>";
+        document.getElementById('view-announcement-content').innerText = content;
+        document.getElementById('view-announcement-author').innerText = "Posted By: " + author;
+        document.getElementById('view-announcement-datetime').innerText = datetime;
+
+        const imageElement = document.getElementById('view-announcement-image');
+        const img = imageElement.querySelector('img');
+
+        if (image) {
+            img.src = image;
+            imageElement.style.display = 'block';
+        } else {
+            imageElement.style.display = 'none';
+        }
+
         $('#viewAnnouncementModal').modal('show');
     }
 
-    function openEditModal(id, title, statement) {
+    function openEditModal(id, title, content, author, image) {
         document.getElementById('edit-announcement-id').value = id;
         document.getElementById('edit-title').value = title;
-        document.getElementById('edit-statement').value = statement;
+        document.getElementById('edit-content').value = content;
+        document.getElementById('edit-author').value = author;
+
+        const currentImage = document.getElementById('current-image');
+        const currentImageContainer = document.getElementById('current-image-container');
+
+        if (image) {
+            currentImage.src = image; // Set the image source
+            currentImageContainer.style.display = 'block'; // Show the image
+        } else {
+            currentImageContainer.style.display = 'none'; // Hide if no image
+        }
+
         $('#editAnnouncementModal').modal('show');
     }
 

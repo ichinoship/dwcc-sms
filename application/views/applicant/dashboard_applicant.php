@@ -16,7 +16,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-            <div class="col-12 mt-1">
+                <div class="col-12 mt-1">
                     <div class="alert alert-warning fade show" role="alert">
                         <strong>Important:</strong> TO BE ABLE TO APPLY ON A SCHOLARSHIP. YOU MUST NEED TO FULFILL A SPECIFIC QUALIFICATIONS.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -24,8 +24,8 @@
                         </button>
                     </div>
                 </div>
-                 <!-- Announcement Card -->
-                 <div class="col-12">
+                <!-- Announcement Card -->
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header bg-light">
                             <h3 class="card-title"><i class="fas fa-bullhorn"></i> Announcements</h3>
@@ -35,9 +35,17 @@
                                 <ul class="list-group">
                                     <?php foreach ($announcements as $announcement): ?>
                                         <li class="list-group-item">
-                                        <h5><strong><?= htmlspecialchars($announcement->title) ?></strong></h5>
-                                            <p><?= htmlspecialchars($announcement->statement) ?></p>
+                                            <h5><strong><?= htmlspecialchars($announcement->title) ?></strong></h5>
+                                            <p><?= htmlspecialchars($announcement->content) ?></p>
+                                            <p><em>Posted By: <?= htmlspecialchars($announcement->author) ?></em></p>
                                             <small class="text-muted"><?= date('F j, Y', strtotime($announcement->announcement_date)) ?> at <?= date('g:i A', strtotime($announcement->announcement_time)) ?></small>
+
+                                            <?php if (!empty($announcement->image)): ?>
+                                                <!-- Display the uploaded image if available -->
+                                                <div class="mt-2">
+                                                    <img src="<?= base_url('uploads/' . $announcement->image); ?>" alt="Announcement Image" class="img-fluid" style="max-width: 100%; height: auto;">
+                                                </div>
+                                            <?php endif; ?>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
@@ -47,7 +55,8 @@
                         </div>
                     </div>
                 </div>
-               
+
+
                 <!-- Card 1 -->
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
@@ -72,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div><!-- /.content -->
@@ -93,8 +102,8 @@
                 timerProgressBar: true
             });
         <?php endif; ?>
-        
-        <?php if ($has_conditional):?>
+
+        <?php if ($has_conditional): ?>
             Swal.fire({
                 icon: 'warning',
                 title: 'Conditional Status',
