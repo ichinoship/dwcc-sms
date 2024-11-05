@@ -525,4 +525,25 @@ class Sc_model extends CI_Model
         $this->db->set('year_status', 'deactivated');
         $this->db->update('school_year');
     }
+
+    public function add_announcement($data)
+    {
+        return $this->db->insert('announcements', $data);
+    }
+    public function get_all_announcements()
+    {
+        return $this->db->get('announcements')->result(); // Adjust the table name as necessary
+    }
+
+    public function update_announcement($id, $data)
+    {
+        $this->db->where('id', $id);
+        return $this->db->update('announcements', $data);
+    }
+
+    public function delete_announcement($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('announcements');
+    }
 }

@@ -1,6 +1,6 @@
 <?php $this->load->view('includes/applicant_header') ?>
 <?php $this->load->view('includes/applicant_sidebar') ?>
- <!-- Applicant Dashboard -->
+<!-- Applicant Dashboard -->
 <title>Applicant Dashboard</title>
 <div class="content-wrapper">
     <div class="container-fluid">
@@ -16,18 +16,42 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 mt-1">
+            <div class="col-12 mt-1">
                     <div class="alert alert-warning fade show" role="alert">
-                        <strong>Important:</strong> TO BE ABLE TO APPLY ON A SCHOLARSHIP. YOU MUST NEED TO FULLFILL A SPECIFIC QUALIFICATIONS.
+                        <strong>Important:</strong> TO BE ABLE TO APPLY ON A SCHOLARSHIP. YOU MUST NEED TO FULFILL A SPECIFIC QUALIFICATIONS.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 </div>
+                 <!-- Announcement Card -->
+                 <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <h3 class="card-title"><i class="fas fa-bullhorn"></i> Announcements</h3>
+                        </div>
+                        <div class="card-body">
+                            <?php if (!empty($announcements)): ?>
+                                <ul class="list-group">
+                                    <?php foreach ($announcements as $announcement): ?>
+                                        <li class="list-group-item">
+                                        <h5><strong><?= htmlspecialchars($announcement->title) ?></strong></h5>
+                                            <p><?= htmlspecialchars($announcement->statement) ?></p>
+                                            <small class="text-muted"><?= date('F j, Y', strtotime($announcement->announcement_date)) ?> at <?= date('g:i A', strtotime($announcement->announcement_time)) ?></small>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php else: ?>
+                                <p>No announcements available at this time.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+               
                 <!-- Card 1 -->
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
-                        <div class="card-header bg-primary">
+                        <div class="card-header bg-blue">
                             <h3 class="card-title">Merit Scholarship Program</h3>
                         </div>
                         <div class="card-body">
@@ -48,6 +72,7 @@
                         </div>
                     </div>
                 </div>
+               
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div><!-- /.content -->

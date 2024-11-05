@@ -22,6 +22,8 @@ $route['applicant/decline/(:num)'] = 'admin/decline_applicant/$1';
 // Scholarship Coordinator routes
 $route['sc/dashboard'] = 'sc/dashboard';   
 $route['sc/app-list'] = 'sc/app_list';   
+$route['sc/add_announcement'] = 'sc/add_announcement';
+$route['sc/submit_announcement'] = 'sc/submit_announcement';
 
 $route['sc/scholarship-program'] = 'sc/scholarship_program';
 $route['sc/manage_requirements'] = 'sc/manage_requirements';

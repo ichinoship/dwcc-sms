@@ -37,6 +37,15 @@
 
                 <!-- Cards Section -->
                 <div class="col-md-4 d-flex flex-column">
+                <div class="card mb-3" style="height: 150px;">
+        <div class="card-header bg-warning">
+            <h5 class="card-title">Announcements</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Create a new announcement for students and staff.</p>
+            <a href="<?= base_url('sc/add_announcement'); ?>" class="text-primary">Add Announcement</a>
+        </div>
+    </div>
                     <div class="card mb-3" style="height: 150px;">
                         <div class="card-header bg-success">
                             <h5 class="card-title">Applicant List Overview</h5>
@@ -47,15 +56,6 @@
                         </div>
                     </div>
 
-                    <div class="card mb-3" style="height: 150px;">
-                        <div class="card-header bg-info">
-                            <h5 class="card-title">Evaluate Applicants</h5>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Are you ready to evaluate the applicants?</p>
-                            <a href="<?= base_url('sc/app_evaluation'); ?>" class="text-primary">Evaluate Applicants</a>
-                        </div>
-                    </div>
 
                     <div class="card mb-3" style="height: 150px;">
                         <div class="card-header bg-purple">

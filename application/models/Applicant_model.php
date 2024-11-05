@@ -38,6 +38,11 @@ class Applicant_model extends CI_Model
         return $this->db->get('users')->row();
     }
 
+    public function get_all_announcements()
+    {
+        return $this->db->get('announcements')->result(); // Adjust the table name as necessary
+    }
+
     public function get_application_status($id_number)
     {
         $this->db->select('status');

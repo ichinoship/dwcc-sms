@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2024 at 05:43 AM
+-- Generation Time: Nov 05, 2024 at 05:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `sms_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcements`
+--
+
+CREATE TABLE `announcements` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `announcement_date` date NOT NULL,
+  `announcement_time` time NOT NULL,
+  `statement` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `announcements`
+--
+
+INSERT INTO `announcements` (`id`, `title`, `announcement_date`, `announcement_time`, `statement`, `created_at`) VALUES
+(6, 'SMS Update', '2024-11-05', '12:27:37', 'SMS will be unavailable on October 25, 2024 (Friday) and October 28, 2024 (Monday) due to system updates. We appreciate your understanding and patience during this time.', '2024-11-05 03:26:26'),
+(7, 'Subject Update', '2024-11-05', '11:53:40', 'Due to an error in uploading, some of you may see additional, unofficial subjects in your LMS. These extra subjects will be deleted until August 31, 2024. Please ignore any subjects you are not officially enrolled in. Thank you for your understanding and patience.', '2024-11-05 03:53:40');
 
 -- --------------------------------------------------------
 
@@ -55,7 +78,12 @@ CREATE TABLE `applicants` (
 INSERT INTO `applicants` (`account_no`, `id_number`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `password`, `status`, `account_status`) VALUES
 (1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '$2y$10$UClhW/aH7suBl6Av7dk19u.7ZMmpNpfHXi//v3pW/0pi0qfsc91wq', 'accepted', 'active'),
 (2, 41231, 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-08', 'Female', '09123456781', 'enshrineyna@gmail.com', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'Lalud, Calapan City', 'With Relative', '$2y$10$uWXt9OhcXVpq8OXyvhI39uMEOdhlnvm8de2h9ZNPbRTRKe7eQI6NC', 'accepted', 'active'),
-(3, 47123, 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '$2y$10$T19zsC6hA00pZnP8zEweDu6ztesxmQwoBEPPuA/HlnQaEUPJ6iwiW', 'accepted', 'active');
+(3, 47123, 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '$2y$10$T19zsC6hA00pZnP8zEweDu6ztesxmQwoBEPPuA/HlnQaEUPJ6iwiW', 'accepted', 'active'),
+(4, 47124, 'Kenn Daiven', '', 'Acedillo', '1990-10-29', 'Male', '09123456783', 'kenn@gmail.com', 'Grade School', 'Grade 6', 'None', 'Freinademetz', 'Baruyan, Calapan City', 'Off-Campus Boarding House', '$2y$10$xWWeg77ivMqCHjqud1TDHeGDEAmoxInJlmdsiWKTIu6I7dDPSMUPO', 'accepted', 'active'),
+(5, 47125, 'Kenneth', 'Magtibay ', 'Catibog', '2001-02-12', 'Male', '0912345672', 'kenneth.catibog@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Naujan, Calapan City', 'Off-Campus Boarding House', '$2y$10$aEgLpBrEz98JCTUHHR.ws.gimokO8o9wccGzQEwyqdtcQdzgOJ/3y', 'accepted', 'active'),
+(6, 47126, 'Joe', 'Mark', 'Hendry', '2024-10-08', 'Male', '09123456712', 'joe.hendry@gmail.com', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '$2y$10$rDza/tfkIcu5M4MLZVc8OOnPbap/YwCepGLnUq55m0OSJP3XYoo7y', 'accepted', 'active'),
+(7, 43215, 'Diether', 'Michael', 'Zomgu', '1990-04-30', 'Male', '09123456731', 'diether.zomgu@gmail.com', 'College', '5th', 'Bachelor of Science in Computer Engineering', 'Janssen', 'Canubing II, Calapan City', 'DWCC Dormitory', '$2y$10$ulYJMER9llTQLsRXzP1Yne9Y6xpCPC4.HQf.tmSsMKxHqwt5DVY2e', 'accepted', 'active'),
+(8, 32145, 'Thone Gregor', 'Dilay', 'Visaya', '2001-12-28', 'Male', '09123456787', 'thonegregor@gmail.com', 'College', '4th', 'Bachelor of Science in Computer Engineering', 'Janssen', 'Lalud, Calapan City, Oriental Mindoro', 'Off-Campus Boarding House', '$2y$10$U.9fB7Glyj.N1uHGiUrvK.v8JjNXUHQ1WFsa1Y.REjLa5cN9gb.nW', 'accepted', 'active');
 
 -- --------------------------------------------------------
 
@@ -90,6 +118,17 @@ CREATE TABLE `application_form` (
   `status` enum('pending','qualified','not qualified','conditional') DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `application_form`
+--
+
+INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `status`) VALUES
+(1, 1, 47293, '2x2_girl19.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS5.pdf', NULL, 'qualified'),
+(2, 2, 41231, '2x2_girl23.jpg', 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-08', 'Female', '09123456781', 'enshrineyna@gmail.com', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'Lalud, Calapan City', 'With Relative', '2025-2026', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS6.pdf', NULL, 'qualified'),
+(3, 3, 47123, '2X2_boy25.jpg', 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '2025-2026', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS7.pdf', 'Requirements expired.', 'not qualified'),
+(4, 4, 47124, '2X2_boy9.png', 'Kenn Daiven', '', 'Acedillo', '1990-10-29', 'Male', '09123456783', 'kenn@gmail.com', 'Grade School', 'Grade 6', 'None', 'Freinademetz', 'Baruyan, Calapan City', 'Off-Campus Boarding House', '2025-2026', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS8.pdf', 'Please re-upload requirements.', 'conditional'),
+(5, 5, 47125, '2X2_boy3.jpg', 'Kenneth', 'Magtibay ', 'Catibog', '2001-02-12', 'Male', '0912345672', 'kenneth.catibog@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Naujan, Calapan City', 'Off-Campus Boarding House', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS9.pdf', 'Please re-upload.', 'not qualified');
+
 -- --------------------------------------------------------
 
 --
@@ -119,7 +158,8 @@ CREATE TABLE `final_list` (
 --
 
 INSERT INTO `final_list` (`final_list_id`, `applicant_no`, `id_number`, `firstname`, `middlename`, `lastname`, `program_type`, `year`, `program`, `campus`, `application_type`, `academic_year`, `semester`, `scholarship_program`, `discount`) VALUES
-(1, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '5th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2024-2025', '1st Semester', 'Academic Scholar (Dean’s Lister)', 100);
+(1, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 50),
+(2, 2, 41231, 'Enshrine Yna', 'Pangesban', 'Calderon', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'New Applicant', '2025-2026', 'Whole Semester', 'Academic Scholarship (BE)', 60);
 
 -- --------------------------------------------------------
 
@@ -270,6 +310,14 @@ CREATE TABLE `shortlist` (
   `status` enum('qualified','not qualified') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `shortlist`
+--
+
+INSERT INTO `shortlist` (`shortlist_id`, `applicant_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`) VALUES
+(2, 5, 47125, '2X2_boy3.jpg', 'Kenneth', 'Magtibay ', 'Catibog', '2001-02-12', 'Male', '0912345672', 'kenneth.catibog@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Naujan, Calapan City', 'Off-Campus Boarding House', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS9.pdf', 'Please re-upload.', 0, 'not qualified'),
+(4, 3, 47123, '2X2_boy25.jpg', 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '2025-2026', 'Whole Semester', 'New Applicant', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS7.pdf', 'Requirements expired.', 0, 'not qualified');
+
 -- --------------------------------------------------------
 
 --
@@ -319,6 +367,12 @@ INSERT INTO `users` (`id`, `id_number`, `name`, `contact`, `email`, `birthdate`,
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `announcements`
+--
+ALTER TABLE `announcements`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `applicants`
@@ -384,22 +438,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `announcements`
+--
+ALTER TABLE `announcements`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `application_form`
 --
 ALTER TABLE `application_form`
-  MODIFY `applicant_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `applicant_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `final_list`
 --
 ALTER TABLE `final_list`
-  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `requirements`
@@ -423,7 +483,7 @@ ALTER TABLE `school_year`
 -- AUTO_INCREMENT for table `shortlist`
 --
 ALTER TABLE `shortlist`
-  MODIFY `shortlist_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `shortlist_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`

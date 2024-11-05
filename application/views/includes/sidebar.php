@@ -104,6 +104,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="<?= base_url('sc/add_announcement'); ?>" class="nav-link <?= $this->uri->segment(1) == 'sc' && $this->uri->segment(2) == 'add_announcement' ? 'active' : ''; ?>">
+                            <i class="nav-icon fas fa-bullhorn"></i>
+                            <p>Announcements</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="<?= base_url('sc/school_year'); ?>"
                             class="nav-link <?= $this->uri->segment(1) == 'sc' && ($this->uri->segment(2) == 'school_year' || $this->uri->segment(2) == 'view_list') ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-calendar-alt"></i>

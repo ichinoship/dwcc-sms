@@ -27,8 +27,9 @@ class Applicant extends CI_Controller
     public function dashboard_applicant()
     {
         $id_number = $this->session->userdata('user_id_number');
-
         $applications = $this->Applicant_model->get_applicant_applications($id_number);
+
+        $data['announcements'] = $this->Applicant_model->get_all_announcements();
 
         $data['status'] = null;
         $data['comment'] = null;

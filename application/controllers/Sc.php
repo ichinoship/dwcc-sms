@@ -16,7 +16,7 @@ class Sc extends CI_Controller
 
         if ($this->session->userdata('user_type') != 'Scholarship Coordinator') {
             $this->session->set_flashdata('error', 'Unauthorized access. Please log in as Coordinator.');
-            redirect('auth/login'); //LOGIN
+            redirect('auth/login'); 
         }
     }
 
@@ -30,6 +30,70 @@ class Sc extends CI_Controller
         $data['total_school_years'] = $this->Sc_model->count_school_years();
         $data['total_scholarship_programs'] = $this->Sc_model->count_scholarship_programs();
         $this->load->view('sc/dashboard', $data);
+    }
+
+    public function add_announcement()
+    {
+        $this->load->model('Sc_model');
+        $data['announcements'] = $this->Sc_model->get_all_announcements(); 
+        $data['message'] = $this->session->flashdata('message');
+        $this->load->view('sc/add_announcement', $data);
+    }
+    
+    public function submit_announcement()
+    {
+        $this->load->model('Sc_model');
+        date_default_timezone_set('Asia/Manila');
+    
+        $data = [
+            'title' => $this->input->post('title'),
+            'announcement_date' => date('Y-m-d'),
+            'announcement_time' => date('h:i:s A'),
+            'statement' => $this->input->post('statement')
+        ];
+    
+        if ($this->Sc_model->add_announcement($data)) {
+            $this->session->set_flashdata('message', 'Announcement added successfully!');
+        } else {
+            $this->session->set_flashdata('message', 'Failed to add announcement.');
+        }
+    
+        redirect('sc/add_announcement');
+    }
+    
+    public function update_announcement()
+    {
+        $this->load->model('Sc_model');
+        date_default_timezone_set('Asia/Manila');
+        $id = $this->input->post('id');
+    
+        $data = [
+            'title' => $this->input->post('title'),
+            'announcement_date' => date('Y-m-d'),
+            'announcement_time' => date('h:i:s A'),
+            'statement' => $this->input->post('statement'),
+        ];
+    
+        if ($this->Sc_model->update_announcement($id, $data)) {
+            $this->session->set_flashdata('message', 'Announcement updated successfully!');
+        } else {
+            $this->session->set_flashdata('message', 'Failed to update announcement.');
+        }
+    
+        redirect('sc/add_announcement');
+    }
+    
+    public function delete_announcement($id)
+    {
+        $this->load->model('Sc_model');
+    
+        if ($this->Sc_model->delete_announcement($id)) {
+            $this->session->set_flashdata('message', 'Announcement deleted successfully!');
+        } else {
+            $this->session->set_flashdata('message', 'Failed to delete announcement.');
+        }
+    
+        redirect('sc/add_announcement');
     }
 
     public function search()
