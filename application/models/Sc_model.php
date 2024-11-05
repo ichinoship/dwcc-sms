@@ -168,6 +168,10 @@ class Sc_model extends CI_Model
         if (!empty($filters['scholarship_program'])) {
             $this->db->where('fl.scholarship_program', $filters['scholarship_program']);
         }
+
+        if (!empty($filters['discount'])) {
+            $this->db->where('fl.discount', $filters['discount']);
+        }
         $query = $this->db->get();
         return $query->result();
     }

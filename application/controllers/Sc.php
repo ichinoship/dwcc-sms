@@ -504,9 +504,19 @@ class Sc extends CI_Controller
     // Get applications based on the scholarship filters
     $data['applications'] = $this->Sc_model->get_applications($scholarship_filters);
 
+<<<<<<< HEAD
     // Load the view with all the data prepared for reports
     $this->load->view('sc/reports', $data);
 }
+=======
+        $filters = array(
+            'academic_year' => $this->input->post('academic_year'),
+            'semester' => $this->input->post('semester'),
+            'program_type' => $this->input->post('program_type'),
+            'scholarship_program' => $this->input->post('scholarship_program'),
+            'discount' => $this->input->post('discount')
+        );
+>>>>>>> 4ab347db9efa2594bab50e720aab5e0957d62a8f
 
 public function grants()
 {
