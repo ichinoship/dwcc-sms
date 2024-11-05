@@ -32,6 +32,7 @@ $route['sc/app_evaluation'] = 'sc/app_evaluation';
 $route['sc/view_list/(:any)/(:any)'] = 'sc/view_list/$1/$2';
 $route['sc/view_shortlist_applicant/(:num)'] = 'sc/view_shortlist_applicant/$1';
 $route['sc/reports'] = 'sc/reports';
+$route['sc/grants'] = 'sc/grants';
 $route['sc/update_info'] = 'sc/update_info';
 $route['sc/update_profile'] = 'sc/update_profile';
 $route['sc/change_password'] = 'sc/change_password';

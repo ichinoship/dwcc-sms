@@ -143,12 +143,29 @@
                             <p>Final List</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('sc/reports'); ?>" class="nav-link <?= $this->uri->segment(1) == 'sc' && $this->uri->segment(2) == 'reports' ? 'active' : ''; ?>">
-                            <i class="nav-icon fas fa-chart-bar"></i>
-                            <p>Reports</p>
-                        </a>
-                    </li>
+                    <li class="nav-item has-treeview <?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'grants' ? 'menu-open' : ''; ?>">
+    <a href="#" class="nav-link <?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'grants' ? 'active' : ''; ?>">
+        <i class="nav-icon fas fa-chart-bar"></i>
+        <p>
+            Reports
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="<?= base_url('sc/reports'); ?>" class="nav-link <?= $this->uri->segment(2) == 'reports' ? 'active' : ''; ?>">
+                <i class="fas fa-table"></i>
+                <p>Scholarship Reports</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="<?= base_url('sc/grants'); ?>" class="nav-link <?= $this->uri->segment(2) == 'grants' ? 'active' : ''; ?>">
+                <i class="fas fa-hands-helping"></i>
+                <p>Scholarship Grants</p>
+            </a>
+        </li>
+    </ul>
+</li>
                     <li class="nav-item has-treeview <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'menu-open' : ''; ?>">
                         <a href="#" class="nav-link <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-users-cog"></i>

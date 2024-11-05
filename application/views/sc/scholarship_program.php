@@ -85,8 +85,6 @@
                                             data-program-code="<?= $program->program_code; ?>"
                                             data-program-name="<?= $program->scholarship_program; ?>"
                                             data-campus="<?= $program->campus; ?>"
-                                            data-academic-year="<?= $program->academic_year; ?>"
-                                            data-semester="<?= $program->semester; ?>"
                                             data-start_date="<?= $program->start_date; ?>"
                                             data-end_date="<?= $program->end_date; ?>"
                                             data-scholarship-type="<?= $program->scholarship_type; ?>"
@@ -101,8 +99,6 @@
                                             data-program-code="<?= $program->program_code; ?>"
                                             data-program-name="<?= $program->scholarship_program; ?>"
                                             data-campus="<?= $program->campus; ?>"
-                                            data-academic_year="<?= $program->academic_year; ?>"
-                                            data-semester="<?= $program->semester; ?>"
                                             data-scholarship-type="<?= $program->scholarship_type; ?>"
                                             data-program-status="<?= $program->program_status; ?>"
                                             data-percentage="<?= $program->percentage; ?>"
@@ -248,34 +244,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <!-- Academic Year -->
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="academic_year">Academic Year</label>
-                                            <select class="form-control" id="academic_year" name="academic_year" required>
-                                                <option value="">Select Academic Year</option>
-                                                <?php if (isset($academic_years) && !empty($academic_years)): ?>
-                                                    <?php foreach ($academic_years as $year): ?>
-                                                        <option value="<?php echo $year['academic_year']; ?>">
-                                                            <?php echo $year['academic_year']; ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                <?php endif; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- Semester -->
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="semester">Semester</label>
-                                            <select class="form-control" id="semester" name="semester" required>
-                                                <option value="">Select Semester</option>
-                                                <option value="1st Semester">1st Semester</option>
-                                                <option value="2nd Semester">2nd Semester</option>
-                                                <option value="Whole Semester">Whole Semester</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row">
                                     <!-- Scholarship Type -->
@@ -406,35 +374,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <!-- Academic Year -->
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="academic_year">Academic Year</label>
-                                            <select class="form-control" id="academic_year" name="academic_year" required>
-                                                <option value="">Select Academic Year</option>
-                                                <?php if (isset($academic_years) && !empty($academic_years)): ?>
-                                                    <?php foreach ($academic_years as $year): ?>
-                                                        <option value="<?php echo $year['academic_year']; ?>"
-                                                            <?php echo (isset($current_academic_year) && $current_academic_year === $year['academic_year']) ? 'selected' : ''; ?>>
-                                                            <?php echo $year['academic_year']; ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                <?php endif; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- Semester -->
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="edit_semester">Semester</label>
-                                            <select class="form-control" id="edit_semester" name="semester" required>
-                                                <option value="">Select Semester</option>
-                                                <option value="1st Semester">1st Semester</option>
-                                                <option value="2nd Semester">2nd Semester</option>
-                                                <option value="Whole Semester">Whole Semester</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    
+                                    
 
                                 </div>
 
@@ -563,8 +504,6 @@
                 $('#edit_program_code').val(program.program_code);
                 $('#edit_scholarship_program').val(program.scholarship_program);
                 $('#edit_campus').val(program.campus);
-                $('#edit_academic_year').val(program.academic_year);
-                $('#edit_semester').val(program.semester);
                 $('#edit_scholarship_type').val(program.scholarship_type);
                 $('#edit_description').val(program.description);
                 $('#edit_qualifications').val(program.qualifications);
@@ -591,8 +530,6 @@
         var programCode = button.data('program-code');
         var programName = button.data('program-name');
         var scholarshipType = button.data('scholarship-type');
-        var academicYear = button.data('academic-year');
-        var semester = button.data('semester');
         var start_date = button.data('start_date');
         var end_date = button.data('end_date');
         var programStatus = button.data('program_status');
@@ -605,8 +542,6 @@
         $('#viewProgramCode').text(programCode);
         $('#viewProgramName').text(programName);
         $('#viewScholarshipType').text(scholarshipType);
-        $('#viewAcademicYear').text(academicYear);
-        $('#viewSemester').text(semester);
         $('#viewStartDate').text(start_date);
         $('#viewEndDate').text(end_date);
         $('#viewProgramStatus').text(programStatus);

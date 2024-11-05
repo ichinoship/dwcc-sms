@@ -381,38 +381,26 @@ class Applicant_model extends CI_Model
             'conditional' => $conditional
         ];
     }
-    public function count_all_applicants()
+
+    public function getActiveAcademicYear()
     {
-        return $this->db->count_all('application_form');
+        $this->db->select('academic_year');
+        $this->db->from('school_year');
+        $this->db->where('year_status', 'active');
+        $query = $this->db->get();
+        return $query->row()->academic_year;
     }
 
-    public function count_approved_applicants()
+    public function getTotalApplicants($academicYear)
     {
-        return $this->db->where('status', 'qualified')->count_all_results('application_form');
+        return $this->db->where('academic_year', $academicYear)->count_all_results('application_form');
     }
 
-    public function count_pending_applicants()
+    public function getApplicantsByStatus($academicYear, $status)
     {
-        return $this->db->where('status', 'pending')->count_all_results('application_form');
-    }
-
-    public function count_conditional_applicants()
-    {
-        return $this->db->where('status', 'conditional')->count_all_results('application_form');
-    }
-
-    public function count_not_approve_applicants()
-    {
-        return $this->db->where('status', 'not qualified')->count_all_results('application_form');
-    }
-
-    public function count_grantees_by_program($program_name, $academic_year, $semester)
-    {
-        $this->db->where('scholarship_program', $program_name);
-        $this->db->where('academic_year', $academic_year);
-        $this->db->where('semester', $semester);
-        $this->db->from('final_list');
-        return $this->db->count_all_results();
+        return $this->db->where('academic_year', $academicYear)
+            ->where('status', $status)
+            ->count_all_results('application_form');
     }
 
     public function get_uploaded_requirements($applicant_no)

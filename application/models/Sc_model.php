@@ -29,6 +29,25 @@ class Sc_model extends CI_Model
         $this->db->update('scholarship_programs', $data);
     }
 
+    public function get_grantee_counts($grants_filters)
+{
+    $this->db->select('scholarship_program, COUNT(*) as grantee_count');
+    $this->db->from('final_list');
+
+    // Apply filters if present
+    if (!empty($grants_filters['academic_year'])) {
+        $this->db->where('academic_year', $grants_filters['academic_year']);
+    }
+    if (!empty($grants_filters['semester'])) {
+        $this->db->where('semester', $grants_filters['semester']);
+    }
+
+    $this->db->group_by('scholarship_program');
+    $query = $this->db->get();
+
+    return $query->result();
+}
+
     public function update_semester_dates($semester_id, $start_date, $end_date)
     {
 

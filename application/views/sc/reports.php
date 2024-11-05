@@ -21,7 +21,7 @@
     </section>
 
     <section class="content">
-    <div class="container-fluid">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -30,7 +30,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-tools mb-3">
-                                <form method="post" action="<?= base_url('sc/reports'); ?>" class="form-inline">
+                                <form id="report-filter-form" method="post" action="<?= base_url('sc/reports'); ?>" class="form-inline">
                                     <div class="row col-12">
                                         <div class="col-md-4 mb-2">
                                             <select name="academic_year" class="form-control w-100">
@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="row col-12">
-                                        
+
                                         <div class="col-md-4 mb-2">
                                             <select name="scholarship_program" class="form-control w-100">
                                                 <option value="">Select Scholarship Program</option>
@@ -109,45 +109,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Scholarship Grants -->
-        <div class="row report-section scholarship-program-report">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Scholarship Grants</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-tools">
-                            <div class="mb-3">
-                                <strong>Total Programs:</strong> <?= $total_programs ?>
-                            </div>
-                        </div>
-                        <table id="scholarship_grant" class="table table-bordered table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Program Name</th>
-                                    <th>Percentage</th>
-                                    <th>No. of Grantees</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($scholarship_programs as $program): ?>
-                                    <tr>
-                                        <td><?= $program->program_code ?></td>
-                                        <td><?= $program->scholarship_program ?></td>
-                                        <td><?= $program->percentage ?></td>
-                                        <td><?= $program->number_of_grantees ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </section>
 </div>
 
@@ -156,38 +117,38 @@
 
 
 <script>
-   $(document).ready(function() {
+   
+    $(document).ready(function() {
         var table = $('#applicationsTable').DataTable();
-        
+
         // Function to update the title based on selected filters
-    function updateTitle() {
-        // Get the selected values from each filter
-        var academic_year = $('select[name="academic_year"]').val();
-        var semester = $('select[name="semester"]').val();
-        var program_type = $('select[name="program_type"]').val();
-        var scholarship_program = $('select[name="scholarship_program"]').val();
+        function updateTitle() {
+            // Get the selected values from each filter
+            var academic_year = $('select[name="academic_year"]').val();
+            var semester = $('select[name="semester"]').val();
+            var program_type = $('select[name="program_type"]').val();
+            var scholarship_program = $('select[name="scholarship_program"]').val();
 
-        // Initialize the base title
-        var title = "Scholarship Reports";
+            // Initialize the base title
+            var title = "Scholarship Reports";
 
-        // Construct the dynamic title based on selected filters
-        if (academic_year) {
-            title += " for " + academic_year;
-        }
-        if (semester) {
-            title += ", " + semester;
-        }
-        if (scholarship_program) {
-            title += " in " + scholarship_program;
-        }
-        if (program_type) {
-            title += " (" + program_type + ")";
-        }
+            // Construct the dynamic title based on selected filters
+            if (academic_year) {
+                title += " for " + academic_year;
+            }
+            if (semester) {
+                title += ", " + semester;
+            }
+            if (scholarship_program) {
+                title += " in " + scholarship_program;
+            }
+            if (program_type) {
+                title += " (" + program_type + ")";
+            }
 
-        // Update the card title element
-        $('#reportTitle').text(title);
-    }
-
+            // Update the card title element
+            $('#reportTitle').text(title);
+        }
 
         $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="scholarship_program"]').on('change', function() {
             var academic_year = $('select[name="academic_year"]').val();
@@ -200,7 +161,7 @@
                 .columns(4).search(program_type)
                 .columns(5).search(scholarship_program)
                 .draw();
-                updateTitle();
+            updateTitle();
         });
         // Reset filters
         $('#resetFilters').on('click', function() {
@@ -218,205 +179,6 @@
         $('#printTable').on('click', function() {
             window.print();
         });
-    });
-
-    <?php
-    $years = array_column($scholarship_programs, 'academic_year');
-    $semesters = array_column($scholarship_programs, 'semester');
-
-    $most_common_year = array_count_values($years);
-    $most_common_year = array_search(max($most_common_year), $most_common_year);
-
-    $most_common_semester = array_count_values($semesters);
-    $most_common_semester = array_search(max($most_common_semester), $most_common_semester);
-    ?>
-
-    $(function() {
-        var table = $("#scholarship_grant").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": [{
-                    extend: "copy",
-                    text: "Copy",
-                },
-                {
-                    extend: "pdf",
-                    text: "Export to PDF",
-                    title: '',
-                    customize: function(doc) {
-                        // Page margins for PDF
-                        doc.pageMargins = [50, 115, 50, 115];
-
-                        // Set background image
-                        doc.background = [{
-                            image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
-                            width: 624,
-                            height: 830
-                        }];
-
-                        // Title
-                        doc.content.splice(0, 0, {
-                            text: 'SCHOLARSHIP GRANTS',
-                            alignment: 'center',
-                            fontSize: 12,
-                            bold: true,
-                            margin: [0, 20, 0, 0]
-                        });
-
-                        // Subtitle
-                        doc.content.splice(1, 0, {
-                            text: 'ACADEMIC YEAR <?= $most_common_year ?> | <?= strtoupper($most_common_semester) ?>',
-                            alignment: 'center',
-                            fontSize: 12,
-                            bold: true,
-                            margin: [0, 0, 0, 20]
-                        });
-
-                        var table = doc.content[2];
-                        if (table && table.table) {
-                            table.layout = {
-                                hLineWidth: function() {
-                                    return 0.5;
-                                },
-                                vLineWidth: function() {
-                                    return 0.5;
-                                },
-                                hLineColor: function() {
-                                    return '#000';
-                                },
-                                vLineColor: function() {
-                                    return '#000';
-                                },
-                                paddingLeft: function() {
-                                    return 2;
-                                },
-                                paddingRight: function() {
-                                    return 2;
-                                },
-                                paddingTop: function() {
-                                    return 2;
-                                },
-                                paddingBottom: function() {
-                                    return 2;
-                                },
-                            };
-
-                            for (var i = 0; i < table.table.body.length; i++) {
-                                for (var j = 0; j < table.table.body[i].length; j++) {
-                                    table.table.body[i][j].fillColor = '#FFFFFF';
-                                    table.table.body[i][j].fontSize = 10;
-                                }
-                            }
-
-                            // Set header row styling
-                            var header = table.table.body[0];
-                            for (var j = 0; j < header.length; j++) {
-                                header[j].fillColor = '#A6D18A';
-                                header[j].color = '#000000';
-                            }
-                        }
-
-                        doc.content.push({
-                            text: 'Prepared by:',
-                            alignment: 'left',
-                            margin: [0, 30, 0, 20],
-                            fontSize: 12,
-                            bold: false
-                        });
-                        doc.content.push({
-                            text: 'DIANA KYTH P. CONTI\n',
-                            alignment: 'left',
-                            margin: [0, 0, 0, 0],
-                            fontSize: 12,
-                            bold: true
-                        });
-                        doc.content.push({
-                            text: 'Scholarship Coordinator',
-                            alignment: 'left',
-                            margin: [0, 0, 0, 50],
-                            fontSize: 12,
-                            bold: false
-                        });
-
-                        doc.content.push({
-                            text: 'Evaluated and Recommended by:',
-                            alignment: 'left',
-                            margin: [0, 30, 0, 20],
-                            fontSize: 12,
-                            bold: false
-                        });
-                        doc.content.push({
-                            text: 'REV. FR. VICENTE D. CASTRO JR, SVD\n',
-                            alignment: 'center',
-                            margin: [0, 0, 0, 0],
-                            fontSize: 12,
-                            bold: true
-                        });
-                        doc.content.push({
-                            text: 'Vice Chairperson',
-                            alignment: 'center',
-                            margin: [0, 0, 0, 10],
-                            fontSize: 12,
-                            bold: false
-                        });
-                        doc.content.push({
-                            text: 'BR. HUBERTUS GURU, SVD, Ed.D\n',
-                            alignment: 'center',
-                            margin: [0, 30, 0, 0],
-                            fontSize: 12,
-                            bold: true
-                        });
-                        doc.content.push({
-                            text: 'Scholarship Chairperson',
-                            alignment: 'center',
-                            margin: [0, 0, 0, 10],
-                            fontSize: 12,
-                            bold: false
-                        });
-
-                        doc.content.push({
-                            text: 'Approved by:',
-                            alignment: 'left',
-                            margin: [0, 30, 0, 20],
-                            fontSize: 12,
-                            bold: false
-                        });
-                        doc.content.push({
-                            text: 'REV. FR. RENATO A. TAMPOL, SVD, PhD\n',
-                            alignment: 'center',
-                            margin: [0, 0, 0, 0],
-                            fontSize: 12,
-                            bold: true
-                        });
-                        doc.content.push({
-                            text: 'President',
-                            alignment: 'center',
-                            margin: [0, 0, 0, 0],
-                            fontSize: 12,
-                            bold: false
-                        });
-                    }
-                },
-                {
-                    extend: "colvis",
-                    text: "Column Visibility",
-                }
-            ],
-            initComplete: function() {
-                this.api().columns(4).every(function() {
-                    var column = this;
-                    $('#userTypeFilter').on('change', function() {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                });
-            }
-        }).buttons().container().appendTo('#scholarship_grant_wrapper .col-md-6:eq(0)');
     });
 </script>
 

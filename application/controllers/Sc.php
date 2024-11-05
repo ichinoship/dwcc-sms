@@ -22,13 +22,18 @@ class Sc extends CI_Controller
 
     public function dashboard()
     {
-        $data['total_applicants'] = $this->Applicant_model->count_all_applicants();
-        $data['approve_applicants'] = $this->Applicant_model->count_approved_applicants();
-        $data['pending_applicants'] = $this->Applicant_model->count_pending_applicants();
-        $data['conditional_applicants'] = $this->Applicant_model->count_conditional_applicants();
-        $data['not_approve_applicants'] = $this->Applicant_model->count_not_approve_applicants();
-        $data['total_school_years'] = $this->Sc_model->count_school_years();
-        $data['total_scholarship_programs'] = $this->Sc_model->count_scholarship_programs();
+        // Load the model
+        $this->load->model('Applicant_model');
+        // Get the active academic year
+        $activeAcademicYear = $this->Applicant_model->getActiveAcademicYear();
+        // Get applicant counts based on the active academic year
+        $data['totalApplicants'] = $this->Applicant_model->getTotalApplicants($activeAcademicYear);
+        $data['pendingApplicants'] = $this->Applicant_model->getApplicantsByStatus($activeAcademicYear, 'pending');
+        $data['qualifiedApplicants'] = $this->Applicant_model->getApplicantsByStatus($activeAcademicYear, 'qualified');
+        $data['notQualifiedApplicants'] = $this->Applicant_model->getApplicantsByStatus($activeAcademicYear, 'not qualified');
+        $data['conditionalApplicants'] = $this->Applicant_model->getApplicantsByStatus($activeAcademicYear, 'conditional');
+
+        // Pass data to the view
         $this->load->view('sc/dashboard', $data);
     }
 
@@ -154,7 +159,7 @@ class Sc extends CI_Controller
         $data['twc_users'] = $this->Sc_model->get_twcs();
         $data['requirements'] = $this->Sc_model->get_all_reqs();
         $data['academic_years'] = $this->Sc_model->get_all_academic_years(); // Make sure to implement this in your model
-        $data['current_academic_year'] = $this->Sc_model->get_current_academic_year();
+
 
         $this->load->view('sc/scholarship_program', $data);
     }
@@ -479,35 +484,52 @@ class Sc extends CI_Controller
             log_message('error', 'Email not sent: ' . $this->email->print_debugger());
         }
     }
+    // Controller (update reports method)
     public function reports()
-    {
-        $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
-        $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
+{
+    // Fetching common data for the view
+    $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
+    $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
+    $data['applicant_counts'] = $this->Applicant_model->get_applicant_counts();
+    $data['total_programs'] = $this->Sc_model->count_scholarship_programs();
+  
+    // Filter for scholarship reports
+    $scholarship_filters = array(
+        'academic_year' => $this->input->post('academic_year'),
+        'semester' => $this->input->post('semester'),
+        'program_type' => $this->input->post('program_type'),
+        'scholarship_program' => $this->input->post('scholarship_program')
+    );
 
-        $data['academic_year'] = $this->Sc_model->get_academic_years();
-        $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
-        $data['applicant_counts'] = $this->Applicant_model->get_applicant_counts();
-        $data['total_programs'] = $this->Sc_model->count_scholarship_programs();
-        $data['final_list'] = $this->Sc_model->get_final_list_reports();
+    // Get applications based on the scholarship filters
+    $data['applications'] = $this->Sc_model->get_applications($scholarship_filters);
 
-        $filters = array(
-            'academic_year' => $this->input->post('academic_year'),
-            'semester' => $this->input->post('semester'),
-            'program_type' => $this->input->post('program_type'),
-            'scholarship_program' => $this->input->post('scholarship_program')
-        );
+    // Load the view with all the data prepared for reports
+    $this->load->view('sc/reports', $data);
+}
 
-        foreach ($data['scholarship_programs'] as $program) {
-            $program->number_of_grantees = $this->Applicant_model->count_grantees_by_program($program->scholarship_program, $program->academic_year, $program->semester);
-        }
+public function grants()
+{
+    // Fetching common data for the view
+    $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
+    $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
+  
+    // Filter for grants
+    $grants_filters = array(
+        'academic_year' => $this->input->post('academic_year'),
+        'semester' => $this->input->post('semester')
+    );
 
+    // Store selected filters for grants
+    $data['selected_academic_year'] = $grants_filters['academic_year'];
+    $data['selected_semester'] = $grants_filters['semester'];
 
-        $data['applications'] = $this->Sc_model->get_applications($filters);
+    // Fetch grantee counts based on grants filters
+    $data['grantee_counts'] = $this->Sc_model->get_grantee_counts($grants_filters);
 
-        $this->load->view('sc/reports', $data);
-    }
-
-
+    // Load the grants view
+    $this->load->view('sc/grants', $data);
+}
 
     public function update_info()
     {

@@ -376,7 +376,7 @@ class Applicant extends CI_Controller
             return;
         }
 
-        $photo_config['upload_path'] = './uploads/applicant_photo/';
+        $photo_config['upload_path'] = './uploads/';
         $photo_config['allowed_types'] = 'jpg|png|jpeg';
         $photo_config['max_size'] = 10240;
 
@@ -391,7 +391,7 @@ class Applicant extends CI_Controller
 
         $requirements_files = $_FILES['requirements'];
         $requirements = [];
-        $requirement_config['upload_path'] = './uploads/requirements/';
+        $requirement_config['upload_path'] = './uploads/';
         $requirement_config['allowed_types'] = 'pdf|docx';
         $requirement_config['max_size'] = 10240;
 

@@ -30,7 +30,7 @@
                         </div>
                         <div class="card-body">
                             <div class="d-flex justify-content-center align-items-center flex-column">
-                                <img src="<?= base_url('uploads/' . $applicant->applicant_photo); ?>" alt="Applicant Photo" class="mb-3" style="width:200px; height:200px; object-fit:cover; border: 1px solid black;">
+                                <img src="<?= base_url('uploads/applicant_photo' . $applicant->applicant_photo); ?>" alt="Applicant Photo" class="mb-3" style="width:200px; height:200px; object-fit:cover; border: 1px solid black;">
                             </div>
                             <h3 class="font-weight-bold"><?= htmlspecialchars($applicant->firstname) . ' ' . htmlspecialchars($applicant->lastname); ?></h3>
                             <p class="text-muted"><strong>Applicant No:</strong> <?= htmlspecialchars($applicant->applicant_no); ?></p>
