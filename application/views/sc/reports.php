@@ -21,12 +21,12 @@
     </section>
 
     <section class="content">
-        <div class="container-fluid">
+    <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Scholarship Reports</h3>
+                            <h3 class="card-title" id="reportTitle">Scholarship Reports</h3>
                         </div>
                         <div class="card-body">
                             <div class="card-tools mb-3">
@@ -51,21 +51,17 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2">
-                                            <select name="application_type" class="form-control w-100">
-                                                <option value="">Select Application Type</option>
-                                                <option value="New Applicant" <?= ($this->input->post('application_type') == 'New Applicant') ? 'selected' : ''; ?>>New Applicant</option>
-                                                <option value="Renewal" <?= ($this->input->post('application_type') == 'Renewal') ? 'selected' : ''; ?>>Renewal</option>
+                                            <select name="program_type" class="form-control w-100">
+                                                <option value="">Select Program Type</option>
+                                                <option value="College" <?= ($this->input->post('program_type') == 'College') ? 'selected' : ''; ?>>College</option>
+                                                <option value="Senior High School" <?= ($this->input->post('program_type') == 'Senior High School') ? 'selected' : ''; ?>>Senior High School</option>
+                                                <option value="Junior High School" <?= ($this->input->post('program_type') == 'Junior High School') ? 'selected' : ''; ?>>Junior High School</option>
+                                                <option value="Grade School" <?= ($this->input->post('program_type') == 'Grade School') ? 'selected' : ''; ?>>Grade School</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row col-12">
-                                        <div class="col-md-4 mb-2">
-                                            <select name="status" class="form-control w-100">
-                                                <option value="">Select Status</option>
-                                                <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
-                                                <option value="not qualified" <?= ($this->input->post('status') == 'not qualified') ? 'selected' : ''; ?>>Not Qualified</option>
-                                            </select>
-                                        </div>
+                                        
                                         <div class="col-md-4 mb-2">
                                             <select name="scholarship_program" class="form-control w-100">
                                                 <option value="">Select Scholarship Program</option>
@@ -85,27 +81,25 @@
                             <table id="applicationsTable" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Applicant No</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Scholarship Program</th>
-                                        <th>Status</th>
+                                        <th>ID Number</th>
+                                        <th>Name</th>
                                         <th>Academic Year</th>
                                         <th>Semester</th>
-                                        <th>Application Type</th>
+                                        <th>Program Type</th>
+                                        <th>Scholarship Program</th>
+                                        <th>Discount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($applications as $application): ?>
                                         <tr>
-                                            <td><?= $application->applicant_no; ?></td>
-                                            <td><?= $application->firstname; ?></td>
-                                            <td><?= $application->lastname; ?></td>
-                                            <td><?= $application->scholarship_program; ?></td>
-                                            <td><?= ucwords($application->status); ?></td>
+                                            <td><?= $application->id_number; ?></td>
+                                            <td><?php echo $application->firstname . ' ' . $application->middlename . ' ' . $application->lastname; ?></td>
                                             <td><?= $application->academic_year; ?></td>
                                             <td><?= $application->semester; ?></td>
-                                            <td><?= $application->application_type; ?></td>
+                                            <td><?= $application->program_type; ?></td>
+                                            <td><?= $application->scholarship_program; ?></td>
+                                            <td><?= $application->discount; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -162,31 +156,62 @@
 
 
 <script>
-    $(document).ready(function() {
+   $(document).ready(function() {
         var table = $('#applicationsTable').DataTable();
+        
+        // Function to update the title based on selected filters
+    function updateTitle() {
+        // Get the selected values from each filter
+        var academic_year = $('select[name="academic_year"]').val();
+        var semester = $('select[name="semester"]').val();
+        var program_type = $('select[name="program_type"]').val();
+        var scholarship_program = $('select[name="scholarship_program"]').val();
 
-        $('select[name="academic_year"], select[name="semester"], select[name="application_type"], select[name="status"], select[name="scholarship_program"]').on('change', function() {
+        // Initialize the base title
+        var title = "Scholarship Reports";
+
+        // Construct the dynamic title based on selected filters
+        if (academic_year) {
+            title += " for " + academic_year;
+        }
+        if (semester) {
+            title += ", " + semester;
+        }
+        if (scholarship_program) {
+            title += " in " + scholarship_program;
+        }
+        if (program_type) {
+            title += " (" + program_type + ")";
+        }
+
+        // Update the card title element
+        $('#reportTitle').text(title);
+    }
+
+
+        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="scholarship_program"]').on('change', function() {
             var academic_year = $('select[name="academic_year"]').val();
             var semester = $('select[name="semester"]').val();
-            var application_type = $('select[name="application_type"]').val();
-            var status = $('select[name="status"]').val();
+            var program_type = $('select[name="program_type"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
 
-            table.columns(6).search(academic_year)
-                .columns(7).search(semester)
-                .columns(8).search(application_type)
-                .columns(5).search(status)
-                .columns(4).search(scholarship_program)
+            table.columns(2).search(academic_year)
+                .columns(3).search(semester)
+                .columns(4).search(program_type)
+                .columns(5).search(scholarship_program)
                 .draw();
+                updateTitle();
         });
         // Reset filters
         $('#resetFilters').on('click', function() {
             $('select[name="academic_year"]').val('');
             $('select[name="semester"]').val('');
-            $('select[name="application_type"]').val('');
-            $('select[name="status"]').val('');
+            $('select[name="program_type"]').val('');
             $('select[name="scholarship_program"]').val('');
             table.columns().search('').draw();
+
+            updateTitle();
+
             table.destroy();
             table = $('#applicationsTable').DataTable();
         });

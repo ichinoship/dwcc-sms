@@ -493,8 +493,7 @@ class Sc extends CI_Controller
         $filters = array(
             'academic_year' => $this->input->post('academic_year'),
             'semester' => $this->input->post('semester'),
-            'application_type' => $this->input->post('application_type'),
-            'status' => $this->input->post('status'),
+            'program_type' => $this->input->post('program_type'),
             'scholarship_program' => $this->input->post('scholarship_program')
         );
 
@@ -502,8 +501,6 @@ class Sc extends CI_Controller
             $program->number_of_grantees = $this->Applicant_model->count_grantees_by_program($program->scholarship_program, $program->academic_year, $program->semester);
         }
 
-        // Filter the statuses in the query
-        $filters['status'] = array('qualified', 'not qualified');
 
         $data['applications'] = $this->Sc_model->get_applications($filters);
 

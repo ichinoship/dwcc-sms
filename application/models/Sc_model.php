@@ -133,24 +133,21 @@ class Sc_model extends CI_Model
 
     public function get_applications($filters = array())
     {
-        $this->db->select('applicant_no, id_number, firstname, middlename, lastname, scholarship_program, status, academic_year, semester, application_type');
-        $this->db->from('application_form af');
+        $this->db->select('id_number, firstname, middlename, lastname, academic_year,semester, program_type, scholarship_program, discount');
+        $this->db->from('final_list fl');
 
         if (!empty($filters['academic_year'])) {
-            $this->db->where('af.academic_year', $filters['academic_year']);
+            $this->db->where('fl.academic_year', $filters['academic_year']);
         }
         if (!empty($filters['semester'])) {
-            $this->db->where('af.semester', $filters['semester']);
+            $this->db->where('fl.semester', $filters['semester']);
         }
-        if (!empty($filters['application_type'])) {
-            $this->db->where('af.application_type', $filters['application_type']);
+        if (!empty($filters['program_type'])) {
+            $this->db->where('fl.program_type', $filters['program_type']);
         }
-        // Filter for statuses 'qualified' and 'not qualified'
-        if (!empty($filters['status']) && is_array($filters['status'])) {
-            $this->db->where_in('af.status', $filters['status']);
-        }
+
         if (!empty($filters['scholarship_program'])) {
-            $this->db->where('af.scholarship_program', $filters['scholarship_program']);
+            $this->db->where('fl.scholarship_program', $filters['scholarship_program']);
         }
         $query = $this->db->get();
         return $query->result();
