@@ -73,8 +73,6 @@
                     <p><strong>Campus:</strong> <span id="programCampus"></span></p>
                     <p><strong>Start Date:</strong> <span id="programStartDate"></span></p>
                     <p><strong>End Date:</strong> <span id="programEndDate"></span></p>
-                    <p><strong>Academic Year:</strong> <span id="programAcademicYear"></span></p>
-                    <p><strong>Semester:</strong> <span id="programSemester"></span></p>
                     <p><strong>Qualifications:</strong> <span id="programQualifications"></span></p>
                     <ul id="programQualificationsList"></ul>
                     <p><strong>Requirements:</strong> <span id="programRequirements"></span></p>
@@ -120,8 +118,6 @@
                     requirementsList.append('<li>' + requirement.trim() + '</li>');
                 });
                 $('#programSubmitTo').text(program.submit_to);
-                $('#programAcademicYear').text(program.academic_year);
-                $('#programSemester').text(program.semester);
                 $('#programInfoModal').modal('show');
             }
         });

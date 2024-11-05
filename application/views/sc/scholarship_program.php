@@ -178,17 +178,9 @@
                             <p><strong>Program Code:</strong> <span id="viewProgramCode"></span></p>
                             <p><strong>Scholarship Program:</strong> <span id="viewProgramName"></span></p>
                             <div class="row">
-                                <div class="col-md-4">
+                            <div class="col-md-4">
                                     <p><strong>Scholarship Type:</strong> <span id="viewScholarshipType"></span></p>
                                 </div>
-                                <div class="col-md-4">
-                                    <p><strong>Academic Year:</strong> <span id="viewAcademicYear"></span></p>
-                                </div>
-                                <div class="col-md-4">
-                                    <p><strong>Semester:</strong> <span id="viewSemester"></span></p>
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-4">
                                     <p><strong>Start Date:</strong> <span id="viewStartDate"></span></p>
                                 </div>
@@ -231,9 +223,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="row">
-                                    <!-- Campus -->
-                                    <div class="col-md-4">
+                                     <!-- Campus -->
+                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="campus">Campus</label>
                                             <select class="form-control" id="campus" name="campus" required>
@@ -244,10 +237,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <!-- Scholarship Type -->
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="scholarship_type">Scholarship Type</label>
                                             <select class="form-control" id="scholarship_type" name="scholarship_type" required>
@@ -257,7 +248,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="program_status">Program Status</label>
                                             <select class="form-control" id="program_status" name="program_status" required>
@@ -267,7 +258,7 @@
                                         </div>
                                     </div>
                                     <!-- Assigned To -->
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="assigned_to">Assigned To</label>
                                             <select class="form-control" id="assigned_to" name="assigned_to" required>
@@ -278,7 +269,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="percentage">Percentage</label>
                                             <input type="text" class="form-control" id="percentage" name="percentage" min="0" max="100" step="0.01" required>
@@ -362,6 +353,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    
+                                </div>
+
+                                <div class="row">
                                     <!-- Campus -->
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -374,13 +369,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                    
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="edit_scholarship_type">Scholarship Type</label>
                                             <select class="form-control" id="edit_scholarship_type" name="scholarship_type" required>
@@ -391,7 +380,7 @@
                                         </div>
                                     </div>
                                     <!-- Program Status -->
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="edit_program_status">Program Status</label>
                                             <select class="form-control" id="edit_program_status" name="program_status" required>
@@ -400,7 +389,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="edit_assigned_to">Assigned To</label>
                                             <select class="form-control" id="edit_assigned_to" name="assigned_to" required>
@@ -411,7 +400,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="edit_percentage">Percentage</label>
                                             <input type="text" class="form-control" id="edit_percentage" name="percentage" min="0" max="100" step="0.01" required>

@@ -76,7 +76,7 @@
                                         <div class="col-md-4 mb-2">
                                             <select name="discount" class="form-control w-100">
                                                 <option value="">Select Discount</option>
-                                                
+
                                                 <option value="5" <?= ($this->input->post('discount') == '5') ? 'selected' : ''; ?>>5%</option>
                                                 <option value="10" <?= ($this->input->post('discount') == '10') ? 'selected' : ''; ?>>10%</option>
                                                 <option value="15" <?= ($this->input->post('discount') == '15') ? 'selected' : ''; ?>>15%</option>
@@ -89,7 +89,7 @@
                                                 <option value="100" <?= ($this->input->post('discount') == '100') ? 'selected' : ''; ?>>100%</option>
                                             </select>
                                         </div>
-                                        
+
                                         <div class="col-md-4 mb-2 d-flex align-items-end">
                                             <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
                                         </div>
@@ -135,67 +135,64 @@
 
 
 <script>
-   
     $(document).ready(function() {
         var table = $('#applicationsTable').DataTable();
 
-        // Function to update the title based on selected filters
-<<<<<<< HEAD
         function updateTitle() {
             // Get the selected values from each filter
             var academic_year = $('select[name="academic_year"]').val();
             var semester = $('select[name="semester"]').val();
             var program_type = $('select[name="program_type"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
-=======
-    function updateTitle() {
-        // Get the selected values from each filter
-        var academic_year = $('select[name="academic_year"]').val();
-        var semester = $('select[name="semester"]').val();
-        var program_type = $('select[name="program_type"]').val();
-        var scholarship_program = $('select[name="scholarship_program"]').val();
-        var discount = $('select[name="discount"]').val();
->>>>>>> 4ab347db9efa2594bab50e720aab5e0957d62a8f
 
-            // Initialize the base title
-            var title = "Scholarship Reports";
+            function updateTitle() {
+                // Get the selected values from each filter
+                var academic_year = $('select[name="academic_year"]').val();
+                var semester = $('select[name="semester"]').val();
+                var program_type = $('select[name="program_type"]').val();
+                var scholarship_program = $('select[name="scholarship_program"]').val();
+                var discount = $('select[name="discount"]').val();
 
-<<<<<<< HEAD
-            // Construct the dynamic title based on selected filters
-            if (academic_year) {
-                title += " for " + academic_year;
-            }
-            if (semester) {
-                title += ", " + semester;
-            }
-            if (scholarship_program) {
-                title += " in " + scholarship_program;
-            }
-            if (program_type) {
-                title += " (" + program_type + ")";
-            }
-=======
-        // Construct the dynamic title based on selected filters
-        if (academic_year) {
-            title += " for " + academic_year;
-        }
-        if (semester) {
-            title += ", " + semester;
-        }
-        if (scholarship_program) {
-            title += " in " + scholarship_program;
-        }
-        if (program_type) {
-            title += " (" + program_type + ")";
-        }
-        if (discount) {
-        title += " with " + discount + "% Discount";
-        }
 
-        // Update the card title element
-        $('#reportTitle').text(title);
-    }
->>>>>>> 4ab347db9efa2594bab50e720aab5e0957d62a8f
+                // Initialize the base title
+                var title = "Scholarship Reports";
+
+
+                // Construct the dynamic title based on selected filters
+                if (academic_year) {
+                    title += " for " + academic_year;
+                }
+                if (semester) {
+                    title += ", " + semester;
+                }
+                if (scholarship_program) {
+                    title += " in " + scholarship_program;
+                }
+                if (program_type) {
+                    title += " (" + program_type + ")";
+                }
+
+                // Construct the dynamic title based on selected filters
+                if (academic_year) {
+                    title += " for " + academic_year;
+                }
+                if (semester) {
+                    title += ", " + semester;
+                }
+                if (scholarship_program) {
+                    title += " in " + scholarship_program;
+                }
+                if (program_type) {
+                    title += " (" + program_type + ")";
+                }
+                if (discount) {
+                    title += " with " + discount + "% Discount";
+                }
+
+                // Update the card title element
+                $('#reportTitle').text(title);
+            }
+
 
             // Update the card title element
             $('#reportTitle').text(title);
@@ -214,19 +211,16 @@
                 .columns(5).search(scholarship_program)
                 .columns(6).search(discount)
                 .draw();
-<<<<<<< HEAD
             updateTitle();
-=======
 
-                // Use regex for exact match on discount
-                if (discount) {
-                    table.columns(6).search('^' + discount + '$', true, false).draw();
-                } else {
-                    table.columns(6).search('').draw();
-                }
+            // Use regex for exact match on discount
+            if (discount) {
+                table.columns(6).search('^' + discount + '$', true, false).draw();
+            } else {
+                table.columns(6).search('').draw();
+            }
 
-                updateTitle();
->>>>>>> 4ab347db9efa2594bab50e720aab5e0957d62a8f
+            updateTitle();
         });
         // Reset filters
         $('#resetFilters').on('click', function() {

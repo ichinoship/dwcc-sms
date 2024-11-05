@@ -6,8 +6,8 @@
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row justify-content-start mb-4">
-                <div class="col text-start">
+            <div class="row justify-content-center mb-4">
+                <div class="col text-center">
                     <img src="<?php echo base_url('assets/images/dwcc-logo.png'); ?>" alt="School Logo" style="max-width: 100px; height: auto;">
                 </div>
             </div>

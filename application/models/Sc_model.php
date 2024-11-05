@@ -274,12 +274,10 @@ class Sc_model extends CI_Model
         return $this->db->get('final_list')->result();
     }
 
-    public function get_program_by_details($program_name, $campus, $academic_year, $semester)
+    public function get_program_by_details($program_name, $campus)
     {
         $this->db->where('scholarship_program', $program_name);
         $this->db->where('campus', $campus);
-        $this->db->where('academic_year', $academic_year);
-        $this->db->where('semester', $semester);
         $query = $this->db->get('scholarship_programs');
         return $query->row();
     }

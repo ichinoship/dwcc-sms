@@ -158,9 +158,6 @@ class Sc extends CI_Controller
         $data['programs'] = $this->Sc_model->get_all_scholarship_programs();
         $data['twc_users'] = $this->Sc_model->get_twcs();
         $data['requirements'] = $this->Sc_model->get_all_reqs();
-        $data['academic_years'] = $this->Sc_model->get_all_academic_years(); // Make sure to implement this in your model
-
-
         $this->load->view('sc/scholarship_program', $data);
     }
 
@@ -238,8 +235,6 @@ class Sc extends CI_Controller
             $this->form_validation->set_rules('requirements[]', 'Requirements', 'required', array('required' => 'Please select at least one requirement.'));
         }
 
-        // Fetch academic years from school_year table
-        $data['academic_years'] = $this->Sc_model->get_all_academic_years();
 
         if ($this->form_validation->run() == FALSE) {
             $data['programs'] = $this->Sc_model->get_all_scholarship_programs();
@@ -249,9 +244,7 @@ class Sc extends CI_Controller
         } else {
             $existing_program = $this->Sc_model->get_program_by_details(
                 $this->input->post('scholarship_program'),
-                $this->input->post('campus'),
-                $this->input->post('academic_year'),
-                $this->input->post('semester')
+                $this->input->post('campus')
             );
 
             if ($existing_program) {
@@ -261,8 +254,6 @@ class Sc extends CI_Controller
                 $data = array(
                     'scholarship_program' => $this->input->post('scholarship_program'),
                     'campus' => $this->input->post('campus'),
-                    'academic_year' => $this->input->post('academic_year'),
-                    'semester' => $this->input->post('semester'),
                     'scholarship_type' => $this->input->post('scholarship_type'),
                     'program_status' => $this->input->post('program_status'),
                     'assigned_to' => $this->input->post('assigned_to'),
@@ -297,9 +288,6 @@ class Sc extends CI_Controller
             );
         }
 
-        // Fetch academic years for the dropdown
-        $data['academic_years'] = $this->Sc_model->get_all_academic_years();
-
         if ($this->form_validation->run() == FALSE) {
             $data['programs'] = $this->Sc_model->get_all_scholarship_programs();
             $data['twc_users'] = $this->Sc_model->get_twcs();
@@ -309,8 +297,6 @@ class Sc extends CI_Controller
             $data = array(
                 'scholarship_program' => $this->input->post('scholarship_program'),
                 'campus' => $this->input->post('campus'),
-                'academic_year' => $this->input->post('academic_year'),
-                'semester' => $this->input->post('semester'),
                 'scholarship_type' => $this->input->post('scholarship_type'),
                 'program_status' => $this->input->post('program_status'),
                 'assigned_to' => $this->input->post('assigned_to'),
