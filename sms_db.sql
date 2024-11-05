@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2024 at 05:28 AM
+-- Generation Time: Nov 05, 2024 at 11:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -32,7 +32,9 @@ CREATE TABLE `announcements` (
   `title` varchar(255) NOT NULL,
   `announcement_date` date NOT NULL,
   `announcement_time` time NOT NULL,
-  `statement` text NOT NULL,
+  `author` varchar(100) NOT NULL,
+  `content` text NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,9 +42,9 @@ CREATE TABLE `announcements` (
 -- Dumping data for table `announcements`
 --
 
-INSERT INTO `announcements` (`id`, `title`, `announcement_date`, `announcement_time`, `statement`, `created_at`) VALUES
-(6, 'SMS Update', '2024-11-05', '12:27:37', 'SMS will be unavailable on October 25, 2024 (Friday) and October 28, 2024 (Monday) due to system updates. We appreciate your understanding and patience during this time.', '2024-11-05 03:26:26'),
-(7, 'Subject Update', '2024-11-05', '11:53:40', 'Due to an error in uploading, some of you may see additional, unofficial subjects in your LMS. These extra subjects will be deleted until August 31, 2024. Please ignore any subjects you are not officially enrolled in. Thank you for your understanding and patience.', '2024-11-05 03:53:40');
+INSERT INTO `announcements` (`id`, `title`, `announcement_date`, `announcement_time`, `author`, `content`, `image`, `created_at`) VALUES
+(1, 'Exciting News: DWCC SMS Opening Soon!', '2024-11-05', '05:57:07', 'Janica Dimaano', 'We are excited to share that the DWCC SMS (Scholarship Management System) will open soon! This new platform will make it easier for students to apply for scholarships and manage their applications. Stay tuned for updates and be ready to take advantage of this exciting new resource!', 'announcement.png', '2024-11-05 09:33:49'),
+(2, 'Test Announcement ', '2024-11-05', '06:02:15', 'Dr. Van Doom', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin elementum ipsum, vitae semper dolor sodales quis. Ut quis elit eget elit accumsan sodales vitae sed dui. Nunc nisi nibh, ornare at lacus a, bibendum aliquet dui. Sed venenatis purus volutpat, venenatis diam eget, luctus mi. Nulla facilisi.', NULL, '2024-11-05 10:02:15');
 
 -- --------------------------------------------------------
 
@@ -441,7 +443,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `applicants`
