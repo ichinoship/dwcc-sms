@@ -288,8 +288,6 @@ class Sc_model extends CI_Model
     {
         $this->db->like('school_year_id', $query);
         $this->db->or_like('academic_year', $query);
-        $this->db->or_like('semester', $query);
-        $this->db->or_like('campus', $query);
         return $this->db->get('school_year')->result();
     }
 

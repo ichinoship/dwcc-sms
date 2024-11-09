@@ -1,6 +1,6 @@
 <?php $this->load->view('includes/header'); ?>
 <?php $this->load->view('includes/sidebar'); ?>
-<title>Grants Report</title>
+<title>Scholarship Grants</title>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -102,7 +102,11 @@
     }
    
     $(function() {
+        var selectedAcademicYear = "<?= $selected_academic_year; ?>";
+        var selectedSemester = "<?= $selected_semester; ?>";
+        
         var table = $("#scholarship_grant").DataTable({
+            
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
@@ -131,11 +135,20 @@
                             alignment: 'center',
                             fontSize: 12,
                             bold: true,
-                            margin: [0, 20, 0, 20]
+                            margin: [0, 20, 0, 0]
+                        });
+
+                        // Subtitle for Academic Year and Semester
+                        doc.content.splice(1, 0, {
+                            text: `ACADEMIC YEAR ${selectedAcademicYear.toUpperCase()} | ${selectedSemester.toUpperCase()}`,
+                            alignment: 'center',
+                            fontSize: 10,
+                            bold: true,
+                            margin: [0, 0, 0, 20]
                         });
 
 
-                        var table = doc.content[1];
+                        var table = doc.content[2];
                         if (table && table.table) {
                             table.layout = {
                                 hLineWidth: function() {
