@@ -357,6 +357,25 @@ class Sc extends CI_Controller
         }
     }
 
+    public function edit_school_year()
+    {
+        $this->form_validation->set_rules('academic_year', 'Academic Year', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('sc/school_year');
+        } else {
+            $data = array(
+                'academic_year' => $this->input->post('academic_year'),
+            );
+
+            $school_year_id = $this->input->post('school_year_id');
+            $this->Sc_model->update_school_year($school_year_id, $data);
+
+            $this->session->set_flashdata('message', 'School Year updated successfully!');
+            redirect('sc/school_year');
+        }
+    }
+
 
     public function view_list($school_year_id)
     {

@@ -53,6 +53,9 @@
                                                     <a href="<?php echo site_url('sc/view_list/' . $year->school_year_id); ?>" class="btn btn-info btn-sm">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                    <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editYearModal" onclick="editSchoolYear('<?php echo $year->school_year_id; ?>', '<?php echo $year->academic_year; ?>')">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -97,6 +100,32 @@
         </div>
     </div>
 </div>
+<!-- Edit Year Modal -->
+<div class="modal fade" id="editYearModal" tabindex="-1" role="dialog" aria-labelledby="editYearModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editYearModalLabel">Edit School Year</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?php echo site_url('sc/edit_school_year'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="edit_academic_year">Academic Year</label>
+                        <input type="text" class="form-control" id="edit_academic_year" name="academic_year" placeholder="yyyy-yyyy" required>
+                        <input type="hidden" id="edit_school_year_id" name="school_year_id"> <!-- Hidden input for school_year_id -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <?php $this->load->view('includes/footer'); ?>
 
@@ -128,4 +157,9 @@
             }
         });
     }
+    function editSchoolYear(id, academicYear) {
+    // Set the values for the modal
+    $('#edit_school_year_id').val(id);
+    $('#edit_academic_year').val(academicYear);
+}
 </script>

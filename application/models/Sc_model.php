@@ -30,23 +30,23 @@ class Sc_model extends CI_Model
     }
 
     public function get_grantee_counts($grants_filters)
-{
-    $this->db->select('scholarship_program, COUNT(*) as grantee_count');
-    $this->db->from('final_list');
+    {
+        $this->db->select('scholarship_program, COUNT(*) as grantee_count');
+        $this->db->from('final_list');
 
-    // Apply filters if present
-    if (!empty($grants_filters['academic_year'])) {
-        $this->db->where('academic_year', $grants_filters['academic_year']);
+        // Apply filters if present
+        if (!empty($grants_filters['academic_year'])) {
+            $this->db->where('academic_year', $grants_filters['academic_year']);
+        }
+        if (!empty($grants_filters['semester'])) {
+            $this->db->where('semester', $grants_filters['semester']);
+        }
+
+        $this->db->group_by('scholarship_program');
+        $query = $this->db->get();
+
+        return $query->result();
     }
-    if (!empty($grants_filters['semester'])) {
-        $this->db->where('semester', $grants_filters['semester']);
-    }
-
-    $this->db->group_by('scholarship_program');
-    $query = $this->db->get();
-
-    return $query->result();
-}
 
     public function update_semester_dates($semester_id, $start_date, $end_date)
     {
@@ -187,11 +187,10 @@ class Sc_model extends CI_Model
     {
         return $this->db->insert('school_year', $data);
     }
-
-    public function delete_school_year($school_year_id)
+    public function update_school_year($school_year_id, $data)
     {
         $this->db->where('school_year_id', $school_year_id);
-        return $this->db->delete('school_year');
+        $this->db->update('school_year', $data);
     }
     public function get_shortlist($scholarship_program = null)
     {
@@ -479,11 +478,11 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    
+
     public function get_filtered_final_list($academic_year, $semester, $campus)
     {
         $this->db->select('*');
-        $this->db->from('final_list'); 
+        $this->db->from('final_list');
 
         if (!empty($academic_year)) {
             $this->db->where('academic_year', $academic_year);

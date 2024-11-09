@@ -160,25 +160,25 @@
                     <label for="program">Program <span class="text-danger">*</span></label>
                     <select class="form-control <?= form_error('program') ? 'is-invalid' : ''; ?>" id="program" name="program">
                       <option value="" disabled selected>Select Program</option>
-                      <option value="Bachelor of Science in Business Administration" <?= set_select('program', 'Bachelor of Science in Business Administration'); ?>>BS in Business Administration</option>
-                      <option value="Bachelor of Science in Hospitality Management" <?= set_select('program', 'Bachelor of Science in Hospitality Management'); ?>>BS in Hospitality Management</option>
-                      <option value="Bachelor of Science in Tourism Management" <?= set_select('program', 'Bachelor of Science in Tourism Management'); ?>>BS in Tourism Management</option>
-                      <option value="Bachelor of Science in Accountancy" <?= set_select('program', 'Bachelor of Science in Accountancy'); ?>>BS in Accountancy</option>
-                      <option value="Bachelor of Science in Management Accounting" <?= set_select('program', 'Bachelor of Science in Management Accounting'); ?>>BS in Management Accounting</option>
-                      <option value="Bachelor of Science in Criminology" <?= set_select('program', 'Bachelor of Science in Criminology'); ?>>BS in Criminology</option>
-                      <option value="Bachelor of Science in Civil Engineering" <?= set_select('program', 'Bachelor of Science in Civil Engineering'); ?>>BS in Civil Engineering</option>
-                      <option value="Bachelor of Science in Computer Engineering" <?= set_select('program', 'Bachelor of Science in Computer Engineering'); ?>>BS in Computer Engineering</option>
-                      <option value="Bachelor of Science in Electronics Engineering" <?= set_select('program', 'Bachelor of Science in Electronics Engineering'); ?>>BS in Electronics Engineering</option>
-                      <option value="Bachelor of Science in Electrical Engineering" <?= set_select('program', 'Bachelor of Science in Electrical Engineering'); ?>>BS in Electrical Engineering</option>
-                      <option value="Bachelor of Science in Architecture" <?= set_select('program', 'Bachelor of Science in Architecture'); ?>>BS in Architecture</option>
-                      <option value="Bachelor of Science in Fine Arts" <?= set_select('program', 'Bachelor of Science in Fine Arts'); ?>>BS in Fine Arts</option>
-                      <option value="Bachelor of Science in Grade School Education" <?= set_select('program', 'Bachelor of Science in Grade School Education'); ?>>BS in Grade School Education</option>
-                      <option value="Bachelor of Science in Secondary Education" <?= set_select('program', 'Bachelor of Science in Secondary Education'); ?>>BS in Secondary Education</option>
-                      <option value="Bachelor of Science in Physical Education" <?= set_select('program', 'Bachelor of Science in Physical Education'); ?>>BS in Physical Education</option>
-                      <option value="Bachelor of Science in Information Technology" <?= set_select('program', 'Bachelor of Science in Information Technology'); ?>>BS in Information Technology</option>
-                      <option value="Bachelor of Science in Psychology" <?= set_select('program', 'Bachelor of Science in Psychology'); ?>>BS in Psychology</option>
-                      <option value="Bachelor of Arts in Political Science" <?= set_select('program', 'Bachelor of Arts in Political Science'); ?>>BA in Political Science</option>
-                      <option value="Bachelor of Arts in Psychology" <?= set_select('program', 'Bachelor of Arts in Psychology'); ?>>BA in Psychology</option>
+                      <option value="Bachelor of Science in Business Administration" <?= set_select('program', 'Bachelor of Science in Business Administration'); ?>>Bachelor of Science in Business Administration</option>
+                      <option value="Bachelor of Science in Hospitality Management" <?= set_select('program', 'Bachelor of Science in Hospitality Management'); ?>>Bachelor of Science in Hospitality Management</option>
+                      <option value="Bachelor of Science in Tourism Management" <?= set_select('program', 'Bachelor of Science in Tourism Management'); ?>>Bachelor of Science in Tourism Management</option>
+                      <option value="Bachelor of Science in Accountancy" <?= set_select('program', 'Bachelor of Science in Accountancy'); ?>>Bachelor of Science in Accountancy</option>
+                      <option value="Bachelor of Science in Management Accounting" <?= set_select('program', 'Bachelor of Science in Management Accounting'); ?>>Bachelor of Science in Management Accounting</option>
+                      <option value="Bachelor of Science in Criminology" <?= set_select('program', 'Bachelor of Science in Criminology'); ?>>Bachelor of Science in Criminology</option>
+                      <option value="Bachelor of Science in Civil Engineering" <?= set_select('program', 'Bachelor of Science in Civil Engineering'); ?>>Bachelor of Science in Civil Engineering</option>
+                      <option value="Bachelor of Science in Computer Engineering" <?= set_select('program', 'Bachelor of Science in Computer Engineering'); ?>>Bachelor of Science in Computer Engineering</option>
+                      <option value="Bachelor of Science in Electronics Engineering" <?= set_select('program', 'Bachelor of Science in Electronics Engineering'); ?>>Bachelor of Science in Electronics Engineering</option>
+                      <option value="Bachelor of Science in Electrical Engineering" <?= set_select('program', 'Bachelor of Science in Electrical Engineering'); ?>>Bachelor of Science in Electrical Engineering</option>
+                      <option value="Bachelor of Science in Architecture" <?= set_select('program', 'Bachelor of Science in Architecture'); ?>>Bachelor of Science in Architecture</option>
+                      <option value="Bachelor of Science in Fine Arts" <?= set_select('program', 'Bachelor of Science in Fine Arts'); ?>>Bachelor of Science in Fine Arts</option>
+                      <option value="Bachelor of Elementary Education" <?= set_select('program', 'Bachelor of Elementary Education'); ?>>Bachelor of Elementary Education</option>
+                      <option value="Bachelor of Secondary Education" <?= set_select('program', 'Bachelor of Secondary Education'); ?>>Bachelor of Secondary Education</option>
+                      <option value="Bachelor of Physical Education" <?= set_select('program', 'Bachelor of Physical Education'); ?>>Bachelor of Physical Education</option>
+                      <option value="Bachelor of Science in Information Technology" <?= set_select('program', 'Bachelor of Science in Information Technology'); ?>>Bachelor of Science in Information Technology</option>
+                      <option value="Bachelor of Science in Psychology" <?= set_select('program', 'Bachelor of Science in Psychology'); ?>>Bachelor of Science in Psychology</option>
+                      <option value="Bachelor of Arts in Political Science" <?= set_select('program', 'Bachelor of Arts in Political Science'); ?>>Bachelor of Arts in Political Science</option>
+                      <option value="Bachelor of Arts in Psychology" <?= set_select('program', 'Bachelor of Arts in Psychology'); ?>>Bachelor of Arts in Psychology</option>
                       <option value="Science, Technology, Engineering and Mathematics (STEM)" <?= set_select('program', 'Science, Technology, Engineering and Mathematics (STEM)'); ?>>Science, Technology, Engineering and Mathematics (STEM)</option>
                       <option value="Accountancy, Business and Management (ABM)" <?= set_select('program', 'Accountancy, Business and Management (ABM)'); ?>>Accountancy, Business and Management (ABM)</option>
                       <option value="Humanities and Social Sciences (HUMMS)" <?= set_select('program', 'Humanities and Social Sciences (HUMMS)'); ?>>Humanities and Social Sciences (HUMMS)</option>
@@ -288,9 +288,9 @@
                     'Bachelor of Science in Electrical Engineering',
                     'Bachelor of Science in Architecture',
                     'Bachelor of Science in Fine Arts',
-                    'Bachelor of Science in Grade School Education',
-                    'Bachelor of Science in Secondary Education',
-                    'Bachelor of Science in Physical Education',
+                    'Bachelor of Elementary Education',
+                    'Bachelor of Secondary Education',
+                    'Bachelor of Physical Education',
                     'Bachelor of Science in Information Technology',
                     'Bachelor of Science in Psychology',
                     'Bachelor of Arts in Political Science',
