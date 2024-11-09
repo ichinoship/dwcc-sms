@@ -48,6 +48,13 @@
                                                 <option value="Whole Semester" <?= ($this->input->post('semester') == 'Whole Semester') ? 'selected' : ''; ?>>Whole Semester</option>
                                             </select>
                                         </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select name="campus" class="form-control w-100">
+                                                <option value="">Select Campus</option>
+                                                <option value="Janssen" <?= ($this->input->post('campus') == 'Janssen') ? 'selected' : ''; ?>>Janssen</option>
+                                                <option value="Freinademetz" <?= ($this->input->post('campus') == 'Freinademetz') ? 'selected' : ''; ?>>Freinademetz</option>
+                                            </select>
+                                        </div>
                                         
                                     </div>
                                     <div class="row col-12">
@@ -84,6 +91,7 @@
                                         <th>First Name</th>
                                         <th>Academic Year</th>
                                         <th>Semester</th>
+                                        <th>Campus</th>
                                         <th>Scholarship Program</th>
                                         <th>Status</th>
                                      
@@ -98,6 +106,7 @@
                                                 <td><?= $applicant->firstname; ?></td>
                                                 <td><?= $applicant->academic_year; ?></td>
                                                 <td><?= $applicant->semester; ?></td>
+                                                <td><?= $applicant->campus; ?></td>
                                                 <td><?= $applicant->scholarship_program; ?></td>
                                                 <td class="status-column"><?= ucwords($applicant->status); ?></td>
                                                 
@@ -140,17 +149,19 @@ $(document).ready(function() {
     });
 
     // Apply filters on change
-    $('select[name="academic_year"], select[name="semester"], select[name="status"], select[name="scholarship_program"]').on('change', function() {
+    $('select[name="academic_year"], select[name="semester"], select[name="campus"], select[name="status"], select[name="scholarship_program"]').on('change', function() {
         var academic_year = $('select[name="academic_year"]').val();
         var semester = $('select[name="semester"]').val();
+        var campus = $('select[name="campus"]').val();
         var scholarship_program = $('select[name="scholarship_program"]').val();
         var status = $('select[name="status"]').val();
 
         // Apply column-specific filters and redraw
         table.column(3).search(academic_year)   // Academic Year column
-            .column(4).search(semester)         // Semester column
-            .column(5).search(scholarship_program) // Scholarship Program column
-            .column(6).search(status)           // Status column
+            .column(4).search(semester) 
+            .column(5).search(campus)        // Semester column
+            .column(6).search(scholarship_program) // Scholarship Program column
+            .column(7).search(status)           // Status column
             .draw();                            // Redraw the table with new filters
     });
 
@@ -158,6 +169,7 @@ $(document).ready(function() {
     $('#resetFilters').on('click', function() {
         $('select[name="academic_year"]').val('');
         $('select[name="semester"]').val('');
+        $('select[name="campus"]').val('');
         $('select[name="scholarship_program"]').val('');
         $('select[name="status"]').val('');
 

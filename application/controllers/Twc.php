@@ -180,6 +180,7 @@ class Twc extends CI_Controller
 
         $academic_year = $this->input->post('academic_year');
         $semester = $this->input->post('semester');
+        $campus = $this->input->post('campus');
         $status = $this->input->post('status');
         $scholarship_program = $this->input->post('scholarship_program');
 
@@ -190,6 +191,9 @@ class Twc extends CI_Controller
         }
         if (!empty($semester)) {
             $filters['semester'] = $semester;
+        }
+        if (!empty($campus)) {
+            $filters['campus'] = $campus;
         }
         if (!empty($status)) {
             $filters['status'] = $status;
