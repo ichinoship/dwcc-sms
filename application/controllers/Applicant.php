@@ -59,8 +59,8 @@ class Applicant extends CI_Controller
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('program_type', 'Program Type', 'required');
         $this->form_validation->set_rules('year', 'Year', 'required');
-        $this->form_validation->set_rules('contact', 'Contact', 'required|max_length[11]|numeric|is_unique[applicants.contact]');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[applicants.email]');
+        $this->form_validation->set_rules('contact', 'Contact', 'required|max_length[11]|numeric');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('program', 'Program', 'required');
         $this->form_validation->set_rules('address', 'Address', 'required');
         $this->form_validation->set_rules('applicant_residence', 'Residence', 'required');

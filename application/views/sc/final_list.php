@@ -30,7 +30,7 @@
                     <div class="card-tools mb-3">
                         <form action="<?= base_url('sc/final_list'); ?>" method="GET" class="d-flex">
                             <div class="row align-items-end">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-2">
                                     <select name="academic_year" id="academic_year" class="form-control">
                                         <option value="">Select Academic Year</option>
                                         <?php foreach ($academic_years as $year): ?>
@@ -40,7 +40,7 @@
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-2">
                                     <select name="semester" id="semester" class="form-control">
                                         <option value="">Select Semester</option>
                                         <option value="1st Semester" <?= ($this->input->post('semester') == '1st Semester') ? 'selected' : ''; ?>>1st Semester</option>
@@ -48,7 +48,7 @@
                                         <option value="Whole Semester" <?= ($this->input->post('semester') == 'Whole Semester') ? 'selected' : ''; ?>>Whole Semester</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-2">
                                     <select name="campus" id="campus" class="form-control w-100">
                                         <option value="">Select Campus</option>
                                         <option value="Janssen" <?= ($this->input->post('campus') == 'Janssen') ? 'selected' : ''; ?>>Janssen</option>
