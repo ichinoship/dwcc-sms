@@ -181,7 +181,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             Swal.fire({
                 icon: 'error',
-                title: 'Application Error',
+                title: 'Submission Error',
                 text: '<?= $this->session->flashdata('error'); ?>',
                 confirmButtonText: 'OK',
                 customClass: {
