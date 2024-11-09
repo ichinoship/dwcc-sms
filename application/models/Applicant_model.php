@@ -52,14 +52,11 @@ class Applicant_model extends CI_Model
         return $query->row();
     }
 
-    public function get_active_semesters($current_date)
+    public function get_active_semesters($semester_types = [])
     {
-        $this->db->select('*');
-        $this->db->from('semester');
-        $this->db->where('start_date <=', $current_date);
-        $this->db->where('end_date >=', $current_date);
-        $query = $this->db->get();
-
+        $this->db->where_in('semester', $semester_types);
+        $this->db->where('status', 'active');
+        $query = $this->db->get('semester');
         return $query->result();
     }
 

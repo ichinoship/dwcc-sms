@@ -117,10 +117,13 @@
                                 <div class="col-md-6 form-group">
                                     <label for="semester">Semester <span class="text-danger">*</span></label>
                                     <select class="form-control" id="semester" name="semester" required>
-                                        <option value="">Select Semester</option>
-                                        <option value="Whole Semester">Whole Semester</option>
-                                        <option value="1st Semester">1st Semester</option>
-                                        <option value="2nd Semester">2nd Semester</option>
+                                        <?php if (!empty($semesters)): ?>
+                                            <?php foreach ($semesters as $semester): ?>
+                                                <option value="<?= $semester->semester ?>"><?= $semester->semester ?></option>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="">No active semesters available</option>
+                                        <?php endif; ?>
                                     </select>
                                 </div>
                             </div>
@@ -226,7 +229,7 @@
     });
 
     document.getElementById('requirements').addEventListener('change', function(e) {
-        const allowedExtensions = ['jpg', 'jpeg', 'png',  'pdf'];
+        const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
         const files = e.target.files;
 
         for (let i = 0; i < files.length; i++) {

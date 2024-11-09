@@ -56,6 +56,8 @@
                             <i class="fa fa-calendar-alt" aria-hidden="true"></i> <!-- Updated icon -->
                             <span class="ml-2">Set Date</span>
                         </button>
+
+                      
                         <!-- Add Requirements Button -->
                         <a href="<?= base_url('sc/manage_requirements'); ?>" class="btn btn-secondary">
                             <i class="fa fa-file-alt" aria-hidden="true"></i> <!-- Updated icon -->
@@ -169,6 +171,8 @@
                     </div>
                 </div>
             </div>
+
+           
             <!-- View Program Modal -->
             <div class="modal fade" id="viewProgramModal" tabindex="-1" role="dialog" aria-labelledby="viewProgramModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">

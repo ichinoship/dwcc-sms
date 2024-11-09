@@ -328,6 +328,8 @@ class Applicant extends CI_Controller
     {
         $this->load->model('Applicant_model');
         $this->load->model('Sc_model');
+
+
         $id_number = $this->session->userdata('user_id_number');
         $current_date = date('Y-m-d');
 
@@ -341,6 +343,14 @@ class Applicant extends CI_Controller
         });
         $data['scholarship_programs'] = $filtered_programs;
         $data['active_academic_year'] = $this->Applicant_model->get_active_academic_year();
+
+        if (in_array($applicant->program_type, ['College', 'Senior High School'])) {
+            $semesters = $this->Applicant_model->get_active_semesters(['1st Semester', '2nd Semester']);
+        } else if (in_array($applicant->program_type, ['Junior High School', 'Grade School'])) {
+            $semesters = $this->Applicant_model->get_active_semesters(['Whole Semester']);
+        }
+
+        $data['semesters'] = $semesters;
 
         $this->load->view('applicant/apply_scholarship', $data);
     }

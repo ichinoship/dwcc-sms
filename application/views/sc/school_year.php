@@ -23,7 +23,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <!-- School Year Card -->
+                <!-- School Year Table -->
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
@@ -128,7 +128,6 @@
 </div>
 
 <?php $this->load->view('includes/footer'); ?>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php if ($this->session->flashdata('message')): ?>
     <script>
@@ -140,26 +139,9 @@
         });
     </script>
 <?php endif; ?>
-
 <script>
-    function confirmDelete(schoolYearId) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '<?= site_url('sc/delete_school_year/'); ?>' + schoolYearId;
-            }
-        });
-    }
     function editSchoolYear(id, academicYear) {
-    // Set the values for the modal
-    $('#edit_school_year_id').val(id);
-    $('#edit_academic_year').val(academicYear);
-}
+        $('#edit_school_year_id').val(id);
+        $('#edit_academic_year').val(academicYear);
+    }
 </script>

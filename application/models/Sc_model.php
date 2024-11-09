@@ -74,11 +74,6 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    public function update_semester_status($id, $status)
-    {
-        $this->db->where('semester_id', $id);
-        $this->db->update('semester', ['semester_status' => $status]);
-    }
 
     public function delete_scholarship_program($program_code)
     {
@@ -95,6 +90,12 @@ class Sc_model extends CI_Model
     public function insert_semester($data)
     {
         return $this->db->insert('semester', $data);
+    }
+
+    public function update_semester_status($semester_id, $data)
+    {
+        $this->db->where('semester_id', $semester_id);
+        return $this->db->update('semester', $data);
     }
 
     public function get_all_academic_years()
@@ -547,6 +548,11 @@ class Sc_model extends CI_Model
         $this->db->set('year_status', 'inactive');
         $this->db->update('school_year');
     }
+    public function get_semester_by_id($semester_id)
+    {
+        return $this->db->where('semester_id', $semester_id)->get('semester')->row();
+    }
+
 
     public function add_announcement($data)
     {
@@ -568,4 +574,5 @@ class Sc_model extends CI_Model
         $this->db->where('id', $id);
         return $this->db->delete('announcements');
     }
+
 }

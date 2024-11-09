@@ -335,7 +335,6 @@ class Sc extends CI_Controller
     {
         $filter_semester = $this->input->get('filter_semester');
         $filter_campus = $this->input->get('filter_campus');
-
         $data['school_years'] = $this->Sc_model->get_filtered_school_years($filter_semester, $filter_campus);
         $this->load->view('sc/school_year', $data);
     }
@@ -380,7 +379,32 @@ class Sc extends CI_Controller
         }
     }
 
+    public function semester()
+    {
+        $data['semesters'] = $this->Sc_model->get_all_semesters();
+        $this->load->view('sc/semester', $data);
+    }
 
+    public function toggle_semester_status()
+    {
+        $semester_id = $this->input->post('semester_id');
+        $status = $this->input->post('status');
+
+        $this->load->model('Sc_model');
+
+        $data = array(
+            'status' => $status
+        );
+
+        $result = $this->Sc_model->update_semester_status($semester_id, $data);
+
+        if ($result) {
+            echo 'success';
+        } else {
+            echo 'failure';
+        }
+    }
+    
     public function view_list($school_year_id)
     {
         $this->load->model('Applicant_model');
