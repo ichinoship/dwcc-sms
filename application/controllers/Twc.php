@@ -202,10 +202,9 @@ class Twc extends CI_Controller
             $filters['scholarship_program'] = $scholarship_program;
         }
 
-
         $data['applicants'] = $this->Applicant_model->get_applicants_report_by_twc($user_id, $filters);
         $data['applicants'] = array_filter($data['applicants'], function ($applicant) {
-            return in_array($applicant->status, ['qualified', 'not qualified']);
+            return in_array($applicant->status, ['qualified', 'conditional']);
         });
 
         

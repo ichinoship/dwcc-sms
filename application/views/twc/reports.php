@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                        <div class="card-tools mb-3">
+                            <div class="card-tools mb-3">
                                 <form method="post" action="<?= base_url('sc/reports'); ?>" class="form-inline">
                                     <div class="row col-12">
                                         <div class="col-md-4 mb-2">
@@ -55,14 +55,14 @@
                                                 <option value="Freinademetz" <?= ($this->input->post('campus') == 'Freinademetz') ? 'selected' : ''; ?>>Freinademetz</option>
                                             </select>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="row col-12">
                                         <div class="col-md-4 mb-2">
                                             <select name="status" class="form-control w-100">
                                                 <option value="">Select Status</option>
                                                 <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
-                                                <option value="not qualified" <?= ($this->input->post('status') == 'not qualified') ? 'selected' : ''; ?>>Not Qualified</option>
+                                                <option value="conditional" <?= ($this->input->post('status') == 'conditional') ? 'selected' : ''; ?>>Conditional</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2">
@@ -85,7 +85,7 @@
                             <table id="applicantsTable" class="table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        
+
                                         <th>ID Number</th>
                                         <th>Last Name</th>
                                         <th>First Name</th>
@@ -94,7 +94,7 @@
                                         <th>Campus</th>
                                         <th>Scholarship Program</th>
                                         <th>Status</th>
-                                     
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -109,7 +109,7 @@
                                                 <td><?= $applicant->campus; ?></td>
                                                 <td><?= $applicant->scholarship_program; ?></td>
                                                 <td class="status-column"><?= ucwords($applicant->status); ?></td>
-                                                
+
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
@@ -125,7 +125,7 @@
             </div>
         </div>
 
-        
+
     </section>
 </div>
 
@@ -134,53 +134,52 @@
 
 
 <script>
+    $(document).ready(function() {
+        // Initialize DataTable with the new table ID
+        var table = $('#applicantsTable').DataTable({
+            "processing": true,
+            "serverSide": false,
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
 
-$(document).ready(function() {
-    // Initialize DataTable with the new table ID
-    var table = $('#applicantsTable').DataTable({
-        "processing": true,
-        "serverSide": false,
-        "paging": true,
-        "lengthChange": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
+        // Apply filters on change
+        $('select[name="academic_year"], select[name="semester"], select[name="campus"], select[name="status"], select[name="scholarship_program"]').on('change', function() {
+            var academic_year = $('select[name="academic_year"]').val();
+            var semester = $('select[name="semester"]').val();
+            var campus = $('select[name="campus"]').val();
+            var scholarship_program = $('select[name="scholarship_program"]').val();
+            var status = $('select[name="status"]').val();
+
+            // Apply column-specific filters and redraw
+            table.column(3).search(academic_year) // Academic Year column
+                .column(4).search(semester)
+                .column(5).search(campus) // Semester column
+                .column(6).search(scholarship_program) // Scholarship Program column
+                .column(7).search(status) // Status column
+                .draw(); // Redraw the table with new filters
+        });
+
+        // Reset filters functionality
+        $('#resetFilters').on('click', function() {
+            $('select[name="academic_year"]').val('');
+            $('select[name="semester"]').val('');
+            $('select[name="campus"]').val('');
+            $('select[name="scholarship_program"]').val('');
+            $('select[name="status"]').val('');
+
+            // Clear all search filters and redraw
+            table.columns().search('').draw();
+        });
+
+        // Print functionality
+        $('#printTable').on('click', function() {
+            window.print();
+        });
     });
-
-    // Apply filters on change
-    $('select[name="academic_year"], select[name="semester"], select[name="campus"], select[name="status"], select[name="scholarship_program"]').on('change', function() {
-        var academic_year = $('select[name="academic_year"]').val();
-        var semester = $('select[name="semester"]').val();
-        var campus = $('select[name="campus"]').val();
-        var scholarship_program = $('select[name="scholarship_program"]').val();
-        var status = $('select[name="status"]').val();
-
-        // Apply column-specific filters and redraw
-        table.column(3).search(academic_year)   // Academic Year column
-            .column(4).search(semester) 
-            .column(5).search(campus)        // Semester column
-            .column(6).search(scholarship_program) // Scholarship Program column
-            .column(7).search(status)           // Status column
-            .draw();                            // Redraw the table with new filters
-    });
-
-    // Reset filters functionality
-    $('#resetFilters').on('click', function() {
-        $('select[name="academic_year"]').val('');
-        $('select[name="semester"]').val('');
-        $('select[name="campus"]').val('');
-        $('select[name="scholarship_program"]').val('');
-        $('select[name="status"]').val('');
-
-        // Clear all search filters and redraw
-        table.columns().search('').draw();
-    });
-
-    // Print functionality
-    $('#printTable').on('click', function() {
-        window.print();
-    });
-});
 </script>
 <?php $this->load->view('includes/footer'); ?>
