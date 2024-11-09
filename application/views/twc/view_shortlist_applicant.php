@@ -24,11 +24,11 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center">
                     <div class="card shadow-sm ">
-                    <div class="card-header bg-light">
+                        <div class="card-header bg-light">
                             <h5 class="card-title">Applicant Profile</h5>
                         </div>
                         <div class="card-body">
-                            
+
                             <div class="d-flex justify-content-center align-items-center flex-column">
                                 <?php if ($applicants->applicant_photo): ?>
                                     <img src="<?= base_url('uploads/' . $applicants->applicant_photo); ?>"
@@ -80,7 +80,6 @@
                     </div>
 
                     <!-- Requirements -->
-                  
                     <div class="card shadow-sm">
                         <div class="card-header bg-light">
                             <h5 class="card-title">Requirements</h5>
@@ -92,11 +91,11 @@
                                     <?php foreach ($requirements as $file_name): ?>
                                         <?php
                                         $file_path = base_url('uploads/' . trim($file_name));
-                                        $file_ext = pathinfo(trim($file_name), PATHINFO_EXTENSION);
+                                        $file_ext = strtolower(pathinfo(trim($file_name), PATHINFO_EXTENSION));
                                         ?>
-                                        <a href="<?= $file_path; ?>" target="_blank" class="list-group-item list-group-item-action">
+                                        <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#filePreviewModal" data-file="<?= $file_path; ?>" data-type="<?= $file_ext; ?>">
                                             <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-1"><?= htmlspecialchars($file_name); ?></h6>
+                                                <h6 class="mb-1"><?= htmlspecialchars(trim($file_name)); ?></h6>
                                                 <small class="text-muted"><?= strtoupper($file_ext); ?></small>
                                             </div>
                                         </a>
@@ -107,14 +106,48 @@
                             <?php endif; ?>
                         </div>
                         <div class="card-footer">
-                        <a href="<?= site_url('twc/shortlist'); ?>" class="btn btn-secondary">Back to Shortlist</a>
+                            <a href="<?= site_url('twc/shortlist'); ?>" class="btn btn-secondary">Back to Shortlist</a>
+                        </div>
                     </div>
-                    </div>
-                   
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Modal for File Preview -->
+<div class="modal fade" id="filePreviewModal" tabindex="-1" role="dialog" aria-labelledby="filePreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filePreviewModalLabel">File Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="filePreviewContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 <?php $this->load->view('includes/footer'); ?>
+
+<script>
+    $('#filePreviewModal').on('show.bs.modal', function(e) {
+        var filePath = $(e.relatedTarget).data('file');
+        var fileType = $(e.relatedTarget).data('type');
+        var previewContainer = $('#filePreviewContainer');
+
+        previewContainer.html(''); // Clear the previous preview
+
+        if (fileType === 'pdf') {
+            previewContainer.html('<embed src="' + filePath + '" width="100%" height="500px" type="application/pdf">');
+        } else if (fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png') {
+            previewContainer.html('<img src="' + filePath + '" alt="Image Preview" width="100%" />');
+        } else {
+            previewContainer.html('<p>Unable to preview this file type.</p>');
+        }
+    });
+</script>

@@ -145,7 +145,7 @@
                                 </div>
                             </div>
                             <small class="form-text text-muted">
-                                <strong>Note:</strong> Please upload your documents in the format: [Document-Type]-[Surname] (e.g., Certificate-of-Enrollment-Doe).
+                                <strong>Note:</strong> Please upload your documents in the format: [Document-Type]-[Surname] (e.g., Certificate-of-Enrollment-Doe.pdf).
                             </small>
                             <ul id="file-list" class="list-group mt-2">
                                 <?php if (!empty($existing_requirements)): ?>
@@ -176,7 +176,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.getElementById('requirements').addEventListener('change', function(e) {
-        const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf', 'docx'];
+        const allowedExtensions = ['jpg', 'jpeg', 'png',  'pdf'];
         const files = e.target.files;
 
         // Check for valid file extensions
@@ -186,7 +186,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Invalid File Type',
-                    text: 'Please upload files in the format: jpg, jpeg, png, docx, or pdf only.',
+                    text: 'Please upload files in the format: jpg, jpeg, png or pdf only.',
                 });
                 e.target.value = '';
                 return;

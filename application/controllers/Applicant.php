@@ -336,7 +336,7 @@ class Applicant extends CI_Controller
 
         $scholarship_programs = $this->Sc_model->get_all_active_scholarship_programs();
         $filtered_programs = array_filter($scholarship_programs, function ($program) use ($applicant, $current_date) {
-            return ($program->campus == $applicant->campus || $program->campus == 'All Campus')
+            return ($program->campus == $applicant->campus || $program->campus == 'All Campuses')
                 && ($program->start_date <= $current_date && $program->end_date >= $current_date);
         });
         $data['scholarship_programs'] = $filtered_programs;
@@ -392,7 +392,7 @@ class Applicant extends CI_Controller
         $requirements_files = $_FILES['requirements'];
         $requirements = [];
         $requirement_config['upload_path'] = './uploads/';
-        $requirement_config['allowed_types'] = 'pdf|docx';
+        $requirement_config['allowed_types'] = 'jpg|jpeg|png|pdf';
         $requirement_config['max_size'] = 10240;
 
         if (!is_dir($requirement_config['upload_path'])) {

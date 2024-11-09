@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
                                 <small class="form-text text-muted">
-                                    <strong>Note:</strong> Please upload your documents in the format: [Document-Type]-[Surname] (e.g., Certificate-of-Enrollment-Doe).
+                                    <strong>Note:</strong> Please upload your documents in the format: [Document-Type]-[Surname] (e.g., Certificate-of-Enrollment-Doe.pdf).
                                 </small>
                                 <ul id="file-list" class="list-group mt-2"></ul>
                             </div>
@@ -226,7 +226,7 @@
     });
 
     document.getElementById('requirements').addEventListener('change', function(e) {
-        const allowedExtensions = ['pdf', 'docx'];
+        const allowedExtensions = ['jpg', 'jpeg', 'png',  'pdf'];
         const files = e.target.files;
 
         for (let i = 0; i < files.length; i++) {
@@ -235,7 +235,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Invalid File Type',
-                    text: 'Please upload files in the format: docx or pdf only.',
+                    text: 'Please upload files in the format: jpg, jpeg, png or pdf only.',
                 });
                 e.target.value = '';
                 break;
