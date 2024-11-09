@@ -95,18 +95,18 @@
 </div>
 <?php $this->load->view('includes/footer') ?>
 <script>
-     function resetFilters() {
+    function resetFilters() {
         document.getElementById('academic_year').selectedIndex = 0;
         document.getElementById('semester').selectedIndex = 0;
         document.getElementById('grants-filter-form').submit();
     }
-   
+
     $(function() {
         var selectedAcademicYear = "<?= $selected_academic_year; ?>";
         var selectedSemester = "<?= $selected_semester; ?>";
-        
+
         var table = $("#scholarship_grant").DataTable({
-            
+
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
@@ -138,7 +138,7 @@
                             margin: [0, 20, 0, 0]
                         });
 
-                        // Subtitle for Academic Year and Semester
+                        
                         doc.content.splice(1, 0, {
                             text: `ACADEMIC YEAR ${selectedAcademicYear.toUpperCase()} | ${selectedSemester.toUpperCase()}`,
                             alignment: 'center',
@@ -147,8 +147,15 @@
                             margin: [0, 0, 0, 20]
                         });
 
+                        var currentDate = new Date().toLocaleDateString();
+                        doc.content.splice(2, 0, {
+                            text: `Date: ${currentDate}`,
+                            alignment: 'right',
+                            fontSize: 10,
+                            margin: [0, 0, 0, 10]
+                        });
 
-                        var table = doc.content[2];
+                        var table = doc.content[3];
                         if (table && table.table) {
                             table.layout = {
                                 hLineWidth: function() {
@@ -294,5 +301,3 @@
         }).buttons().container().appendTo('#scholarship_grant_wrapper .col-md-6:eq(0)');
     });
 </script>
-
-

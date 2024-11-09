@@ -127,19 +127,18 @@
                 {
                     extend: "pdf",
                     text: "Export to PDF",
-                    title: '', // Set your desired title here
+                    title: '', 
                     customize: function(doc) {
-                        // Page margins for PDF
+                        
                         doc.pageMargins = [50, 115, 50, 115];
 
-                        // Set background image
                         doc.background = [{
                             image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
                             width: 624,
                             height: 830
                         }];
 
-                        // Title
+                        
                         doc.content.splice(0, 0, {
                             text: 'SCHOLARSHIP COMMITTEE',
                             alignment: 'center',
@@ -148,7 +147,7 @@
                             margin: [0, 20, 0, 0]
                         });
 
-                        // Subtitle
+                      
                         doc.content.splice(1, 0, {
                             text: 'Recommendation for Scholarship',
                             alignment: 'center',
@@ -157,7 +156,15 @@
                             margin: [0, 0, 0, 20]
                         });
 
-                        var table = doc.content[2];
+                        var currentDate = new Date().toLocaleDateString();
+                        doc.content.splice(2, 0, {
+                            text: `Date: ${currentDate}`,
+                            alignment: 'right',
+                            fontSize: 10,
+                            margin: [0, 0, 0, 10]
+                        });
+
+                        var table = doc.content[3];
                         if (table && table.table) {
                             table.layout = {
                                 hLineWidth: function() {
