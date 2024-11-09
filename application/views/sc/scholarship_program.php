@@ -233,7 +233,7 @@
                                                 <option value="">Select Campus</option>
                                                 <option value="Janssen">Janssen</option>
                                                 <option value="Freinademetz">Freinademetz</option>
-                                                <option value="All Campus">All Campus</option>
+                                                <option value="All Campuses">All Campuses</option>
                                             </select>
                                         </div>
                                     </div>
@@ -365,7 +365,7 @@
                                                 <option value="">Select Campus</option>
                                                 <option value="Janssen">Janssen</option>
                                                 <option value="Freinademetz">Freinademetz</option>
-                                                <option value="All Campus">All Campus</option>
+                                                <option value="All Campuses">All Campuses</option>
                                             </select>
                                         </div>
                                     </div>
