@@ -46,8 +46,8 @@
                 </div>
                 <div class="card-body">
                     <div class="card-tools mb-3">
-                         <!-- Add Scholarship Program Button -->
-                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addProgramModal">
+                        <!-- Add Scholarship Program Button -->
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addProgramModal">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i> <!-- Updated icon -->
                             <span class="ml-2">Add Program</span>
                         </button>
@@ -95,6 +95,10 @@
                                             <i class="fas fa-eye"></i>
                                         </button>
                                         <!-- Edit Button -->
+                                        <?php
+
+                                        $is_disabled = (strtotime($program->start_date) <= strtotime($current_date) && strtotime($program->end_date) > strtotime($current_date)) ? 'disabled' : '';
+                                        ?>
                                         <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editProgramModal"
                                             data-program-code="<?= $program->program_code; ?>"
                                             data-program-name="<?= $program->scholarship_program; ?>"
@@ -104,7 +108,8 @@
                                             data-percentage="<?= $program->percentage; ?>"
                                             data-requirements="<?= $program->requirements; ?>"
                                             data-description="<?= $program->description; ?>"
-                                            data-qualifications="<?= $program->qualifications; ?>">
+                                            data-qualifications="<?= $program->qualifications; ?>"
+                                            <?= $is_disabled ?>>
                                             <i class="fas fa-edit"></i>
                                         </button>
                                     </td>
@@ -178,7 +183,7 @@
                             <p><strong>Program Code:</strong> <span id="viewProgramCode"></span></p>
                             <p><strong>Scholarship Program:</strong> <span id="viewProgramName"></span></p>
                             <div class="row">
-                            <div class="col-md-4">
+                                <div class="col-md-4">
                                     <p><strong>Scholarship Type:</strong> <span id="viewScholarshipType"></span></p>
                                 </div>
                                 <div class="col-md-4">
@@ -223,10 +228,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
-                                     <!-- Campus -->
-                                     <div class="col-md-4">
+                                    <!-- Campus -->
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="campus">Campus</label>
                                             <select class="form-control" id="campus" name="campus" required>
@@ -353,7 +358,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    
+
                                 </div>
 
                                 <div class="row">

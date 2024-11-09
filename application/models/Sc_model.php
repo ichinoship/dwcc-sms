@@ -29,6 +29,12 @@ class Sc_model extends CI_Model
         $this->db->update('scholarship_programs', $data);
     }
 
+    public function delete_applications_by_program_name($scholarship_program_name)
+    {
+        $this->db->where('scholarship_program', $scholarship_program_name);
+        $this->db->delete('application_form');
+    }
+
     public function get_grantee_counts($grants_filters)
     {
         $this->db->select('scholarship_program, COUNT(*) as grantee_count');

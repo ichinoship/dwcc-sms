@@ -22,18 +22,13 @@ class Sc extends CI_Controller
 
     public function dashboard()
     {
-        // Load the model
         $this->load->model('Applicant_model');
-        // Get the active academic year
         $activeAcademicYear = $this->Applicant_model->getActiveAcademicYear();
-        // Get applicant counts based on the active academic year
         $data['totalApplicants'] = $this->Applicant_model->getTotalApplicants($activeAcademicYear);
         $data['pendingApplicants'] = $this->Applicant_model->getApplicantsByStatus($activeAcademicYear, 'pending');
         $data['qualifiedApplicants'] = $this->Applicant_model->getApplicantsByStatus($activeAcademicYear, 'qualified');
         $data['notQualifiedApplicants'] = $this->Applicant_model->getApplicantsByStatus($activeAcademicYear, 'not qualified');
         $data['conditionalApplicants'] = $this->Applicant_model->getApplicantsByStatus($activeAcademicYear, 'conditional');
-
-        // Pass data to the view
         $this->load->view('sc/dashboard', $data);
     }
 
@@ -53,7 +48,7 @@ class Sc extends CI_Controller
 
         $data = [
             'title' => $this->input->post('title'),
-            'author' => $this->input->post('author'), // New line for author
+            'author' => $this->input->post('author'),
             'announcement_date' => date('Y-m-d'),
             'announcement_time' => date('h:i:s A'),
             'content' => $this->input->post('content')
@@ -158,6 +153,8 @@ class Sc extends CI_Controller
         $data['programs'] = $this->Sc_model->get_all_scholarship_programs();
         $data['twc_users'] = $this->Sc_model->get_twcs();
         $data['requirements'] = $this->Sc_model->get_all_reqs();
+        $current_date = date('Y-m-d');
+        $data['current_date'] = $current_date;
         $this->load->view('sc/scholarship_program', $data);
     }
 
@@ -306,7 +303,14 @@ class Sc extends CI_Controller
                 'requirements' => implode(';', $this->input->post('requirements'))
             );
 
+            $scholarship_program_name = $this->input->post('scholarship_program');
+
             $this->Sc_model->update_program($program_code, $data);
+
+            if ($data['program_status'] == 'inactive') {
+                $this->Sc_model->delete_applications_by_program_name($scholarship_program_name);
+            }
+
             $this->session->set_flashdata('message', 'Scholarship program updated successfully!');
             redirect('sc/scholarship_program');
         }
