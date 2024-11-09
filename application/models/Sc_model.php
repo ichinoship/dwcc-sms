@@ -470,30 +470,31 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    // Function to retrieve the final list of applicants filtered by academic year
     public function get_final_list_by_academic_year($academic_year)
     {
         $this->db->select('*');
-        $this->db->from('final_list'); // Assuming 'final_list' is the table for storing final applicants
+        $this->db->from('final_list');
         $this->db->where('academic_year', $academic_year);
         $query = $this->db->get();
         return $query->result();
     }
 
-    // Fetch filtered final list of applicants based on academic year and semester
-    public function get_filtered_final_list($academic_year, $semester)
+    
+    public function get_filtered_final_list($academic_year, $semester, $campus)
     {
         $this->db->select('*');
-        $this->db->from('final_list'); // Adjust to your actual final list table
+        $this->db->from('final_list'); 
 
-        // Apply academic year filter
         if (!empty($academic_year)) {
             $this->db->where('academic_year', $academic_year);
         }
 
-        // Apply semester filter
         if (!empty($semester)) {
             $this->db->where('semester', $semester);
+        }
+
+        if (!empty($campus)) {
+            $this->db->where('campus', $campus);
         }
 
         $query = $this->db->get();

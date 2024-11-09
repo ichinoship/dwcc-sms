@@ -620,10 +620,11 @@ class Sc extends CI_Controller
         $this->load->model('Sc_model');
         $academic_year = $this->input->get('academic_year');
         $semester = $this->input->get('semester');
+        $campus = $this->input->get('campus');
         $scholarship_program = $this->input->get('scholarship_program');
         $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
         $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
-        $data['applicants'] = $this->Sc_model->get_filter_final_list($academic_year, $semester, $scholarship_program);
+        $data['applicants'] = $this->Sc_model->get_filter_final_list($academic_year, $semester, $campus, $scholarship_program);
         $this->load->view('sc/final_list', $data);
     }
 }
