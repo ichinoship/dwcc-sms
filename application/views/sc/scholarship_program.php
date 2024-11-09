@@ -253,7 +253,7 @@
                                             <label for="program_status">Program Status</label>
                                             <select class="form-control" id="program_status" name="program_status" required>
                                                 <option value="active">Active</option>
-                                                <option value="deactivated">Deactivate</option>
+                                                <option value="inactive">Inactive</option>
                                             </select>
                                         </div>
                                     </div>
@@ -385,7 +385,7 @@
                                             <label for="edit_program_status">Program Status</label>
                                             <select class="form-control" id="edit_program_status" name="program_status" required>
                                                 <option value="active">Active</option>
-                                                <option value="deactivated">Deactivate</option>
+                                                <option value="inactive">Inactive</option>
                                             </select>
                                         </div>
                                     </div>

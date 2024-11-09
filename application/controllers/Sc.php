@@ -343,7 +343,7 @@ class Sc extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('sc/school_year');
         } else {
-            $this->Sc_model->deactivate_all_school_years();
+            $this->Sc_model->all_inactive_school_years();
 
             $data = array(
                 'academic_year' => $this->input->post('academic_year'),

@@ -537,9 +537,9 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    public function deactivate_all_school_years()
+    public function all_inactive_school_years()
     {
-        $this->db->set('year_status', 'deactivated');
+        $this->db->set('year_status', 'inactive');
         $this->db->update('school_year');
     }
 

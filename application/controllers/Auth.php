@@ -94,15 +94,15 @@ class Auth extends CI_Controller
                                 'user_image' => $applicant->image
                             ]);
                             redirect('applicant/dashboard_applicant');
-                        } elseif ($applicant->status == 'deactivated') {
-                            $this->session->set_flashdata('error_password', 'Your account has been deactivated. Please contact the admin.');
+                        } elseif ($applicant->status == 'inactive') {
+                            $this->session->set_flashdata('error_password', 'Your account has been inactive. Please contact the admin.');
                             redirect('auth/applicant_login');
                         } else {
                             $this->session->set_flashdata('error_password', 'Your application is not yet approved.');
                             redirect('auth/applicant_login');
                         }
                     } else {
-                        $this->session->set_flashdata('error_password', 'Your account is deactivated. Please contact the admin.');
+                        $this->session->set_flashdata('error_password', 'Your account is inactive. Please contact the admin.');
                         redirect('auth/applicant_login');
                     }
                 } else {

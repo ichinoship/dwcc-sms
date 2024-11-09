@@ -52,7 +52,7 @@ class Admin extends CI_Controller
     public function toggle_applicant_status()
     {
         $account_no = $this->input->post('account_no');
-        $new_status = $this->input->post('status') == 'activate' ? 'active' : 'deactivated';
+        $new_status = $this->input->post('status') == 'active' ? 'active' : 'inactive';
 
         $this->Admin_model->update_app_status($account_no, $new_status);
 

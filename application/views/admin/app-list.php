@@ -49,11 +49,11 @@
                                             <i class="fas fa-eye"></i>
                                         </button>
                                         <?php if ($applicant->account_status == 'active'): ?>
-                                            <button class="btn btn-danger btn-sm toggle-status" data-id="<?= $applicant->account_no; ?>" data-status="deactivate">
+                                            <button class="btn btn-danger btn-sm toggle-status" data-id="<?= $applicant->account_no; ?>" data-status="inactive">
                                                 <i class="fas fa-user-slash"></i>
                                             </button>
                                         <?php else: ?>
-                                            <button class="btn btn-success btn-sm toggle-status" data-id="<?= $applicant->account_no; ?>" data-status="activate">
+                                            <button class="btn btn-success btn-sm toggle-status" data-id="<?= $applicant->account_no; ?>" data-status="active">
                                                 <i class="fas fa-user-check"></i>
                                             </button>
                                         <?php endif; ?>
@@ -192,12 +192,12 @@
 
         Swal.fire({
             title: 'Are you sure?',
-            text: "You are about to " + newStatus + " this account.",
+            text: "You are about to make this account " + newStatus + ".",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, ' + newStatus + ' it!'
+            confirmButtonText: 'Yes, make it ' + newStatus + '!'
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
