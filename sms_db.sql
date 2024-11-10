@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2024 at 06:40 AM
+-- Generation Time: Nov 10, 2024 at 02:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -123,7 +123,9 @@ CREATE TABLE `application_form` (
 --
 
 INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`) VALUES
-(1, 1, 47293, '2x2_girl.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', NULL, 0, 'pending');
+(1, 1, 47293, '2x2_girl.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', '', 50, 'qualified'),
+(2, 1, 47293, '2x2_girl2.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'REQUIREMENTS-SMS2.pdf', '', 90, 'qualified'),
+(3, 5, 47125, '2X2_boy.png', 'Kenneth', 'Magtibay ', 'Catibog', '2001-02-12', 'Male', '0912345672', 'kenneth.catibog@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Naujan, Calapan City', 'Off-Campus Boarding House', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS3.pdf', '', 60, 'qualified');
 
 -- --------------------------------------------------------
 
@@ -148,6 +150,14 @@ CREATE TABLE `final_list` (
   `scholarship_program` varchar(100) NOT NULL,
   `discount` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `final_list`
+--
+
+INSERT INTO `final_list` (`final_list_id`, `applicant_no`, `id_number`, `firstname`, `middlename`, `lastname`, `program_type`, `year`, `program`, `campus`, `application_type`, `academic_year`, `semester`, `scholarship_program`, `discount`) VALUES
+(1, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 100),
+(2, 2, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Gazette Scholarship Program', 90);
 
 -- --------------------------------------------------------
 
@@ -423,7 +433,7 @@ ALTER TABLE `application_form`
 -- AUTO_INCREMENT for table `final_list`
 --
 ALTER TABLE `final_list`
-  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `requirements`
