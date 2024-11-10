@@ -88,6 +88,12 @@
                                                     </button>
                                                 <?php elseif ($application->status === 'conditional'): ?>
                                                     <button class="btn btn-secondary btn-sm" disabled>No Comment</button>
+                                                <?php elseif ($application->status === 'not qualified' && !empty($application->comment)): ?>
+                                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#commentModal" data-comment="<?= htmlspecialchars($application->comment); ?>">
+                                                        <i class="fas fa-comments"></i>
+                                                    </button>
+                                                <?php elseif ($application->status === 'not qualified'): ?>
+                                                    <button class="btn btn-secondary btn-sm" disabled>No Comment</button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -107,7 +113,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="commentModalLabel">TWC Comment</h5>
+                <h5 class="modal-title" id="commentModalLabel">Comment</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

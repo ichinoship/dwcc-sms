@@ -38,7 +38,7 @@
                                     <p>No photo available</p>
                                 <?php endif; ?>
                                 <h3 class="font-weight-bold"><?= htmlspecialchars($applicants->firstname) . ' ' . htmlspecialchars($applicants->lastname); ?></h3>
-                                <p class="text-muted"><strong>Shortlist ID:</strong> <?= htmlspecialchars($applicants->shortlist_id); ?></p>
+                                <p class="text-muted"><strong>Applicant No:</strong> <?= htmlspecialchars($applicants->applicant_no); ?></p>
                             </div>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
 
     <!-- Modal for File Preview -->
 <div class="modal fade" id="filePreviewModal" tabindex="-1" role="dialog" aria-labelledby="filePreviewModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="filePreviewModalLabel">File Preview</h5>

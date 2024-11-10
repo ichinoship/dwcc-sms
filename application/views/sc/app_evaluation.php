@@ -50,6 +50,7 @@
                                     <option value=""> Select Status</option>
                                     <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
                                     <option value="not qualified" <?= ($this->input->post('status') == 'not qualified') ? 'selected' : ''; ?>>Not Qualified</option>
+                                    <option value="conditional" <?= ($this->input->post('status') == 'conditional') ? 'selected' : ''; ?>>Conditional</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
@@ -63,12 +64,13 @@
                         <table id="apptable" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>Id Number</th>
-                                    <th>Full Name</th>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
                                     <th>Academic Year</th>
                                     <th>Semester</th>
                                     <th>Scholarship Program</th>
                                     <th>Application Type</th>
+                                    <th>Discount</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -77,18 +79,20 @@
                                 <?php if (!empty($shortlist)): ?>
                                     <?php foreach ($shortlist as $entry): ?>
                                         <tr>
-                                            <td><?= $entry->id_number; ?></td>
-                                            <td><?= htmlspecialchars($entry->firstname . ' ' . (!empty($entry->middlename) ? $entry->middlename . ' ' : '') . $entry->lastname); ?></td>
+                                           
+                                            <td><?= $entry->lastname; ?></td>
+                                            <td><?= $entry->firstname; ?></td>
                                             <td><?= $entry->academic_year; ?></td>
                                             <td><?= $entry->semester; ?></td>
                                             <td><?= $entry->scholarship_program; ?></td>
                                             <td><?= $entry->application_type; ?></td>
+                                            <td><?= $entry->discount; ?></td>
                                             <td><?= ucwords($entry->status); ?></td>
                                             <td>
-                                                <a href="<?= site_url('sc/view_shortlist_applicant/' . $entry->shortlist_id); ?>" class="btn btn-info btn-sm">
+                                                <a href="<?= site_url('sc/view_shortlist_applicant/' . $entry->applicant_no); ?>" class="btn btn-info btn-sm">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#evaluateModal" data-id="<?= $entry->shortlist_id ?>" data-name="<?= htmlspecialchars($entry->firstname . ' ' . $entry->lastname) ?>" data-status="<?= $entry->status ?>" data-discount="<?= $entry->discount ?>">
+                                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#evaluateModal" data-id="<?= $entry->applicant_no ?>" data-name="<?= htmlspecialchars($entry->firstname . ' ' . $entry->lastname) ?>" data-status="<?= $entry->status ?>" data-discount="<?= $entry->discount ?>">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                             </td>
@@ -120,27 +124,34 @@
             </div>
             <form id="evaluateApplicantForm" method="POST" action="<?= site_url('sc/update_shortlist'); ?>">
                 <div class="modal-body">
-                    <input type="hidden" name="shortlist_id" id="shortlist_id">
+                    <input type="hidden" name="applicant_no" id="applicant_no">
                     <div class="form-group">
                         <label for="applicant_name">Full Name</label>
                         <input type="text" class="form-control" id="applicant_name" disabled>
                     </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select class="form-control" name="status" id="status">
-                            <option value="qualified">Qualified</option>
-                            <option value="not qualified">Not Qualified</option>
-                        </select>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="status">Status</label>
+                            <select class="form-control" name="status" id="status">
+                                <option value="qualified">Qualified</option>
+                                <option value="not qualified">Not Qualified</option>
+                                <option value="conditional">Conditional</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="discount">Discount</label>
+                            <input type="number" class="form-control" name="discount" id="discount" min="0" max="100">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="discount">Discount</label>
-                        <input type="number" class="form-control" name="discount" id="discount" min="0" max="100">
+                        <label for="comment">Comment (Optional)</label>
+                        <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" id="submitToFinalList">Submit to Final List</button>
                     <div class="ml-auto">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -153,13 +164,20 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<?php if ($this->session->flashdata('success')): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Application updated successfully.',
+            showConfirmButton: true
+        });
+    </script>
+<?php endif; ?>
+
 <script>
     $(document).ready(function() {
-        var table = $('#apptable').DataTable({
-
-        });
-
-        // Apply filters when any dropdown is changed
+        var table = $('#apptable').DataTable({});
         $('select[name="semester"], select[name="scholarship_program"], select[name="status"]').on('change', function() {
             var semester = $('select[name="semester"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
@@ -170,7 +188,6 @@
                 .columns(6).search(status ? '^' + status + '$' : '', true, false)
                 .draw();
         });
-
         // Reset all filters
         $('#resetFilters').on('click', function() {
 
@@ -180,25 +197,30 @@
             table.columns().search('').draw();
         });
 
-        // Modal functionality for evaluating applicants
         $('#evaluateModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var id = button.data('id');
             var name = button.data('name');
             var status = button.data('status');
             var discount = button.data('discount');
+            var comment = button.data('comment');
 
-            // Update the modal's content
             var modal = $(this);
-            modal.find('#shortlist_id').val(id);
+            modal.find('#applicant_no').val(id);
             modal.find('#applicant_name').val(name);
             modal.find('#status').val(status);
             modal.find('#discount').val(discount);
+            modal.find('#comment').val(comment);
+        });
+
+        $('#evaluateApplicantForm').on('submit', function() {
+            var button = $('#saveChangesButton');
+            button.prop('disabled', true).text('Saving...');
         });
 
         // Submit to Final List
         $('#submitToFinalList').on('click', function() {
-            var shortlistId = $('#shortlist_id').val();
+            var shortlistId = $('#applicant_no').val();
             var name = $('#applicant_name').val();
             var discount = $('#discount').val();
             var status = $('#status').val();
@@ -213,7 +235,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     var data = {
-                        shortlist_id: shortlistId,
+                        applicant_no: shortlistId,
                         applicant_name: name,
                         discount: discount,
                     };

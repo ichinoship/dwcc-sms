@@ -33,7 +33,7 @@
                                 <img src="<?= base_url('uploads/' . $applicant->applicant_photo); ?>" alt="Applicant Photo" class="mb-3" style="width:200px; height:200px; object-fit:cover; border: 1px solid black;">
                             </div>
                             <h3 class="font-weight-bold"><?= htmlspecialchars($applicant->firstname) . ' ' . htmlspecialchars($applicant->lastname); ?></h3>
-                            <p class="text-muted"><strong>Shortlist ID:</strong> <?= htmlspecialchars($applicant->shortlist_id); ?></p>
+                            <p class="text-muted"><strong>Applicant No:</strong> <?= htmlspecialchars($applicant->applicant_no); ?></p>
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
     </section>
     <!-- Modal for File Preview -->
     <div class="modal fade" id="filePreviewModal" tabindex="-1" role="dialog" aria-labelledby="filePreviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="filePreviewModalLabel">File Preview</h5>

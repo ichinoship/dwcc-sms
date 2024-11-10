@@ -29,7 +29,7 @@
                     <table id="example1" class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
-                                <th>Shortlist Id</th>
+                                <th>Applicant No</th>
                                 <th>Id Number</th>
                                 <th>Last Name</th>
                                 <th>First Name</th>
@@ -42,14 +42,14 @@
                             <?php if (!empty($shortlist)): ?>
                                 <?php foreach ($shortlist as $entry): ?>
                                     <tr>
-                                        <td><?= $entry->shortlist_id; ?></td>
+                                        <td><?= $entry->applicant_no; ?></td>
                                         <td><?= $entry->id_number; ?></td>
                                         <td><?= $entry->lastname; ?></td>
                                         <td><?= $entry->firstname; ?></td>
                                         <td><?= $entry->scholarship_program; ?></td>
                                         <td><?= ucfirst($entry->status); ?></td>
                                         <td>
-                                            <a href="<?= site_url('twc/view_shortlist_applicant/' . $entry->shortlist_id); ?>" class="btn btn-info btn-sm">
+                                            <a href="<?= site_url('twc/view_shortlist_applicant/' . $entry->applicant_no); ?>" class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                         </td>

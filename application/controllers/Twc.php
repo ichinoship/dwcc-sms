@@ -45,7 +45,7 @@ class Twc extends CI_Controller
         $user_id = $this->session->userdata('user_id');
         $data['applicants'] = $this->Applicant_model->get_applicants_by_twc($user_id);
         $data['applicants'] = array_filter($data['applicants'], function ($applicant) {
-            return in_array($applicant->status, ['pending', 'conditional']);
+            return in_array($applicant->status, ['pending', 'not qualified']);
         });
         $this->load->view('twc/app-review', $data);
     }
@@ -151,17 +151,17 @@ class Twc extends CI_Controller
 
         if (!empty($assigned_programs)) {
             $program_codes = array_column($assigned_programs, 'scholarship_program');
-            $data['shortlist'] = $this->Twc_model->get_shortlist_by_programs($program_codes);
+            $data['shortlist'] = $this->Twc_model->get_applicants_by_programs($program_codes);
         } else {
             $data['shortlist'] = [];
         }
         $this->load->view('twc/shortlist', $data);
     }
 
-    public function view_shortlist_applicant($shortlist_id)
+    public function view_shortlist_applicant($applicant_no)
     {
         $this->load->model('Twc_model');
-        $data['applicants'] = $this->Twc_model->get_application_by_shortlist_id($shortlist_id);
+        $data['applicants'] = $this->Twc_model->get_application_by_applicant_no($applicant_no);
 
         if (!$data['applicants']) {
             show_404();

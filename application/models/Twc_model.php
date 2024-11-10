@@ -11,48 +11,25 @@ class Twc_model extends CI_Model
 
     public function evaluate_applicant($applicant_no, $status, $comment, $discount)
     {
-        $this->update_applicant_status($applicant_no, $status);
-        $applicant = $this->get_applicant_by_no($applicant_no);
         $data = [
-            'applicant_no' => $applicant->applicant_no,
-            'applicant_photo' => $applicant->applicant_photo,
-            'id_number' => $applicant->id_number,
-            'firstname' => $applicant->firstname,
-            'middlename' => $applicant->middlename,
-            'lastname' => $applicant->lastname,
-            'birthdate' => $applicant->birthdate,
-            'gender' => $applicant->gender,
-            'contact' => $applicant->contact,
-            'email' => $applicant->email,
-            'program_type' => $applicant->program_type,
-            'year' => $applicant->year,
-            'program' => $applicant->program,
-            'campus' => $applicant->campus,
-            'address' => $applicant->address,
-            'applicant_residence' => $applicant->applicant_residence,
-            'academic_year' => $applicant->academic_year,
-            'semester' => $applicant->semester,
-            'application_type' => $applicant->application_type,
-            'scholarship_program' => $applicant->scholarship_program,
-            'requirements' => $applicant->requirements,
+            'status' => $status,
             'comment' => $comment,
             'discount' => $discount,
-            'status' => $status,
         ];
 
-        $insert_result = $this->db->insert('shortlist', $data);
-        if ($status === 'not qualified') {
-            $this->db->where('applicant_no', $applicant_no);
-            $update_result = $this->db->update('application_form', ['comment' => $comment, 'status' => $status]);
-            return $insert_result && $update_result;
-        }
-        return $insert_result;
+        $this->db->where('applicant_no', $applicant_no);
+        return $this->db->update('application_form', $data);
     }
 
     public function update_conditional_applicant($applicant_no, $status, $comment)
     {
+        $data = [
+            'status' => $status,
+            'comment' => $comment,
+        ];
+
         $this->db->where('applicant_no', $applicant_no);
-        return $this->db->update('application_form', ['status' => $status, 'comment' => $comment]);
+        return $this->db->update('application_form', $data);
     }
 
     public function get_applicant_details($applicant_no)
@@ -134,17 +111,17 @@ class Twc_model extends CI_Model
         return $query->result();
     }
 
-    public function get_shortlist_by_programs($program_codes)
-    {
-        $this->db->select('shortlist.shortlist_id, shortlist.applicant_no, shortlist.id_number, shortlist.lastname, shortlist.firstname, shortlist.scholarship_program, shortlist.status');
-        $this->db->from('shortlist');
-        $this->db->join('school_year', 'shortlist.academic_year = school_year.academic_year');
-        $this->db->where('school_year.year_status', 'active');
-        $this->db->where_in('shortlist.scholarship_program', $program_codes);
-        $this->db->where_in('shortlist.status', ['qualified', 'not qualified', 'conditional']);
-        $query = $this->db->get();
-        return $query->result();
-    }
+    public function get_applicants_by_programs($program_codes)
+{
+    $this->db->select('application_form.applicant_no, application_form.id_number, application_form.lastname, application_form.firstname, application_form.scholarship_program, application_form.status');
+    $this->db->from('application_form');
+    $this->db->join('school_year', 'application_form.academic_year = school_year.academic_year');
+    $this->db->where('school_year.year_status', 'active');
+    $this->db->where_in('application_form.scholarship_program', $program_codes);
+    $this->db->where_in('application_form.status', ['qualified', 'conditional']);
+    $query = $this->db->get();
+    return $query->result();
+}
 
 
     public function get_applicants_by_twc($user_id)
@@ -155,11 +132,11 @@ class Twc_model extends CI_Model
         return $query->result();
     }
 
-    public function get_application_by_shortlist_id($shortlist_id)
-    {
-        $this->db->where('shortlist_id', $shortlist_id);
-        return $this->db->get('shortlist')->row();
-    }
+    public function get_application_by_applicant_no($applicant_no)
+{
+    $this->db->where('applicant_no', $applicant_no);
+    return $this->db->get('application_form')->row();
+}
 
     public function get_report_counts_by_programs($program_codes)
     {

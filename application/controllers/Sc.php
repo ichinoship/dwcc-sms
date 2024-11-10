@@ -404,7 +404,7 @@ class Sc extends CI_Controller
             echo 'failure';
         }
     }
-    
+
     public function view_list($school_year_id)
     {
         $this->load->model('Applicant_model');
@@ -425,27 +425,18 @@ class Sc extends CI_Controller
 
     public function app_evaluation()
     {
-
         $this->load->model('Sc_model');
         $scholarship_program = $this->input->get('scholarship_program');
         $data['scholarship_programs'] = $this->Sc_model->get_filter_scholarship_programs();
-
-        $semester = $this->input->get('semester');
-
-        $status = $this->input->get('status');
-
-        $data['applicants'] = $this->Sc_model->get_filter_short_list($semester, $status);
-
-        $shortlist = $this->Sc_model->get_shortlist($scholarship_program);
+        $shortlist = $this->Sc_model->get_application_list($scholarship_program);
         $data['shortlist'] = $shortlist;
-
         $this->load->view('sc/app_evaluation', $data);
     }
 
-    public function view_shortlist_applicant($shortlist_id)
+    public function view_shortlist_applicant($applicant_no)
     {
         $this->load->model('Applicant_model');
-        $data['applicant'] = $this->Applicant_model->get_shortlisted_applicant_by_id($shortlist_id);
+        $data['applicant'] = $this->Applicant_model->get_applicant_by_no($applicant_no);
         if (!$data['applicant']) {
             show_404();
         }
@@ -454,48 +445,111 @@ class Sc extends CI_Controller
 
     public function update_shortlist()
     {
-        $shortlist_id = $this->input->post('shortlist_id');
+        $applicant_no = $this->input->post('applicant_no');
         $status = $this->input->post('status');
         $discount = $this->input->post('discount');
+        $comment = $this->input->post('comment');
 
-        $this->Sc_model->update_shortlist($shortlist_id, $status, $discount);
+        if ($status === 'not qualified' || $status === 'conditional') {
+            $discount = 0;
+        }
 
+        $this->Sc_model->update_application_form($applicant_no, $status, $discount, $comment);
+
+        if ($status === 'conditional') {
+            $this->send_conditional_email($applicant_no, $comment);
+        } elseif ($status === 'not qualified') {
+            $this->send_not_qualified_email($applicant_no);
+        }
+        $this->session->set_flashdata('success', true);
         redirect('sc/app_evaluation');
+    }
+
+    private function send_conditional_email($applicant_no, $comment)
+    {
+        $this->load->library('email');
+
+        $applicant = $this->Sc_model->get_applicant_details($applicant_no);
+        $email = $applicant->email;
+        $firstname = $applicant->firstname;
+
+        $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
+        $this->email->to($email);
+        $this->email->subject('Scholarship Application Status');
+
+        $this->email->message("
+            Dear $firstname, <br><br>
+            We are writing to inform you that your scholarship application status has been marked as <strong>Conditional</strong>.<br><br>
+            Please review the following comment from the evaluation committee: <br><br>
+            <em>$comment</em> <br><br>
+            If you have any questions or need further assistance, please feel free to contact us.<br><br>
+            Best regards,<br>
+            Divine Word College of Calapan<br>
+            Scholarship Management Team
+            ");
+
+        if (!$this->email->send()) {
+            log_message('error', 'Email not sent to applicant: ' . $applicant_no . ' - ' . $this->email->print_debugger());
+        }
+    }
+
+    private function send_not_qualified_email($applicant_no)
+    {
+        $this->load->library('email');
+
+        $applicant = $this->Sc_model->get_applicant_details($applicant_no);
+        $email = $applicant->email;
+        $firstname = $applicant->firstname;
+
+        $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
+        $this->email->to($email);
+        $this->email->subject('Scholarship Application Status');
+
+        $this->email->message("
+            Dear $firstname, <br><br>
+            We regret to inform you that your scholarship application has been marked as <strong>Not Qualified</strong>.<br><br>
+            We appreciate your interest in the scholarship program. If you have any questions or need further clarification, please feel free to contact us.<br><br>
+            Best regards,<br>
+            Divine Word College of Calapan<br>
+            Scholarship Management Team
+            ");
+
+        if (!$this->email->send()) {
+            log_message('error', 'Email not sent to applicant: ' . $applicant_no . ' - ' . $this->email->print_debugger());
+        }
     }
 
     public function submit_to_final_list()
     {
-        $shortlist_id = $this->input->post('shortlist_id');
+        $applicant_no = $this->input->post('applicant_no');
         $discount = $this->input->post('discount');
-        $shortlistedApplicant = $this->Sc_model->get_shortlist_applicant($shortlist_id);
 
-        if ($shortlistedApplicant->status !== "qualified") {
-            echo json_encode(['status' => 'error', 'message' => 'Only qualified applicant can be submitted to the final list.']);
+        $applicant = $this->Sc_model->get_applicant_by_id($applicant_no);
+
+        if ($applicant->status !== "qualified") {
+            echo json_encode(['status' => 'error', 'message' => 'Only qualified applicants can be submitted to the final list.']);
             return;
         }
 
         $data = [
-            'applicant_no' => $shortlistedApplicant->applicant_no,
-            'id_number' => $shortlistedApplicant->id_number,
-            'firstname' => $shortlistedApplicant->firstname,
-            'middlename' => $shortlistedApplicant->middlename,
-            'lastname' => $shortlistedApplicant->lastname,
-            'program_type' => $shortlistedApplicant->program_type,
-            'year' => $shortlistedApplicant->year,
-            'program' => $shortlistedApplicant->program,
-            'campus' => $shortlistedApplicant->campus,
-            'application_type' => $shortlistedApplicant->application_type,
-            'academic_year' => $shortlistedApplicant->academic_year,
-            'semester' => $shortlistedApplicant->semester,
-            'scholarship_program' => $shortlistedApplicant->scholarship_program,
+            'applicant_no' => $applicant->applicant_no,
+            'id_number' => $applicant->id_number,
+            'firstname' => $applicant->firstname,
+            'middlename' => $applicant->middlename,
+            'lastname' => $applicant->lastname,
+            'program_type' => $applicant->program_type,
+            'year' => $applicant->year,
+            'program' => $applicant->program,
+            'campus' => $applicant->campus,
+            'application_type' => $applicant->application_type,
+            'academic_year' => $applicant->academic_year,
+            'semester' => $applicant->semester,
+            'scholarship_program' => $applicant->scholarship_program,
             'discount' => $discount,
         ];
 
         $this->Sc_model->insert_into_final_list($data);
-        $this->Sc_model->remove_from_shortlist($shortlist_id);
-
-        $this->send_email_notification($shortlistedApplicant->email, $shortlistedApplicant->firstname);
-
+        $this->send_email_notification($applicant->email, $applicant->firstname);
         echo json_encode(['status' => 'success']);
     }
 

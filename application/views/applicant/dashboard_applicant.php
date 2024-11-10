@@ -107,7 +107,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Conditional Status',
-                text: 'One of your applications has a conditional status. Check your application page for TWC comment.',
+                text: 'One of your applications has a conditional status. Check your application page for comment.',
                 confirmButtonText: 'Okay'
             });
         <?php endif; ?>

@@ -342,20 +342,19 @@ class Applicant_model extends CI_Model
         $query = $this->db->get('final_list');
         return $query->result();
     }
-    public function get_shortlisted_applicant_by_id($shortlist_id)
-    {
-        $this->db->select('*');
-        $this->db->from('applicants');
-        $this->db->join('shortlist', 'shortlist.id_number = applicants.id_number');
-        $this->db->where('shortlist.shortlist_id', $shortlist_id);
-        $query = $this->db->get();
+    public function get_applicant_by_no($applicant_no)
+{
+    $this->db->select('*');
+    $this->db->from('application_form');
+    $this->db->where('applicant_no', $applicant_no);
+    $query = $this->db->get();
 
-        if ($query->num_rows() > 0) {
-            return $query->row();
-        } else {
-            return false;
-        }
+    if ($query->num_rows() > 0) {
+        return $query->row();
+    } else {
+        return false;
     }
+}
     public function get_applicant_counts()
     {
         $this->db->select("COUNT(*) as total");

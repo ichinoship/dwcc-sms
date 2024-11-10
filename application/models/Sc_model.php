@@ -199,21 +199,23 @@ class Sc_model extends CI_Model
         $this->db->where('school_year_id', $school_year_id);
         $this->db->update('school_year', $data);
     }
-    public function get_shortlist($scholarship_program = null)
+    public function get_application_list($scholarship_program = null)
     {
-        $this->db->select('shortlist.shortlist_id, shortlist.applicant_no, shortlist.id_number, shortlist.lastname, shortlist.middlename, shortlist.firstname, shortlist.academic_year,  shortlist.semester, shortlist.scholarship_program,  shortlist.application_type, shortlist.discount, shortlist.status');
-        $this->db->from('shortlist');
-        $this->db->join('school_year', 'shortlist.academic_year = school_year.academic_year');
+        $this->db->select('application_form.applicant_no, application_form.id_number, application_form.lastname, application_form.middlename, application_form.firstname, application_form.academic_year, application_form.semester, application_form.scholarship_program, application_form.application_type, application_form.discount, application_form.status');
+        $this->db->from('application_form');
+        $this->db->join('school_year', 'application_form.academic_year = school_year.academic_year');
+        $this->db->join('final_list', 'application_form.applicant_no = final_list.applicant_no', 'left');
+        $this->db->where('final_list.applicant_no IS NULL');
         $this->db->where('school_year.year_status', 'active');
+        $this->db->where_in('application_form.status', ['qualified', 'not qualified', 'conditional']);
 
         if ($scholarship_program) {
-            $this->db->where('shortlist.scholarship_program', $scholarship_program);
+            $this->db->where('application_form.scholarship_program', $scholarship_program);
         }
 
         $query = $this->db->get();
         return $query->result();
     }
-
 
     public function get_shortlist_scholarship_program()
     {
@@ -304,18 +306,22 @@ class Sc_model extends CI_Model
         return $this->db->get('requirements')->result();
     }
 
-
-    public function get_shortlist_applicant($shortlist_id)
+    public function update_application_form($applicant_no, $status, $discount, $comment)
     {
-        $this->db->where('shortlist_id', $shortlist_id);
-        $query = $this->db->get('shortlist');
-        return $query->row();
+        $this->db->where('applicant_no', $applicant_no);
+        return $this->db->update('application_form', [
+            'status' => $status,
+            'discount' => $discount,
+            'comment' => $comment
+        ]);
     }
 
-    public function update_shortlist($shortlist_id, $status, $discount)
+    public function get_applicant_details($applicant_no)
     {
-        $this->db->where('shortlist_id', $shortlist_id);
-        return $this->db->update('shortlist', ['status' => $status, 'discount' => $discount]);
+        $this->db->select('firstname, email');
+        $this->db->from('application_form');
+        $this->db->where('applicant_no', $applicant_no);
+        return $this->db->get()->row();
     }
 
     public function insert_into_final_list($data)
@@ -507,10 +513,10 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    public function get_filter_short_list($semester = null, $status = null)
+    public function get_filtered_application_list($semester = null, $status = null)
     {
         $this->db->select('*');
-        $this->db->from('shortlist');
+        $this->db->from('application_form');
 
         if ($semester) {
             $this->db->where('semester', $semester);
@@ -518,6 +524,7 @@ class Sc_model extends CI_Model
         if ($status) {
             $this->db->where('status', $status);
         }
+
         $query = $this->db->get();
         return $query->result();
     }
@@ -575,4 +582,10 @@ class Sc_model extends CI_Model
         return $this->db->delete('announcements');
     }
 
+    public function get_applicant_by_id($applicant_no)
+    {
+        $this->db->where('applicant_no', $applicant_no);
+        $query = $this->db->get('application_form');
+        return $query->row();
+    }
 }

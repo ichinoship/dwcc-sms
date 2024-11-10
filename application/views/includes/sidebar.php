@@ -110,30 +110,30 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview <?= in_array($this->uri->segment(2), ['school_year', 'semester', 'view_list']) ? 'menu-open' : ''; ?>">
-    <a href="#" class="nav-link <?= in_array($this->uri->segment(2), ['school_year', 'semester', 'view_list']) ? 'active' : ''; ?>">
-        <i class="nav-icon fas fa-school"></i>
-        <p>
-            School Year & Semester
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="<?= base_url('sc/school_year'); ?>"
-                class="nav-link <?= $this->uri->segment(2) == 'school_year' || $this->uri->segment(2) == 'view_list' ? 'active' : ''; ?>">
-                <i class="far fa-calendar-alt nav-icon"></i>
-                <p>School Year</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="<?= base_url('sc/semester'); ?>"
-                class="nav-link <?= $this->uri->segment(2) == 'semester' ? 'active' : ''; ?>">
-                <i class="fas fa-layer-group nav-icon"></i>
-                <p>Semester</p>
-            </a>
-        </li>
-    </ul>
-</li>
+                        <a href="#" class="nav-link <?= in_array($this->uri->segment(2), ['school_year', 'semester', 'view_list']) ? 'active' : ''; ?>">
+                            <i class="nav-icon fas fa-school"></i>
+                            <p>
+                                Year and Semester
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('sc/school_year'); ?>"
+                                    class="nav-link <?= $this->uri->segment(2) == 'school_year' || $this->uri->segment(2) == 'view_list' ? 'active' : ''; ?>">
+                                    <i class="far fa-calendar-alt nav-icon"></i>
+                                    <p>School Year</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('sc/semester'); ?>"
+                                    class="nav-link <?= $this->uri->segment(2) == 'semester' ? 'active' : ''; ?>">
+                                    <i class="fas fa-layer-group nav-icon"></i>
+                                    <p>Semester</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a href="<?= base_url('sc/scholarship_program'); ?>" class="nav-link <?= ($this->uri->segment(1) == 'sc' && ($this->uri->segment(2) == 'scholarship_program' || $this->uri->segment(2) == 'manage_requirements' || $this->uri->segment(2) == 'add_scholarship_program' || $this->uri->segment(2) == 'edit_scholarship_program')) ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-book"></i>
