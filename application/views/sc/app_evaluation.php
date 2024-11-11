@@ -149,7 +149,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="submitToFinalList">Submit to Final List</button>
+                    <button type="button" class="btn btn-success" id="submitToFinalList">Submit to Official List</button>
                     <div class="ml-auto">
                         <button type="submit" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

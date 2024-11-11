@@ -1,19 +1,18 @@
 <?php $this->load->view('includes/header'); ?>
 <?php $this->load->view('includes/sidebar'); ?>
-<title>Final List of Applicants</title>
+<title>Official List of Applicants</title>
 
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Final List of Applicants</h1>
+                    <h1 class="m-0">Official List of Applicants</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= base_url('sc/dashboard'); ?>">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= base_url('sc/program_list'); ?>">Program List</a></li>
-                        <li class="breadcrumb-item active">Final List of Applicants</li>
+                        <li class="breadcrumb-item active">Official List of Applicants</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +23,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Final List of Applicants</h3>
+                    <h3 class="card-title">Official List of Applicants</h3>
                 </div>
                 <div class="card-body">
                     <div class="card-tools mb-3">

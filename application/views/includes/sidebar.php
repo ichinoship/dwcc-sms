@@ -158,7 +158,7 @@
                         <a href="<?= base_url('sc/final_list'); ?>"
                             class="nav-link <?= ($this->uri->segment(1) == 'sc' && ($this->uri->segment(2) == 'program_list' || $this->uri->segment(2) == 'final_list')) ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-check-circle"></i>
-                            <p>Final List</p>
+                            <p>Official List</p>
                         </a>
                     </li>
                     <li class="nav-item has-treeview <?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'grants' ? 'menu-open' : ''; ?>">
