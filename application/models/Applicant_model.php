@@ -78,7 +78,7 @@ class Applicant_model extends CI_Model
 
     public function get_applicant_status($id_number)
     {
-        $this->db->select('status, comment');
+        $this->db->select('status, comment, status_date');
         $this->db->from('application_form');
         $this->db->where('id_number', $id_number);
         return $this->db->get()->row();
@@ -95,8 +95,20 @@ class Applicant_model extends CI_Model
     public function get_applications_by_id_number($id_number)
     {
         $this->db->where('id_number', $id_number);
-        $query = $this->db->get('application_form'); // Assuming 'applications' is the table name
+        $query = $this->db->get('application_form');
         return $query->result();
+    }
+
+    public function check_application_with_discount($id_number, $academic_year, $semester)
+    {
+        $this->db->select('discount');
+        $this->db->from('application_form');
+        $this->db->where('id_number', $id_number);
+        $this->db->where('academic_year', $academic_year);
+        $this->db->where('semester', $semester);
+        $this->db->where('discount', 100);
+        $query = $this->db->get();
+        return $query->row();
     }
 
     public function update_info($id_number, $data)
@@ -343,18 +355,18 @@ class Applicant_model extends CI_Model
         return $query->result();
     }
     public function get_applicant_by_no($applicant_no)
-{
-    $this->db->select('*');
-    $this->db->from('application_form');
-    $this->db->where('applicant_no', $applicant_no);
-    $query = $this->db->get();
+    {
+        $this->db->select('*');
+        $this->db->from('application_form');
+        $this->db->where('applicant_no', $applicant_no);
+        $query = $this->db->get();
 
-    if ($query->num_rows() > 0) {
-        return $query->row();
-    } else {
-        return false;
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
     }
-}
     public function get_applicant_counts()
     {
         $this->db->select("COUNT(*) as total");

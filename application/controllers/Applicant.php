@@ -372,9 +372,16 @@ class Applicant extends CI_Controller
             return;
         }
 
+        $existing_application_with_discount = $this->Applicant_model->check_application_with_discount($id_number, $academic_year, $semester);
+        if ($existing_application_with_discount) {
+            $this->session->set_flashdata('error', 'You cannot submit another application as you already have a 100% discount.');
+            redirect('applicant/apply_scholarship');
+            return;
+        }
+
         $application_count = $this->Applicant_model->count_applications($id_number, $academic_year, $semester);
         if ($application_count >= 2) {
-            $this->session->set_flashdata('error', 'You have reached the maximum number of applications allowed for this academic year and semester.');
+            $this->session->set_flashdata('error', 'You have reached the maximum number of applications');
             redirect('applicant/apply_scholarship');
             return;
         }
@@ -426,7 +433,6 @@ class Applicant extends CI_Controller
                 'size'     => $requirements_files['size'][$i]
             ];
 
-            // Initialize the upload configuration for requirements
             $this->upload->initialize($requirement_config);
             if (!$this->upload->do_upload('file')) {
                 $error = $this->upload->display_errors();
@@ -438,7 +444,6 @@ class Applicant extends CI_Controller
             $requirements[] = $this->upload->data('file_name');
         }
 
-        // Prepare form data for insertion
         $form_data = [
             'applicant_no' => $this->Applicant_model->get_next_applicant_no(),
             'account_no' => $account_no,

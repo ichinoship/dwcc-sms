@@ -86,7 +86,7 @@ class Auth extends CI_Controller
                     if ($applicant->account_status == 'active') {
                         if ($applicant->status == 'accepted') {
                             $this->session->set_userdata([
-                                'user_id' => $applicant->id,
+                                'user_id' => $applicant->account_no,
                                 'user_type' => 'applicant',
                                 'first_name' => $applicant->firstname,
                                 'last_name' => $applicant->lastname,
