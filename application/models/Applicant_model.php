@@ -78,7 +78,7 @@ class Applicant_model extends CI_Model
 
     public function get_applicant_status($id_number)
     {
-        $this->db->select('status, comment, status_date');
+        $this->db->select('status, comment');
         $this->db->from('application_form');
         $this->db->where('id_number', $id_number);
         return $this->db->get()->row();
