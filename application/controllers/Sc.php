@@ -531,6 +531,13 @@ class Sc extends CI_Controller
             return;
         }
 
+        $existingEntry = $this->Sc_model->check_final_list_duplicate($applicant->id_number, $applicant->academic_year, $applicant->semester);
+
+        if ($existingEntry) {
+            echo json_encode(['status' => 'error', 'message' => 'This applicant is already in the final list for the same semester and academic year.']);
+            return;
+        }
+
         $data = [
             'applicant_no' => $applicant->applicant_no,
             'id_number' => $applicant->id_number,

@@ -588,4 +588,14 @@ class Sc_model extends CI_Model
         $query = $this->db->get('application_form');
         return $query->row();
     }
+
+    public function check_final_list_duplicate($id_number, $academic_year, $semester)
+{
+    $this->db->where('id_number', $id_number);
+    $this->db->where('academic_year', $academic_year);
+    $this->db->where('semester', $semester);
+    $query = $this->db->get('final_list');
+
+    return $query->num_rows() > 0;
+}
 }
