@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2024 at 04:11 AM
+-- Generation Time: Nov 12, 2024 at 07:59 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -115,16 +115,19 @@ CREATE TABLE `application_form` (
   `requirements` varchar(255) NOT NULL,
   `comment` text DEFAULT NULL,
   `discount` int(3) NOT NULL,
-  `status` enum('pending','qualified','not qualified','conditional') DEFAULT 'pending'
+  `status` enum('pending','qualified','not qualified','conditional') DEFAULT 'pending',
+  `date_status_changed` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `application_form`
 --
 
-INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`) VALUES
-(1, 1, 47293, '2x2_girl.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', '', 50, 'qualified'),
-(2, 5, 47125, '2X2_boy1.png', 'Kenneth', 'Magtibay ', 'Catibog', '2001-02-12', 'Male', '0912345672', 'kenneth.catibog@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Naujan, Calapan City', 'Off-Campus Boarding House', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', '2X2_boy31.jpg', '', 100, 'qualified');
+INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`, `date_status_changed`) VALUES
+(1, 1, 47293, '2x2_girl.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', '', 50, 'qualified', NULL),
+(2, 5, 47125, '2X2_boy1.png', 'Kenneth', 'Magtibay ', 'Catibog', '2001-02-12', 'Male', '0912345672', 'kenneth.catibog@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Naujan, Calapan City', 'Off-Campus Boarding House', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', '2X2_boy31.jpg', '', 100, 'qualified', NULL),
+(3, 1, 47293, 'LeBron_James_-_51959723161_(cropped).jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2025-2026', '2nd Semester', 'Renewal', 'Gazette Scholarship Program', 'SAMPLE-EVALUATION-Sheet.pdf', '', 0, 'conditional', NULL),
+(4, 4, 47124, 'LeBron_James_-_51959723161_(cropped)1.jpg', 'Kenn Daiven', '', 'Acedillo', '1990-10-29', 'Male', '09123456783', 'kenn@gmail.com', 'Grade School', 'Grade 6', 'None', 'Freinademetz', 'Baruyan, Calapan City', 'Off-Campus Boarding House', '2025-2026', 'Whole Semester', 'Renewal', 'Academic Scholarship (BE)', 'SAMPLE-EVALUATION-Sheet1.pdf', '', 50, 'qualified', '2024-11-07');
 
 -- --------------------------------------------------------
 
@@ -155,7 +158,8 @@ CREATE TABLE `final_list` (
 --
 
 INSERT INTO `final_list` (`final_list_id`, `applicant_no`, `id_number`, `firstname`, `middlename`, `lastname`, `program_type`, `year`, `program`, `campus`, `application_type`, `academic_year`, `semester`, `scholarship_program`, `discount`) VALUES
-(1, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 100);
+(1, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 100),
+(2, 2, 47125, 'Kenneth', 'Magtibay ', 'Catibog', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 100);
 
 -- --------------------------------------------------------
 
@@ -287,9 +291,9 @@ CREATE TABLE `semester` (
 --
 
 INSERT INTO `semester` (`semester_id`, `semester`, `status`) VALUES
-(1, '1st Semester', 'inactive'),
+(1, '1st Semester', 'active'),
 (2, 'Whole Semester', 'active'),
-(3, '2nd Semester', 'active');
+(3, '2nd Semester', 'inactive');
 
 -- --------------------------------------------------------
 
@@ -431,7 +435,7 @@ ALTER TABLE `application_form`
 -- AUTO_INCREMENT for table `final_list`
 --
 ALTER TABLE `final_list`
-  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `requirements`
