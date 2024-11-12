@@ -64,6 +64,12 @@
                                     </tr>
                                 <?php else: ?>
                                     <?php foreach ($applications as $application): ?>
+                                        <?php
+                                            $statusChangedDate = $application->date_status_changed; // Fetch the date when the status changed
+                                            $conditionalExpiryDate = date('Y-m-d', strtotime($statusChangedDate . ' +5 days'));
+                                            $today = date('Y-m-d');
+                                        ?>
+
                                         <tr data-academic-year="<?= htmlspecialchars($application->academic_year); ?>" data-semester="<?= htmlspecialchars($application->semester); ?>">
                                             <td><?= htmlspecialchars($application->firstname . ' ' . $application->middlename . ' ' . $application->lastname); ?></td>
                                             <td><?= htmlspecialchars($application->scholarship_program); ?></td>
@@ -74,12 +80,12 @@
                                                 <a href="<?= site_url('applicant/view_form/' . $application->applicant_no); ?>" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <?php if (!in_array($application->status, ['pending', 'qualified', 'not qualified'])): ?>
+                                                <?php if ($application->status === 'conditional' && $today <= $conditionalExpiryDate): ?>
                                                     <a href="#"
-                                                        class="btn btn-success btn-sm edit-btn"
-                                                        data-status="<?= htmlspecialchars($application->status); ?>"
-                                                        data-url="<?= site_url('applicant/edit_application/' . $application->applicant_no); ?>">
-                                                        <i class="fas fa-edit"></i>
+                                                       class="btn btn-success btn-sm edit-btn"
+                                                       data-status="<?= htmlspecialchars($application->status); ?>"
+                                                       data-url="<?= site_url('applicant/edit_application/' . $application->applicant_no); ?>">
+                                                       <i class="fas fa-edit"></i>
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if ($application->status === 'conditional' && !empty($application->comment)): ?>

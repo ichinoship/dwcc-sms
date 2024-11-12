@@ -522,6 +522,22 @@ class Applicant extends CI_Controller
             return;
         }
 
+        // Check if the applicant's status is 'conditional' and the date is within the 5-day window
+        $today = date('Y-m-d'); // Get today's date
+        $statusChangedDate = $data['application']->date_status_changed; // Assuming the date is in 'Y-m-d' format
+        $conditionalExpiryDate = date('Y-m-d', strtotime($statusChangedDate . ' +5 days'));
+
+        // Check if the status is not 'conditional' or the expiry date has passed
+        if ($data['application']->status !== 'conditional' || $today > $conditionalExpiryDate) {
+            $errorMessage = $applicant->status !== 'conditional'
+                ? 'You cannot edit this application as you are not in conditional status.'
+                : 'You cannot edit your application because the 5-day period has expired.';
+            
+            // Set the error message and redirect
+            $this->session->set_flashdata('error', $errorMessage);
+            redirect('applicant/my_application');
+        }
+
         $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
         $data['existing_requirements'] = !empty($data['application']->requirements) ? explode(',', $data['application']->requirements) : [];
 

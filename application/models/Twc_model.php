@@ -26,6 +26,8 @@ class Twc_model extends CI_Model
         $data = [
             'status' => $status,
             'comment' => $comment,
+            'date_status_changed' => date('Y-m-d')
+
         ];
 
         $this->db->where('applicant_no', $applicant_no);
