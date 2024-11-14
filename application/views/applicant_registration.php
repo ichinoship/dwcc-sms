@@ -29,12 +29,7 @@
               <p>Scholarship Management System</p>
             </div>
             <h6 class="register-box-msg mb-2">Account Registration</h6>
-            <!-- Display success or error messages -->
-            <?php if ($this->session->flashdata('success')): ?>
-              <div class="alert text-center alert-success">
-                <?= $this->session->flashdata('success'); ?>
-              </div>
-            <?php endif; ?>
+            <!-- error messages -->
             <?php if ($this->session->flashdata('error')): ?>
               <div class="alert text-center alert-danger">
                 <?= $this->session->flashdata('error'); ?>
@@ -234,10 +229,8 @@
         const programType = document.getElementById('program_type').value;
         const yearSelect = document.getElementById('year');
 
-        // Clear current options
         yearSelect.innerHTML = '<option value="" disabled selected>Select Year Level</option>';
 
-        // Define year options based on program type
         let options = [];
         switch (programType) {
             case 'College':
@@ -267,11 +260,8 @@
     function updateProgramOptions() {
         const programType = document.getElementById('program_type').value;
         const programSelect = document.getElementById('program');
-
-        // Clear current options
         programSelect.innerHTML = '<option value="" disabled selected>Select Program</option>';
 
-        // Define program options based on program type
         let options = [];
         switch (programType) {
             case 'College':
@@ -324,8 +314,25 @@
         });
     }
   </script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <?php if ($this->session->flashdata('success')): ?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: '<?= $this->session->flashdata('success'); ?>',
+        confirmButtonText: 'OK'
+      });
+    </script>
+  <?php elseif ($this->session->flashdata('error')): ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: '<?= $this->session->flashdata('error'); ?>',
+        confirmButtonText: 'Try Again'
+      });
+    </script>
+  <?php endif; ?>
 </body>
-
 </html>

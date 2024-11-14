@@ -76,9 +76,7 @@
 
                                     <div class="col-md-2 form-group">
                                         <label for="year">Year</label>
-                                        <select class="form-control" id="year" name="year">
-                                            <!-- Options will be dynamically filled by JavaScript -->
-                                        </select>
+                                        <input type="text" class="form-control" id="year" name="year" value="<?= set_value('year', $applicant->year); ?>" disabled>
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <label for="address">Address</label>
@@ -125,38 +123,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const programType = document.getElementById('program_type');
-        const yearSelect = document.getElementById('year');
-
-        function updateYearOptions() {
-            const selectedProgramType = programType.value;
-            yearSelect.innerHTML = '';
-
-            let yearOptions = [];
-            if (selectedProgramType === 'College') {
-                yearOptions = ['5th', '4th', '3rd', '2nd', '1st'];
-            } else if (selectedProgramType === 'Senior High School') {
-                yearOptions = ['Grade 12', 'Grade 11'];
-            } else if (selectedProgramType === 'Junior High School') {
-                yearOptions = ['Grade 10', 'Grade 9', 'Grade 8', 'Grade 7'];
-            } else if (selectedProgramType === 'Grade School') {
-                yearOptions = ['Grade 6', 'Grade 5', 'Grade 4', 'Grade 3', 'Grade 2', 'Grade 1', 'Senior Kinder', 'Junior Kinder', 'Special Education'];
-            }
-
-            yearOptions.forEach(year => {
-                const option = document.createElement('option');
-                option.value = year;
-                option.textContent = year;
-                yearSelect.appendChild(option);
-            });
-
-            const currentYear = "<?= $applicant->year; ?>";
-            if (yearOptions.includes(currentYear)) {
-                yearSelect.value = currentYear;
-            }
-        }
-        updateYearOptions();
+    
 
         <?php if ($this->session->flashdata('success')): ?>
             Swal.fire({
@@ -185,5 +152,5 @@
                 timer: 3000
             });
         <?php endif; ?>
-    });
+ 
 </script>

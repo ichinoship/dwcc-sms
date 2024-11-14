@@ -23,7 +23,8 @@
         </div>
         <h6 class="login-box-msg">Enter your verification code</h6>
 
-        <!-- Display success or error messages -->
+        <div id="timer" class="alert text-center">Time left: 05:00</div>
+
         <?php if ($this->session->flashdata('success')): ?>
           <div class="alert alert-success">
             <?= $this->session->flashdata('success'); ?>
@@ -69,15 +70,32 @@
 
   <script>
     function moveFocus(current, index) {
-      // Move to next input box on valid input
+      
       if (current.value.length === 1 && index < 5) {
         document.getElementById('code' + (index + 1)).focus();
       }
-      // Move back to previous input box on delete
+
       if (current.value.length === 0 && index > 0) {
         document.getElementById('code' + (index - 1)).focus();
       }
     }
+
+    let timeLeft = 300; 
+    const timerElement = document.getElementById("timer");
+
+    const countdown = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerElement.textContent = `Time left: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        timerElement.textContent = "Time is up! Redirecting...";
+        window.location.href = "<?= site_url('auth/applicant_forgot_password'); ?>";
+      }
+
+      timeLeft -= 1;
+    }, 1000);
   </script>
 </body>
 

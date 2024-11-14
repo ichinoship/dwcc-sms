@@ -68,12 +68,11 @@ class Applicant extends CI_Controller
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('applicant_registration');
         } else {
-            // Normalize names
+
             $firstname = ucwords(strtolower($this->input->post('firstname')));
             $middlename = ucwords(strtolower($this->input->post('middlename')));
             $lastname = ucwords(strtolower($this->input->post('lastname')));
 
-            // Set campus based on program type
             $program_type = $this->input->post('program_type');
             $campus = '';
             if ($program_type === 'College') {
@@ -82,7 +81,6 @@ class Applicant extends CI_Controller
                 $campus = 'Freinademetz';
             }
 
-            // Prepare data for registration
             $data = array(
                 'id_number' => $this->input->post('id_number'),
                 'firstname' => $firstname,
@@ -100,7 +98,6 @@ class Applicant extends CI_Controller
                 'campus' => $campus,
             );
 
-            // Register applicant
             if ($this->Applicant_model->register_applicant($data)) {
                 $this->session->set_flashdata('success', 'Registration successful! We will send you an email once you are approved.');
                 redirect('applicant/register');
@@ -138,7 +135,6 @@ class Applicant extends CI_Controller
 
         redirect('admin/account_review');
     }
-    //
     private function send_email_notification($email, $firstname)
     {
         $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
@@ -522,18 +518,14 @@ class Applicant extends CI_Controller
             return;
         }
 
-        // Check if the applicant's status is 'conditional' and the date is within the 5-day window
-        $today = date('Y-m-d'); // Get today's date
-        $statusChangedDate = $data['application']->date_status_changed; // Assuming the date is in 'Y-m-d' format
+        $today = date('Y-m-d');
+        $statusChangedDate = $data["application"]->date_status_changed;
         $conditionalExpiryDate = date('Y-m-d', strtotime($statusChangedDate . ' +5 days'));
-
-        // Check if the status is not 'conditional' or the expiry date has passed
         if ($data['application']->status !== 'conditional' || $today > $conditionalExpiryDate) {
-            $errorMessage = $applicant->status !== 'conditional'
+            $errorMessage = $data["application"]->status !== 'conditional'
                 ? 'You cannot edit this application as you are not in conditional status.'
                 : 'You cannot edit your application because the 5-day period has expired.';
-            
-            // Set the error message and redirect
+
             $this->session->set_flashdata('error', $errorMessage);
             redirect('applicant/my_application');
         }

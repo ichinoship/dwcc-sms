@@ -148,6 +148,7 @@ class Auth extends CI_Controller
                 $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT); // Generate a 6-digit code
                 $this->session->set_userdata('verification_code', $code);
                 $this->session->set_userdata('email', $email);
+                $this->session->set_userdata('code_generated_time', time()); // Store the current time
 
                 $this->applicant_send_verification_email($email, $code);
                 $this->session->set_flashdata('message', 'A verification code has been sent to your email.');
@@ -184,11 +185,16 @@ class Auth extends CI_Controller
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('applicant_verify_code');
         } else {
-
             $code = implode('', $this->input->post('code'));
+            $storedCode = $this->session->userdata('verification_code');
+            $codeGeneratedTime = $this->session->userdata('code_generated_time');
 
-
-            if ($code === $this->session->userdata('verification_code')) {
+            if ($codeGeneratedTime && (time() - $codeGeneratedTime > 300)) {
+                $this->session->unset_userdata('verification_code');
+                $this->session->unset_userdata('code_generated_time');
+                $this->session->set_flashdata('error', 'Verification code has expired. Please request a new code.');
+                redirect('auth/applicant_forgot_password');
+            } elseif ($code === $storedCode) {
                 redirect('auth/applicant_reset_password');
             } else {
                 $this->session->set_flashdata('error', 'Invalid verification code.');
@@ -255,6 +261,7 @@ class Auth extends CI_Controller
                 $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
                 $this->session->set_userdata('verification_code_user', $code);
                 $this->session->set_userdata('email_user', $email);
+                $this->session->set_userdata('code_generated_time_user', time());
 
                 $this->user_send_verification_email($email, $code);
                 $this->session->set_flashdata('message', 'A verification code has been sent to your email.');
@@ -292,8 +299,15 @@ class Auth extends CI_Controller
             $this->load->view('user_verify_code');
         } else {
             $code = implode('', $this->input->post('code'));
+            $storedCode = $this->session->userdata('verification_code_user');
+            $codeGeneratedTime = $this->session->userdata('code_generated_time_user');
 
-            if ($code === $this->session->userdata('verification_code_user')) {
+            if ($codeGeneratedTime && (time() - $codeGeneratedTime > 300)) { // 5 minutes
+                $this->session->unset_userdata('verification_code_user');
+                $this->session->unset_userdata('code_generated_time_user');
+                $this->session->set_flashdata('error', 'Verification code has expired. Please request a new code.');
+                redirect('auth/user_forgot_password');
+            } elseif ($code === $storedCode) {
                 redirect('auth/user_reset_password');
             } else {
                 $this->session->set_flashdata('error', 'Invalid verification code.');
@@ -334,7 +348,7 @@ class Auth extends CI_Controller
     <p>Your password has been successfully reset. You can now log in using your new password.</p>
     <p>Thank you,<br>DWCC Scholarship Management System</p>
     ";
-    
+
         $this->email->message($message);
         $this->email->send();
     }

@@ -23,6 +23,8 @@
         </div>
         <h6 class="register-box-msg mb-2">Enter your verification code</h6>
 
+        <div id="timer" class="alert text-center">Time left: 05:00</div>
+
         <?php if ($this->session->flashdata('error')): ?>
           <div class="alert alert-danger">
             <?= $this->session->flashdata('error'); ?>
@@ -70,6 +72,22 @@
         document.getElementById('code' + (index - 1)).focus();
       }
     }
+    let timeLeft = 300; 
+    const timerElement = document.getElementById("timer");
+
+    const countdown = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerElement.textContent = `Time left: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        timerElement.textContent = "Time is up! Redirecting...";
+        window.location.href = "<?= site_url('auth/user_forgot_password'); ?>";
+      }
+
+      timeLeft -= 1;
+    }, 1000);
   </script>
 </body>
 
