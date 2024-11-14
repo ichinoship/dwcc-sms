@@ -24,26 +24,25 @@ $twc_count = $this->Admin_model->count_twc();
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
     <div class="content">
         <div class="container-fluid">
             <!-- Row for the boxes -->
             <div class="row">
                 <!-- Box 1 -->
                 <div class="col-lg-4 col-12">
-    <div class="small-box bg-info">
-        <div class="inner">
-            <h3><?php echo $accepted_applicants_count; ?></h3>
-            <p>Total Number of Accepted Applicants</p>
-        </div>
-        <div class="icon">
-            <i class="fas fa-users"></i>
-        </div>
-        <a href="<?php echo site_url('admin/app-list')?>" class="small-box-footer">
-            View List <i class="fas fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3><?php echo $accepted_applicants_count; ?></h3>
+                            <p>Total Number of Applicants</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <a href="<?php echo site_url('admin/app-list') ?>" class="small-box-footer">
+                            View List <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
                 <!-- Box 2 -->
                 <div class="col-lg-4 col-12">
                     <div class="small-box bg-purple">

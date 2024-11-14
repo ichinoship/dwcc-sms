@@ -22,14 +22,13 @@
             <!-- Applicant Profile -->
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-light">
-                            <h5 class="card-title">Applicant Profile</h5>
+                    <div class="card card-outline card-secondary shadow-sm">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h5 class="card-title m-0"><i class="far fa-image mr-2"></i>Applicant Photo</h5>
                         </div>
                         <div class="card-body">
-
                             <div class="d-flex justify-content-center">
-                                <img src="<?= base_url('uploads/' . $application->applicant_photo); ?>" alt="Applicant Photo" class="mb-3" style="width:200px; height:200px; object-fit:cover; border: 1px solid black;">
+                                <img src="<?= base_url('uploads/' . $application->applicant_photo); ?>" alt="Applicant Photo" class="mb-3" style="max-width:200px; object-fit:cover; border: 1px solid black;">
                             </div>
                             <h3 class="font-weight-bold"><?= htmlspecialchars($application->firstname) . ' ' . htmlspecialchars($application->lastname); ?></h3>
                             <p class="text-muted"><strong>Applicant No:</strong> <?= htmlspecialchars($application->applicant_no); ?></p>
@@ -40,9 +39,9 @@
             <!-- Application Details -->
             <div class="row justify-content-center">
                 <div class="col-md-12">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-light">
-                            <h5 class="card-title">Applicant Information</h5>
+                    <div class="card card-outline card-secondary shadow-sm">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h5 class="card-title m-0"><i class="far fa-id-card mr-2"></i>Applicant Information</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -74,9 +73,9 @@
             <!-- Uploaded Requirements -->
             <div class="row justify-content-center">
                 <div class="col-md-12">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-light">
-                            <h5 class="card-title">Requirements</h5>
+                    <div class="card card-outline card-secondary shadow-sm">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h5 class="card-title m-0"><i class="far fa-list-alt mr-2"></i>Requirements</h5>
                         </div>
                         <div class="card-body">
                             <?php if ($application->requirements): ?>
@@ -97,6 +96,23 @@
                                 </div>
                             <?php else: ?>
                                 <p>No requirements files available</p>
+                            <?php endif; ?>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card card-outline card-secondary shadow-sm">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h5 class="card-title m-0"><i class="far fa-comment-dots mr-2"></i>Application Comment</h5>
+                        </div>
+                        <div class="card-body p-3">
+                            <?php if (!empty($applicants->comment)): ?>
+                                <p class="mb-0"><?= nl2br(htmlspecialchars($applicants->comment)); ?></p>
+                            <?php else: ?>
+                                <p class="text-muted mb-0">No comments available for this application.</p>
                             <?php endif; ?>
                         </div>
                         <div class="card-footer">
@@ -147,7 +163,7 @@
         var fileType = $(e.relatedTarget).data('type');
         var previewContainer = $('#filePreviewContainer');
 
-        previewContainer.html(''); 
+        previewContainer.html('');
 
         if (fileType === 'pdf') {
             previewContainer.html('<embed src="' + filePath + '" width="100%" height="500px" type="application/pdf">');
