@@ -64,22 +64,43 @@ class Applicant extends CI_Controller
         $this->form_validation->set_rules('program', 'Program', 'required');
         $this->form_validation->set_rules('address', 'Address', 'required');
         $this->form_validation->set_rules('applicant_residence', 'Residence', 'required');
+        $this->load->library('upload');
+
+        if (empty($_FILES['applicant_photo']['name'])) {
+            $this->form_validation->set_rules(
+                'applicant_photo',
+                'Applicant Photo',
+                'required',
+                array('required' => 'The Applicant Photo is required.')
+            );
+        }
 
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('applicant_registration');
         } else {
+            // Configuring the upload library
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'jpg|jpeg|png';
+            $config['max_size'] = 2048; // Limit to 2MB
+            $config['file_name'] = $this->input->post('id_number') . '_photo';
 
+
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload('applicant_photo')) {
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('error', "Invalid file format for 2x2 photo. Only JPG, JPEG, and PNG format are allowed." . $error);
+                redirect('applicant/apply_scholarship');
+                return;
+            }
+            $applicant_photo = $this->upload->data('file_name');
+
+            // Other form data processing
             $firstname = ucwords(strtolower($this->input->post('firstname')));
             $middlename = ucwords(strtolower($this->input->post('middlename')));
             $lastname = ucwords(strtolower($this->input->post('lastname')));
 
             $program_type = $this->input->post('program_type');
-            $campus = '';
-            if ($program_type === 'College') {
-                $campus = 'Janssen';
-            } elseif (in_array($program_type, ['Senior High School', 'Junior High School', 'Grade School'])) {
-                $campus = 'Freinademetz';
-            }
+            $campus = ($program_type === 'College') ? 'Janssen' : 'Freinademetz';
 
             $data = array(
                 'id_number' => $this->input->post('id_number'),
@@ -96,6 +117,7 @@ class Applicant extends CI_Controller
                 'address' => $this->input->post('address'),
                 'applicant_residence' => $this->input->post('applicant_residence'),
                 'campus' => $campus,
+                'applicant_photo' => $applicant_photo,
             );
 
             if ($this->Applicant_model->register_applicant($data)) {
@@ -227,7 +249,6 @@ class Applicant extends CI_Controller
         } else {
             // Get current data from the database
             $current_data = $this->Applicant_model->get_info($id_number);
-            // Collect new data from the form
             $new_data = [
                 'contact' => $this->input->post('contact'),
                 'email' => $this->input->post('email'),
@@ -236,7 +257,35 @@ class Applicant extends CI_Controller
                 'applicant_residence' => $this->input->post('applicant_residence'),
             ];
 
-            // Check if any changes were made
+            // Check for photo upload
+            if (!empty($_FILES['applicant_photo']['name'])) {
+                // Configuring upload settings
+                $config['upload_path'] = './uploads/';
+                $config['allowed_types'] = 'jpg|jpeg|png';
+                $config['max_size'] = 2048;
+                $config['file_name'] = $id_number . '_photo';
+
+                $this->upload->initialize($config);
+
+                if ($this->upload->do_upload('applicant_photo')) {
+                    $new_data['applicant_photo'] = $this->upload->data('file_name');
+
+                    $this->session->set_userdata('user_applicant_photo', $new_data['applicant_photo']);
+
+                    if ($current_data->applicant_photo) {
+                        $old_photo_path = './uploads/' . $current_data->applicant_photo;
+                        if (file_exists($old_photo_path)) {
+                            unlink($old_photo_path);
+                        }
+                    }
+                } else {
+                    $this->session->set_flashdata('error', 'Failed to upload the photo. ' . $this->upload->display_errors());
+                    redirect('applicant/edit_info');
+                    return;
+                }
+            }
+
+            // Update information in the database
             $changes_made = false;
             foreach ($new_data as $key => $value) {
                 if ($current_data->$key != $value) {
@@ -245,7 +294,6 @@ class Applicant extends CI_Controller
                 }
             }
 
-            // Update information if changes were made, otherwise display 'No changes detected'
             if ($changes_made) {
                 if ($this->Applicant_model->update_info($id_number, $new_data)) {
                     $this->session->set_flashdata('success', 'Information updated successfully.');
@@ -256,10 +304,10 @@ class Applicant extends CI_Controller
                 $this->session->set_flashdata('info', 'No changes detected.');
             }
 
-            // Redirect to the edit info page
             redirect('applicant/edit_info');
         }
     }
+
 
 
     public function change_password()
@@ -389,18 +437,23 @@ class Applicant extends CI_Controller
             return;
         }
 
-        $photo_config['upload_path'] = './uploads/';
-        $photo_config['allowed_types'] = 'jpg|png|jpeg';
-        $photo_config['max_size'] = 10240;
+        $applicant_photo = $this->input->post('existing_photo');  // Use the existing photo if not uploading a new one
 
-        $this->upload->initialize($photo_config);
-        if (!$this->upload->do_upload('applicant_photo')) {
-            $error = $this->upload->display_errors();
-            $this->session->set_flashdata('error', "Invalid file format for 2x2 photo. Only JPG, JPEG, and PNG format are allowed.");
-            redirect('applicant/apply_scholarship');
-            return;
+        if (!empty($_FILES['applicant_photo']['name'])) {
+            // If a new photo is uploaded, process it
+            $photo_config['upload_path'] = './uploads/';
+            $photo_config['allowed_types'] = 'jpg|png|jpeg';
+            $photo_config['max_size'] = 10240;
+
+            $this->upload->initialize($photo_config);
+            if (!$this->upload->do_upload('applicant_photo')) {
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('error', "Invalid file format for 2x2 photo. Only JPG, JPEG, and PNG format are allowed.");
+                redirect('applicant/apply_scholarship');
+                return;
+            }
+            $applicant_photo = $this->upload->data('file_name');
         }
-        $applicant_photo = $this->upload->data('file_name');
 
         $requirements_files = $_FILES['requirements'];
         $requirements = [];
@@ -539,9 +592,9 @@ class Applicant extends CI_Controller
     public function update_application()
     {
         $this->load->model('Applicant_model');
-        $this->load->model('Sc_model');  // Load model to get scholarship details
+        $this->load->model('Sc_model');
         $this->load->library('upload');
-        $this->load->library('email');   // Load email library
+        $this->load->library('email');
 
         $applicant_no = $this->input->post('applicant_no');
         $data = [

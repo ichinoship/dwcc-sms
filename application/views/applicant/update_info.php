@@ -35,9 +35,27 @@
                         <!-- /.card-header -->
                         <form id="editProfileForm" action="<?= site_url('applicant/update_info'); ?>" method="post" enctype="multipart/form-data">
                             <div class="card-body">
+                            <div class="row justify-content-center">
+                                    <div class="form-group mb-5">
+                                        <div>
+                                            <?php if ($applicant->applicant_photo): ?>
+                                                <img src="<?= base_url('uploads/' . $applicant->applicant_photo); ?>" alt="Applicant Photo" style="width:200px; height:200px; object-fit:cover; border: 1px solid black;" class="img-fluid">
+                                            <?php else: ?>
+                                                <p>No photo uploaded.</p>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Form Fields in One Column -->
                                 <div class="row">
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-2 form-group">
+                                        <label for="applicant_photo">Applicant Photo</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="applicant_photo" name="applicant_photo" onchange="updateFileName(this)">
+                                            <label class="custom-file-label" for="applicant_photo">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 form-group">
                                         <label for="id_number">ID Number</label>
                                         <input type="text" class="form-control" id="id_number" name="id_number" value="<?= set_value('id_number', $applicant->id_number); ?>" disabled>
                                     </div>
@@ -123,34 +141,38 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    
-
-        <?php if ($this->session->flashdata('success')): ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: '<?= $this->session->flashdata('success'); ?>',
-                showConfirmButton: false,
-                timer: 3000
-            });
-        <?php endif; ?>
-        <?php if ($this->session->flashdata('error')): ?>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: '<?= $this->session->flashdata('error'); ?>',
-                showConfirmButton: false,
-                timer: 3000
-            });
-        <?php endif; ?>
-        <?php if ($this->session->flashdata('info')): ?>
-            Swal.fire({
-                icon: 'info',
-                title: 'Notice!',
-                text: '<?= $this->session->flashdata('info'); ?>',
-                showConfirmButton: false,
-                timer: 3000
-            });
-        <?php endif; ?>
- 
+    <?php if ($this->session->flashdata('success')): ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '<?= $this->session->flashdata('success'); ?>',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    <?php endif; ?>
+    <?php if ($this->session->flashdata('error')): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '<?= $this->session->flashdata('error'); ?>',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    <?php endif; ?>
+    <?php if ($this->session->flashdata('info')): ?>
+        Swal.fire({
+            icon: 'info',
+            title: 'Notice!',
+            text: '<?= $this->session->flashdata('info'); ?>',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    <?php endif; ?>
+</script>
+<script>
+    function updateFileName(input) {
+        const label = input.nextElementSibling;
+        const fileName = input.files[0] ? input.files[0].name : 'Choose file...';
+        label.innerText = fileName;
+    }
 </script>

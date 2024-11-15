@@ -8,7 +8,6 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -27,24 +26,31 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="alert alert-warning text-center">
+                        <div class="alert alert-warning fade show text-center" role="alert">
                             <strong>Important:</strong> Please double-check all your information. Ensure that all uploaded documents are correct before submitting your application.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <form action="<?= base_url('applicant/submit_application'); ?>" method="post" enctype="multipart/form-data">
-                            <div id="photo_preview" class="mt-2 mb-3">
-                                <img id="photo_preview_img" src="#" alt="2x2 Photo Preview" style="display:none; max-width: 200px; object-fit:cover; border: 1px solid black;">
+                            <input type="hidden" name="existing_photo" value="<?= $applicant->applicant_photo ?>">
+                            <div class="row justify-content-center">
+                                <div id="photo_preview" class="mb-5">
+                                    <?php if (!empty($applicant->applicant_photo)): ?>
+                                        <img src="<?= base_url('uploads/' . $applicant->applicant_photo); ?>" alt="Applicant Photo" id="photo" style="max-width: 200px; object-fit: cover; border: 1px solid black;">
+                                    <?php else: ?>
+                                        <img src="#" alt="No photo uploaded" id="photo" style="width: 100px; height: 100px; object-fit: cover;">
+                                    <?php endif; ?>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 form-group">
                                     <label for="applicant_photo">Upload 2x2 Photo: <span class="text-danger">*</span></label>
                                     <div class="input-group mb-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="applicant_photo" name="applicant_photo" accept="image/*" required onchange="updateFileName(this)">
-                                            <label class="custom-file-label" for="applicant_photo">Choose photo...</label>
+                                            <input type="file" class="custom-file-input" id="applicant_photo" name="applicant_photo" accept="image/*" onchange="updateFileName(this); previewImage(event)">
+                                            <label class="custom-file-label" for="applicant_photo">Choose file</label>
                                         </div>
-                                    </div>
-                                    <div id="photo_preview" class="mt-2">
-                                        <img id="photo_preview_img" src="#" alt="2x2 Photo Preview" style="display:none; width:200px; height:200px; object-fit:cover; border: 1px solid #ccc;" class="img-fluid">
                                     </div>
                                 </div>
                                 <div class="col-md-4 form-group">
@@ -112,7 +118,7 @@
                                 <div class="col-md-6 form-group">
                                     <label for="academic_year">Academic Year <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="academic_year" name="academic_year"
-                                        value="<?php echo isset($active_academic_year) ? $active_academic_year : ''; ?>" placeholder="yyyy-yyyy" readonly>
+                                        value="<?php echo isset($active_academic_year) ? $active_academic_year : ''; ?>" readonly>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="semester">Semester <span class="text-danger">*</span></label>
@@ -218,15 +224,24 @@
         const fileName = input.files[0] ? input.files[0].name : 'Choose photo...';
         label.innerText = fileName;
     }
-    document.getElementById('applicant_photo').addEventListener('change', function(event) {
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const photoInput = document.getElementById('applicant_photo');
+        const photoLabel = photoInput.nextElementSibling;
+        const existingPhoto = "<?= !empty($applicant->applicant_photo) ? $applicant->applicant_photo : 'Choose file'; ?>";
+
+        photoLabel.innerText = existingPhoto;
+    });
+
+    function previewImage(event) {
         var reader = new FileReader();
-        reader.onload = function(e) {
-            var img = document.getElementById('photo_preview_img');
-            img.src = e.target.result;
-            img.style.display = 'block';
+        reader.onload = function() {
+            var output = document.getElementById('photo');
+            output.src = reader.result;
         };
         reader.readAsDataURL(event.target.files[0]);
-    });
+    }
+
 
     document.getElementById('requirements').addEventListener('change', function(e) {
         const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];

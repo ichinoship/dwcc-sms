@@ -91,7 +91,7 @@ class Auth extends CI_Controller
                                 'first_name' => $applicant->firstname,
                                 'last_name' => $applicant->lastname,
                                 'user_id_number' => $applicant->id_number,
-                                'user_image' => $applicant->image
+                                'user_applicant_photo' => $applicant->applicant_photo
                             ]);
                             redirect('applicant/dashboard_applicant');
                         } elseif ($applicant->status == 'inactive') {

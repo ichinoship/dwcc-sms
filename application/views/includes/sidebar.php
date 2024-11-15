@@ -229,9 +229,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('twc/app-review'); ?>" class="nav-link <?= in_array($this->uri->segment(2), ['app-review', 'view_applicant']) ? 'active' : ''; ?>">
-                            <i class="nav-icon fas fa-clipboard-check"></i>
-                            <p>Application Review</p>
+                        <a href="<?= base_url('twc/app_evaluation'); ?>" class="nav-link <?= in_array($this->uri->segment(2), ['app_evaluation', 'view_applicant']) ? 'active' : ''; ?>">
+                            <i class="nav-icon fas fa-clipboard-list"></i>
+                            <p>Application Evaluation</p>
                         </a>
                     </li>
                     <li class="nav-item">

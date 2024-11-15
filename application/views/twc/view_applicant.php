@@ -117,7 +117,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="card-footer">
-                            <a href="<?= site_url('twc/app-review'); ?>" class="btn btn-secondary">Back to App Review</a>
+                            <a href="<?= site_url('twc/app_evaluation'); ?>" class="btn btn-secondary">Back to App Evaluation</a>
                         </div>
                     </div>
                 </div>

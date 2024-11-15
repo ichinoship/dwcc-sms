@@ -11,13 +11,14 @@
   <link rel="icon" type="image/x-icon" href="<?= base_url('assets/images/favicon.ico') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/') ?>dist/css/adminlte.css">
 </head>
+
 <body class="hold-transition register-page">
-   <!-- Preloader -->
-   <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="<?= base_url('assets/') ?>images/logo.svg" alt="sms-logo" style="max-width: 250px;">
-      <h5 class="mt-2 mb-0">Divine Word College of Calapan</h5>
-      <p>Scholarship Management System</p>
-    </div>
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="<?= base_url('assets/') ?>images/logo.svg" alt="sms-logo" style="max-width: 250px;">
+    <h5 class="mt-2 mb-0">Divine Word College of Calapan</h5>
+    <p>Scholarship Management System</p>
+  </div>
   <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-12">
@@ -35,8 +36,25 @@
                 <?= $this->session->flashdata('error'); ?>
               </div>
             <?php endif; ?>
-            <form action="<?= site_url('applicant/register'); ?>" method="post">
+            <form action="<?= site_url('applicant/register'); ?>" method="post" enctype="multipart/form-data">
+              <div class="row justify-content-center">
+                <div id="photo_preview" class="mb-5">
+                  <img id="photo_preview_img" src="#" alt="2x2 Photo Preview" style="display:none; width:200px; height:200px; object-fit:cover; border: 1px solid black;" class="img-fluid">
+                </div>
+              </div>
               <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="applicant_photo">Upload 2x2 Photo: <span class="text-danger">*</span></label>
+                    <div class="input-group mb-3">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input <?= form_error('applicant_photo') ? 'is-invalid' : ''; ?>" id="applicant_photo" name="applicant_photo" accept="image/*" onchange="updateFileName(this)">
+                        <label class="custom-file-label" for="applicant_photo">Choose photo...</label>
+                      </div>
+                      <?= form_error('applicant_photo', '<div class="invalid-feedback d-block">', '</div>'); ?>
+                    </div>
+                  </div>
+                </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="id_number">ID Number <span class="text-danger">*</span></label>
@@ -77,19 +95,19 @@
                     <label for="gender">Gender <span class="text-danger">*</span></label>
                     <div class="d-flex">
                       <div class="form-check form-check-inline mr-3">
-                        <input class="form-check-input form-control <?= form_error('gender') ? 'is-invalid' : ''; ?>" type="radio" name="gender" id="male" value="Male" <?= set_radio('gender', 'Male'); ?>>
+                        <input class="form-check-input <?= form_error('gender') ? 'is-invalid' : ''; ?>" type="radio" name="gender" id="male" value="Male" <?= set_radio('gender', 'Male'); ?>>
                         <label class="form-check-label" for="male">
                           Male
                         </label>
                       </div>
                       <div class="form-check form-check-inline mr-3">
-                        <input class="form-check-input form-control <?= form_error('gender') ? 'is-invalid' : ''; ?>" type="radio" name="gender" id="female" value="Female" <?= set_radio('gender', 'Female'); ?>>
+                        <input class="form-check-input <?= form_error('gender') ? 'is-invalid' : ''; ?>" type="radio" name="gender" id="female" value="Female" <?= set_radio('gender', 'Female'); ?>>
                         <label class="form-check-label" for="female">
                           Female
                         </label>
                       </div>
                     </div>
-                    <?= form_error('gender', '<div class="invalid-feedback">', '</div>'); ?>
+                    <?= form_error('gender', '<div class="invalid-feedback d-block">', '</div>'); ?>
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -99,21 +117,19 @@
                     <?= form_error('contact', '<div class="invalid-feedback">', '</div>'); ?>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="email">Email <span class="text-danger">*</span></label>
                     <input type="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" id="email" name="email" placeholder="Email" value="<?= set_value('email'); ?>">
                     <?= form_error('email', '<div class="invalid-feedback">', '</div>'); ?>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-              <div class="col-md-3">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="program_type">Program Type <span class="text-danger">*</span></label>
                     <select class="form-control <?= form_error('program_type') ? 'is-invalid' : ''; ?>" id="program_type" name="program_type" onchange="updateYearOptions(); updateProgramOptions();"">
                       <option value="" disabled selected>Select Program Type</option>
-                      <option value="College" <?= set_select('program_type', 'College'); ?>>College</option>
+                      <option value=" College" <?= set_select('program_type', 'College'); ?>>College</option>
                       <option value="Senior High School" <?= set_select('program_type', 'Senior High School'); ?>>Senior High School</option>
                       <option value="Junior High School" <?= set_select('program_type', 'Junior High School'); ?>>Junior High School</option>
                       <option value="Grade School" <?= set_select('program_type', 'Grade School'); ?>>Grade School</option>
@@ -121,7 +137,9 @@
                     <?= form_error('program_type', '<div class="invalid-feedback">', '</div>'); ?>
                   </div>
                 </div>
-                <div class="col-md-3">
+              </div>
+              <div class="row">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="year">Year Level <span class="text-danger">*</span></label>
                     <select class="form-control <?= form_error('year') ? 'is-invalid' : ''; ?>" id="year" name="year">
@@ -225,96 +243,112 @@
   <script src="<?= base_url('assets/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<?= base_url('assets/') ?>dist/js/adminlte.min.js"></script>
   <script>
+    function updateFileName(input) {
+      const label = input.nextElementSibling;
+      const fileName = input.files[0] ? input.files[0].name : 'Choose photo...';
+      label.innerText = fileName;
+    }
+
+    document.getElementById('applicant_photo').addEventListener('change', function(event) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = document.getElementById('photo_preview_img');
+        img.src = e.target.result;
+        img.style.display = 'block';
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    });
+
     function updateYearOptions() {
-        const programType = document.getElementById('program_type').value;
-        const yearSelect = document.getElementById('year');
+      const programType = document.getElementById('program_type').value;
+      const yearSelect = document.getElementById('year');
 
-        yearSelect.innerHTML = '<option value="" disabled selected>Select Year Level</option>';
+      yearSelect.innerHTML = '<option value="" disabled selected>Select Year Level</option>';
 
-        let options = [];
-        switch (programType) {
-            case 'College':
-                options = ['1st', '2nd', '3rd', '4th', '5th'];
-                break;
-            case 'Senior High School':
-                options = ['Grade 12', 'Grade 11'];
-                break;
-            case 'Junior High School':
-                options = ['Grade 10', 'Grade 9', 'Grade 8', 'Grade 7'];
-                break;
-            case 'Grade School':
-                options = ['Grade 6', 'Grade 5', 'Grade 4', 'Grade 3', 'Grade 2', 'Grade 1', 'Senior Kinder', 'Junior Kinder', 'Special Education'];
-                break;
-            default:
-                options = [];
-        }
+      let options = [];
+      switch (programType) {
+        case 'College':
+          options = ['5th', '4th', '3rd', '2nd', '1st'];
+          break;
+        case 'Senior High School':
+          options = ['Grade 12', 'Grade 11'];
+          break;
+        case 'Junior High School':
+          options = ['Grade 10', 'Grade 9', 'Grade 8', 'Grade 7'];
+          break;
+        case 'Grade School':
+          options = ['Grade 6', 'Grade 5', 'Grade 4', 'Grade 3', 'Grade 2', 'Grade 1', 'Senior Kinder', 'Junior Kinder', 'Special Education'];
+          break;
+        default:
+          options = [];
+      }
 
-        options.forEach(option => {
-            const opt = document.createElement('option');
-            opt.value = option;
-            opt.textContent = option;
-            yearSelect.appendChild(opt);
-        });
+      options.forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option;
+        opt.textContent = option;
+        yearSelect.appendChild(opt);
+      });
     }
 
     function updateProgramOptions() {
-        const programType = document.getElementById('program_type').value;
-        const programSelect = document.getElementById('program');
-        programSelect.innerHTML = '<option value="" disabled selected>Select Program</option>';
+      const programType = document.getElementById('program_type').value;
+      const programSelect = document.getElementById('program');
+      programSelect.innerHTML = '<option value="" disabled selected>Select Program</option>';
 
-        let options = [];
-        switch (programType) {
-            case 'College':
-                options = [
-                    'Bachelor of Science in Business Administration',
-                    'Bachelor of Science in Hospitality Management',
-                    'Bachelor of Science in Tourism Management',
-                    'Bachelor of Science in Accountancy',
-                    'Bachelor of Science in Management Accounting',
-                    'Bachelor of Science in Criminology',
-                    'Bachelor of Science in Civil Engineering',
-                    'Bachelor of Science in Computer Engineering',
-                    'Bachelor of Science in Electronics Engineering',
-                    'Bachelor of Science in Electrical Engineering',
-                    'Bachelor of Science in Architecture',
-                    'Bachelor of Science in Fine Arts',
-                    'Bachelor of Elementary Education',
-                    'Bachelor of Secondary Education',
-                    'Bachelor of Physical Education',
-                    'Bachelor of Science in Information Technology',
-                    'Bachelor of Science in Psychology',
-                    'Bachelor of Arts in Political Science',
-                    'Bachelor of Arts in Psychology'
-                ];
-                break;
-            case 'Senior High School':
-                options = [
-                    'Science, Technology, Engineering and Mathematics (STEM)',
-                    'Accountancy, Business and Management (ABM)',
-                    'Humanities and Social Sciences (HUMMS)',
-                    'Technical Vocational Livelihood (TVL)'
-                ];
-                break;
-            case 'Junior High School':
-                options = ['Special Science Class', 'None'];
-                break;
-            case 'Pre-school':
-            case 'Grade School':
-                options = ['None'];
-                break;
-            default:
-                options = [];
-        }
+      let options = [];
+      switch (programType) {
+        case 'College':
+          options = [
+            'Bachelor of Science in Business Administration',
+            'Bachelor of Science in Hospitality Management',
+            'Bachelor of Science in Tourism Management',
+            'Bachelor of Science in Accountancy',
+            'Bachelor of Science in Management Accounting',
+            'Bachelor of Science in Criminology',
+            'Bachelor of Science in Civil Engineering',
+            'Bachelor of Science in Computer Engineering',
+            'Bachelor of Science in Electronics Engineering',
+            'Bachelor of Science in Electrical Engineering',
+            'Bachelor of Science in Architecture',
+            'Bachelor of Science in Fine Arts',
+            'Bachelor of Elementary Education',
+            'Bachelor of Secondary Education',
+            'Bachelor of Physical Education',
+            'Bachelor of Science in Information Technology',
+            'Bachelor of Science in Psychology',
+            'Bachelor of Arts in Political Science',
+            'Bachelor of Arts in Psychology'
+          ];
+          break;
+        case 'Senior High School':
+          options = [
+            'Science, Technology, Engineering and Mathematics (STEM)',
+            'Accountancy, Business and Management (ABM)',
+            'Humanities and Social Sciences (HUMMS)',
+            'Technical Vocational Livelihood (TVL)'
+          ];
+          break;
+        case 'Junior High School':
+          options = ['Special Science Class', 'None'];
+          break;
+        case 'Pre-school':
+        case 'Grade School':
+          options = ['None'];
+          break;
+        default:
+          options = [];
+      }
 
-        options.forEach(option => {
-            const opt = document.createElement('option');
-            opt.value = option;
-            opt.textContent = option;
-            programSelect.appendChild(opt);
-        });
+      options.forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option;
+        opt.textContent = option;
+        programSelect.appendChild(opt);
+      });
     }
   </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <?php if ($this->session->flashdata('success')): ?>
     <script>
       Swal.fire({
@@ -335,4 +369,5 @@
     </script>
   <?php endif; ?>
 </body>
+
 </html>

@@ -10,7 +10,11 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <i class="fas fa-user-circle text-white" style="font-size: 40px;"></i>
+                <?php if (!empty($this->session->userdata('user_applicant_photo'))): ?>
+                    <img src="<?= base_url('uploads/' . $this->session->userdata('user_applicant_photo')); ?>" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px;">
+                <?php else: ?>
+                    <i class="fas fa-user-circle text-white" style="font-size: 40px;"></i>
+                <?php endif; ?>
             </div>
             <div class="info mt-1">
                 <a href="<?= base_url('applicant/update_info'); ?>" class="d-block"><?= $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name'); ?></a>
@@ -62,8 +66,8 @@
                         <p>My Application</p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'menu-open' : ''; ?>">
-                    <a href="#" class="nav-link <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'active' : ''; ?>">
+                <li class="nav-item has-treeview <?= in_array($this->uri->segment(2), ['update_info', 'change_password', 'update_password', 'edit_info']) ? 'menu-open' : ''; ?>">
+                    <a href="#" class="nav-link <?= in_array($this->uri->segment(2), ['update_info', 'change_password', 'update_password', 'edit_info']) ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-users-cog"></i>
                         <p>
                             Account Settings
@@ -72,7 +76,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('applicant/update_info'); ?>" class="nav-link <?= $this->uri->segment(2) == 'update_info' ? 'active' : ''; ?>">
+                            <a href="<?= base_url('applicant/update_info'); ?>" class="nav-link <?= in_array($this->uri->segment(2), ['update_info', 'edit_info']) ? 'active' : ''; ?>">
                                 <i class="fas fa-edit"></i>
                                 <p>Edit Information</p>
                             </a>

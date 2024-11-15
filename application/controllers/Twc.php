@@ -40,14 +40,14 @@ class Twc extends CI_Controller
         $this->load->view('twc/search_results', $data);
     }
 
-    public function app_review()
+    public function app_evaluation()
     {
         $user_id = $this->session->userdata('user_id');
         $data['applicants'] = $this->Applicant_model->get_applicants_by_twc($user_id);
         $data['applicants'] = array_filter($data['applicants'], function ($applicant) {
             return in_array($applicant->status, ['pending', 'not qualified']);
         });
-        $this->load->view('twc/app-review', $data);
+        $this->load->view('twc/app_evaluation', $data);
     }
     public function update_status()
     {

@@ -45,7 +45,20 @@
                                     <td><?= $applicant->campus; ?></td>
                                     <td><?= $applicant->program_type; ?></td>
                                     <td>
-                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateModal" data-id="<?= $applicant->account_no; ?>" data-firstname="<?= $applicant->firstname; ?>" data-middlename="<?= $applicant->middlename; ?>" data-lastname="<?= $applicant->lastname; ?>" data-birthdate="<?= $applicant->birthdate; ?>" data-contact="<?= $applicant->contact; ?>" data-email="<?= $applicant->email; ?>" data-campus="<?= $applicant->campus; ?>"  data-program_type="<?= $applicant->program_type; ?>" data-year="<?= $applicant->year; ?>"  data-program="<?= $applicant->program; ?>" data-address="<?= $applicant->address; ?>" data-applicant_residence="<?= $applicant->applicant_residence; ?>">
+                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewModal"
+                                            data-id="<?= $applicant->account_no; ?>"
+                                            data-firstname="<?= $applicant->firstname; ?>"
+                                            data-middlename="<?= $applicant->middlename; ?>"
+                                            data-lastname="<?= $applicant->lastname; ?>"
+                                            data-birthdate="<?= $applicant->birthdate; ?>"
+                                            data-contact="<?= $applicant->contact; ?>"
+                                            data-email="<?= $applicant->email; ?>"
+                                            data-campus="<?= $applicant->campus; ?>"
+                                            data-program_type="<?= $applicant->program_type; ?>"
+                                            data-year="<?= $applicant->year; ?>"
+                                            data-program="<?= $applicant->program; ?>"
+                                            data-address="<?= $applicant->address; ?>"
+                                            data-applicant_residence="<?= $applicant->applicant_residence; ?>">
                                             <i class="fas fa-eye"></i>
                                         </button>
                                         <?php if ($applicant->account_status == 'active'): ?>
@@ -71,69 +84,33 @@
 <!-- /.content-wrapper -->
 
 <!-- View Modal -->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">View Applicant Information</h5>
+                <h5 class="modal-title" id="viewModalLabel">View Applicant Information</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <input type="hidden" name="account_no" id="account_no">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="firstname">First Name</label>
-                        <p id="firstname" class="form-control-plaintext"></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>First Name:</strong> <span id="firstname"></span></p>
+                        <p><strong>Middle Name:</strong> <span id="middlename"></span></p>
+                        <p><strong>Last Name:</strong> <span id="lastname"></span></p>
+                        <p><strong>Birthdate:</strong> <span id="birthdate"></span></p>
+                        <p><strong>Contact Number:</strong> <span id="contact"></span></p>
+                        <p><strong>Email:</strong> <span id="email"></span></p>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="middlename">Middle Name</label>
-                        <p id="middlename" class="form-control-plaintext"></p>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="lastname">Last Name</label>
-                        <p id="lastname" class="form-control-plaintext"></p>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="birthdate">Birthdate</label>
-                        <p id="birthdate" class="form-control-plaintext"></p>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="contact">Contact Number</label>
-                        <p id="contact" class="form-control-plaintext"></p>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="email">Email</label>
-                        <p id="email" class="form-control-plaintext"></p>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="program_type">Program Type</label>
-                        <p id="program_type" class="form-control-plaintext"></p>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="campus">Campus</label>
-                        <p id="campus" class="form-control-plaintext"></p>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="year">Year</label>
-                        <p id="year" class="form-control-plaintext"></p>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="program">Program</label>
-                        <p id="program" class="form-control-plaintext"></p>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="address">Address</label>
-                        <p id="address" class="form-control-plaintext"></p>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="applicant_residence">Applicant Residence</label>
-                        <p id="applicant_residence" class="form-control-plaintext"></p>
+                    <div class="col-md-6">
+                        <p><strong>Program Type:</strong> <span id="program_type"></span></p>
+                        <p><strong>Campus:</strong> <span id="campus"></span></p>
+                        <p><strong>Year:</strong> <span id="year"></span></p>
+                        <p><strong>Program:</strong> <span id="program"></span></p>
+                        <p><strong>Address:</strong> <span id="address"></span></p>
+                        <p><strong>Applicant Residence:</strong> <span id="applicant_residence"></span></p>
                     </div>
                 </div>
             </div>
@@ -144,6 +121,7 @@
     </div>
 </div>
 
+
 <?php $this->load->view('includes/footer'); ?>
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -153,7 +131,7 @@
         $('#applicantTable').DataTable();
 
         // Show modal with pre-filled data
-        $('#updateModal').on('show.bs.modal', function(event) {
+        $('#viewModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var id = button.data('id');
             var firstname = button.data('firstname');
