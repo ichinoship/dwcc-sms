@@ -16,33 +16,39 @@
     }
     ?>
     <a href="<?= $dashboard_url; ?>" class="brand-link">
-        <img src="<?= base_url('assets/images/logo-white.png'); ?>" alt="SMS-LOGO" class="brand-image">
+        <img src="<?= base_url('assets/images/dwcc-logo-outline.png'); ?>" alt="SMS-LOGO" class="brand-image img-circle">
         <span class="brand-text font-weight-bold">DWCC SMS</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <i class="fas fa-user-circle text-white" style="font-size: 40px;"></i>
-            </div>
-            <div class="info mt-1">
-                <?php
-                $user_type = $this->session->userdata('user_type');
-                $update_url = '#';
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+        <?php if (!empty($this->session->userdata('user_image'))): ?>
+            <!-- If user has a profile photo, display it -->
+            <img src="<?= base_url('uploads/' . $this->session->userdata('user_image')); ?>" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px;">
+        <?php else: ?>
+            <!-- If no profile photo, display default user icon -->
+            <i class="fas fa-user-circle text-white" style="font-size: 40px;"></i>
+        <?php endif; ?>
+    </div>
+    <div class="info mt-1">
+        <?php
+        $user_type = $this->session->userdata('user_type');
+        $update_url = '#';
 
-                if ($user_type == 'Admin') {
-                    $update_url = base_url('admin/profile');
-                } elseif ($user_type == 'Scholarship Coordinator') {
-                    $update_url = base_url('sc/update_info');
-                } elseif ($user_type == 'TWC') {
-                    $update_url = base_url('twc/update_info');
-                }
-                ?>
+        if ($user_type == 'Admin') {
+            $update_url = base_url('admin/profile');
+        } elseif ($user_type == 'Scholarship Coordinator') {
+            $update_url = base_url('sc/update_info');
+        } elseif ($user_type == 'TWC') {
+            $update_url = base_url('twc/update_info');
+        }
+        ?>
 
-                <a href="<?= $update_url; ?>" class="d-block"><?= $this->session->userdata('user_name'); ?></a>
-            </div>
-        </div>
+        <a href="<?= $update_url; ?>" class="d-block"><?= $this->session->userdata('user_name'); ?></a>
+    </div>
+</div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">

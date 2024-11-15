@@ -92,11 +92,33 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('user_type', 'User Type', 'required');
 
+        $this->load->library('upload');
+
         if ($this->form_validation->run() === FALSE) {
             $errors = validation_errors();
             $this->session->set_flashdata('error', $errors);
             $this->load->view('admin/add_user');
         } else {
+            // Configure the upload settings for user_photo
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'jpg|jpeg|png';
+            $config['max_size'] = 2048; // Limit to 2MB
+            $config['file_name'] = $this->input->post('id_number') . '_photo';
+
+            $this->upload->initialize($config);
+
+            $user_photo = '';
+            if (!empty($_FILES['user_photo']['name'])) {
+                if ($this->upload->do_upload('user_photo')) {
+                    $user_photo = $this->upload->data('file_name');
+                } else {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', "Invalid file format for user photo. Only JPG, JPEG, and PNG formats are allowed. " . $error);
+                    redirect('admin/add_user');
+                    return;
+                }
+            }
+
             $data = array(
                 'id_number' => $this->input->post('id_number'),
                 'name' => $this->input->post('name'),
@@ -105,7 +127,8 @@ class Admin extends CI_Controller
                 'contact' => $this->input->post('contact_number'),
                 'email' => $this->input->post('email'),
                 'password' => md5($this->input->post('password')),
-                'usertype' => $this->input->post('user_type')
+                'usertype' => $this->input->post('user_type'),
+                'user_photo' => $user_photo
             );
 
             $this->Admin_model->insert_user($data);
@@ -113,6 +136,7 @@ class Admin extends CI_Controller
             redirect('admin/manage');
         }
     }
+
 
     public function update()
     {

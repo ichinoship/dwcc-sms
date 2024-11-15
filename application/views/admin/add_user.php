@@ -32,8 +32,18 @@
                         </div>
                         <div class="card-body">
                             <form action="<?php echo site_url('admin/insert'); ?>" method="post" enctype="multipart/form-data">
+                                <div class="row justify-content-center mb-3">
+                                    <div class="mt-2">
+                                        <img id="image_preview" src="#" alt="User Photo Preview" style="display:none; width:200px; height:200px; object-fit:cover; border: 1px solid black;" class="img-fluid">
+                                    </div>
+                                </div>
                                 <div class="row">
-                                    <!-- Row for ID Number, Name, and Birthdate in one line -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="user_photo">User Photo</label>
+                                            <input type="file" class="form-control" id="user_photo" name="user_photo" accept="image/*" onchange="previewImage(event)">
+                                        </div>
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="id_number">ID Number</label>
@@ -48,16 +58,16 @@
                                             <?= form_error('name', '<div class="invalid-feedback">', '</div>'); ?>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                </div>
+                                <!-- Additional fields -->
+                                <div class="row">
+                                <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="birthdate">Birthdate</label>
                                             <input type="date" class="form-control <?= form_error('birthdate') ? 'is-invalid' : ''; ?>" id="birthdate" name="birthdate" value="<?= set_value('birthdate'); ?>">
                                             <?= form_error('birthdate', '<div class="invalid-feedback">', '</div>'); ?>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Additional fields -->
-                                <div class="row">
                                     <div class="col-md-4">
                                         <!-- Gender, Contact Number, and other fields -->
                                         <div class="form-group">
@@ -66,7 +76,6 @@
                                                 <option value="">Select Gender</option>
                                                 <option value="male" <?= set_select('gender', 'male'); ?>>Male</option>
                                                 <option value="female" <?= set_select('gender', 'female'); ?>>Female</option>
-                                                <option value="other" <?= set_select('gender', 'other'); ?>>Other</option>
                                             </select>
                                             <?= form_error('gender', '<div class="invalid-feedback">', '</div>'); ?>
                                         </div>
@@ -78,7 +87,9 @@
                                             <?= form_error('contact_number', '<div class="invalid-feedback">', '</div>'); ?>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                </div>
+                                <div class="row">
+                                <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="user_type">User Type</label>
                                             <select class="form-control <?= form_error('user_type') ? 'is-invalid' : ''; ?>" id="user_type" name="user_type">
@@ -90,16 +101,14 @@
                                             <?= form_error('user_type', '<div class="invalid-feedback">', '</div>'); ?>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input type="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" id="email" name="email" placeholder="Email" value="<?= set_value('email'); ?>">
                                             <?= form_error('email', '<div class="invalid-feedback">', '</div>'); ?>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="password">Password</label>
                                             <input type="password" class="form-control <?= form_error('password') ? 'is-invalid' : ''; ?>" id="password" name="password" placeholder="Password" value="<?= set_value('password'); ?>">
@@ -123,7 +132,11 @@
 
 <script>
     const today = new Date().toISOString().split('T')[0];
-
-    // Set the max attribute to today's date
     document.getElementById('birthdate').setAttribute('max', today);
+
+    function previewImage(event) {
+        const imagePreview = document.getElementById('image_preview');
+        imagePreview.src = URL.createObjectURL(event.target.files[0]);
+        imagePreview.style.display = 'block';
+    }
 </script>

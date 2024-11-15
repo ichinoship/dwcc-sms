@@ -37,8 +37,16 @@
               </div>
             <?php endif; ?>
             <form action="<?= site_url('applicant/register'); ?>" method="post" enctype="multipart/form-data">
-              <div class="row justify-content-center">
-                <div id="photo_preview" class="mb-5">
+              <div class="justify-content-center text-center">
+                <div class="alert alert-warning fade show text-center" role="alert">
+                  <strong>Important:</strong> Double-check your info before submitting. This registration is for account creation only, and you will need to wait for admin approval.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+              <div class="row justify-content-center mb-3">
+                <div id="photo_preview">
                   <img id="photo_preview_img" src="#" alt="2x2 Photo Preview" style="display:none; width:200px; height:200px; object-fit:cover; border: 1px solid black;" class="img-fluid">
                 </div>
               </div>
@@ -129,7 +137,7 @@
                     <label for="program_type">Program Type <span class="text-danger">*</span></label>
                     <select class="form-control <?= form_error('program_type') ? 'is-invalid' : ''; ?>" id="program_type" name="program_type" onchange="updateYearOptions(); updateProgramOptions();"">
                       <option value="" disabled selected>Select Program Type</option>
-                      <option value=" College" <?= set_select('program_type', 'College'); ?>>College</option>
+                      <option value="College"<?= set_select('program_type', 'College'); ?>>College</option>
                       <option value="Senior High School" <?= set_select('program_type', 'Senior High School'); ?>>Senior High School</option>
                       <option value="Junior High School" <?= set_select('program_type', 'Junior High School'); ?>>Junior High School</option>
                       <option value="Grade School" <?= set_select('program_type', 'Grade School'); ?>>Grade School</option>

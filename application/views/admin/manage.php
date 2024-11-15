@@ -43,8 +43,8 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <button type="button" class="btn btn-secondary" onclick="window.location.href='<?php echo site_url('admin/add'); ?>'"> 
-                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> <span class="ml-2">Add User</span></button>
+                                        <button type="button" class="btn btn-secondary" onclick="window.location.href='<?php echo site_url('admin/add'); ?>'">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> <span class="ml-2">Add User</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -123,8 +123,6 @@
                 <div class="modal-body">
                     <!-- Hidden field for user ID -->
                     <input type="hidden" id="user_id" name="user_id">
-
-                    <!-- Grid container for form fields -->
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="id_number">ID Number</label>
@@ -144,7 +142,6 @@
                                 <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
-                                <option value="other">Other</option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
@@ -158,6 +155,7 @@
                         <div class="col-md-6 form-group">
                             <label for="user_type">User Type</label>
                             <select class="form-control" id="user_type" name="user_type">
+                                <option value="">Select User Type</option>
                                 <option value="Admin">Admin</option>
                                 <option value="TWC">Technical Working Committee</option>
                                 <option value="Scholarship Coordinator">Scholarship Coordinator</option>
@@ -166,6 +164,7 @@
                         <div class="col-md-6 form-group">
                             <label for="status">Status</label>
                             <select class="form-control" id="status" name="status">
+                                <option value="">Select Status</option>
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>
                             </select>
@@ -217,7 +216,6 @@
         var email = button.data('email');
         var usertype = button.data('usertype');
         var status = button.data('status');
-        var image = button.data('image');
 
         var modal = $(this);
         modal.find('.modal-body #user_id').val(user_id);
@@ -229,14 +227,7 @@
         modal.find('.modal-body #email').val(email);
         modal.find('.modal-body #user_type').val(usertype);
         modal.find('.modal-body #status').val(status);
-        modal.find('.modal-body #current_image').val(image);
 
-        if (image) {
-            var imagePreview = '<img src="<?php echo base_url('uploads/'); ?>' + image + '" alt="Current Image" style="width: 100px; height: auto;">';
-            modal.find('#current_image_preview').html(imagePreview);
-        } else {
-            modal.find('#current_image_preview').html('No Image');
-        }
     });
 
     $('#editModal form').on('submit', function(e) {

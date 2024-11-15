@@ -122,15 +122,7 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="semester">Semester <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="semester" name="semester" required>
-                                        <?php if (!empty($semesters)): ?>
-                                            <?php foreach ($semesters as $semester): ?>
-                                                <option value="<?= $semester->semester ?>"><?= $semester->semester ?></option>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <option value="">No active semesters available</option>
-                                        <?php endif; ?>
-                                    </select>
+                                    <input type="text" class="form-control" id="semester" name="semester" value="<?= $default_semester ?>" readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -288,25 +280,5 @@
             listItem.appendChild(removeButton);
             fileList.appendChild(listItem);
         });
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const programType = document.getElementById("program_type").value;
-        const semesterSelect = document.getElementById("semester");
-
-        if (programType === "Junior High School" || programType === "Grade School") {
-            for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
-                if (semesterSelect.options[i].value !== "Whole Semester" && semesterSelect.options[i].value !== "") {
-                    semesterSelect.remove(i);
-                }
-            }
-        }
-        if (programType === "College") {
-            for (let i = semesterSelect.options.length - 1; i >= 0; i--) {
-                if (semesterSelect.options[i].value === "Whole Semester" || semesterSelect.options[i].value === "") {
-                    semesterSelect.remove(i);
-                }
-            }
-        }
     });
 </script>

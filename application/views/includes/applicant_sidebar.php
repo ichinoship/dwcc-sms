@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-green elevation-1">
     <!-- Brand Logo -->
     <a href="<?= base_url('applicant/dashboard_applicant'); ?>" class="brand-link">
-        <img src="<?= base_url('assets/') ?>images/logo-white.png" alt="SMS-LOGO" class="brand-image">
+        <img src="<?= base_url('assets/') ?>images/dwcc-logo-outline.png" alt="SMS-LOGO" class="brand-image">
         <span class="brand-text font-weight-bold">DWCC SMS</span>
     </a>
 

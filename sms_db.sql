@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2024 at 07:59 AM
+-- Generation Time: Nov 15, 2024 at 05:45 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,19 +70,17 @@ CREATE TABLE `applicants` (
   `applicant_residence` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `status` enum('pending','accepted','declined') NOT NULL DEFAULT 'pending',
-  `account_status` enum('active','inactive') NOT NULL DEFAULT 'active'
+  `account_status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `applicant_photo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `applicants`
 --
 
-INSERT INTO `applicants` (`account_no`, `id_number`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `password`, `status`, `account_status`) VALUES
-(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '$2y$10$UClhW/aH7suBl6Av7dk19u.7ZMmpNpfHXi//v3pW/0pi0qfsc91wq', 'accepted', 'active'),
-(2, 41231, 'Enshrine Yna', 'Pangesban', 'Calderon', '1990-10-08', 'Female', '09123456781', 'enshrineyna@gmail.com', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'Lalud, Calapan City', 'With Relative', '$2y$10$uWXt9OhcXVpq8OXyvhI39uMEOdhlnvm8de2h9ZNPbRTRKe7eQI6NC', 'accepted', 'active'),
-(3, 47123, 'Nicko Zeus', '', 'Agarin', '1990-10-28', 'Male', '09123456786', 'nicko@gmail.com', 'Grade School', 'Special Education', 'None', 'Freinademetz', 'Balite, Calapan City', 'With Relative', '$2y$10$T19zsC6hA00pZnP8zEweDu6ztesxmQwoBEPPuA/HlnQaEUPJ6iwiW', 'accepted', 'active'),
-(4, 47124, 'Kenn Daiven', '', 'Acedillo', '1990-10-29', 'Male', '09123456783', 'kenn@gmail.com', 'Grade School', 'Grade 6', 'None', 'Freinademetz', 'Baruyan, Calapan City', 'Off-Campus Boarding House', '$2y$10$xWWeg77ivMqCHjqud1TDHeGDEAmoxInJlmdsiWKTIu6I7dDPSMUPO', 'accepted', 'active'),
-(5, 47125, 'Kenneth', 'Magtibay ', 'Catibog', '2001-02-12', 'Male', '0912345672', 'kenneth.catibog@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Naujan, Calapan City', 'Off-Campus Boarding House', '$2y$10$aEgLpBrEz98JCTUHHR.ws.gimokO8o9wccGzQEwyqdtcQdzgOJ/3y', 'accepted', 'active');
+INSERT INTO `applicants` (`account_no`, `id_number`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `password`, `status`, `account_status`, `applicant_photo`) VALUES
+(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '$2y$10$heH3xi41y1FXbvdgU13xUOHi.FEHWeg2r.LO2CYEByigE3dKPq0gq', 'accepted', 'active', '47293_photo1.jpg'),
+(2, 47664, 'Enshrine Yna', 'Pangesban', 'Calderon', '2001-03-01', 'Female', '09123456781', 'enshrineyna.calderon@gmail.com', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'Lalud, Calapan City, Oriental Mindoro', 'With Relative', '$2y$10$/jPet3KrEEjZyuWHy6Q9JeC6RxPzK.A5iqs/HdcrOPGeo7PxwbmV.', 'accepted', 'active', '47664_photo.jpg');
 
 -- --------------------------------------------------------
 
@@ -124,10 +122,9 @@ CREATE TABLE `application_form` (
 --
 
 INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`, `date_status_changed`) VALUES
-(1, 1, 47293, '2x2_girl.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', '', 50, 'qualified', NULL),
-(2, 5, 47125, '2X2_boy1.png', 'Kenneth', 'Magtibay ', 'Catibog', '2001-02-12', 'Male', '0912345672', 'kenneth.catibog@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Naujan, Calapan City', 'Off-Campus Boarding House', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', '2X2_boy31.jpg', '', 100, 'qualified', NULL),
-(3, 1, 47293, 'LeBron_James_-_51959723161_(cropped).jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Ilaya, Lopez Calapan City', 'With Relative', '2025-2026', '2nd Semester', 'Renewal', 'Gazette Scholarship Program', 'SAMPLE-EVALUATION-Sheet.pdf', '', 0, 'conditional', NULL),
-(4, 4, 47124, 'LeBron_James_-_51959723161_(cropped)1.jpg', 'Kenn Daiven', '', 'Acedillo', '1990-10-29', 'Male', '09123456783', 'kenn@gmail.com', 'Grade School', 'Grade 6', 'None', 'Freinademetz', 'Baruyan, Calapan City', 'Off-Campus Boarding House', '2025-2026', 'Whole Semester', 'Renewal', 'Academic Scholarship (BE)', 'SAMPLE-EVALUATION-Sheet1.pdf', '', 50, 'qualified', '2024-11-07');
+(1, 1, 47293, '47293_photo1.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'Certificate-of-Enrollment-Dimaano1.pdf', NULL, 0, 'pending', NULL),
+(2, 1, 47293, '47293_photo1.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'REQUIREMENTS-SMS.pdf', NULL, 0, 'pending', NULL),
+(3, 2, 47664, '47664_photo.jpg', 'Enshrine Yna', 'Pangesban', 'Calderon', '2001-03-01', 'Female', '09123456781', 'enshrineyna.calderon@gmail.com', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'Lalud, Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', 'Whole Semester', 'Renewal', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS1.pdf', NULL, 0, 'pending', NULL);
 
 -- --------------------------------------------------------
 
@@ -152,14 +149,6 @@ CREATE TABLE `final_list` (
   `scholarship_program` varchar(100) NOT NULL,
   `discount` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `final_list`
---
-
-INSERT INTO `final_list` (`final_list_id`, `applicant_no`, `id_number`, `firstname`, `middlename`, `lastname`, `program_type`, `year`, `program`, `campus`, `application_type`, `academic_year`, `semester`, `scholarship_program`, `discount`) VALUES
-(1, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 100),
-(2, 2, 47125, 'Kenneth', 'Magtibay ', 'Catibog', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 100);
 
 -- --------------------------------------------------------
 
@@ -308,10 +297,11 @@ CREATE TABLE `users` (
   `contact` char(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `birthdate` date DEFAULT NULL,
-  `gender` enum('male','female','other') NOT NULL,
+  `gender` enum('male','female') NOT NULL,
   `password` varchar(255) NOT NULL,
   `usertype` enum('Admin','TWC','Scholarship Coordinator') NOT NULL,
   `status` tinyint(1) DEFAULT 1,
+  `user_photo` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -319,27 +309,27 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `id_number`, `name`, `contact`, `email`, `birthdate`, `gender`, `password`, `usertype`, `status`, `created_at`) VALUES
-(1, 'A001', 'Admin', '09123456780', 'admin@gmail.com', '1990-01-05', 'male', '66f5b0a363ec5413c51c2785cd61e579', 'Admin', 1, '2024-09-05 09:27:14'),
-(2, 'SC001', 'Scholarship Coodinator', '09123456781', 'dwcc-sms@gmail.com', '1990-02-14', 'female', '1bfe895c6878ef32f981ab8239a54c3d', 'Scholarship Coordinator', 1, '2024-09-05 09:32:04'),
-(3, 'TWC001', 'TWC1', '09123456782', 'twc1@gmail.com', '1996-09-04', 'male', '3c5915ec253b0aa5e4b7328890cf2962', 'TWC', 1, '2024-09-05 09:33:45'),
-(4, 'TWC002', 'TWC2', '09123456783', 'twc2@gmail.com', '1990-09-05', 'female', '293e631f6745d546a9383ae8352c0e51', 'TWC', 1, '2024-09-05 09:34:48'),
-(5, 'TWC003', 'TWC3', '09123456784', 'twc3@gmail.com', '1996-12-11', 'female', '0c86f0ade55e83cffb94dec827f4a626', 'TWC', 1, '2024-09-05 09:49:51'),
-(6, 'TWC004', 'TWC4', '09123456785', 'twc4@gmail.com', '1990-09-02', 'male', 'c8874012555bf45a9e63a3defef61324', 'TWC', 1, '2024-09-05 09:53:15'),
-(7, 'TWC005', 'TWC5', '09123456786', 'twc5@gmail.com', '1990-06-05', 'female', '169fdd6b440050d53075e03f0e4d7a1a', 'TWC', 1, '2024-09-05 09:54:31'),
-(8, 'TWC006', 'TWC6', '09123456787', 'twc6@gmail.com', '2001-07-05', 'male', '283cfc10b34d0289cae3e1a71ad80945', 'TWC', 1, '2024-09-05 09:59:10'),
-(9, 'TWC007', 'TWC7', '09123456788', 'twc7@gmail.com', '1998-11-29', 'female', 'a70f11f76f3cfb81622fe7a29da8b6bc', 'TWC', 1, '2024-09-05 10:00:51'),
-(10, 'TWC008', 'TWC8', '09123456789', 'twc8@gmail.com', '1990-02-11', 'female', '013fc6eeccba5f4ec6adce2d5715ff63', 'TWC', 1, '2024-09-05 10:09:28'),
-(11, 'TWC009', 'TWC9', '09123456710', 'twc9@gmail.com', '2001-09-03', 'female', 'a13b3087490e52b10bf6b2028123745e', 'TWC', 1, '2024-09-05 10:13:22'),
-(12, 'TWC010', 'TWC10', '09123456711', 'twc10@gmail.com', '1997-02-05', 'female', '01287255c3268be2b66fe7cf9cd9b021', 'TWC', 1, '2024-09-05 10:16:28'),
-(13, 'TWC011', 'TWC11', '09123456712', 'twc11@gmail.com', '2000-08-05', 'male', 'aeeb785b142bb2b74a05540f5c5f8bba', 'TWC', 1, '2024-09-05 10:17:39'),
-(14, 'TWC012', 'TWC12', '09123456713', 'twc12@gmail.com', '2002-04-05', 'female', '589853179cfef0f8659d5e85a5d33c12', 'TWC', 1, '2024-09-05 10:18:28'),
-(15, 'TWC013', 'TWC13', '09123456714', 'twc13@gmail.com', '1990-04-05', 'female', '6459c229c3eedb34962237c532e744bd', 'TWC', 1, '2024-09-05 10:19:42'),
-(16, 'TWC014', 'TWC14', '09123456715', 'twc14@gmail.com', '1990-12-23', 'female', '3771326e5a7bd6005c276978afb3404a', 'TWC', 1, '2024-09-05 10:20:26'),
-(17, 'TWC015', 'TWC15', '09123456716', 'twc15@gmail.com', '2000-03-13', 'male', '2af57afed53a11c80a436b571bc16110', 'TWC', 1, '2024-09-05 10:21:10'),
-(18, 'TWC016', 'TWC16', '09123456717', 'twc16@gmail.com', '2001-08-05', 'male', '506eaacd17c44e384399f85cfc2f4a0f', 'TWC', 1, '2024-09-05 10:21:39'),
-(19, 'TWC017', 'TWC17', '09123456718', 'twc17@gmail.com', '1998-12-22', 'male', '3aa03f8481b3f90747d9e6fe0d5c5274', 'TWC', 1, '2024-09-05 10:22:15'),
-(20, 'TWC018', 'TWC18', '09123456719', 'twc18@gmail.com', '2000-09-01', 'female', 'aa7b2d96d287131c2133b60c728e3174', 'TWC', 1, '2024-09-05 10:22:50');
+INSERT INTO `users` (`id`, `id_number`, `name`, `contact`, `email`, `birthdate`, `gender`, `password`, `usertype`, `status`, `user_photo`, `created_at`) VALUES
+(1, 'A001', 'Admin', '09123456780', 'admin@gmail.com', '1990-01-05', 'male', '66f5b0a363ec5413c51c2785cd61e579', 'Admin', 1, '1_admin.png', '2024-09-05 09:27:14'),
+(2, 'SC001', 'Scholarship Coodinator', '09123456781', 'dwcc-sms@gmail.com', '1990-02-14', 'female', '1bfe895c6878ef32f981ab8239a54c3d', 'Scholarship Coordinator', 1, '2_photo.png', '2024-09-05 09:32:04'),
+(3, 'TWC001', 'TWC1', '09123456782', 'twc1@gmail.com', '1996-09-04', 'male', '3c5915ec253b0aa5e4b7328890cf2962', 'TWC', 1, '3_photo.png', '2024-09-05 09:33:45'),
+(4, 'TWC002', 'TWC2', '09123456783', 'twc2@gmail.com', '1990-09-05', 'female', '293e631f6745d546a9383ae8352c0e51', 'TWC', 1, '', '2024-09-05 09:34:48'),
+(5, 'TWC003', 'TWC3', '09123456784', 'twc3@gmail.com', '1996-12-11', 'female', '0c86f0ade55e83cffb94dec827f4a626', 'TWC', 1, '', '2024-09-05 09:49:51'),
+(6, 'TWC004', 'TWC4', '09123456785', 'twc4@gmail.com', '1990-09-02', 'male', 'c8874012555bf45a9e63a3defef61324', 'TWC', 1, '', '2024-09-05 09:53:15'),
+(7, 'TWC005', 'TWC5', '09123456786', 'twc5@gmail.com', '1990-06-05', 'female', '169fdd6b440050d53075e03f0e4d7a1a', 'TWC', 1, '', '2024-09-05 09:54:31'),
+(8, 'TWC006', 'TWC6', '09123456787', 'twc6@gmail.com', '2001-07-05', 'male', '283cfc10b34d0289cae3e1a71ad80945', 'TWC', 1, '', '2024-09-05 09:59:10'),
+(9, 'TWC007', 'TWC7', '09123456788', 'twc7@gmail.com', '1998-11-29', 'female', 'a70f11f76f3cfb81622fe7a29da8b6bc', 'TWC', 1, '', '2024-09-05 10:00:51'),
+(10, 'TWC008', 'TWC8', '09123456789', 'twc8@gmail.com', '1990-02-11', 'female', '013fc6eeccba5f4ec6adce2d5715ff63', 'TWC', 1, '', '2024-09-05 10:09:28'),
+(11, 'TWC009', 'TWC9', '09123456710', 'twc9@gmail.com', '2001-09-03', 'female', 'a13b3087490e52b10bf6b2028123745e', 'TWC', 1, '', '2024-09-05 10:13:22'),
+(12, 'TWC010', 'TWC10', '09123456711', 'twc10@gmail.com', '1997-02-05', 'female', '01287255c3268be2b66fe7cf9cd9b021', 'TWC', 1, '', '2024-09-05 10:16:28'),
+(13, 'TWC011', 'TWC11', '09123456712', 'twc11@gmail.com', '2000-08-05', 'male', 'aeeb785b142bb2b74a05540f5c5f8bba', 'TWC', 1, '', '2024-09-05 10:17:39'),
+(14, 'TWC012', 'TWC12', '09123456713', 'twc12@gmail.com', '2002-04-05', 'female', '589853179cfef0f8659d5e85a5d33c12', 'TWC', 1, '', '2024-09-05 10:18:28'),
+(15, 'TWC013', 'TWC13', '09123456714', 'twc13@gmail.com', '1990-04-05', 'female', '6459c229c3eedb34962237c532e744bd', 'TWC', 1, '', '2024-09-05 10:19:42'),
+(16, 'TWC014', 'TWC14', '09123456715', 'twc14@gmail.com', '1990-12-23', 'female', '3771326e5a7bd6005c276978afb3404a', 'TWC', 1, '', '2024-09-05 10:20:26'),
+(17, 'TWC015', 'TWC15', '09123456716', 'twc15@gmail.com', '2000-03-13', 'male', '2af57afed53a11c80a436b571bc16110', 'TWC', 1, '', '2024-09-05 10:21:10'),
+(18, 'TWC016', 'TWC16', '09123456717', 'twc16@gmail.com', '2001-08-05', 'male', '506eaacd17c44e384399f85cfc2f4a0f', 'TWC', 1, '', '2024-09-05 10:21:39'),
+(19, 'TWC017', 'TWC17', '09123456718', 'twc17@gmail.com', '1998-12-22', 'male', '3aa03f8481b3f90747d9e6fe0d5c5274', 'TWC', 1, '', '2024-09-05 10:22:15'),
+(20, 'TWC018', 'TWC18', '09123456719', 'twc18@gmail.com', '2000-09-01', 'female', 'aa7b2d96d287131c2133b60c728e3174', 'TWC', 1, '', '2024-09-05 10:22:50');
 
 --
 -- Indexes for dumped tables
@@ -423,7 +413,7 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `application_form`
@@ -435,7 +425,7 @@ ALTER TABLE `application_form`
 -- AUTO_INCREMENT for table `final_list`
 --
 ALTER TABLE `final_list`
-  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `requirements`
@@ -465,7 +455,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

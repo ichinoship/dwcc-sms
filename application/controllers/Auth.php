@@ -34,7 +34,7 @@ class Auth extends CI_Controller
                         'user_type' => $user->usertype,
                         'user_name' => $user->name,
                         'user_email' => $user->email,
-                        'user_image' => $user->image
+                        'user_image' => $user->user_photo
                     ]);
 
                     switch ($user->usertype) {

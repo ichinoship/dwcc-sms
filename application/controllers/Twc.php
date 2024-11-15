@@ -207,11 +207,9 @@ class Twc extends CI_Controller
             return in_array($applicant->status, ['qualified', 'conditional']);
         });
 
-        
-     
-        $this->load->view('twc/reports', $data);
 
-      
+
+        $this->load->view('twc/reports', $data);
     }
 
     public function update_info()
@@ -248,14 +246,41 @@ class Twc extends CI_Controller
                 'gender' => $this->input->post('gender')
             ];
 
+            if (!empty($_FILES['user_photo']['name'])) {
+
+                $config['upload_path'] = './uploads/';
+                $config['allowed_types'] = 'jpg|jpeg|png';
+                $config['max_size'] = 10240; 
+                $config['file_name'] = $user_id . '_photo';
+                $this->upload->initialize($config);
+
+                if ($this->upload->do_upload('user_photo')) {
+
+                    $data['user_photo'] = $this->upload->data('file_name');
+
+                    if ($current_user_data->user_photo) {
+                        $old_photo_path = './uploads/' . $current_user_data->user_photo;
+                        if (file_exists($old_photo_path)) {
+                            unlink($old_photo_path);
+                        }
+                    }
+
+                    $this->session->set_userdata('user_image', $data['user_photo']);
+                } else {
+                    $this->session->set_flashdata('error', 'Failed to upload the photo. ' . $this->upload->display_errors());
+                    redirect('twc/update_info');
+                    return;
+                }
+            }
+
             if (
                 $current_user_data->name === $data['name'] &&
                 $current_user_data->contact === $data['contact'] &&
                 $current_user_data->email === $data['email'] &&
                 $current_user_data->birthdate === $data['birthdate'] &&
-                $current_user_data->gender === $data['gender']
+                $current_user_data->gender === $data['gender'] &&
+                $current_user_data->user_photo === $data['user_photo']
             ) {
-
                 $this->session->set_flashdata('info', 'No changes were made.');
             } else {
                 if ($this->Profile_model->update_user($user_id, $data)) {
@@ -264,7 +289,7 @@ class Twc extends CI_Controller
                     $this->session->set_flashdata('error', 'Profile update failed.');
                 }
             }
-             // Update the session with the new name
+
             $this->session->set_userdata('user_name', $data['name']);
             redirect('twc/update_info');
         }

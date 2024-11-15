@@ -372,14 +372,13 @@ class Applicant extends CI_Controller
     {
         $this->load->model('Applicant_model');
         $this->load->model('Sc_model');
-
-
+    
         $id_number = $this->session->userdata('user_id_number');
         $current_date = date('Y-m-d');
-
+    
         $applicant = $this->Applicant_model->get_info($id_number);
         $data['applicant'] = $applicant;
-
+    
         $scholarship_programs = $this->Sc_model->get_all_active_scholarship_programs();
         $filtered_programs = array_filter($scholarship_programs, function ($program) use ($applicant, $current_date) {
             return ($program->campus == $applicant->campus || $program->campus == 'All Campuses')
@@ -387,15 +386,18 @@ class Applicant extends CI_Controller
         });
         $data['scholarship_programs'] = $filtered_programs;
         $data['active_academic_year'] = $this->Applicant_model->get_active_academic_year();
-
+    
         if (in_array($applicant->program_type, ['College', 'Senior High School'])) {
             $semesters = $this->Applicant_model->get_active_semesters(['1st Semester', '2nd Semester']);
+            $default_semester = '1st Semester'; 
         } else if (in_array($applicant->program_type, ['Junior High School', 'Grade School'])) {
             $semesters = $this->Applicant_model->get_active_semesters(['Whole Semester']);
+            $default_semester = 'Whole Semester'; 
         }
-
+    
         $data['semesters'] = $semesters;
-
+        $data['default_semester'] = $default_semester;
+    
         $this->load->view('applicant/apply_scholarship', $data);
     }
 
