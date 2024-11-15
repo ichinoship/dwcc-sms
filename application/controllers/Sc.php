@@ -389,15 +389,19 @@ class Sc extends CI_Controller
     {
         $semester_id = $this->input->post('semester_id');
         $status = $this->input->post('status');
-
+    
         $this->load->model('Sc_model');
-
-        $data = array(
-            'status' => $status
-        );
-
+        
+        $semester = $this->Sc_model->get_semester_by_id($semester_id);
+        
+        if ($status == 'active') {
+            $other_semester = ($semester->semester == '1st Semester') ? '2nd Semester' : '1st Semester';
+            $this->Sc_model->update_semester_status_by_name($other_semester, 'inactive');
+        }
+    
+        $data = array('status' => $status);
         $result = $this->Sc_model->update_semester_status($semester_id, $data);
-
+    
         if ($result) {
             echo 'success';
         } else {

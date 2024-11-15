@@ -66,6 +66,12 @@ class Sc_model extends CI_Model
         return $this->db->update('semester', $data);
     }
 
+    public function update_semester_status_by_name($semester_name, $status)
+{
+    $this->db->where('semester', $semester_name);
+    $this->db->update('semester', array('status' => $status));
+}
+
     public function get_all_semesters()
     {
         $this->db->select('*');
