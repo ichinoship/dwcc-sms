@@ -276,23 +276,29 @@
         });
     });
     $(document).ready(function() {
-        // Get URL parameter
-        var urlParams = new URLSearchParams(window.location.search);
-        var userType = urlParams.get('usertype');
-
-        if (userType) {
-            // Set the select option to the passed user type
-            $('#userTypeFilter').val(userType);
-
-            // Filter the DataTable based on the selected user type
-            var table = $('#example1').DataTable();
-            table.column(4).search(userType).draw();
-        }
-
-        // Update table when the filter changes
-        $('#userTypeFilter').on('change', function() {
-            var selectedUserType = $(this).val();
-            table.column(4).search(selectedUserType).draw();
-        });
+    // Initialize DataTable
+    var table = $('#example1').DataTable({
+        responsive: true,
+        autoWidth: false,
     });
+
+    // Filter table by User Type
+    $('#userTypeFilter').on('change', function() {
+        var selectedUserType = $(this).val();
+        if (selectedUserType === "") {
+            table.column(4).search('').draw(); // Clear filter
+        } else {
+            table.column(4).search(selectedUserType).draw(); // Apply filter
+        }
+    });
+
+    // Pre-filter table based on URL parameter
+    var urlParams = new URLSearchParams(window.location.search);
+    var userType = urlParams.get('usertype');
+    if (userType) {
+        $('#userTypeFilter').val(userType); // Set dropdown value
+        table.column(4).search(userType).draw(); // Filter table
+    }
+});
+
 </script>
