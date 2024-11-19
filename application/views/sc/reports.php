@@ -312,72 +312,7 @@
                             fontSize: 12,
                             bold: false
                         });
-                        doc.content.push({
-                            text: 'Evaluated and Recommended by:',
-                            alignment: 'left',
-                            margin: [0, 30, 0, 20],
-                            fontSize: 12,
-                            bold: false
-                        });
-                        doc.content.push({
-                            columns: [{
-                                    stack: [{
-                                            text: 'MS. CLAUDETTE SIM, MBA',
-                                            alignment: 'center',
-                                            fontSize: 12,
-                                            bold: true
-                                        },
-                                        {
-                                            text: 'Member',
-                                            alignment: 'center',
-                                            fontSize: 12,
-                                            bold: false
-                                        }
-                                    ],
-                                    width: '50%'
-                                },
-                                {
-                                    stack: [{
-                                            text: 'MS. GRACE D. LUZON, MSEco',
-                                            alignment: 'center',
-                                            fontSize: 12,
-                                            bold: true
-                                        },
-                                        {
-                                            text: 'Member',
-                                            alignment: 'center',
-                                            fontSize: 12,
-                                            bold: false
-                                        }
-                                    ],
-                                    width: '50%'
-                                }
-                            ],
-                            margin: [0, 0, 0, 30]
-                        });
-                        doc.content.push({
-                            text: 'Approved by:',
-                            alignment: 'left',
-                            margin: [0, 10, 0, 20],
-                            fontSize: 12,
-                            bold: false
-                        });
-                        doc.content.push({
-                            stack: [{
-                                    text: 'REV. FR. RENATO A. TAMPOL, SVD, PhD',
-                                    alignment: 'center',
-                                    fontSize: 12,
-                                    bold: true
-                                },
-                                {
-                                    text: 'President',
-                                    alignment: 'center',
-                                    fontSize: 12,
-                                    bold: false
-                                }
-                            ],
-                            margin: [0, 5, 0, 0]
-                        });
+                       
                     }
 
                 },
