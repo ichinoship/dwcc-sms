@@ -320,7 +320,7 @@ class Applicant_model extends CI_Model
 
     public function get_applicants_report_by_twc($twc_id, $filters = array())
     {
-        $this->db->select('application_form.applicant_no, application_form.id_number,  application_form.lastname,  application_form.firstname, application_form.program, application_form.year, scholarship_programs.scholarship_program, application_form.academic_year, application_form.semester,  application_form.campus, application_form.status');
+        $this->db->select('application_form.applicant_no, application_form.id_number,  application_form.lastname,  application_form.firstname, application_form.program, application_form.year, scholarship_programs.scholarship_program, application_form.academic_year, application_form.semester, application_form.program_type,  application_form.campus, application_form.status');
         $this->db->from('application_form');
         $this->db->join('scholarship_programs', 'application_form.scholarship_program = scholarship_programs.scholarship_program');
         $this->db->where('scholarship_programs.assigned_to', $twc_id);
@@ -332,6 +332,15 @@ class Applicant_model extends CI_Model
             }
             if (isset($filters['semester'])) {
                 $this->db->where('semester', $filters['semester']);
+            }
+            if (isset($filters['program_type'])) {
+                $this->db->where('program_type', $filters['program_type']);
+            }
+            if (isset($filters['year'])) {
+                $this->db->where('year', $filters['year']);
+            }
+            if (isset($filters['program'])) {
+                $this->db->where('program', $filters['program']);
             }
             if (isset($filters['campus'])) {
                 $this->db->where('campus', $filters['campus']);

@@ -54,7 +54,6 @@
                                         <select class="form-control" id="gender" name="gender">
                                             <option value="male" <?= set_select('gender', 'male', $user->gender == 'male'); ?>>Male</option>
                                             <option value="female" <?= set_select('gender', 'female', $user->gender == 'female'); ?>>Female</option>
-                                            <option value="other" <?= set_select('gender', 'other', $user->gender == 'other'); ?>>Other</option>
                                         </select>
                                     </div>
 
