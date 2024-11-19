@@ -67,10 +67,10 @@ class Sc_model extends CI_Model
     }
 
     public function update_semester_status_by_name($semester_name, $status)
-{
-    $this->db->where('semester', $semester_name);
-    $this->db->update('semester', array('status' => $status));
-}
+    {
+        $this->db->where('semester', $semester_name);
+        $this->db->update('semester', array('status' => $status));
+    }
 
     public function get_all_semesters()
     {
@@ -161,30 +161,39 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-
-
     public function get_applications($filters = array())
     {
-        $this->db->select('id_number, firstname, middlename, lastname, academic_year,semester, program_type, scholarship_program, discount');
-        $this->db->from('final_list fl');
+        $this->db->select('id_number, firstname, middlename, lastname, academic_year, semester, program_type, year, scholarship_program, program, discount, status');
+        $this->db->from('application_form af');
+
 
         if (!empty($filters['academic_year'])) {
-            $this->db->where('fl.academic_year', $filters['academic_year']);
+            $this->db->where('af.academic_year', $filters['academic_year']);
         }
         if (!empty($filters['semester'])) {
-            $this->db->where('fl.semester', $filters['semester']);
+            $this->db->where('af.semester', $filters['semester']);
         }
         if (!empty($filters['program_type'])) {
-            $this->db->where('fl.program_type', $filters['program_type']);
+            $this->db->where('af.program_type', $filters['program_type']);
         }
-
+        if (!empty($filters['year'])) {
+            $this->db->where('af.year', $filters['year']);
+        }
         if (!empty($filters['scholarship_program'])) {
-            $this->db->where('fl.scholarship_program', $filters['scholarship_program']);
+            $this->db->where('af.scholarship_program', $filters['scholarship_program']);
+        }
+        if (!empty($filters['program'])) {
+            $this->db->where('af.program', $filters['program']);
+        }
+        if (!empty($filters['discount'])) {
+            $this->db->where('af.discount', $filters['discount']);
+        }
+        if (!empty($filters['status'])) {
+            $this->db->where('af.status', $filters['status']);
         }
 
-        if (!empty($filters['discount'])) {
-            $this->db->where('fl.discount', $filters['discount']);
-        }
+        $this->db->where_in('af.status', ['qualified', 'not qualified']);
+
         $query = $this->db->get();
         return $query->result();
     }
@@ -596,12 +605,12 @@ class Sc_model extends CI_Model
     }
 
     public function check_final_list_duplicate($id_number, $academic_year, $semester)
-{
-    $this->db->where('id_number', $id_number);
-    $this->db->where('academic_year', $academic_year);
-    $this->db->where('semester', $semester);
-    $query = $this->db->get('final_list');
+    {
+        $this->db->where('id_number', $id_number);
+        $this->db->where('academic_year', $academic_year);
+        $this->db->where('semester', $semester);
+        $query = $this->db->get('final_list');
 
-    return $query->num_rows() > 0;
-}
+        return $query->num_rows() > 0;
+    }
 }

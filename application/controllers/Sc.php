@@ -389,19 +389,19 @@ class Sc extends CI_Controller
     {
         $semester_id = $this->input->post('semester_id');
         $status = $this->input->post('status');
-    
+
         $this->load->model('Sc_model');
-        
+
         $semester = $this->Sc_model->get_semester_by_id($semester_id);
-        
+
         if ($status == 'active') {
             $other_semester = ($semester->semester == '1st Semester') ? '2nd Semester' : '1st Semester';
             $this->Sc_model->update_semester_status_by_name($other_semester, 'inactive');
         }
-    
+
         $data = array('status' => $status);
         $result = $this->Sc_model->update_semester_status($semester_id, $data);
-    
+
         if ($result) {
             echo 'success';
         } else {
@@ -585,7 +585,6 @@ class Sc extends CI_Controller
     // Controller (update reports method)
     public function reports()
     {
-        // Fetching common data for the view
         $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
         $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
         $data['applicant_counts'] = $this->Applicant_model->get_applicant_counts();
@@ -596,8 +595,11 @@ class Sc extends CI_Controller
             'academic_year' => $this->input->post('academic_year'),
             'semester' => $this->input->post('semester'),
             'program_type' => $this->input->post('program_type'),
+            'year' => $this->input->post('year'),
             'scholarship_program' => $this->input->post('scholarship_program'),
-            'discount' => $this->input->post('discount')
+            'discount' => $this->input->post('discount'),
+            'program' => $this->input->post('program'),
+            'status' => $this->input->post('status')
         );
 
         $data['applications'] = $this->Sc_model->get_applications($scholarship_filters);
@@ -636,79 +638,79 @@ class Sc extends CI_Controller
     }
 
     public function update_profile()
-{
-    $this->load->model('Profile_model');
-    $this->form_validation->set_rules('name', 'Full Name', 'required');
-    $this->form_validation->set_rules('contact', 'Contact Number', 'required|regex_match[/^\d{11}$/]', [
-        'regex_match' => 'The Contact Number must be exactly 11 digits long.'
-    ]);
-    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-    $this->form_validation->set_rules('birthdate', 'Birthdate', 'required');
-    $this->form_validation->set_rules('gender', 'Gender', 'required');
+    {
+        $this->load->model('Profile_model');
+        $this->form_validation->set_rules('name', 'Full Name', 'required');
+        $this->form_validation->set_rules('contact', 'Contact Number', 'required|regex_match[/^\d{11}$/]', [
+            'regex_match' => 'The Contact Number must be exactly 11 digits long.'
+        ]);
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('birthdate', 'Birthdate', 'required');
+        $this->form_validation->set_rules('gender', 'Gender', 'required');
 
-    if ($this->form_validation->run() == FALSE) {
-        $this->update_info();
-    } else {
-        $user_id = $this->session->userdata('user_id');
-        $current_user_data = $this->Profile_model->get_user($user_id);
-
-        $data = [
-            'name' => $this->input->post('name'),
-            'contact' => $this->input->post('contact'),
-            'email' => $this->input->post('email'),
-            'birthdate' => $this->input->post('birthdate'),
-            'gender' => $this->input->post('gender')
-        ];
-
-        // Handle the photo upload
-        if (!empty($_FILES['user_photo']['name'])) {
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'jpg|jpeg|png';
-            $config['max_size'] = 10240; // 10 MB
-            $config['file_name'] = $user_id . '_photo';
-            $this->upload->initialize($config);
-
-            if ($this->upload->do_upload('user_photo')) {
-                
-                if ($current_user_data->user_photo) {
-                    $old_photo_path = './uploads/' . $current_user_data->user_photo;
-                    if (file_exists($old_photo_path)) {
-                        unlink($old_photo_path);
-                    }
-                }
-                $data['user_photo'] = $this->upload->data('file_name');
-                $this->session->set_userdata('user_image', $data['user_photo']);
-            } else {
-                $this->session->set_flashdata('error', 'Failed to upload the photo. ' . $this->upload->display_errors());
-                redirect('sc/update_info');
-                return;
-            }
-        }
-
-        // Check if there are any changes in the data
-        if (
-            $current_user_data->name === $data['name'] &&
-            $current_user_data->contact === $data['contact'] &&
-            $current_user_data->email === $data['email'] &&
-            $current_user_data->birthdate === $data['birthdate'] &&
-            $current_user_data->gender === $data['gender'] &&
-            $current_user_data->user_photo === $data['user_photo']
-        ) {
-            $this->session->set_flashdata('info', 'No changes were made.');
+        if ($this->form_validation->run() == FALSE) {
+            $this->update_info();
         } else {
-            // Update the user profile
-            if ($this->Profile_model->update_user($user_id, $data)) {
-                $this->session->set_flashdata('success', 'Profile updated successfully.');
-            } else {
-                $this->session->set_flashdata('error', 'Profile update failed.');
-            }
-        }
+            $user_id = $this->session->userdata('user_id');
+            $current_user_data = $this->Profile_model->get_user($user_id);
 
-        // Update the session with the new name
-        $this->session->set_userdata('user_name', $data['name']);
-        redirect('sc/update_info');
+            $data = [
+                'name' => $this->input->post('name'),
+                'contact' => $this->input->post('contact'),
+                'email' => $this->input->post('email'),
+                'birthdate' => $this->input->post('birthdate'),
+                'gender' => $this->input->post('gender')
+            ];
+
+            // Handle the photo upload
+            if (!empty($_FILES['user_photo']['name'])) {
+                $config['upload_path'] = './uploads/';
+                $config['allowed_types'] = 'jpg|jpeg|png';
+                $config['max_size'] = 10240; // 10 MB
+                $config['file_name'] = $user_id . '_photo';
+                $this->upload->initialize($config);
+
+                if ($this->upload->do_upload('user_photo')) {
+
+                    if ($current_user_data->user_photo) {
+                        $old_photo_path = './uploads/' . $current_user_data->user_photo;
+                        if (file_exists($old_photo_path)) {
+                            unlink($old_photo_path);
+                        }
+                    }
+                    $data['user_photo'] = $this->upload->data('file_name');
+                    $this->session->set_userdata('user_image', $data['user_photo']);
+                } else {
+                    $this->session->set_flashdata('error', 'Failed to upload the photo. ' . $this->upload->display_errors());
+                    redirect('sc/update_info');
+                    return;
+                }
+            }
+
+            // Check if there are any changes in the data
+            if (
+                $current_user_data->name === $data['name'] &&
+                $current_user_data->contact === $data['contact'] &&
+                $current_user_data->email === $data['email'] &&
+                $current_user_data->birthdate === $data['birthdate'] &&
+                $current_user_data->gender === $data['gender'] &&
+                $current_user_data->user_photo === $data['user_photo']
+            ) {
+                $this->session->set_flashdata('info', 'No changes were made.');
+            } else {
+                // Update the user profile
+                if ($this->Profile_model->update_user($user_id, $data)) {
+                    $this->session->set_flashdata('success', 'Profile updated successfully.');
+                } else {
+                    $this->session->set_flashdata('error', 'Profile update failed.');
+                }
+            }
+
+            // Update the session with the new name
+            $this->session->set_userdata('user_name', $data['name']);
+            redirect('sc/update_info');
+        }
     }
-}
 
     public function change_password()
     {

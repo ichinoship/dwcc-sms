@@ -59,9 +59,34 @@
                                                 <option value="Grade School" <?= ($this->input->post('program_type') == 'Grade School') ? 'selected' : ''; ?>>Grade School</option>
                                             </select>
                                         </div>
+
                                     </div>
                                     <div class="row col-12">
-
+                                        <div class="col-md-4 mb-2">
+                                            <select name="year" class="form-control w-100">
+                                                <option value="">Select Year</option>
+                                                <option value="5th" <?= ($this->input->post('year') == '5th') ? 'selected' : ''; ?>>5th</option>
+                                                <option value="4th" <?= ($this->input->post('year') == '4th') ? 'selected' : ''; ?>>4th</option>
+                                                <option value="3rd" <?= ($this->input->post('year') == '3rd') ? 'selected' : ''; ?>>3rd</option>
+                                                <option value="2nd" <?= ($this->input->post('year') == '2nd') ? 'selected' : ''; ?>>2nd</option>
+                                                <option value="1st" <?= ($this->input->post('year') == '1st') ? 'selected' : ''; ?>>1st</option>
+                                                <option value="Grade 12" <?= ($this->input->post('year') == 'Grade 12') ? 'selected' : ''; ?>>Grade 12</option>
+                                                <option value="Grade 11" <?= ($this->input->post('year') == 'Grade 11') ? 'selected' : ''; ?>>Grade 11</option>
+                                                <option value="Grade 10" <?= ($this->input->post('year') == 'Grade 10') ? 'selected' : ''; ?>>Grade 10</option>
+                                                <option value="Grade 9" <?= ($this->input->post('year') == 'Grade 9') ? 'selected' : ''; ?>>Grade 9</option>
+                                                <option value="Grade 8" <?= ($this->input->post('year') == 'Grade 8') ? 'selected' : ''; ?>>Grade 8</option>
+                                                <option value="Grade 7" <?= ($this->input->post('year') == 'Grade 7') ? 'selected' : ''; ?>>Grade 7</option>
+                                                <option value="Grade 6" <?= ($this->input->post('year') == 'Grade 6') ? 'selected' : ''; ?>>Grade 6</option>
+                                                <option value="Grade 5" <?= ($this->input->post('year') == 'Grade 5') ? 'selected' : ''; ?>>Grade 5</option>
+                                                <option value="Grade 4" <?= ($this->input->post('year') == 'Grade 4') ? 'selected' : ''; ?>>Grade 4</option>
+                                                <option value="Grade 3" <?= ($this->input->post('year') == 'Grade 3') ? 'selected' : ''; ?>>Grade 3</option>
+                                                <option value="Grade 2" <?= ($this->input->post('year') == 'Grade 2') ? 'selected' : ''; ?>>Grade 2</option>
+                                                <option value="Grade 1" <?= ($this->input->post('year') == 'Grade 1') ? 'selected' : ''; ?>>Grade 1</option>
+                                                <option value="Senior Kinder" <?= ($this->input->post('year') == 'Senior Kinder') ? 'selected' : ''; ?>>Senior Kinder</option>
+                                                <option value="Junior Kinder" <?= ($this->input->post('year') == 'Junior Kinder') ? 'selected' : ''; ?>>Junior Kinder</option>
+                                                <option value="Special Education" <?= ($this->input->post('year') == 'Special Education') ? 'selected' : ''; ?>>Special Education</option>
+                                            </select>
+                                        </div>
                                         <div class="col-md-4 mb-2">
                                             <select name="scholarship_program" class="form-control w-100">
                                                 <option value="">Select Scholarship Program</option>
@@ -72,11 +97,41 @@
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-
                                         <div class="col-md-4 mb-2">
+                                            <select name="program" class="form-control w-100">
+                                                <option value="">Select Program</option>
+                                                <option value="Bachelor of Science in Business Administration" <?= ($this->input->post('program') == 'Bachelor of Science in Business Administration') ? 'selected' : ''; ?>>Bachelor of Science in Business Administration</option>
+                                                <option value="Bachelor of Science in Hospitality Management" <?= ($this->input->post('program') == 'Bachelor of Science in Hospitality Management') ? 'selected' : ''; ?>>Bachelor of Science in Hospitality Management</option>
+                                                <option value="Bachelor of Science in Tourism Management" <?= ($this->input->post('program') == 'Bachelor of Science in Tourism Management') ? 'selected' : ''; ?>>Bachelor of Science in Tourism Management</option>
+                                                <option value="Bachelor of Science in Accountancy" <?= ($this->input->post('program') == 'Bachelor of Science in Accountancy') ? 'selected' : ''; ?>>Bachelor of Science in Accountancy</option>
+                                                <option value="Bachelor of Science in Management Accounting" <?= ($this->input->post('program') == 'Bachelor of Science in Management Accounting') ? 'selected' : ''; ?>>Bachelor of Science in Management Accounting</option>
+                                                <option value="Bachelor of Science in Criminology" <?= ($this->input->post('program') == 'Bachelor of Science in Criminology') ? 'selected' : ''; ?>>Bachelor of Science in Criminology</option>
+                                                <option value="Bachelor of Science in Civil Engineering" <?= ($this->input->post('program') == 'Bachelor of Science in Civil Engineering') ? 'selected' : ''; ?>>Bachelor of Science in Civil Engineering</option>
+                                                <option value="Bachelor of Science in Computer Engineering" <?= ($this->input->post('program') == 'Bachelor of Science in Computer Engineering') ? 'selected' : ''; ?>>Bachelor of Science in Computer Engineering</option>
+                                                <option value="Bachelor of Science in Electronics Engineering" <?= ($this->input->post('program') == 'Bachelor of Science in Electronics Engineering') ? 'selected' : ''; ?>>Bachelor of Science in Electronics Engineering</option>
+                                                <option value="Bachelor of Science in Electrical Engineering" <?= ($this->input->post('program') == 'Bachelor of Science in Electrical Engineering') ? 'selected' : ''; ?>>Bachelor of Science in Electrical Engineering</option>
+                                                <option value="Bachelor of Science in Architecture" <?= ($this->input->post('program') == 'Bachelor of Science in Architecture') ? 'selected' : ''; ?>>Bachelor of Science in Architecture</option>
+                                                <option value="Bachelor of Science in Fine Arts" <?= ($this->input->post('program') == 'Bachelor of Science in Fine Arts') ? 'selected' : ''; ?>>Bachelor of Science in Fine Arts</option>
+                                                <option value="Bachelor of Elementary Education" <?= ($this->input->post('program') == 'Bachelor of Elementary Education') ? 'selected' : ''; ?>>Bachelor of Elementary Education</option>
+                                                <option value="Bachelor of Secondary Education" <?= ($this->input->post('program') == 'Bachelor of Secondary Education') ? 'selected' : ''; ?>>Bachelor of Secondary Education</option>
+                                                <option value="Bachelor of Physical Education" <?= ($this->input->post('program') == 'Bachelor of Physical Education') ? 'selected' : ''; ?>>Bachelor of Physical Education</option>
+                                                <option value="Bachelor of Science in Information Technology" <?= ($this->input->post('program') == 'Bachelor of Science in Information Technology') ? 'selected' : ''; ?>>Bachelor of Science in Information Technology</option>
+                                                <option value="Bachelor of Science in Psychology" <?= ($this->input->post('program') == 'Bachelor of Science in Psychology') ? 'selected' : ''; ?>>Bachelor of Science in Psychology</option>
+                                                <option value="Bachelor of Arts in Political Science" <?= ($this->input->post('program') == 'Bachelor of Arts in Political Science') ? 'selected' : ''; ?>>Bachelor of Arts in Political Science</option>
+                                                <option value="Bachelor of Arts in Psychology" <?= ($this->input->post('program') == 'Bachelor of Arts in Psychology') ? 'selected' : ''; ?>>Bachelor of Arts in Psychology</option>
+                                                <option value="Science, Technology, Engineering and Mathematics (STEM)" <?= ($this->input->post('program') == 'Science, Technology, Engineering and Mathematics (STEM)') ? 'selected' : ''; ?>>Science, Technology, Engineering and Mathematics (STEM)</option>
+                                                <option value="Accountancy, Business and Management (ABM)" <?= ($this->input->post('program') == 'Accountancy, Business and Management (ABM)') ? 'selected' : ''; ?>>Accountancy, Business and Management (ABM)</option>
+                                                <option value="Humanities and Social Sciences (HUMMS)" <?= ($this->input->post('program') == 'Humanities and Social Sciences (HUMMS)') ? 'selected' : ''; ?>>Humanities and Social Sciences (HUMMS)</option>
+                                                <option value="Technical Vocational Livelihood (TVL)" <?= ($this->input->post('program') == 'Technical Vocational Livelihood (TVL)') ? 'selected' : ''; ?>>Technical Vocational Livelihood (TVL)</option>
+                                                <option value="Special Science Class" <?= ($this->input->post('program') == 'Special Science Class') ? 'selected' : ''; ?>>Special Science Class</option>
+                                                <option value="None" <?= ($this->input->post('program') == 'None') ? 'selected' : ''; ?>>None</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12">
+                                    <div class="col-md-4 mb-2">
                                             <select name="discount" class="form-control w-100">
                                                 <option value="">Select Discount</option>
-
                                                 <option value="5" <?= ($this->input->post('discount') == '5') ? 'selected' : ''; ?>>5%</option>
                                                 <option value="10" <?= ($this->input->post('discount') == '10') ? 'selected' : ''; ?>>10%</option>
                                                 <option value="15" <?= ($this->input->post('discount') == '15') ? 'selected' : ''; ?>>15%</option>
@@ -89,7 +144,13 @@
                                                 <option value="100" <?= ($this->input->post('discount') == '100') ? 'selected' : ''; ?>>100%</option>
                                             </select>
                                         </div>
-
+                                        <div class="col-md-4 mb-2">
+                                            <select name="status" class="form-control w-100">
+                                                <option value="">Select Status</option>
+                                                <option value="Qualified" <?= ($this->input->post('status') == 'Qualified') ? 'selected' : ''; ?>>Qualified</option>
+                                                <option value="Not Qualified" <?= ($this->input->post('status') == 'Not Qualified') ? 'selected' : ''; ?>>Not Qualified</option>
+                                            </select>
+                                        </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-end">
                                             <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
                                         </div>
@@ -104,8 +165,11 @@
                                         <th>Academic Year</th>
                                         <th>Semester</th>
                                         <th>Program Type</th>
+                                        <th>Year</th>
                                         <th>Scholarship Program</th>
+                                        <th>Program</th>
                                         <th>Discount</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -116,8 +180,11 @@
                                             <td><?= $application->academic_year; ?></td>
                                             <td><?= $application->semester; ?></td>
                                             <td><?= $application->program_type; ?></td>
+                                            <td><?= $application->year; ?></td>
                                             <td><?= $application->scholarship_program; ?></td>
+                                            <td><?= $application->program; ?></td>
                                             <td><?= $application->discount; ?></td>
+                                            <td><?= ucwords($application->status); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -136,108 +203,229 @@
 
 <script>
     $(document).ready(function() {
-        var table = $('#applicationsTable').DataTable();
+        var table = $('#applicationsTable').DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": [{
+                    extend: "copy",
+                    text: "Copy",
+                },
+                {
+                    extend: "pdf",
+                    text: "Export to PDF",
+                    title: '',
+                    customize: function(doc) {
+                        doc.pageMargins = [50, 115, 50, 115];
 
-        function updateTitle() {
-            // Get the selected values from each filter
-            var academic_year = $('select[name="academic_year"]').val();
-            var semester = $('select[name="semester"]').val();
-            var program_type = $('select[name="program_type"]').val();
-            var scholarship_program = $('select[name="scholarship_program"]').val();
+                        doc.background = [{
+                            image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
+                            width: 624,
+                            height: 830
+                        }];
 
-            function updateTitle() {
-                // Get the selected values from each filter
-                var academic_year = $('select[name="academic_year"]').val();
-                var semester = $('select[name="semester"]').val();
-                var program_type = $('select[name="program_type"]').val();
-                var scholarship_program = $('select[name="scholarship_program"]').val();
-                var discount = $('select[name="discount"]').val();
+                        doc.content.splice(0, 0, {
+                            text: 'SCHOLARSHIP REPORTS',
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: true,
+                            margin: [0, 20, 0, 0]
+                        });
 
+                        doc.content.splice(1, 0, {
+                            text: 'List of Scholarship Applicants',
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: false,
+                            margin: [0, 0, 0, 20]
+                        });
 
-                // Initialize the base title
-                var title = "Scholarship Reports";
+                        var currentDate = new Date().toLocaleDateString();
+                        doc.content.splice(2, 0, {
+                            text: `Date: ${currentDate}`,
+                            alignment: 'right',
+                            fontSize: 10,
+                            margin: [0, 0, 0, 10]
+                        });
 
+                        var table = doc.content[3];
+                        if (table && table.table) {
+                            table.layout = {
+                                hLineWidth: function() {
+                                    return 0.5;
+                                },
+                                vLineWidth: function() {
+                                    return 0.5;
+                                },
+                                hLineColor: function() {
+                                    return '#000';
+                                },
+                                vLineColor: function() {
+                                    return '#000';
+                                },
+                                paddingLeft: function() {
+                                    return 2;
+                                },
+                                paddingRight: function() {
+                                    return 2;
+                                },
+                                paddingTop: function() {
+                                    return 2;
+                                },
+                                paddingBottom: function() {
+                                    return 2;
+                                },
+                            };
 
-                // Construct the dynamic title based on selected filters
-                if (academic_year) {
-                    title += " for " + academic_year;
-                }
-                if (semester) {
-                    title += ", " + semester;
-                }
-                if (scholarship_program) {
-                    title += " in " + scholarship_program;
-                }
-                if (program_type) {
-                    title += " (" + program_type + ")";
-                }
+                            for (var i = 0; i < table.table.body.length; i++) {
+                                for (var j = 0; j < table.table.body[i].length; j++) {
+                                    table.table.body[i][j].fillColor = '#FFFFFF';
+                                    table.table.body[i][j].fontSize = 11;
+                                }
+                            }
 
-                // Construct the dynamic title based on selected filters
-                if (academic_year) {
-                    title += " for " + academic_year;
-                }
-                if (semester) {
-                    title += ", " + semester;
-                }
-                if (scholarship_program) {
-                    title += " in " + scholarship_program;
-                }
-                if (program_type) {
-                    title += " (" + program_type + ")";
-                }
-                if (discount) {
-                    title += " with " + discount + "% Discount";
-                }
+                            var header = table.table.body[0];
+                            for (var j = 0; j < header.length; j++) {
+                                header[j].fillColor = '#A6D18A';
+                                header[j].color = '#000000';
+                            }
+                        }
 
-                // Update the card title element
-                $('#reportTitle').text(title);
+                        doc.content.push({
+                            text: 'Prepared by:',
+                            alignment: 'left',
+                            margin: [0, 30, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
+                            text: 'DIANA KYTH P. CONTI\n',
+                            alignment: 'left',
+                            margin: [0, 0, 0, 0],
+                            fontSize: 12,
+                            bold: true
+                        });
+                        doc.content.push({
+                            text: 'Scholarship Coordinator',
+                            alignment: 'left',
+                            margin: [0, 0, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
+                            text: 'Evaluated and Recommended by:',
+                            alignment: 'left',
+                            margin: [0, 30, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
+                            columns: [{
+                                    stack: [{
+                                            text: 'MS. CLAUDETTE SIM, MBA',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: true
+                                        },
+                                        {
+                                            text: 'Member',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: false
+                                        }
+                                    ],
+                                    width: '50%'
+                                },
+                                {
+                                    stack: [{
+                                            text: 'MS. GRACE D. LUZON, MSEco',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: true
+                                        },
+                                        {
+                                            text: 'Member',
+                                            alignment: 'center',
+                                            fontSize: 12,
+                                            bold: false
+                                        }
+                                    ],
+                                    width: '50%'
+                                }
+                            ],
+                            margin: [0, 0, 0, 30]
+                        });
+                        doc.content.push({
+                            text: 'Approved by:',
+                            alignment: 'left',
+                            margin: [0, 10, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
+                            stack: [{
+                                    text: 'REV. FR. RENATO A. TAMPOL, SVD, PhD',
+                                    alignment: 'center',
+                                    fontSize: 12,
+                                    bold: true
+                                },
+                                {
+                                    text: 'President',
+                                    alignment: 'center',
+                                    fontSize: 12,
+                                    bold: false
+                                }
+                            ],
+                            margin: [0, 5, 0, 0]
+                        });
+                    }
+
+                },
+                {
+                    extend: "colvis",
+                    text: "Column Visibility",
+                }
+            ],
+            "initComplete": function() {
+                this.api().buttons().container().appendTo('#applicationsTable_wrapper .col-md-6:eq(0)');
             }
+        });
 
-
-            // Update the card title element
-            $('#reportTitle').text(title);
-        }
-
-        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="scholarship_program"], select[name="discount"]').on('change', function() {
+        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="year"], select[name="scholarship_program"], select[name="program"], select[name="discount"],  select[name="status"]').on('change', function() {
             var academic_year = $('select[name="academic_year"]').val();
             var semester = $('select[name="semester"]').val();
             var program_type = $('select[name="program_type"]').val();
+            var year = $('select[name="year"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
+            var program = $('select[name="program"]').val();
             var discount = $('select[name="discount"]').val();
+            var status = $('select[name="status"]').val();
 
             table.columns(2).search(academic_year)
                 .columns(3).search(semester)
                 .columns(4).search(program_type)
-                .columns(5).search(scholarship_program)
-                .columns(6).search(discount)
+                .columns(5).search(year)
+                .columns(6).search(scholarship_program)
+                .columns(7).search(program)
+                .columns(8).search(discount)
+                .columns(9).search(status)
                 .draw();
-            updateTitle();
-
-            // Use regex for exact match on discount
-            if (discount) {
-                table.columns(6).search('^' + discount + '$', true, false).draw();
-            } else {
-                table.columns(6).search('').draw();
-            }
-
-            updateTitle();
         });
-        // Reset filters
+
         $('#resetFilters').on('click', function() {
             $('select[name="academic_year"]').val('');
             $('select[name="semester"]').val('');
             $('select[name="program_type"]').val('');
             $('select[name="scholarship_program"]').val('');
+            $('select[name="year"]').val('');
+            $('select[name="program"]').val('');
             $('select[name="discount"]').val('');
+            $('select[name="status"]').val('');
             table.columns().search('').draw();
-
-            updateTitle();
-
-            table.destroy();
-            table = $('#applicationsTable').DataTable();
         });
+
         $('#printTable').on('click', function() {
-            window.print();
+            table.button('.buttons-pdf').trigger();
         });
     });
 </script>
