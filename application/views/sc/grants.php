@@ -221,6 +221,41 @@
                             bold: false
                         });
                         doc.content.push({
+                            text: 'Evaluated and Recommended by:',
+                            alignment: 'left',
+                            margin: [0, 30, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
+                            text: 'REV. FR. VICENTE D. CASTRO JR, SVD\n',
+                            alignment: 'center',
+                            margin: [0, 0, 0, 0],
+                            fontSize: 12,
+                            bold: true
+                        });
+                        doc.content.push({
+                            text: 'Vice Chairperson',
+                            alignment: 'center',
+                            margin: [0, 0, 0, 10],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
+                            text: 'BR. HUBERTUS GURU, SVD, Ed.D\n',
+                            alignment: 'center',
+                            margin: [0, 30, 0, 0],
+                            fontSize: 12,
+                            bold: true
+                        });
+                        doc.content.push({
+                            text: 'Scholarship Chairperson',
+                            alignment: 'center',
+                            margin: [0, 0, 0, 10],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
                             text: 'Approved by:',
                             alignment: 'left',
                             margin: [0, 30, 0, 20],
