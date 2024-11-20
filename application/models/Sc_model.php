@@ -192,7 +192,7 @@ class Sc_model extends CI_Model
             $this->db->where('af.status', $filters['status']);
         }
 
-        $this->db->where_in('af.status', ['qualified', 'not qualified']);
+        $this->db->where_in('af.status', ['qualified', 'not qualified', 'conditional']);
 
         $query = $this->db->get();
         return $query->result();

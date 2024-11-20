@@ -149,6 +149,7 @@
                                                 <option value="">Select Status</option>
                                                 <option value="Qualified" <?= ($this->input->post('status') == 'Qualified') ? 'selected' : ''; ?>>Qualified</option>
                                                 <option value="Not Qualified" <?= ($this->input->post('status') == 'Not Qualified') ? 'selected' : ''; ?>>Not Qualified</option>
+                                                <option value="Conditional" <?= ($this->input->post('status') == 'Conditional') ? 'selected' : ''; ?>>Conditional</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-end">
