@@ -104,11 +104,11 @@
                             <p>Announcements</p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview <?= in_array($this->uri->segment(2), ['school_year', 'semester', 'view_list']) ? 'menu-open' : ''; ?>">
-                        <a href="#" class="nav-link <?= in_array($this->uri->segment(2), ['school_year', 'semester', 'view_list']) ? 'active' : ''; ?>">
+                    <li class="nav-item has-treeview <?= in_array($this->uri->segment(2), ['school_year', 'semester', 'program', 'view_list']) ? 'menu-open' : ''; ?>">
+                        <a href="#" class="nav-link <?= in_array($this->uri->segment(2), ['school_year', 'semester', 'program', 'view_list']) ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-school"></i>
                             <p>
-                                Year and Semester
+                                Academic Preferences
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -125,6 +125,13 @@
                                     class="nav-link <?= $this->uri->segment(2) == 'semester' ? 'active' : ''; ?>">
                                     <i class="fas fa-layer-group nav-icon"></i>
                                     <p>Semester</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('sc/program'); ?>"
+                                    class="nav-link <?= $this->uri->segment(2) == 'program' ? 'active' : ''; ?>">
+                                    <i class="fas fa-chalkboard-teacher nav-icon"></i>
+                                    <p>School Program</p>
                                 </a>
                             </li>
                         </ul>

@@ -132,18 +132,16 @@
                     <?= form_error('email', '<div class="invalid-feedback">', '</div>'); ?>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="program_type">Program Type <span class="text-danger">*</span></label>
-                    <select class="form-control <?= form_error('program_type') ? 'is-invalid' : ''; ?>" id="program_type" name="program_type" onchange="updateYearOptions(); updateProgramOptions();"">
-                      <option value="" disabled selected>Select Program Type</option>
-                      <option value="College"<?= set_select('program_type', 'College'); ?>>College</option>
-                      <option value="Senior High School" <?= set_select('program_type', 'Senior High School'); ?>>Senior High School</option>
-                      <option value="Junior High School" <?= set_select('program_type', 'Junior High School'); ?>>Junior High School</option>
-                      <option value="Grade School" <?= set_select('program_type', 'Grade School'); ?>>Grade School</option>
-                    </select>
-                    <?= form_error('program_type', '<div class="invalid-feedback">', '</div>'); ?>
-                  </div>
+                <div class="col-md-6 form-group">
+                  <label for="program_type">Program Type <span class="text-danger">*</span></label>
+                  <select class="form-control <?= form_error('program_type') ? 'is-invalid' : ''; ?>" id="program_type" name="program_type" onchange="updateYearOptions(); updateProgramOptions();">
+                    <option value="" disabled selected>Select Program Type</option>
+                    <option value="College" <?= set_select('program_type', 'College'); ?>>College</option>
+                    <option value="Senior High School" <?= set_select('program_type', 'Senior High School'); ?>>Senior High School</option>
+                    <option value="Junior High School" <?= set_select('program_type', 'Junior High School'); ?>>Junior High School</option>
+                    <option value="Grade School" <?= set_select('program_type', 'Grade School'); ?>>Grade School</option>
+                  </select>
+                  <?= form_error('program_type', '<div class="invalid-feedback">', '</div>'); ?>
                 </div>
               </div>
               <div class="row">
@@ -176,39 +174,17 @@
                     <?= form_error('year', '<div class="invalid-feedback">', '</div>'); ?>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="program">Program <span class="text-danger">*</span></label>
-                    <select class="form-control <?= form_error('program') ? 'is-invalid' : ''; ?>" id="program" name="program">
-                      <option value="" disabled selected>Select Program</option>
-                      <option value="Bachelor of Science in Business Administration" <?= set_select('program', 'Bachelor of Science in Business Administration'); ?>>Bachelor of Science in Business Administration</option>
-                      <option value="Bachelor of Science in Hospitality Management" <?= set_select('program', 'Bachelor of Science in Hospitality Management'); ?>>Bachelor of Science in Hospitality Management</option>
-                      <option value="Bachelor of Science in Tourism Management" <?= set_select('program', 'Bachelor of Science in Tourism Management'); ?>>Bachelor of Science in Tourism Management</option>
-                      <option value="Bachelor of Science in Accountancy" <?= set_select('program', 'Bachelor of Science in Accountancy'); ?>>Bachelor of Science in Accountancy</option>
-                      <option value="Bachelor of Science in Management Accounting" <?= set_select('program', 'Bachelor of Science in Management Accounting'); ?>>Bachelor of Science in Management Accounting</option>
-                      <option value="Bachelor of Science in Criminology" <?= set_select('program', 'Bachelor of Science in Criminology'); ?>>Bachelor of Science in Criminology</option>
-                      <option value="Bachelor of Science in Civil Engineering" <?= set_select('program', 'Bachelor of Science in Civil Engineering'); ?>>Bachelor of Science in Civil Engineering</option>
-                      <option value="Bachelor of Science in Computer Engineering" <?= set_select('program', 'Bachelor of Science in Computer Engineering'); ?>>Bachelor of Science in Computer Engineering</option>
-                      <option value="Bachelor of Science in Electronics Engineering" <?= set_select('program', 'Bachelor of Science in Electronics Engineering'); ?>>Bachelor of Science in Electronics Engineering</option>
-                      <option value="Bachelor of Science in Electrical Engineering" <?= set_select('program', 'Bachelor of Science in Electrical Engineering'); ?>>Bachelor of Science in Electrical Engineering</option>
-                      <option value="Bachelor of Science in Architecture" <?= set_select('program', 'Bachelor of Science in Architecture'); ?>>Bachelor of Science in Architecture</option>
-                      <option value="Bachelor of Science in Fine Arts" <?= set_select('program', 'Bachelor of Science in Fine Arts'); ?>>Bachelor of Science in Fine Arts</option>
-                      <option value="Bachelor of Elementary Education" <?= set_select('program', 'Bachelor of Elementary Education'); ?>>Bachelor of Elementary Education</option>
-                      <option value="Bachelor of Secondary Education" <?= set_select('program', 'Bachelor of Secondary Education'); ?>>Bachelor of Secondary Education</option>
-                      <option value="Bachelor of Physical Education" <?= set_select('program', 'Bachelor of Physical Education'); ?>>Bachelor of Physical Education</option>
-                      <option value="Bachelor of Science in Information Technology" <?= set_select('program', 'Bachelor of Science in Information Technology'); ?>>Bachelor of Science in Information Technology</option>
-                      <option value="Bachelor of Science in Psychology" <?= set_select('program', 'Bachelor of Science in Psychology'); ?>>Bachelor of Science in Psychology</option>
-                      <option value="Bachelor of Arts in Political Science" <?= set_select('program', 'Bachelor of Arts in Political Science'); ?>>Bachelor of Arts in Political Science</option>
-                      <option value="Bachelor of Arts in Psychology" <?= set_select('program', 'Bachelor of Arts in Psychology'); ?>>Bachelor of Arts in Psychology</option>
-                      <option value="Science, Technology, Engineering and Mathematics (STEM)" <?= set_select('program', 'Science, Technology, Engineering and Mathematics (STEM)'); ?>>Science, Technology, Engineering and Mathematics (STEM)</option>
-                      <option value="Accountancy, Business and Management (ABM)" <?= set_select('program', 'Accountancy, Business and Management (ABM)'); ?>>Accountancy, Business and Management (ABM)</option>
-                      <option value="Humanities and Social Sciences (HUMMS)" <?= set_select('program', 'Humanities and Social Sciences (HUMMS)'); ?>>Humanities and Social Sciences (HUMMS)</option>
-                      <option value="Technical Vocational Livelihood (TVL)" <?= set_select('program', 'Technical Vocational Livelihood (TVL)'); ?>>Technical Vocational Livelihood (TVL)</option>
-                      <option value="Special Science Class" <?= set_select('program', 'Special Science Class'); ?>>Special Science Class</option>
-                      <option value="None" <?= set_select('program', 'None'); ?>>None</option>
-                    </select>
-                    <?= form_error('program', '<div class="invalid-feedback">', '</div>'); ?>
-                  </div>
+                <div class="col-md-6 form-group">
+                  <label for="program">Program <span class="text-danger">*</span></label>
+                  <select name="program" id="program" class="form-control  <?= form_error('program') ? 'is-invalid' : ''; ?>">
+                    <option value="">Select Program</option>
+                    <?php foreach ($programs as $program): ?>
+                      <option value="<?= $program->program_name ?>" <?= set_select('program', $program->program_name); ?>>
+                        <?= $program->program_name ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                  <?= form_error('program', '<div class="invalid-feedback">', '</div>'); ?>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
@@ -251,12 +227,40 @@
   <script src="<?= base_url('assets/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<?= base_url('assets/') ?>dist/js/adminlte.min.js"></script>
   <script>
+    function updateProgramOptions() {
+      var programType = document.getElementById("program_type").value;
+      var programDropdown = document.getElementById("program");
+
+      programDropdown.innerHTML = "<option value=''>Select Program</option>";
+      var programs = <?= json_encode($programs); ?>;
+
+      programs.forEach(function(program) {
+        if (programType === "College" && program.program_type === "College") {
+          var option = document.createElement("option");
+          option.value = program.program_name;
+          option.textContent = program.program_name;
+          programDropdown.appendChild(option);
+        } else if (programType === "Senior High School" && program.program_type === "Senior High School") {
+          var option = document.createElement("option");
+          option.value = program.program_name;
+          option.textContent = program.program_name;
+          programDropdown.appendChild(option);
+        } else if ((programType === "Junior High School" || programType === "Grade School") && program.program_type === "JHS/Grade School") {
+          var option = document.createElement("option");
+          option.value = program.program_name;
+          option.textContent = program.program_name;
+          programDropdown.appendChild(option);
+        }
+      });
+    }
+  </script>
+
+  <script>
     function updateFileName(input) {
       const label = input.nextElementSibling;
       const fileName = input.files[0] ? input.files[0].name : 'Choose photo...';
       label.innerText = fileName;
     }
-
     document.getElementById('applicant_photo').addEventListener('change', function(event) {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -290,69 +294,11 @@
         default:
           options = [];
       }
-
       options.forEach(option => {
         const opt = document.createElement('option');
         opt.value = option;
         opt.textContent = option;
         yearSelect.appendChild(opt);
-      });
-    }
-
-    function updateProgramOptions() {
-      const programType = document.getElementById('program_type').value;
-      const programSelect = document.getElementById('program');
-      programSelect.innerHTML = '<option value="" disabled selected>Select Program</option>';
-
-      let options = [];
-      switch (programType) {
-        case 'College':
-          options = [
-            'Bachelor of Science in Business Administration',
-            'Bachelor of Science in Hospitality Management',
-            'Bachelor of Science in Tourism Management',
-            'Bachelor of Science in Accountancy',
-            'Bachelor of Science in Management Accounting',
-            'Bachelor of Science in Criminology',
-            'Bachelor of Science in Civil Engineering',
-            'Bachelor of Science in Computer Engineering',
-            'Bachelor of Science in Electronics Engineering',
-            'Bachelor of Science in Electrical Engineering',
-            'Bachelor of Science in Architecture',
-            'Bachelor of Science in Fine Arts',
-            'Bachelor of Elementary Education',
-            'Bachelor of Secondary Education',
-            'Bachelor of Physical Education',
-            'Bachelor of Science in Information Technology',
-            'Bachelor of Science in Psychology',
-            'Bachelor of Arts in Political Science',
-            'Bachelor of Arts in Psychology'
-          ];
-          break;
-        case 'Senior High School':
-          options = [
-            'Science, Technology, Engineering and Mathematics (STEM)',
-            'Accountancy, Business and Management (ABM)',
-            'Humanities and Social Sciences (HUMMS)',
-            'Technical Vocational Livelihood (TVL)'
-          ];
-          break;
-        case 'Junior High School':
-          options = ['Special Science Class', 'None'];
-          break;
-        case 'Pre-school':
-        case 'Grade School':
-          options = ['None'];
-          break;
-        default:
-          options = [];
-      }
-
-      options.forEach(option => {
-        const opt = document.createElement('option');
-        opt.value = option;
-        opt.textContent = option;
-        programSelect.appendChild(opt);
       });
     }
   </script>

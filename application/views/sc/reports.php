@@ -2,7 +2,6 @@
 <?php $this->load->view('includes/sidebar') ?>
 <title>Reports</title>
 
-
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -98,38 +97,6 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2">
-                                            <select name="program" class="form-control w-100">
-                                                <option value="">Select Program</option>
-                                                <option value="Bachelor of Science in Business Administration" <?= ($this->input->post('program') == 'Bachelor of Science in Business Administration') ? 'selected' : ''; ?>>Bachelor of Science in Business Administration</option>
-                                                <option value="Bachelor of Science in Hospitality Management" <?= ($this->input->post('program') == 'Bachelor of Science in Hospitality Management') ? 'selected' : ''; ?>>Bachelor of Science in Hospitality Management</option>
-                                                <option value="Bachelor of Science in Tourism Management" <?= ($this->input->post('program') == 'Bachelor of Science in Tourism Management') ? 'selected' : ''; ?>>Bachelor of Science in Tourism Management</option>
-                                                <option value="Bachelor of Science in Accountancy" <?= ($this->input->post('program') == 'Bachelor of Science in Accountancy') ? 'selected' : ''; ?>>Bachelor of Science in Accountancy</option>
-                                                <option value="Bachelor of Science in Management Accounting" <?= ($this->input->post('program') == 'Bachelor of Science in Management Accounting') ? 'selected' : ''; ?>>Bachelor of Science in Management Accounting</option>
-                                                <option value="Bachelor of Science in Criminology" <?= ($this->input->post('program') == 'Bachelor of Science in Criminology') ? 'selected' : ''; ?>>Bachelor of Science in Criminology</option>
-                                                <option value="Bachelor of Science in Civil Engineering" <?= ($this->input->post('program') == 'Bachelor of Science in Civil Engineering') ? 'selected' : ''; ?>>Bachelor of Science in Civil Engineering</option>
-                                                <option value="Bachelor of Science in Computer Engineering" <?= ($this->input->post('program') == 'Bachelor of Science in Computer Engineering') ? 'selected' : ''; ?>>Bachelor of Science in Computer Engineering</option>
-                                                <option value="Bachelor of Science in Electronics Engineering" <?= ($this->input->post('program') == 'Bachelor of Science in Electronics Engineering') ? 'selected' : ''; ?>>Bachelor of Science in Electronics Engineering</option>
-                                                <option value="Bachelor of Science in Electrical Engineering" <?= ($this->input->post('program') == 'Bachelor of Science in Electrical Engineering') ? 'selected' : ''; ?>>Bachelor of Science in Electrical Engineering</option>
-                                                <option value="Bachelor of Science in Architecture" <?= ($this->input->post('program') == 'Bachelor of Science in Architecture') ? 'selected' : ''; ?>>Bachelor of Science in Architecture</option>
-                                                <option value="Bachelor of Science in Fine Arts" <?= ($this->input->post('program') == 'Bachelor of Science in Fine Arts') ? 'selected' : ''; ?>>Bachelor of Science in Fine Arts</option>
-                                                <option value="Bachelor of Elementary Education" <?= ($this->input->post('program') == 'Bachelor of Elementary Education') ? 'selected' : ''; ?>>Bachelor of Elementary Education</option>
-                                                <option value="Bachelor of Secondary Education" <?= ($this->input->post('program') == 'Bachelor of Secondary Education') ? 'selected' : ''; ?>>Bachelor of Secondary Education</option>
-                                                <option value="Bachelor of Physical Education" <?= ($this->input->post('program') == 'Bachelor of Physical Education') ? 'selected' : ''; ?>>Bachelor of Physical Education</option>
-                                                <option value="Bachelor of Science in Information Technology" <?= ($this->input->post('program') == 'Bachelor of Science in Information Technology') ? 'selected' : ''; ?>>Bachelor of Science in Information Technology</option>
-                                                <option value="Bachelor of Science in Psychology" <?= ($this->input->post('program') == 'Bachelor of Science in Psychology') ? 'selected' : ''; ?>>Bachelor of Science in Psychology</option>
-                                                <option value="Bachelor of Arts in Political Science" <?= ($this->input->post('program') == 'Bachelor of Arts in Political Science') ? 'selected' : ''; ?>>Bachelor of Arts in Political Science</option>
-                                                <option value="Bachelor of Arts in Psychology" <?= ($this->input->post('program') == 'Bachelor of Arts in Psychology') ? 'selected' : ''; ?>>Bachelor of Arts in Psychology</option>
-                                                <option value="Science, Technology, Engineering and Mathematics (STEM)" <?= ($this->input->post('program') == 'Science, Technology, Engineering and Mathematics (STEM)') ? 'selected' : ''; ?>>Science, Technology, Engineering and Mathematics (STEM)</option>
-                                                <option value="Accountancy, Business and Management (ABM)" <?= ($this->input->post('program') == 'Accountancy, Business and Management (ABM)') ? 'selected' : ''; ?>>Accountancy, Business and Management (ABM)</option>
-                                                <option value="Humanities and Social Sciences (HUMMS)" <?= ($this->input->post('program') == 'Humanities and Social Sciences (HUMMS)') ? 'selected' : ''; ?>>Humanities and Social Sciences (HUMMS)</option>
-                                                <option value="Technical Vocational Livelihood (TVL)" <?= ($this->input->post('program') == 'Technical Vocational Livelihood (TVL)') ? 'selected' : ''; ?>>Technical Vocational Livelihood (TVL)</option>
-                                                <option value="Special Science Class" <?= ($this->input->post('program') == 'Special Science Class') ? 'selected' : ''; ?>>Special Science Class</option>
-                                                <option value="None" <?= ($this->input->post('program') == 'None') ? 'selected' : ''; ?>>None</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12">
-                                    <div class="col-md-4 mb-2">
                                             <select name="discount" class="form-control w-100">
                                                 <option value="">Select Discount</option>
                                                 <option value="5" <?= ($this->input->post('discount') == '5') ? 'selected' : ''; ?>>5%</option>
@@ -144,6 +111,9 @@
                                                 <option value="100" <?= ($this->input->post('discount') == '100') ? 'selected' : ''; ?>>100%</option>
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="row col-12">
+                                   
                                         <div class="col-md-4 mb-2">
                                             <select name="status" class="form-control w-100">
                                                 <option value="">Select Status</option>
@@ -330,13 +300,12 @@
             }
         });
 
-        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="year"], select[name="scholarship_program"], select[name="program"], select[name="discount"],  select[name="status"]').on('change', function() {
+        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="year"], select[name="scholarship_program"], select[name="discount"],  select[name="status"]').on('change', function() {
             var academic_year = $('select[name="academic_year"]').val();
             var semester = $('select[name="semester"]').val();
             var program_type = $('select[name="program_type"]').val();
             var year = $('select[name="year"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
-            var program = $('select[name="program"]').val();
             var discount = $('select[name="discount"]').val();
             var status = $('select[name="status"]').val();
 
@@ -345,7 +314,6 @@
                 .columns(4).search(program_type)
                 .columns(5).search(year)
                 .columns(6).search(scholarship_program)
-                .columns(7).search(program)
                 .columns(8).search(discount)
                 .columns(9).search(status)
                 .draw();

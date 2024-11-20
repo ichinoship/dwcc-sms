@@ -128,6 +128,54 @@ class Sc extends CI_Controller
         redirect('sc/add_announcement');
     }
 
+    public function program() {
+        $data['programs'] = $this->Sc_model->get_all_programs();
+        $this->load->view('sc/program', $data);
+    }
+
+    public function add_program() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('program_name', 'Program Name', 'required|trim');
+        $this->form_validation->set_rules('program_type', 'Program Type', 'required'); // Add validation for program_type
+    
+        if ($this->form_validation->run() == TRUE) {
+            $program_name = $this->input->post('program_name');
+            $program_type = $this->input->post('program_type');  // Get program_type from form
+    
+            // Add program with program_type
+            $this->Sc_model->add_program([
+                'program_name' => $program_name,
+                'program_type' => $program_type
+            ]);
+            $this->session->set_flashdata('message', 'School Program added successfully!');
+        } else {
+            $this->session->set_flashdata('message', validation_errors());
+        }
+    
+        redirect('sc/program');
+    }
+    
+    public function edit_program() {
+        $program_id = $this->input->post('program_id');
+        $program_name = $this->input->post('program_name');
+        $program_type = $this->input->post('program_type');  // Get program_type from form
+        
+        // Update school program with program_type
+        $this->Sc_model->update_school_program($program_id, [
+            'program_name' => $program_name,
+            'program_type' => $program_type
+        ]);
+        $this->session->set_flashdata('message', 'School Program updated successfully!');
+        redirect('sc/program');
+    }
+    
+    public function delete_program() {
+        $program_id = $this->input->post('program_id');
+        $this->Sc_model->delete_program($program_id);
+        $this->session->set_flashdata('message', 'School Program deleted successfully!');
+        redirect('sc/program');
+    }
+
     public function search()
     {
         $search_query = $this->input->post('search_query');

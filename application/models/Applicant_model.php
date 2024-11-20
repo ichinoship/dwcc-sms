@@ -317,6 +317,13 @@ class Applicant_model extends CI_Model
         return $query->result();
     }
 
+    public function get_programs()
+    {
+        // Get all programs from the 'program' table
+        $query = $this->db->get('program');
+        return $query->result(); // Returns an array of programs
+    }
+    
 
     public function get_applicants_report_by_twc($twc_id, $filters = array())
     {

@@ -198,6 +198,25 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
+    public function get_all_programs() {
+        $query = $this->db->get('program');
+        return $query->result();
+    }
+
+    public function add_program($data) {
+        return $this->db->insert('program', $data);
+    }
+
+    public function update_school_program($program_id, $data) {
+        $this->db->where('program_id', $program_id);
+        return $this->db->update('program', $data);
+    }
+    
+    public function delete_program($program_id) {
+        $this->db->where('program_id', $program_id);
+        return $this->db->delete('program');
+    }
+
 
     public function get_all_school_years()
     {

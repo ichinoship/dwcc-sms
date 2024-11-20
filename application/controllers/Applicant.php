@@ -66,6 +66,8 @@ class Applicant extends CI_Controller
         $this->form_validation->set_rules('applicant_residence', 'Residence', 'required');
         $this->load->library('upload');
 
+        $programs = $this->Applicant_model->get_programs();
+
         if (empty($_FILES['applicant_photo']['name'])) {
             $this->form_validation->set_rules(
                 'applicant_photo',
@@ -76,7 +78,8 @@ class Applicant extends CI_Controller
         }
 
         if ($this->form_validation->run() === FALSE) {
-            $this->load->view('applicant_registration');
+            $data['programs'] = $programs;
+            $this->load->view('applicant_registration', $data);
         } else {
             // Configuring the upload library
             $config['upload_path'] = './uploads/';
@@ -101,6 +104,8 @@ class Applicant extends CI_Controller
 
             $program_type = $this->input->post('program_type');
             $campus = ($program_type === 'College') ? 'Janssen' : 'Freinademetz';
+
+             
 
             $data = array(
                 'id_number' => $this->input->post('id_number'),
@@ -129,6 +134,7 @@ class Applicant extends CI_Controller
             }
         }
     }
+    
 
 
     public function accept($applicant_no)
