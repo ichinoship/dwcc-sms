@@ -33,7 +33,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover table-striped">
+                            <table id="profileTable" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>Full Name</th>
@@ -53,15 +53,15 @@
                                                 <td><?php echo $user->email; ?></td>
                                                 <td class="project-actions">
                                                     <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal"
-                                                       data-id="<?php echo $user->id; ?>"
-                                                       data-name="<?php echo $user->name; ?>"
-                                                       data-birthdate="<?php echo $user->birthdate; ?>"
-                                                       data-gender="<?php echo $user->gender; ?>"
-                                                       data-email="<?php echo $user->email; ?>">
+                                                        data-id="<?php echo $user->id; ?>"
+                                                        data-name="<?php echo $user->name; ?>"
+                                                        data-birthdate="<?php echo $user->birthdate; ?>"
+                                                        data-gender="<?php echo $user->gender; ?>"
+                                                        data-email="<?php echo $user->email; ?>">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
                                                     <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#changePasswordModal"
-                                                       data-id="<?php echo $user->id; ?>">
+                                                        data-id="<?php echo $user->id; ?>">
                                                         <i class="fas fa-key"></i>
                                                     </a>
                                                 </td>
@@ -166,8 +166,141 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    $(function() {
+        var table = $('#profileTable').DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": [{
+                    extend: "copy",
+                    text: "Copy",
+                },
+                {
+                    extend: "excel",
+                    text: "Excel",
+                },
+                {
+                    extend: "pdf",
+                    text: "Export to PDF",
+                    title: '',
+                    filename: function() {
+                        return "List-of-Admins";
+                    },
+                    customize: function(doc) {
+                        doc.pageMargins = [50, 100, 50, 100];
+
+                        doc.background = [{
+                            image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
+                            width: 624,
+                            height: 830
+                        }];
+
+                        doc.content.splice(0, 0, {
+                            text: 'Profile Information',
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: true,
+                            margin: [0, 20, 0, 0]
+                        });
+
+                        doc.content.splice(1, 0, {
+                            text: 'List of Administrators',
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: false,
+                            margin: [0, 0, 0, 20]
+                        });
+
+                        var currentDate = new Date().toLocaleDateString();
+                        doc.content.splice(2, 0, {
+                            text: `Date: ${currentDate}`,
+                            alignment: 'right',
+                            fontSize: 10,
+                            margin: [0, 0, 0, 10]
+                        });
+
+                        var table = doc.content[3];
+                        if (table && table.table) {
+                            table.layout = {
+                                hLineWidth: function() {
+                                    return 0.5;
+                                },
+                                vLineWidth: function() {
+                                    return 0.5;
+                                },
+                                hLineColor: function() {
+                                    return '#000';
+                                },
+                                vLineColor: function() {
+                                    return '#000';
+                                },
+                                paddingLeft: function() {
+                                    return 2;
+                                },
+                                paddingRight: function() {
+                                    return 2;
+                                },
+                                paddingTop: function() {
+                                    return 2;
+                                },
+                                paddingBottom: function() {
+                                    return 2;
+                                },
+                            };
+
+                            table.alignment = 'center';
+                            table.table.widths = ['30%', '20%', '20%', '30%'];
+
+                            var header = table.table.body[0];
+                            var filteredHeader = header.filter(function(cell, index) {
+                                return index !== 4;
+                            });
+                            table.table.body[0] = filteredHeader;
+
+                            for (var i = 1; i < table.table.body.length; i++) {
+                                table.table.body[i] = table.table.body[i].filter(function(cell, index) {
+                                    return index !== 4;
+                                });
+                            }
+
+                            for (var j = 0; j < filteredHeader.length; j++) {
+                                filteredHeader[j].fillColor = '#A6D18A';
+                                filteredHeader[j].color = '#000000';
+                            }
+
+                            for (var i = 1; i < table.table.body.length; i++) {
+                                for (var j = 0; j < table.table.body[i].length; j++) {
+                                    table.table.body[i][j].fillColor = '#FFFFFF';
+                                    table.table.body[i][j].fontSize = 11;
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    extend: "colvis",
+                    text: "Column Visibility",
+                }
+            ],
+            initComplete: function() {
+                this.api().columns(4).every(function() {
+                    var column = this;
+                    $('#userTypeFilter').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+                });
+            }
+        });
+
+        // Append the DataTable buttons to a specific location
+        table.buttons().container().appendTo('#profileTable_wrapper .col-md-6:eq(0)');
+    });
+</script>
+
+<script>
     $(document).ready(function() {
-        $('#editModal').on('show.bs.modal', function (event) {
+        $('#editModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var userId = button.data('id');
             var name = button.data('name');
@@ -183,7 +316,7 @@
             modal.find('#email').val(email);
         });
 
-        $('#changePasswordModal').on('show.bs.modal', function (event) {
+        $('#changePasswordModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var userId = button.data('id');
 
@@ -191,7 +324,7 @@
             modal.find('#changeUserId').val(userId);
         });
 
-        $('#editProfileForm').on('submit', function (event) {
+        $('#editProfileForm').on('submit', function(event) {
             event.preventDefault();
             var form = $(this);
             var formData = form.serialize();
@@ -200,11 +333,11 @@
                 url: '<?php echo base_url('profile/update'); ?>',
                 type: 'POST',
                 data: formData,
-                success: function (response) {
+                success: function(response) {
                     var jsonResponse = JSON.parse(response);
                     if (jsonResponse.status === 'success') {
                         $('#editModal').modal('hide');
-                        
+
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
@@ -224,7 +357,7 @@
                         });
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     Swal.fire({
                         icon: 'error',
                         title: 'An error occurred',
@@ -234,7 +367,7 @@
             });
         });
 
-        $('#changePasswordForm').on('submit', function (event) {
+        $('#changePasswordForm').on('submit', function(event) {
             event.preventDefault();
             var form = $(this);
             var formData = form.serialize();
@@ -243,11 +376,11 @@
                 url: '<?php echo base_url('profile/change_password'); ?>',
                 type: 'POST',
                 data: formData,
-                success: function (response) {
+                success: function(response) {
                     var jsonResponse = JSON.parse(response);
                     if (jsonResponse.status === 'success') {
                         $('#changePasswordModal').modal('hide');
-                        
+
                         Swal.fire({
                             icon: 'success',
                             title: 'Password changed successfully',
@@ -266,7 +399,7 @@
                         });
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     Swal.fire({
                         icon: 'error',
                         title: 'An error occurred',

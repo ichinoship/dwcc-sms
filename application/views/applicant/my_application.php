@@ -45,8 +45,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
+                        <table id="myApplication" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Full Name</th>
@@ -107,7 +106,7 @@
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                    </div>
+                  
                 </div>
             </div>
         </div>
@@ -136,6 +135,37 @@
 <?php $this->load->view('includes/applicant_footer'); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(function() {
+        var table = $('#myApplication').DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": [{
+                    extend: "copy",
+                    text: "Copy",
+                },
+                {
+                    extend: "colvis",
+                    text: "Column Visibility",
+                }
+            ],
+            initComplete: function() {
+                this.api().columns(4).every(function() {
+                    var column = this;
+                    $('#userTypeFilter').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+                });
+            }
+        });
+
+        // Append the DataTable buttons to a specific location
+        table.buttons().container().appendTo('#myApplication_wrapper .col-md-6:eq(0)');
+    });
+</script>
 
 <script>
     $('#commentModal').on('show.bs.modal', function(event) {

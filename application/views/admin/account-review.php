@@ -44,7 +44,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <div class="table-responsive">
+                
                         <table id="applicantTable" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
@@ -76,7 +76,7 @@
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                    </div> <!-- /.table-responsive -->
+                  
                 </div> <!-- /.card-body -->
             </div> <!-- /.card -->
         </div> <!-- /.container-fluid -->
@@ -87,3 +87,34 @@
 
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(function() {
+        var table = $('#applicantTable').DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": [{
+                    extend: "copy",
+                    text: "Copy",
+                },
+                {
+                    extend: "colvis",
+                    text: "Column Visibility",
+                }
+            ],
+            initComplete: function() {
+                this.api().columns(4).every(function() {
+                    var column = this;
+                    $('#userTypeFilter').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+                });
+            }
+        });
+
+        // Append the DataTable buttons to a specific location
+        table.buttons().container().appendTo('#applicantTable_wrapper .col-md-6:eq(0)');
+    });
+
+</script>

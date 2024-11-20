@@ -27,7 +27,7 @@
             <!-- Accepted Applicants Table -->
             <div class="card">
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-hover table-striped">
+                    <table id="applicantTable" class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>ID Number</th>
@@ -127,8 +127,137 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function() {
-        // Initialize DataTable
-        $('#applicantTable').DataTable();
+        var table = $('#applicantTable').DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": [{
+                    extend: "copy",
+                    text: "Copy",
+                },
+                {
+                    extend: "excel",
+                    text: "Excel",
+                },
+                {
+                    extend: "pdf",
+                    text: "Export to PDF",
+                    title: '',
+                    filename: function() {
+                        return "Applicant-Accounts";
+                    },
+                    customize: function(doc) {
+                        doc.pageMargins = [50, 100, 50, 100];
+
+                        doc.background = [{
+                            image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
+                            width: 624,
+                            height: 830
+                        }];
+
+                        doc.content.splice(0, 0, {
+                            text: 'Scholarship Management System',
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: true,
+                            margin: [0, 20, 0, 0]
+                        });
+
+                        doc.content.splice(1, 0, {
+                            text: 'List of Applicant Accounts',
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: false,
+                            margin: [0, 0, 0, 20]
+                        });
+
+                        var currentDate = new Date().toLocaleDateString();
+                        doc.content.splice(2, 0, {
+                            text: `Date: ${currentDate}`,
+                            alignment: 'right',
+                            fontSize: 10,
+                            margin: [0, 0, 0, 10]
+                        });
+
+                        var table = doc.content[3];
+                        if (table && table.table) {
+                            table.layout = {
+                                hLineWidth: function() {
+                                    return 0.5;
+                                },
+                                vLineWidth: function() {
+                                    return 0.5;
+                                },
+                                hLineColor: function() {
+                                    return '#000';
+                                },
+                                vLineColor: function() {
+                                    return '#000';
+                                },
+                                paddingLeft: function() {
+                                    return 2;
+                                },
+                                paddingRight: function() {
+                                    return 2;
+                                },
+                                paddingTop: function() {
+                                    return 2;
+                                },
+                                paddingBottom: function() {
+                                    return 2;
+                                },
+                            };
+
+                            table.alignment = 'center';
+                            table.table.widths = ['20%', '30%', '20%', '30%'];
+                            
+                            var header = table.table.body[0];
+                            var filteredHeader = header.filter(function(cell, index) {
+                                return index !== 4;
+                            });
+
+        
+                            table.table.body[0] = filteredHeader;
+
+                            for (var i = 1; i < table.table.body.length; i++) {
+                                table.table.body[i] = table.table.body[i].filter(function(cell, index) {
+                                    return index !== 4;
+                                });
+                            }
+
+                            for (var j = 0; j < filteredHeader.length; j++) {
+                                filteredHeader[j].fillColor = '#A6D18A';
+                                filteredHeader[j].color = '#000000';
+                            }
+
+                            for (var i = 1; i < table.table.body.length; i++) {
+                                for (var j = 0; j < table.table.body[i].length; j++) {
+                                    table.table.body[i][j].fillColor = '#FFFFFF';
+                                    table.table.body[i][j].fontSize = 11;
+                                }
+                            }
+                        }
+                    }
+
+                },
+                {
+                    extend: "colvis",
+                    text: "Column Visibility",
+                }
+            ],
+            initComplete: function() {
+                this.api().columns(4).every(function() {
+                    var column = this;
+                    $('#userTypeFilter').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+                });
+            }
+        });
+
+        // Append the DataTable buttons to a specific location
+        table.buttons().container().appendTo('#applicantTable_wrapper .col-md-6:eq(0)');
 
         // Show modal with pre-filled data
         $('#viewModal').on('show.bs.modal', function(event) {
