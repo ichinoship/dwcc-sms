@@ -204,16 +204,134 @@
 
 <script>
     $(document).ready(function() {
-        // Initialize DataTable with the new table ID
+
+        // Initialize DataTable with buttons
         var table = $('#applicantsTable').DataTable({
             "processing": true,
             "serverSide": false,
-            "paging": true,
+            "paging": false,
             "lengthChange": true,
             "searching": true,
             "ordering": true,
             "info": true,
             "autoWidth": false,
+            "responsive": true,
+            buttons: [{
+                    extend: "copy",
+                    text: "Copy",
+                },
+                {
+                    extend: "pdf",
+                    text: "Export to PDF",
+                    title: '',
+                    filename: function() {
+
+                        return "TWC - Scholarship Reports";
+                    },
+                    customize: function(doc) {
+
+                        var scholarshipProgram = $('select[name="scholarship_program"]').val();
+                        var programName = scholarshipProgram ? scholarshipProgram : "";
+
+                        doc.pageMargins = [50, 115, 50, 115];
+                        doc.background = [{
+                            image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
+                            width: 624,
+                            height: 830
+                        }];
+
+                        // Add title and details
+                        doc.content.splice(0, 0, {
+                            text: `SCHOLARSHIP REPORTS\n${programName}`,
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: true,
+                            margin: [0, 20, 0, 10]
+                        });
+
+                        doc.content.splice(1, 0, {
+                            text: 'List of Scholarship Applicants',
+                            alignment: 'center',
+                            fontSize: 12,
+                            bold: false,
+                            margin: [0, 0, 0, 20]
+                        });
+
+                        var currentDate = new Date().toLocaleDateString();
+                        doc.content.splice(2, 0, {
+                            text: `Date: ${currentDate}`,
+                            alignment: 'right',
+                            fontSize: 10,
+                            margin: [0, 0, 0, 10]
+                        });
+
+                        var table = doc.content[3];
+                        if (table && table.table) {
+                            table.layout = {
+                                hLineWidth: function() {
+                                    return 0.5;
+                                },
+                                vLineWidth: function() {
+                                    return 0.5;
+                                },
+                                hLineColor: function() {
+                                    return '#000';
+                                },
+                                vLineColor: function() {
+                                    return '#000';
+                                },
+                                paddingLeft: function() {
+                                    return 2;
+                                },
+                                paddingRight: function() {
+                                    return 2;
+                                },
+                                paddingTop: function() {
+                                    return 2;
+                                },
+                                paddingBottom: function() {
+                                    return 2;
+                                },
+                            };
+
+                            var header = table.table.body[0];
+                            for (var j = 0; j < header.length; j++) {
+                                header[j].fillColor = '#A6D18A';
+                                header[j].color = '#000000';
+                            }
+                        }
+
+                        doc.content.push({
+                            text: 'Prepared by:',
+                            alignment: 'left',
+                            margin: [0, 30, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                        doc.content.push({
+                            text: '<?= $this->session->userdata("user_name") ?>\n',
+                            alignment: 'left',
+                            margin: [0, 0, 0, 0],
+                            fontSize: 12,
+                            bold: true
+                        });
+                        doc.content.push({
+                            text: 'Technical Working Committee',
+                            alignment: 'left',
+                            margin: [0, 0, 0, 20],
+                            fontSize: 12,
+                            bold: false
+                        });
+                    }
+                },
+                {
+                    extend: "colvis",
+                    text: "Column Visibility",
+                }
+            ],
+            "initComplete": function() {
+                this.api().buttons().container().appendTo('#applicantsTable_wrapper .col-md-6:eq(0)');
+            }
         });
 
         // Apply filters on change
@@ -226,7 +344,6 @@
             var campus = $('select[name="campus"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
             var status = $('select[name="status"]').val();
-
 
             table.column(3).search(academic_year)
                 .column(4).search(semester)
@@ -256,7 +373,7 @@
 
         // Print functionality
         $('#printTable').on('click', function() {
-            window.print();
+            table.button('.buttons-pdf').trigger();
         });
     });
 </script>
