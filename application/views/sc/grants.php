@@ -94,6 +94,7 @@
     </section>
 </div>
 <?php $this->load->view('includes/footer') ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function resetFilters() {
         document.getElementById('academic_year').selectedIndex = 0;
@@ -104,6 +105,7 @@
     $(function() {
         var selectedAcademicYear = "<?= $selected_academic_year; ?>";
         var selectedSemester = "<?= $selected_semester; ?>";
+
 
         var table = $("#scholarship_grant").DataTable({
 
@@ -118,6 +120,25 @@
                     extend: "pdf",
                     text: "Export to PDF",
                     title: '',
+                    filename: function() {
+                        return "Scholarship-Grants";
+                    },
+                    action: function(e, dt, node, config) {
+
+                        if (!selectedAcademicYear || !selectedSemester) {
+
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Missing Filters',
+                                text: 'Please select both Academic Year and Semester before exporting the report.',
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+
+                            $.fn.dataTable.ext.buttons.pdfHtml5.action.call(this, e, dt, node, config);
+                        }
+                    },
+
                     customize: function(doc) {
                         // Page margins for PDF
                         doc.pageMargins = [50, 115, 50, 115];
@@ -138,11 +159,11 @@
                             margin: [0, 20, 0, 0]
                         });
 
-                        
+
                         doc.content.splice(1, 0, {
                             text: `ACADEMIC YEAR ${selectedAcademicYear.toUpperCase()} | ${selectedSemester.toUpperCase()}`,
                             alignment: 'center',
-                            fontSize: 10,
+                            fontSize: 12,
                             bold: true,
                             margin: [0, 0, 0, 20]
                         });

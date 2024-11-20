@@ -215,6 +215,9 @@
                     extend: "pdf",
                     text: "Export to PDF",
                     title: '',
+                    filename: function() {
+                        return "Scholarship-Reports";
+                    },
                     customize: function(doc) {
                         doc.pageMargins = [50, 115, 50, 115];
 

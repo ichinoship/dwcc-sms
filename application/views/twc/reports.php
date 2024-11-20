@@ -225,7 +225,6 @@
                     text: "Export to PDF",
                     title: '',
                     filename: function() {
-
                         return "TWC - Scholarship Reports";
                     },
                     customize: function(doc) {
