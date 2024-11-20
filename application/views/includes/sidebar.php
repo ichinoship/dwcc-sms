@@ -22,33 +22,33 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-    <div class="image">
-        <?php if (!empty($this->session->userdata('user_image'))): ?>
-            <!-- If user has a profile photo, display it -->
-            <img src="<?= base_url('uploads/' . $this->session->userdata('user_image')); ?>" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px;">
-        <?php else: ?>
-            <!-- If no profile photo, display default user icon -->
-            <i class="fas fa-user-circle text-white" style="font-size: 40px;"></i>
-        <?php endif; ?>
-    </div>
-    <div class="info mt-1">
-        <?php
-        $user_type = $this->session->userdata('user_type');
-        $update_url = '#';
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <?php if (!empty($this->session->userdata('user_image'))): ?>
+                    <!-- If user has a profile photo, display it -->
+                    <img src="<?= base_url('uploads/' . $this->session->userdata('user_image')); ?>" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px;">
+                <?php else: ?>
+                    <!-- If no profile photo, display default user icon -->
+                    <i class="fas fa-user-circle text-white" style="font-size: 40px;"></i>
+                <?php endif; ?>
+            </div>
+            <div class="info mt-1">
+                <?php
+                $user_type = $this->session->userdata('user_type');
+                $update_url = '#';
 
-        if ($user_type == 'Admin') {
-            $update_url = base_url('admin/profile');
-        } elseif ($user_type == 'Scholarship Coordinator') {
-            $update_url = base_url('sc/update_info');
-        } elseif ($user_type == 'TWC') {
-            $update_url = base_url('twc/update_info');
-        }
-        ?>
+                if ($user_type == 'Admin') {
+                    $update_url = base_url('admin/profile');
+                } elseif ($user_type == 'Scholarship Coordinator') {
+                    $update_url = base_url('sc/update_info');
+                } elseif ($user_type == 'TWC') {
+                    $update_url = base_url('twc/update_info');
+                }
+                ?>
 
-        <a href="<?= $update_url; ?>" class="d-block"><?= $this->session->userdata('user_name'); ?></a>
-    </div>
-</div>
+                <a href="<?= $update_url; ?>" class="d-block"><?= $this->session->userdata('user_name'); ?></a>
+            </div>
+        </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -89,19 +89,8 @@
                             <p>Account Review</p>
                         </a>
                     </li>
-                    <!-- Logout Link -->
-                    <div class="sidebar-bottom">
-                        <nav>
-                            <ul class="nav nav-pills nav-sidebar">
-                                <li class="nav-item">
-                                    <a href="<?= base_url('auth/logout'); ?>" class="nav-link">
-                                        <i class="nav-icon fas fa-sign-out-alt"></i>
-                                        <p>Logout</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+
+
                 <?php elseif ($user_type == 'Scholarship Coordinator'): ?>
                     <li class="nav-item">
                         <a href="<?= base_url('sc/dashboard'); ?>" class="nav-link <?= $this->uri->segment(1) == 'sc' && $this->uri->segment(2) == 'dashboard' ? 'active' : ''; ?>">
@@ -213,19 +202,7 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- Logout Link -->
-                    <div class="sidebar-bottom">
-                        <nav>
-                            <ul class="nav nav-pills nav-sidebar">
-                                <li class="nav-item">
-                                    <a href="<?= base_url('auth/logout'); ?>" class="nav-link">
-                                        <i class="nav-icon fas fa-sign-out-alt"></i>
-                                        <p>Logout</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+
 
                 <?php elseif ($user_type == 'TWC'): ?>
                     <li class="nav-item">
