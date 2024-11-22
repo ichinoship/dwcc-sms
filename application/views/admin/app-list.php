@@ -45,7 +45,7 @@
                                     <td><?= $applicant->campus; ?></td>
                                     <td><?= $applicant->program_type; ?></td>
                                     <td>
-                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewModal"
+                                        <button class="btn btn-primary btn-sm toogle-status" data-toggle="modal" data-target="#viewModal"
                                             data-id="<?= $applicant->account_no; ?>"
                                             data-firstname="<?= $applicant->firstname; ?>"
                                             data-middlename="<?= $applicant->middlename; ?>"
@@ -58,15 +58,15 @@
                                             data-year="<?= $applicant->year; ?>"
                                             data-program="<?= $applicant->program; ?>"
                                             data-address="<?= $applicant->address; ?>"
-                                            data-applicant_residence="<?= $applicant->applicant_residence; ?>">
+                                            data-applicant_residence="<?= $applicant->applicant_residence; ?>" title="View Applicant">
                                             <i class="fas fa-eye"></i>
                                         </button>
                                         <?php if ($applicant->account_status == 'active'): ?>
-                                            <button class="btn btn-danger btn-sm toggle-status" data-id="<?= $applicant->account_no; ?>" data-status="inactive">
+                                            <button class="btn btn-danger btn-sm toggle-status" data-id="<?= $applicant->account_no; ?>" data-status="inactive" title="Deactivate Account">
                                                 <i class="fas fa-user-slash"></i>
                                             </button>
                                         <?php else: ?>
-                                            <button class="btn btn-success btn-sm toggle-status" data-id="<?= $applicant->account_no; ?>" data-status="active">
+                                            <button class="btn btn-success btn-sm toggle-status" data-id="<?= $applicant->account_no; ?>" data-status="active" title="Activate Account">
                                                 <i class="fas fa-user-check"></i>
                                             </button>
                                         <?php endif; ?>

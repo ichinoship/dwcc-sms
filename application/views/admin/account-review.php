@@ -64,8 +64,8 @@
                                         <td><?= $applicant->program_type; ?></td>
                                         <td><?= $applicant->campus; ?></td>
                                         <td>
-                                            <a href="<?= site_url('applicant/accept/' . $applicant->account_no); ?>" class="btn btn-success btn-sm"><i class="fas fa-check"></i></a>
-                                            <a href="<?= site_url('applicant/decline/' . $applicant->account_no); ?>" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></a>
+                                            <a href="<?= site_url('applicant/accept/' . $applicant->account_no); ?>" class="btn btn-success btn-sm toogle-status" title="Accept Applicant"><i class="fas fa-check"></i></a>
+                                            <a href="<?= site_url('applicant/decline/' . $applicant->account_no); ?>" class="btn btn-danger btn-sm toogle-status" title="Reject Applicant"><i class="fas fa-times"></i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

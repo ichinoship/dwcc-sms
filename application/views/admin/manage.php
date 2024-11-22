@@ -77,7 +77,7 @@
                                             </td>
 
                                             <td class="project-actions">
-                                                <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#editModal"
+                                                <a class="btn btn-info btn-sm toogle-status" href="#" data-toggle="modal" data-target="#editModal"
                                                     data-id="<?php echo $user->id; ?>"
                                                     data-id_number="<?php echo $user->id_number; ?>"
                                                     data-name="<?php echo $user->name; ?>"
@@ -86,7 +86,7 @@
                                                     data-contact="<?php echo $user->contact; ?>"
                                                     data-email="<?php echo $user->email; ?>"
                                                     data-usertype="<?php echo $user->usertype; ?>"
-                                                    data-status="<?php echo $user->status; ?>">
+                                                    data-status="<?php echo $user->status; ?>" title="Edit User">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
                                             </td>
