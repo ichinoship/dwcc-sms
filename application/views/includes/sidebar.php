@@ -63,12 +63,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('admin/profile'); ?>" class="nav-link <?= $this->uri->segment(1) == 'admin' && $this->uri->segment(2) == 'profile' ? 'active' : ''; ?>">
-                            <i class="nav-icon fas fa-user-cog"></i>
-                            <p>Profile Management</p>
-                        </a>
-                    </li>
+                    
 
                     <li class="nav-item <?= ($this->uri->segment(1) == 'admin' && ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'add' || $this->uri->segment(2) == 'insert')) ? 'menu-open' : ''; ?>">
                         <a href="<?= base_url('admin/manage'); ?>" class="nav-link <?= $this->uri->segment(1) == 'admin' && ($this->uri->segment(2) == 'manage' || $this->uri->segment(2) == 'add' || $this->uri->segment(2) == 'insert') ? 'active' : ''; ?>">
@@ -88,6 +83,29 @@
                             <i class="nav-icon fas fa-user-check"></i>
                             <p>Account Review</p>
                         </a>
+                    </li>
+                    <li class="nav-item has-treeview <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'menu-open' : ''; ?>">
+                        <a href="#" class="nav-link <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'active' : ''; ?>">
+                            <i class="nav-icon fas fa-users-cog"></i>
+                            <p>
+                                Profile Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('admin/update_info'); ?>" class="nav-link <?= $this->uri->segment(2) == 'update_info' ? 'active' : ''; ?>">
+                                    <i class="fas fa-edit"></i>
+                                    <p>Edit Information</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('admin/change_password'); ?>" class="nav-link <?= $this->uri->segment(2) == 'change_password' ? 'active' : ''; ?>">
+                                    <i class="fas fa-key"></i>
+                                    <p>Change Password</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
 

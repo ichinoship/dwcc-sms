@@ -18,6 +18,10 @@ $route['admin/account_review'] = 'admin/account_review';
 $route['admin/app-list'] = 'admin/app_list';
 $route['applicant/accept/(:num)'] = 'applicant/accept/$1';
 $route['applicant/decline/(:num)'] = 'admin/decline_applicant/$1';
+$route['admin/update_info'] = 'admin/update_info';
+$route['admin/update_profile'] = 'admin/update_profile';
+$route['admin/change_password'] = 'admin/change_password';
+$route['admin/update_password'] = 'admin/update_password';
 
 // Scholarship Coordinator routes
 $route['sc/dashboard'] = 'sc/dashboard';   
