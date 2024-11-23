@@ -203,6 +203,15 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
+    public function get_programs_by_type($program_type = null)
+{
+    if ($program_type) {
+        $this->db->where('program_type', $program_type);
+    }
+    $query = $this->db->get('program');
+    return $query->result();
+}
+
     public function add_program($data) {
         return $this->db->insert('program', $data);
     }

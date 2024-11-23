@@ -50,7 +50,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2">
-                                            <select name="program_type" class="form-control w-100">
+                                            <select name="program_type" class="form-control w-100" id="program_type">
                                                 <option value="">Select Program Type</option>
                                                 <option value="College" <?= ($this->input->post('program_type') == 'College') ? 'selected' : ''; ?>>College</option>
                                                 <option value="Senior High School" <?= ($this->input->post('program_type') == 'Senior High School') ? 'selected' : ''; ?>>Senior High School</option>
@@ -97,6 +97,12 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2">
+                                            <select name="program" class="form-control w-100" id="program">
+                                                <option value="">Select Program</option>
+                                                <!-- Programs will be loaded dynamically -->
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
                                             <select name="discount" class="form-control w-100">
                                                 <option value="">Select Discount</option>
                                                 <option value="5" <?= ($this->input->post('discount') == '5') ? 'selected' : ''; ?>>5%</option>
@@ -111,9 +117,6 @@
                                                 <option value="100" <?= ($this->input->post('discount') == '100') ? 'selected' : ''; ?>>100%</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="row col-12">
-                                   
                                         <div class="col-md-4 mb-2">
                                             <select name="status" class="form-control w-100">
                                                 <option value="">Select Status</option>
@@ -126,6 +129,7 @@
                                             <button type="button" class="btn btn-secondary mr-2 col-md-6" id="resetFilters">Reset Filters</button>
                                         </div>
                                     </div>
+
                                 </form>
                             </div>
                             <table id="applicationsTable" class="table table-bordered table-hover table-striped">
@@ -286,7 +290,7 @@
                             fontSize: 12,
                             bold: false
                         });
-                       
+
                     }
 
                 },
@@ -300,12 +304,13 @@
             }
         });
 
-        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="year"], select[name="scholarship_program"], select[name="discount"],  select[name="status"]').on('change', function() {
+        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="year"], select[name="scholarship_program"], select[name="program"], select[name="discount"],  select[name="status"]').on('change', function() {
             var academic_year = $('select[name="academic_year"]').val();
             var semester = $('select[name="semester"]').val();
             var program_type = $('select[name="program_type"]').val();
             var year = $('select[name="year"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
+            var program = $('select[name="program"]').val();
             var discount = $('select[name="discount"]').val();
             var status = $('select[name="status"]').val();
 
@@ -314,6 +319,7 @@
                 .columns(4).search(program_type)
                 .columns(5).search(year)
                 .columns(6).search(scholarship_program)
+                .columns(7).search(program)
                 .columns(8).search(discount)
                 .columns(9).search(status)
                 .draw();
@@ -323,8 +329,8 @@
             $('select[name="academic_year"]').val('');
             $('select[name="semester"]').val('');
             $('select[name="program_type"]').val('');
-            $('select[name="scholarship_program"]').val('');
             $('select[name="year"]').val('');
+            $('select[name="scholarship_program"]').val('');
             $('select[name="program"]').val('');
             $('select[name="discount"]').val('');
             $('select[name="status"]').val('');
@@ -333,6 +339,28 @@
 
         $('#printTable').on('click', function() {
             table.button('.buttons-pdf').trigger();
+        });
+    });
+
+    $('#program_type').on('change', function() {
+        var program_type = $(this).val();
+        $.ajax({
+            url: "<?= base_url('sc/get_programs_by_type'); ?>",
+            type: "POST",
+            data: {
+                program_type: program_type
+            },
+            dataType: "json",
+            success: function(data) {
+                var programDropdown = $('#program');
+                programDropdown.empty();
+                programDropdown.append('<option value="">Select Program</option>');
+                if (data.length > 0) {
+                    $.each(data, function(index, program) {
+                        programDropdown.append('<option value="' + program.program + '">' + program.program + '</option>');
+                    });
+                }
+            }
         });
     });
 </script>

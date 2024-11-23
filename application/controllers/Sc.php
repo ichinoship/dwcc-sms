@@ -629,50 +629,54 @@ class Sc extends CI_Controller
             log_message('error', 'Email not sent: ' . $this->email->print_debugger());
         }
     }
-    // Controller (update reports method)
+
     public function reports()
     {
+        $program_type = $this->input->post('program_type');
+    
         $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
         $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
+        $data['programs'] = $this->Sc_model->get_programs_by_type($program_type); 
         $data['applicant_counts'] = $this->Applicant_model->get_applicant_counts();
         $data['total_programs'] = $this->Sc_model->count_scholarship_programs();
-
-        // Filter for scholarship reports
+    
         $scholarship_filters = array(
             'academic_year' => $this->input->post('academic_year'),
             'semester' => $this->input->post('semester'),
-            'program_type' => $this->input->post('program_type'),
+            'program_type' => $program_type,
             'year' => $this->input->post('year'),
             'scholarship_program' => $this->input->post('scholarship_program'),
-            'discount' => $this->input->post('discount'),
             'program' => $this->input->post('program'),
+            'discount' => $this->input->post('discount'),
             'status' => $this->input->post('status')
         );
-
+    
         $data['applications'] = $this->Sc_model->get_applications($scholarship_filters);
         $this->load->view('sc/reports', $data);
     }
 
+    public function get_programs_by_type()
+{
+    $program_type = $this->input->post('program_type');
+    $programs = $this->Sc_model->get_programs_by_type($program_type);
+    echo json_encode($programs);
+}
+
     public function grants()
     {
-        // Fetching common data for the view
         $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
         $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
 
-        // Filter for grants
         $grants_filters = array(
             'academic_year' => $this->input->post('academic_year'),
             'semester' => $this->input->post('semester')
         );
 
-        // Store selected filters for grants
         $data['selected_academic_year'] = $grants_filters['academic_year'];
         $data['selected_semester'] = $grants_filters['semester'];
 
-        // Fetch grantee counts based on grants filters
         $data['grantee_counts'] = $this->Sc_model->get_grantee_counts($grants_filters);
 
-        // Load the grants view
         $this->load->view('sc/grants', $data);
     }
 
