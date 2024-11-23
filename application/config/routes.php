@@ -9,7 +9,6 @@ $route['auth/logout'] = 'auth/logout';
 // Admin routes
 $route['admin/dashboard'] = 'admin/dashboard';   
 $route['admin/search'] = 'admin/search';
-$route['admin/profile'] = 'admin/profile'; 
 $route['admin/manage'] = 'admin/manage';       
 $route['admin/manage/add'] = 'admin/add';       
 $route['admin/manage/insert'] = 'admin/insert'; 

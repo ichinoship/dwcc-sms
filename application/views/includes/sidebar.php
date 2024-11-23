@@ -38,7 +38,7 @@
                 $update_url = '#';
 
                 if ($user_type == 'Admin') {
-                    $update_url = base_url('admin/profile');
+                    $update_url = base_url('admin/update_info');
                 } elseif ($user_type == 'Scholarship Coordinator') {
                     $update_url = base_url('sc/update_info');
                 } elseif ($user_type == 'TWC') {

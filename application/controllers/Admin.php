@@ -172,12 +172,6 @@ class Admin extends CI_Controller
         }
     }
 
-    public function profile()
-    {
-        $data['users'] = $this->Admin_model->get_all_users();
-        $this->load->view('admin/profile', $data);
-    }
-
     public function account_review()
     {
         $data['applicants'] = $this->Admin_model->get_pending_applicants();
