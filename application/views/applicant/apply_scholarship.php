@@ -121,10 +121,10 @@
                                         value="<?php echo isset($active_academic_year) ? $active_academic_year : ''; ?>" readonly>
                                 </div>
                                 <div class="col-md-6 form-group">
-    <label for="semester">Semester <span class="text-danger">*</span></label>
-    <input type="text" class="form-control" id="semester" name="semester" 
-           value="<?= (!empty($semesters)) ? $default_semester : $default_semester ?>" readonly>
-</div>
+                                    <label for="semester">Semester <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="semester" name="semester"
+                                        value="<?= (!empty($semesters)) ? $default_semester : $default_semester ?>" readonly>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group">

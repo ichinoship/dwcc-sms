@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2024 at 06:07 AM
+-- Generation Time: Nov 23, 2024 at 03:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -64,7 +64,7 @@ CREATE TABLE `applicants` (
   `email` varchar(100) NOT NULL,
   `program_type` enum('College','Senior High School','Junior High School','Grade School') NOT NULL,
   `year` enum('5th','4th','3rd','2nd','1st','Grade 12','Grade 11','Grade 10','Grade 9','Grade 8','Grade 7','Grade 6','Grade 5','Grade 4','Grade 3','Grade 2','Grade 1','Senior Kinder','Junior Kinder','Special Education') NOT NULL,
-  `program` enum('Bachelor of Science in Business Administration','Bachelor of Science in Hospitality Management','Bachelor of Science in Tourism Management','Bachelor of Science in Accountancy','Bachelor of Science in Management Accounting','Bachelor of Science in Criminology','Bachelor of Science in Civil Engineering','Bachelor of Science in Computer Engineering','Bachelor of Science in Electronics Engineering','Bachelor of Science in Electrical Engineering','Bachelor of Science in Architecture','Bachelor of Science in Fine Arts','Bachelor of Science in Elementary Education','Bachelor of Science in Secondary Education','Bachelor of Science in Physical Education','Bachelor of Science in Information Technology','Bachelor of Science in Psychology','Bachelor of Arts in Political Science','Bachelor of Arts in Psychology','Science, Technology, Engineering and Mathematics (STEM)','Accountancy, Business and Management (ABM)','Humanities and Social Sciences (HUMMS)','Technical Vocational Livelihood (TVL)','Special Science Class','None') DEFAULT NULL,
+  `program` varchar(100) NOT NULL,
   `campus` enum('Janssen','Freinademetz') NOT NULL,
   `address` varchar(100) NOT NULL,
   `applicant_residence` varchar(100) NOT NULL,
@@ -72,15 +72,14 @@ CREATE TABLE `applicants` (
   `status` enum('pending','accepted','declined') NOT NULL DEFAULT 'pending',
   `account_status` enum('active','inactive') NOT NULL DEFAULT 'active',
   `applicant_photo` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `applicants`
 --
 
 INSERT INTO `applicants` (`account_no`, `id_number`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `password`, `status`, `account_status`, `applicant_photo`) VALUES
-(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '$2y$10$heH3xi41y1FXbvdgU13xUOHi.FEHWeg2r.LO2CYEByigE3dKPq0gq', 'accepted', 'active', '47293_photo1.jpg'),
-(2, 47664, 'Enshrine Yna', 'Pangesban', 'Calderon', '2001-03-01', 'Female', '09123456781', 'enshrineyna.calderon@gmail.com', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'Lalud, Calapan City, Oriental Mindoro', 'With Relative', '$2y$10$/jPet3KrEEjZyuWHy6Q9JeC6RxPzK.A5iqs/HdcrOPGeo7PxwbmV.', 'accepted', 'active', '47664_photo.jpg');
+(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09812480380', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '$2y$10$MPsgmogp17Sf9CFXNc47GO8DQRwKkuwlYfeNosqvlUYhQ2UWuDplG', 'accepted', 'active', '47293_photo.jpg');
 
 -- --------------------------------------------------------
 
@@ -102,7 +101,7 @@ CREATE TABLE `application_form` (
   `email` varchar(100) NOT NULL,
   `program_type` enum('College','Senior High School','Junior High School','Grade School') NOT NULL,
   `year` enum('5th','4th','3rd','2nd','1st','Grade 12','Grade 11','Grade 10','Grade 9','Grade 8','Grade 7','Grade 6','Grade 5','Grade 4','Grade 3','Grade 2','Grade 1','Senior Kinder','Junior Kinder','Special Education') NOT NULL,
-  `program` enum('Bachelor of Science in Business Administration','Bachelor of Science in Hospitality Management','Bachelor of Science in Tourism Management','Bachelor of Science in Accountancy','Bachelor of Science in Management Accounting','Bachelor of Science in Criminology','Bachelor of Science in Civil Engineering','Bachelor of Science in Computer Engineering','Bachelor of Science in Electronics Engineering','Bachelor of Science in Electrical Engineering','Bachelor of Science in Architecture','Bachelor of Science in Fine Arts','Bachelor of Science in Elementary Education','Bachelor of Science in Secondary Education','Bachelor of Science in Physical Education','Bachelor of Science in Information Technology','Bachelor of Science in Psychology','Bachelor of Arts in Political Science','Bachelor of Arts in Psychology','Science, Technology, Engineering and Mathematics (STEM)','Accountancy, Business and Management (ABM)','Humanities and Social Sciences (HUMMS)','Technical Vocational Livelihood (TVL)','Special Science Class','None') DEFAULT NULL,
+  `program` varchar(100) NOT NULL,
   `campus` enum('Janssen','Freinademetz') NOT NULL,
   `address` varchar(100) NOT NULL,
   `applicant_residence` varchar(100) NOT NULL,
@@ -122,10 +121,8 @@ CREATE TABLE `application_form` (
 --
 
 INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`, `date_status_changed`) VALUES
-(1, 1, 47293, '47293_photo1.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'Certificate-of-Enrollment-Dimaano1.pdf', '', 50, 'qualified', NULL),
-(2, 1, 47293, '47293_photo1.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'REQUIREMENTS-SMS.pdf', NULL, 0, 'pending', NULL),
-(3, 2, 47664, '47664_photo.jpg', 'Enshrine Yna', 'Pangesban', 'Calderon', '2001-03-01', 'Female', '09123456781', 'enshrineyna.calderon@gmail.com', 'Junior High School', 'Grade 10', 'Special Science Class', 'Freinademetz', 'Lalud, Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', 'Whole Semester', 'Renewal', 'Academic Scholarship (BE)', 'REQUIREMENTS-SMS1.pdf', NULL, 0, 'pending', NULL),
-(4, 1, 47293, '47293_photo1.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09123456789', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '2nd Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS2.pdf', NULL, 0, 'pending', NULL);
+(1, 1, 47293, '47293_photo.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09812480380', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'announcement1.png', '', 70, 'qualified', NULL),
+(2, 1, 47293, '47293_photo.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09812480380', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'announcement2.png', NULL, 0, 'pending', NULL);
 
 -- --------------------------------------------------------
 
@@ -142,7 +139,7 @@ CREATE TABLE `final_list` (
   `lastname` varchar(50) NOT NULL,
   `program_type` enum('College','Senior High School','Junior High School','Grade School') NOT NULL,
   `year` enum('5th','4th','3rd','2nd','1st','Grade 12','Grade 11','Grade 10','Grade 9','Grade 8','Grade 7','Grade 6','Grade 5','Grade 4','Grade 3','Grade 2','Grade 1','Senior Kinder','Junior Kinder','Special Education') NOT NULL,
-  `program` enum('Bachelor of Science in Business Administration','Bachelor of Science in Hospitality Management','Bachelor of Science in Tourism Management','Bachelor of Science in Accountancy','Bachelor of Science in Management Accounting','Bachelor of Science in Criminology','Bachelor of Science in Civil Engineering','Bachelor of Science in Computer Engineering','Bachelor of Science in Electronics Engineering','Bachelor of Science in Electrical Engineering','Bachelor of Science in Architecture','Bachelor of Science in Fine Arts','Bachelor of Elementary Education','Bachelor of Secondary Education','Bachelor of Physical Education','Bachelor of Science in Information Technology','Bachelor of Science in Psychology','Bachelor of Arts in Political Science','Bachelor of Arts in Psychology','Science, Technology, Engineering and Mathematics (STEM)','Accountancy, Business and Management (ABM)','Humanities and Social Sciences (HUMMS)','Technical Vocational Livelihood (TVL)','Special Science Class','None') DEFAULT NULL,
+  `program` varchar(100) NOT NULL,
   `campus` enum('Janssen','Freinademetz') NOT NULL,
   `application_type` enum('Renewal','New Applicant') NOT NULL,
   `academic_year` varchar(9) NOT NULL,
@@ -156,7 +153,50 @@ CREATE TABLE `final_list` (
 --
 
 INSERT INTO `final_list` (`final_list_id`, `applicant_no`, `id_number`, `firstname`, `middlename`, `lastname`, `program_type`, `year`, `program`, `campus`, `application_type`, `academic_year`, `semester`, `scholarship_program`, `discount`) VALUES
-(1, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 50);
+(2, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 70);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `program`
+--
+
+CREATE TABLE `program` (
+  `program_id` int(11) NOT NULL,
+  `program` varchar(100) NOT NULL,
+  `program_type` enum('College','Senior High School','JHS/Grade School') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `program`
+--
+
+INSERT INTO `program` (`program_id`, `program`, `program_type`) VALUES
+(1, 'Bachelor of Science in Business Administration', 'College'),
+(2, 'Bachelor of Science in Hospitality Management', 'College'),
+(3, 'Bachelor of Science in Tourism Management', 'College'),
+(4, 'Bachelor of Science in Accountancy', 'College'),
+(5, 'Bachelor of Science in Management Accounting', 'College'),
+(6, 'Bachelor of Science in Criminology', 'College'),
+(7, 'Bachelor of Science in Civil Engineering', 'College'),
+(8, 'Bachelor of Science in Computer Engineering', 'College'),
+(9, 'Bachelor of Science in Electronics Engineering', 'College'),
+(10, 'Bachelor of Science in Electrical Engineering', 'College'),
+(11, 'Bachelor of Science in Architecture', 'College'),
+(12, 'Bachelor of Science in Fine Arts', 'College'),
+(13, 'Bachelor of Elementary Education', 'College'),
+(14, 'Bachelor of Secondary Education', 'College'),
+(15, 'Bachelor of Physical Education', 'College'),
+(16, 'Bachelor of Science in Information Technology', 'College'),
+(17, 'Bachelor of Science in Psychology', 'College'),
+(18, 'Bachelor of Arts in Political Science', 'College'),
+(19, 'Bachelor of Arts in Psychology', 'College'),
+(20, 'TRACK - ACADEMIC CSS', 'Senior High School'),
+(21, 'TRACK - ACADEMIC TVL', 'Senior High School'),
+(22, 'STRAND - STEM', 'Senior High School'),
+(23, 'STRAND - ABM', 'Senior High School'),
+(24, 'STRAND - HUMSS', 'Senior High School'),
+(25, 'No Program', 'JHS/Grade School');
 
 -- --------------------------------------------------------
 
@@ -320,7 +360,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `id_number`, `name`, `contact`, `email`, `birthdate`, `gender`, `password`, `usertype`, `status`, `user_photo`, `created_at`) VALUES
 (1, 'A001', 'Admin', '09123456780', 'admin@gmail.com', '1990-01-05', 'male', '66f5b0a363ec5413c51c2785cd61e579', 'Admin', 1, '1_admin.png', '2024-09-05 09:27:14'),
 (2, 'SC001', 'Scholarship Coodinator', '09123456781', 'dwcc-sms@gmail.com', '1990-02-14', 'female', '1bfe895c6878ef32f981ab8239a54c3d', 'Scholarship Coordinator', 1, '2_photo.png', '2024-09-05 09:32:04'),
-(3, 'TWC001', 'TWC1', '09123456782', 'twc1@gmail.com', '1996-09-04', 'male', '3c5915ec253b0aa5e4b7328890cf2962', 'TWC', 1, '3_photo.png', '2024-09-05 09:33:45'),
+(3, 'TWC001', 'TWC1', '09123456782', 'twc1@gmail.com', '1996-09-04', 'male', '3c5915ec253b0aa5e4b7328890cf2962', 'TWC', 1, 'Committee.png', '2024-09-05 09:33:45'),
 (4, 'TWC002', 'TWC2', '09123456783', 'twc2@gmail.com', '1990-09-05', 'female', '293e631f6745d546a9383ae8352c0e51', 'TWC', 1, '', '2024-09-05 09:34:48'),
 (5, 'TWC003', 'TWC3', '09123456784', 'twc3@gmail.com', '1996-12-11', 'female', '0c86f0ade55e83cffb94dec827f4a626', 'TWC', 1, '', '2024-09-05 09:49:51'),
 (6, 'TWC004', 'TWC4', '09123456785', 'twc4@gmail.com', '1990-09-02', 'male', 'c8874012555bf45a9e63a3defef61324', 'TWC', 1, '', '2024-09-05 09:53:15'),
@@ -353,7 +393,8 @@ ALTER TABLE `announcements`
 -- Indexes for table `applicants`
 --
 ALTER TABLE `applicants`
-  ADD PRIMARY KEY (`account_no`);
+  ADD PRIMARY KEY (`account_no`),
+  ADD KEY `fk_applicants_program` (`program`);
 
 --
 -- Indexes for table `application_form`
@@ -362,7 +403,9 @@ ALTER TABLE `application_form`
   ADD PRIMARY KEY (`applicant_no`),
   ADD KEY `account_no` (`account_no`),
   ADD KEY `fk_scholarship_program` (`scholarship_program`),
-  ADD KEY `fk_academic_year` (`academic_year`);
+  ADD KEY `fk_academic_year` (`academic_year`),
+  ADD KEY `fk_application_form_program` (`program`),
+  ADD KEY `fk_application_form_semester` (`semester`);
 
 --
 -- Indexes for table `final_list`
@@ -370,6 +413,13 @@ ALTER TABLE `application_form`
 ALTER TABLE `final_list`
   ADD PRIMARY KEY (`final_list_id`),
   ADD KEY `fk_applicant_no` (`applicant_no`);
+
+--
+-- Indexes for table `program`
+--
+ALTER TABLE `program`
+  ADD PRIMARY KEY (`program_id`),
+  ADD UNIQUE KEY `unique_program` (`program`);
 
 --
 -- Indexes for table `requirements`
@@ -396,7 +446,8 @@ ALTER TABLE `school_year`
 -- Indexes for table `semester`
 --
 ALTER TABLE `semester`
-  ADD PRIMARY KEY (`semester_id`);
+  ADD PRIMARY KEY (`semester_id`),
+  ADD UNIQUE KEY `semester` (`semester`);
 
 --
 -- Indexes for table `users`
@@ -421,7 +472,7 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `application_form`
@@ -433,7 +484,13 @@ ALTER TABLE `application_form`
 -- AUTO_INCREMENT for table `final_list`
 --
 ALTER TABLE `final_list`
-  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `program`
+--
+ALTER TABLE `program`
+  MODIFY `program_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `requirements`
@@ -470,11 +527,19 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `applicants`
+--
+ALTER TABLE `applicants`
+  ADD CONSTRAINT `fk_applicants_program` FOREIGN KEY (`program`) REFERENCES `program` (`program`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `application_form`
 --
 ALTER TABLE `application_form`
   ADD CONSTRAINT `application_form_ibfk_1` FOREIGN KEY (`account_no`) REFERENCES `applicants` (`account_no`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_academic_year` FOREIGN KEY (`academic_year`) REFERENCES `school_year` (`academic_year`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_application_form_program` FOREIGN KEY (`program`) REFERENCES `program` (`program`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_application_form_semester` FOREIGN KEY (`semester`) REFERENCES `semester` (`semester`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_scholarship_program` FOREIGN KEY (`scholarship_program`) REFERENCES `scholarship_programs` (`scholarship_program`) ON DELETE CASCADE;
 
 --

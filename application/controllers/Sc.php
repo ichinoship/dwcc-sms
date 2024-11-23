@@ -135,16 +135,16 @@ class Sc extends CI_Controller
 
     public function add_program() {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('program_name', 'Program Name', 'required|trim');
-        $this->form_validation->set_rules('program_type', 'Program Type', 'required'); // Add validation for program_type
+        $this->form_validation->set_rules('program', 'Program Name', 'required|trim');
+        $this->form_validation->set_rules('program_type', 'Program Type', 'required'); 
     
         if ($this->form_validation->run() == TRUE) {
-            $program_name = $this->input->post('program_name');
-            $program_type = $this->input->post('program_type');  // Get program_type from form
+            $program = $this->input->post('program');
+            $program_type = $this->input->post('program_type'); 
     
             // Add program with program_type
             $this->Sc_model->add_program([
-                'program_name' => $program_name,
+                'program' => $program,
                 'program_type' => $program_type
             ]);
             $this->session->set_flashdata('message', 'School Program added successfully!');
@@ -157,12 +157,11 @@ class Sc extends CI_Controller
     
     public function edit_program() {
         $program_id = $this->input->post('program_id');
-        $program_name = $this->input->post('program_name');
-        $program_type = $this->input->post('program_type');  // Get program_type from form
+        $program = $this->input->post('program');
+        $program_type = $this->input->post('program_type'); 
         
-        // Update school program with program_type
         $this->Sc_model->update_school_program($program_id, [
-            'program_name' => $program_name,
+            'program' => $program,
             'program_type' => $program_type
         ]);
         $this->session->set_flashdata('message', 'School Program updated successfully!');

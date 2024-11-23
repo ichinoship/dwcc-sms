@@ -179,8 +179,8 @@
                   <select name="program" id="program" class="form-control  <?= form_error('program') ? 'is-invalid' : ''; ?>">
                     <option value="">Select Program</option>
                     <?php foreach ($programs as $program): ?>
-                      <option value="<?= $program->program_name ?>" <?= set_select('program', $program->program_name); ?>>
-                        <?= $program->program_name ?>
+                      <option value="<?= $program->program ?>" <?= set_select('program', $program->program); ?>>
+                        <?= $program->program ?>
                       </option>
                     <?php endforeach; ?>
                   </select>
@@ -237,18 +237,18 @@
       programs.forEach(function(program) {
         if (programType === "College" && program.program_type === "College") {
           var option = document.createElement("option");
-          option.value = program.program_name;
-          option.textContent = program.program_name;
+          option.value = program.program;
+          option.textContent = program.program;
           programDropdown.appendChild(option);
         } else if (programType === "Senior High School" && program.program_type === "Senior High School") {
           var option = document.createElement("option");
-          option.value = program.program_name;
-          option.textContent = program.program_name;
+          option.value = program.program;
+          option.textContent = program.program;
           programDropdown.appendChild(option);
         } else if ((programType === "Junior High School" || programType === "Grade School") && program.program_type === "JHS/Grade School") {
           var option = document.createElement("option");
-          option.value = program.program_name;
-          option.textContent = program.program_name;
+          option.value = program.program;
+          option.textContent = program.program;
           programDropdown.appendChild(option);
         }
       });

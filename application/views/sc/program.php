@@ -48,14 +48,14 @@
                                         <?php foreach ($programs as $program) : ?>
                                             <tr>
                                                 <td><?= $program->program_id; ?></td>
-                                                <td><?= $program->program_name; ?></td>
+                                                <td><?= $program->program; ?></td>
                                                 <td><?= $program->program_type; ?></td>
                                                 <td>
                                                     <button class="btn btn-primary btn-sm edit-btn"
                                                         data-toggle="modal"
                                                         data-target="#editProgramModal"
                                                         data-id="<?= $program->program_id; ?>"
-                                                        data-name="<?= $program->program_name; ?>"
+                                                        data-name="<?= $program->program; ?>"
                                                         data-type="<?= $program->program_type; ?>">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
@@ -96,8 +96,8 @@
             <form action="<?= base_url('sc/add_program'); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="program_name">Program Name</label>
-                        <input type="text" name="program_name" id="program_name" class="form-control" required>
+                        <label for="program">Program Name</label>
+                        <input type="text" name="program" id="program" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="program_type">Program Type</label>
@@ -132,8 +132,8 @@
                 <div class="modal-body">
                     <input type="hidden" name="program_id" id="edit_program_id">
                     <div class="form-group">
-                        <label for="edit_program_name">Program Name</label>
-                        <input type="text" name="program_name" id="edit_program_name" class="form-control" required>
+                        <label for="edit_program">Program Name</label>
+                        <input type="text" name="program" id="edit_program" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="edit_program_type">Program Type</label>
@@ -193,11 +193,11 @@
         // Edit button click
         $('.edit-btn').on('click', function() {
             const programId = $(this).data('id');
-            const programName = $(this).data('name');
+            const program = $(this).data('name');
             const programType = $(this).data('type'); // Add program_type data
 
             $('#edit_program_id').val(programId);
-            $('#edit_program_name').val(programName);
+            $('#edit_program').val(program);
             $('#edit_program_type').val(programType); // Set selected program_type
         });
 
