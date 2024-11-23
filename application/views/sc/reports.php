@@ -99,7 +99,19 @@
                                         <div class="col-md-4 mb-2">
                                             <select name="program" class="form-control w-100" id="program">
                                                 <option value="">Select Program</option>
-                                                <!-- Programs will be loaded dynamically -->
+                                                <?php foreach ($programs_track as $program_strand): ?>
+                                                    <option value="<?= $program_strand->program ?>" <?= set_select('program', $program_strand->program); ?>>
+                                                        <?= $program_strand->program ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select name="application_type" class="form-control w-100">
+                                                <option value="">Select Application Type</option>
+                                                <option value="New Applicant" <?= ($this->input->post('application_type') == 'New Applicant') ? 'selected' : ''; ?>>New Applicant</option>
+                                                <option value="Renewal" <?= ($this->input->post('application_type') == 'Renewal') ? 'selected' : ''; ?>>Renewal</option>
+                                               
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2">
@@ -117,6 +129,8 @@
                                                 <option value="100" <?= ($this->input->post('discount') == '100') ? 'selected' : ''; ?>>100%</option>
                                             </select>
                                         </div>
+
+                                        
                                         <div class="col-md-4 mb-2">
                                             <select name="status" class="form-control w-100">
                                                 <option value="">Select Status</option>
@@ -143,6 +157,7 @@
                                         <th>Year</th>
                                         <th>Scholarship Program</th>
                                         <th>Program</th>
+                                        <th>Application Type</th>
                                         <th>Discount</th>
                                         <th>Status</th>
                                     </tr>
@@ -158,6 +173,7 @@
                                             <td><?= $application->year; ?></td>
                                             <td><?= $application->scholarship_program; ?></td>
                                             <td><?= $application->program; ?></td>
+                                            <td><?= $application->application_type; ?></td>
                                             <td><?= $application->discount; ?></td>
                                             <td><?= ucwords($application->status); ?></td>
                                         </tr>
@@ -304,13 +320,14 @@
             }
         });
 
-        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="year"], select[name="scholarship_program"], select[name="program"], select[name="discount"],  select[name="status"]').on('change', function() {
+        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="year"], select[name="scholarship_program"], select[name="program"], select[name="application_type"], select[name="discount"],  select[name="status"]').on('change', function() {
             var academic_year = $('select[name="academic_year"]').val();
             var semester = $('select[name="semester"]').val();
             var program_type = $('select[name="program_type"]').val();
             var year = $('select[name="year"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
             var program = $('select[name="program"]').val();
+            var application_type = $('select[name="application_type"]').val();
             var discount = $('select[name="discount"]').val();
             var status = $('select[name="status"]').val();
 
@@ -320,8 +337,9 @@
                 .columns(5).search(year)
                 .columns(6).search(scholarship_program)
                 .columns(7).search(program)
-                .columns(8).search(discount)
-                .columns(9).search(status)
+                .columns(8).search(application_type)
+                .columns(9).search(discount)
+                .columns(10).search(status)
                 .draw();
         });
 
@@ -332,6 +350,7 @@
             $('select[name="year"]').val('');
             $('select[name="scholarship_program"]').val('');
             $('select[name="program"]').val('');
+            $('select[name="application_type"]').val('');
             $('select[name="discount"]').val('');
             $('select[name="status"]').val('');
             table.columns().search('').draw();

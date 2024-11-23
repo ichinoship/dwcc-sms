@@ -163,7 +163,7 @@ class Sc_model extends CI_Model
 
     public function get_applications($filters = array())
     {
-        $this->db->select('id_number, firstname, middlename, lastname, academic_year, semester, program_type, year, scholarship_program, program, discount, status');
+        $this->db->select('id_number, firstname, middlename, lastname, academic_year, semester, program_type, year, scholarship_program, program, application_type, discount, status');
         $this->db->from('application_form af');
 
 
@@ -184,6 +184,9 @@ class Sc_model extends CI_Model
         }
         if (!empty($filters['program'])) {
             $this->db->where('af.program', $filters['program']);
+        }
+        if (!empty($filters['application_type'])) {
+            $this->db->where('af.application_type', $filters['application_type']);
         }
         if (!empty($filters['discount'])) {
             $this->db->where('af.discount', $filters['discount']);

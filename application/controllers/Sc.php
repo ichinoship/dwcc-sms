@@ -639,7 +639,10 @@ class Sc extends CI_Controller
         $data['programs'] = $this->Sc_model->get_programs_by_type($program_type); 
         $data['applicant_counts'] = $this->Applicant_model->get_applicant_counts();
         $data['total_programs'] = $this->Sc_model->count_scholarship_programs();
-    
+        
+        $programs = $this->Applicant_model->get_programs();
+        $data['programs_track'] = $programs;
+
         $scholarship_filters = array(
             'academic_year' => $this->input->post('academic_year'),
             'semester' => $this->input->post('semester'),
@@ -647,6 +650,7 @@ class Sc extends CI_Controller
             'year' => $this->input->post('year'),
             'scholarship_program' => $this->input->post('scholarship_program'),
             'program' => $this->input->post('program'),
+            'application_type' => $this->input->post('application_type'),
             'discount' => $this->input->post('discount'),
             'status' => $this->input->post('status')
         );
