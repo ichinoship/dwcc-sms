@@ -123,7 +123,7 @@
                                 <div class="col-md-6 form-group">
                                     <label for="semester">Semester <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="semester" name="semester"
-                                        value="<?= (!empty($semesters)) ? $default_semester : $default_semester ?>" readonly>
+                                        value="<?= ($default_semester) ? $default_semester : 'No Semester Available' ?>" readonly>
                                 </div>
                             </div>
                             <div class="row">

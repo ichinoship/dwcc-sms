@@ -128,20 +128,22 @@ class Sc extends CI_Controller
         redirect('sc/add_announcement');
     }
 
-    public function program() {
+    public function program()
+    {
         $data['programs'] = $this->Sc_model->get_all_programs();
         $this->load->view('sc/program', $data);
     }
 
-    public function add_program() {
+    public function add_program()
+    {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('program', 'Program Name', 'required|trim');
-        $this->form_validation->set_rules('program_type', 'Program Type', 'required'); 
-    
+        $this->form_validation->set_rules('program_type', 'Program Type', 'required');
+
         if ($this->form_validation->run() == TRUE) {
             $program = $this->input->post('program');
-            $program_type = $this->input->post('program_type'); 
-    
+            $program_type = $this->input->post('program_type');
+
             // Add program with program_type
             $this->Sc_model->add_program([
                 'program' => $program,
@@ -151,15 +153,16 @@ class Sc extends CI_Controller
         } else {
             $this->session->set_flashdata('message', validation_errors());
         }
-    
+
         redirect('sc/program');
     }
-    
-    public function edit_program() {
+
+    public function edit_program()
+    {
         $program_id = $this->input->post('program_id');
         $program = $this->input->post('program');
-        $program_type = $this->input->post('program_type'); 
-        
+        $program_type = $this->input->post('program_type');
+
         $this->Sc_model->update_school_program($program_id, [
             'program' => $program,
             'program_type' => $program_type
@@ -167,8 +170,9 @@ class Sc extends CI_Controller
         $this->session->set_flashdata('message', 'School Program updated successfully!');
         redirect('sc/program');
     }
-    
-    public function delete_program() {
+
+    public function delete_program()
+    {
         $program_id = $this->input->post('program_id');
         $this->Sc_model->delete_program($program_id);
         $this->session->set_flashdata('message', 'School Program deleted successfully!');
@@ -428,33 +432,48 @@ class Sc extends CI_Controller
 
     public function semester()
     {
+        $this->load->model('Sc_model');
         $data['semesters'] = $this->Sc_model->get_all_semesters();
+
+        $data['semesters'] = array_filter($data['semesters'], function ($semester) {
+            return $semester->semester !== 'Whole Semester';
+        });
+
+        $data['semesters'] = array_values($data['semesters']);
+
         $this->load->view('sc/semester', $data);
     }
 
     public function toggle_semester_status()
-    {
-        $semester_id = $this->input->post('semester_id');
-        $status = $this->input->post('status');
+{
+    $semester_id = $this->input->post('semester_id');
+    $status = $this->input->post('status');
 
-        $this->load->model('Sc_model');
+    $this->load->model('Sc_model');
 
-        $semester = $this->Sc_model->get_semester_by_id($semester_id);
+    // Fetch the semester type (e.g., 1st Semester or 2nd Semester)
+    $current_semester = $this->Sc_model->get_semester_by_id($semester_id);
 
-        if ($status == 'active') {
-            $other_semester = ($semester->semester == '1st Semester') ? '2nd Semester' : '1st Semester';
-            $this->Sc_model->update_semester_status_by_name($other_semester, 'inactive');
-        }
-
-        $data = array('status' => $status);
-        $result = $this->Sc_model->update_semester_status($semester_id, $data);
-
-        if ($result) {
-            echo 'success';
-        } else {
-            echo 'failure';
-        }
+    if (!$current_semester) {
+        echo 'failure';
+        return;
     }
+
+    if ($status == 'active' && in_array($current_semester->semester, ['1st Semester', '2nd Semester'])) {
+        // Deactivate the other semester of type 1st or 2nd Semester
+        $this->Sc_model->deactivate_other_semesters($semester_id);
+    }
+
+    // Update the selected semester's status
+    $data = array('status' => $status);
+    $result = $this->Sc_model->update_semester_status($semester_id, $data);
+
+    if ($result) {
+        echo 'success';
+    } else {
+        echo 'failure';
+    }
+}
 
     public function view_list($school_year_id)
     {
@@ -633,13 +652,13 @@ class Sc extends CI_Controller
     public function reports()
     {
         $program_type = $this->input->post('program_type');
-    
+
         $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
         $data['scholarship_programs'] = $this->Sc_model->get_all_scholarship_programs();
-        $data['programs'] = $this->Sc_model->get_programs_by_type($program_type); 
+        $data['programs'] = $this->Sc_model->get_programs_by_type($program_type);
         $data['applicant_counts'] = $this->Applicant_model->get_applicant_counts();
         $data['total_programs'] = $this->Sc_model->count_scholarship_programs();
-        
+
         $programs = $this->Applicant_model->get_programs();
         $data['programs_track'] = $programs;
 
@@ -654,17 +673,17 @@ class Sc extends CI_Controller
             'discount' => $this->input->post('discount'),
             'status' => $this->input->post('status')
         );
-    
+
         $data['applications'] = $this->Sc_model->get_applications($scholarship_filters);
         $this->load->view('sc/reports', $data);
     }
 
     public function get_programs_by_type()
-{
-    $program_type = $this->input->post('program_type');
-    $programs = $this->Sc_model->get_programs_by_type($program_type);
-    echo json_encode($programs);
-}
+    {
+        $program_type = $this->input->post('program_type');
+        $programs = $this->Sc_model->get_programs_by_type($program_type);
+        echo json_encode($programs);
+    }
 
     public function grants()
     {

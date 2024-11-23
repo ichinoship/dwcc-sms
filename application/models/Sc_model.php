@@ -54,23 +54,7 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    public function update_semester_dates($semester_id, $start_date, $end_date)
-    {
 
-        $data = [
-            'start_date' => $start_date,
-            'end_date' => $end_date
-        ];
-
-        $this->db->where('semester_id', $semester_id);
-        return $this->db->update('semester', $data);
-    }
-
-    public function update_semester_status_by_name($semester_name, $status)
-    {
-        $this->db->where('semester', $semester_name);
-        $this->db->update('semester', array('status' => $status));
-    }
 
     public function get_all_semesters()
     {
@@ -201,30 +185,34 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    public function get_all_programs() {
+    public function get_all_programs()
+    {
         $query = $this->db->get('program');
         return $query->result();
     }
 
     public function get_programs_by_type($program_type = null)
-{
-    if ($program_type) {
-        $this->db->where('program_type', $program_type);
+    {
+        if ($program_type) {
+            $this->db->where('program_type', $program_type);
+        }
+        $query = $this->db->get('program');
+        return $query->result();
     }
-    $query = $this->db->get('program');
-    return $query->result();
-}
 
-    public function add_program($data) {
+    public function add_program($data)
+    {
         return $this->db->insert('program', $data);
     }
 
-    public function update_school_program($program_id, $data) {
+    public function update_school_program($program_id, $data)
+    {
         $this->db->where('program_id', $program_id);
         return $this->db->update('program', $data);
     }
-    
-    public function delete_program($program_id) {
+
+    public function delete_program($program_id)
+    {
         $this->db->where('program_id', $program_id);
         return $this->db->delete('program');
     }
@@ -603,9 +591,16 @@ class Sc_model extends CI_Model
     }
     public function get_semester_by_id($semester_id)
     {
-        return $this->db->where('semester_id', $semester_id)->get('semester')->row();
+        return $this->db->get_where('semester', array('semester_id' => $semester_id))->row();
     }
 
+    public function deactivate_other_semesters($current_semester_id)
+    {
+        $this->db->where('semester_id !=', $current_semester_id);
+        $this->db->where_in('semester', ['1st Semester', '2nd Semester']);
+        $this->db->where('status', 'active');
+        $this->db->update('semester', array('status' => 'inactive'));
+    }
 
     public function add_announcement($data)
     {
