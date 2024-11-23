@@ -381,6 +381,7 @@ class Applicant extends CI_Controller
 
         $id_number = $this->session->userdata('user_id_number');
         $current_date = date('Y-m-d');
+        $current_month = date('n'); 
 
         $applicant = $this->Applicant_model->get_info($id_number);
         $data['applicant'] = $applicant;
@@ -393,27 +394,30 @@ class Applicant extends CI_Controller
         $data['scholarship_programs'] = $filtered_programs;
         $data['active_academic_year'] = $this->Applicant_model->get_active_academic_year();
 
+        $semesters = [];
+        $default_semester = null;
+
         if (in_array($applicant->program_type, ['College', 'Senior High School'])) {
-
-            $semesters = $this->Applicant_model->get_active_semesters(['1st Semester', '2nd Semester']);
-
-
-            $active_semesters = array_filter($semesters, function ($semester) {
-                return $semester->status == 'active';
-            });
-
-            if (!empty($active_semesters)) {
-                $default_semester = reset($active_semesters)->semester;
-            } else {
-                $default_semester = null;
+            if ($current_month >= 8 && $current_month <= 12) {
+                // 1st Semester: August to December
+                $semesters = $this->Applicant_model->get_semesters(['1st Semester']);
+            } elseif ($current_month >= 1 && $current_month <= 5) {
+                // 2nd Semester: January to May
+                $semesters = $this->Applicant_model->get_semesters(['2nd Semester']);
             }
-        } else if (in_array($applicant->program_type, ['Junior High School', 'Grade School'])) {
-            $semesters = $this->Applicant_model->get_active_semesters(['Whole Semester']);
-            $default_semester = !empty($semesters) ? 'Whole Semester' : null;
+        } elseif (in_array($applicant->program_type, ['Junior High School', 'Grade School'])) {
+            if ($current_month >= 8 || $current_month <= 5) {
+                // Whole Semester: August to May
+                $semesters = $this->Applicant_model->get_semesters(['Whole Semester']);
+            }
+        }
+
+        if (!empty($semesters)) {
+            $default_semester = reset($semesters)->semester;
         }
 
         $data['semesters'] = $semesters;
-        $data['default_semester'] = $default_semester;
+        $data['default_semester'] = $default_semester ?: 'No Semester Available';
 
         $this->load->view('applicant/apply_scholarship', $data);
     }
@@ -426,19 +430,14 @@ class Applicant extends CI_Controller
         $id_number = $this->input->post('id_number');
         $academic_year = $this->input->post('academic_year');
         $semester = $this->input->post('semester');
-        $scholarship_program = $this->input->post('scholarship_program');
 
-        $semesters = $this->Applicant_model->get_active_semesters(['1st Semester', '2nd Semester']);
-        $active_semesters = array_filter($semesters, function ($semester) {
-            return $semester->status == 'active';
-        });
-
-        if (empty($active_semesters)) {
-
-            $this->session->set_flashdata('error', 'No active semesters are available for application.');
+        if (!$semester || $semester == 'No Semester Available') {
+            $this->session->set_flashdata('error', 'No semester is currently available for applications.');
             redirect('applicant/apply_scholarship');
             return;
         }
+        $scholarship_program = $this->input->post('scholarship_program');
+
 
         $account_no = $this->Applicant_model->get_account_no($this->session->userdata('user_id_number'));
         if (!$account_no) {

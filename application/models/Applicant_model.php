@@ -52,13 +52,14 @@ class Applicant_model extends CI_Model
         return $query->row();
     }
 
-    public function get_active_semesters($semester_types = [])
-    {
-        $this->db->where_in('semester', $semester_types);
-        $this->db->where('status', 'active');
-        $query = $this->db->get('semester');
-        return $query->result();
-    }
+    public function get_semesters($allowed_semesters)
+{
+    $this->db->select('*');
+    $this->db->from('semester');
+    $this->db->where_in('semester', $allowed_semesters);
+    $query = $this->db->get();
+    return $query->result();
+}
 
     public function get_academic_filter_years()
     {

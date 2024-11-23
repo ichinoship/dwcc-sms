@@ -77,16 +77,6 @@ class Sc_model extends CI_Model
         return $query->result();
     }
 
-    public function insert_semester($data)
-    {
-        return $this->db->insert('semester', $data);
-    }
-
-    public function update_semester_status($semester_id, $data)
-    {
-        $this->db->where('semester_id', $semester_id);
-        return $this->db->update('semester', $data);
-    }
 
     public function get_all_academic_years()
     {
@@ -594,13 +584,6 @@ class Sc_model extends CI_Model
         return $this->db->get_where('semester', array('semester_id' => $semester_id))->row();
     }
 
-    public function deactivate_other_semesters($current_semester_id)
-    {
-        $this->db->where('semester_id !=', $current_semester_id);
-        $this->db->where_in('semester', ['1st Semester', '2nd Semester']);
-        $this->db->where('status', 'active');
-        $this->db->update('semester', array('status' => 'inactive'));
-    }
 
     public function add_announcement($data)
     {

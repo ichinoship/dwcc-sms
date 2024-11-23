@@ -139,13 +139,6 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= base_url('sc/semester'); ?>"
-                                    class="nav-link <?= $this->uri->segment(2) == 'semester' ? 'active' : ''; ?>">
-                                    <i class="fas fa-layer-group nav-icon"></i>
-                                    <p>Semester</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="<?= base_url('sc/program'); ?>"
                                     class="nav-link <?= $this->uri->segment(2) == 'program' ? 'active' : ''; ?>">
                                     <i class="fas fa-chalkboard-teacher nav-icon"></i>

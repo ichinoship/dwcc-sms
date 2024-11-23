@@ -32,7 +32,6 @@ $route['sc/add_program'] = 'sc/add_program';
 $route['sc/scholarship-program'] = 'sc/scholarship_program';
 $route['sc/manage_requirements'] = 'sc/manage_requirements';
 $route['sc/school-year'] = 'sc/school_year';
-$route['sc/semester'] = 'sc/semester';
 $route['sc/app_evaluation'] = 'sc/app_evaluation';    
 $route['sc/view_list/(:any)/(:any)'] = 'sc/view_list/$1/$2';
 $route['sc/view_shortlist_applicant/(:num)'] = 'sc/view_shortlist_applicant/$1';

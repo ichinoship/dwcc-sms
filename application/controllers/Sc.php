@@ -430,51 +430,6 @@ class Sc extends CI_Controller
         }
     }
 
-    public function semester()
-    {
-        $this->load->model('Sc_model');
-        $data['semesters'] = $this->Sc_model->get_all_semesters();
-
-        $data['semesters'] = array_filter($data['semesters'], function ($semester) {
-            return $semester->semester !== 'Whole Semester';
-        });
-
-        $data['semesters'] = array_values($data['semesters']);
-
-        $this->load->view('sc/semester', $data);
-    }
-
-    public function toggle_semester_status()
-{
-    $semester_id = $this->input->post('semester_id');
-    $status = $this->input->post('status');
-
-    $this->load->model('Sc_model');
-
-    // Fetch the semester type (e.g., 1st Semester or 2nd Semester)
-    $current_semester = $this->Sc_model->get_semester_by_id($semester_id);
-
-    if (!$current_semester) {
-        echo 'failure';
-        return;
-    }
-
-    if ($status == 'active' && in_array($current_semester->semester, ['1st Semester', '2nd Semester'])) {
-        // Deactivate the other semester of type 1st or 2nd Semester
-        $this->Sc_model->deactivate_other_semesters($semester_id);
-    }
-
-    // Update the selected semester's status
-    $data = array('status' => $status);
-    $result = $this->Sc_model->update_semester_status($semester_id, $data);
-
-    if ($result) {
-        echo 'success';
-    } else {
-        echo 'failure';
-    }
-}
-
     public function view_list($school_year_id)
     {
         $this->load->model('Applicant_model');

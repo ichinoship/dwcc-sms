@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2024 at 03:42 AM
+-- Generation Time: Nov 23, 2024 at 02:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -79,7 +79,9 @@ CREATE TABLE `applicants` (
 --
 
 INSERT INTO `applicants` (`account_no`, `id_number`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `password`, `status`, `account_status`, `applicant_photo`) VALUES
-(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09812480380', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '$2y$10$MPsgmogp17Sf9CFXNc47GO8DQRwKkuwlYfeNosqvlUYhQ2UWuDplG', 'accepted', 'active', '47293_photo.jpg');
+(1, 47293, 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09812480380', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '$2y$10$MPsgmogp17Sf9CFXNc47GO8DQRwKkuwlYfeNosqvlUYhQ2UWuDplG', 'accepted', 'active', '47293_photo.jpg'),
+(2, 47325, 'Ichinoshi', 'Benter', 'Paradiang', '2002-11-29', 'Male', '09123456785', 'ichinoship@gmail.com', 'College', '4th', 'Bachelor of Science in Electrical Engineering', 'Janssen', 'Lalud, Calapan City, Oriental Mindoro', 'DWCC Dormitory', '$2y$10$vpnqSMkaXst1naveUnxW9ekY.eygJEjunAVQTMJknT6gyMvLDIhzK', 'accepted', 'active', '47325_photo.jpg'),
+(3, 47312, 'Hayley', 'Smith', 'Williams', '1990-03-12', 'Female', '09123456791', 'hayley.smith@gmail.com', 'Junior High School', 'Grade 10', 'No Program', 'Freinademetz', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'Off-Campus Boarding House', '$2y$10$fYhnhOlUoAXLudrX3oxlueiFDnJG785TfdCp29U1MyGQjt9B9F97.', 'accepted', 'active', '47312_photo.jpg');
 
 -- --------------------------------------------------------
 
@@ -121,8 +123,8 @@ CREATE TABLE `application_form` (
 --
 
 INSERT INTO `application_form` (`applicant_no`, `account_no`, `id_number`, `applicant_photo`, `firstname`, `middlename`, `lastname`, `birthdate`, `gender`, `contact`, `email`, `program_type`, `year`, `program`, `campus`, `address`, `applicant_residence`, `academic_year`, `semester`, `application_type`, `scholarship_program`, `requirements`, `comment`, `discount`, `status`, `date_status_changed`) VALUES
-(1, 1, 47293, '47293_photo.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09812480380', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'announcement1.png', '', 70, 'qualified', NULL),
-(2, 1, 47293, '47293_photo.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09812480380', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'announcement2.png', NULL, 0, 'pending', NULL);
+(1, 1, 47293, '47293_photo.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09812480380', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Academic Scholar (Dean’s Lister)', 'REQUIREMENTS-SMS.pdf', '', 50, 'qualified', NULL),
+(2, 1, 47293, '47293_photo.jpg', 'Janica', 'Nagutom', 'Dimaano', '2003-01-13', 'Female', '09812480380', 'djanica21@gmail.com', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'Lopez St., Ilaya Calapan City, Oriental Mindoro', 'With Relative', '2025-2026', '1st Semester', 'New Applicant', 'Gazette Scholarship Program', 'REQUIREMENTS-SMS1.pdf', NULL, 0, 'pending', NULL);
 
 -- --------------------------------------------------------
 
@@ -153,7 +155,7 @@ CREATE TABLE `final_list` (
 --
 
 INSERT INTO `final_list` (`final_list_id`, `applicant_no`, `id_number`, `firstname`, `middlename`, `lastname`, `program_type`, `year`, `program`, `campus`, `application_type`, `academic_year`, `semester`, `scholarship_program`, `discount`) VALUES
-(2, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 70);
+(3, 1, 47293, 'Janica', 'Nagutom', 'Dimaano', 'College', '4th', 'Bachelor of Science in Information Technology', 'Janssen', 'New Applicant', '2025-2026', '1st Semester', 'Academic Scholar (Dean’s Lister)', 50);
 
 -- --------------------------------------------------------
 
@@ -319,18 +321,17 @@ INSERT INTO `school_year` (`school_year_id`, `academic_year`, `year_status`) VAL
 
 CREATE TABLE `semester` (
   `semester_id` int(11) NOT NULL,
-  `semester` enum('1st Semester','2nd Semester','Whole Semester') NOT NULL,
-  `status` enum('active','inactive') DEFAULT 'active'
+  `semester` enum('1st Semester','2nd Semester','Whole Semester') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `semester`
 --
 
-INSERT INTO `semester` (`semester_id`, `semester`, `status`) VALUES
-(1, '1st Semester', 'active'),
-(2, 'Whole Semester', 'active'),
-(3, '2nd Semester', 'inactive');
+INSERT INTO `semester` (`semester_id`, `semester`) VALUES
+(1, '1st Semester'),
+(3, '2nd Semester'),
+(2, 'Whole Semester');
 
 -- --------------------------------------------------------
 
@@ -358,7 +359,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_number`, `name`, `contact`, `email`, `birthdate`, `gender`, `password`, `usertype`, `status`, `user_photo`, `created_at`) VALUES
-(1, 'A001', 'Admin', '09123456780', 'admin@gmail.com', '1990-01-05', 'male', '66f5b0a363ec5413c51c2785cd61e579', 'Admin', 1, '1_admin.png', '2024-09-05 09:27:14'),
+(1, 'A001', 'Admin', '09123456780', 'admin@gmail.com', '1990-01-05', 'male', '66f5b0a363ec5413c51c2785cd61e579', 'Admin', 1, '1_photo.jpg', '2024-09-05 09:27:14'),
 (2, 'SC001', 'Scholarship Coodinator', '09123456781', 'dwcc-sms@gmail.com', '1990-02-14', 'female', '1bfe895c6878ef32f981ab8239a54c3d', 'Scholarship Coordinator', 1, '2_photo.png', '2024-09-05 09:32:04'),
 (3, 'TWC001', 'TWC1', '09123456782', 'twc1@gmail.com', '1996-09-04', 'male', '3c5915ec253b0aa5e4b7328890cf2962', 'TWC', 1, 'Committee.png', '2024-09-05 09:33:45'),
 (4, 'TWC002', 'TWC2', '09123456783', 'twc2@gmail.com', '1990-09-05', 'female', '293e631f6745d546a9383ae8352c0e51', 'TWC', 1, '', '2024-09-05 09:34:48'),
@@ -472,7 +473,7 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `account_no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `application_form`
@@ -484,7 +485,7 @@ ALTER TABLE `application_form`
 -- AUTO_INCREMENT for table `final_list`
 --
 ALTER TABLE `final_list`
-  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `final_list_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `program`
