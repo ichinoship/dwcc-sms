@@ -88,7 +88,7 @@
                         <a href="#" class="nav-link <?= $this->uri->segment(2) == 'update_info' || $this->uri->segment(2) == 'change_password' || $this->uri->segment(2) == 'update_password' ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
-                                Profile Management
+                                Account Settings
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
