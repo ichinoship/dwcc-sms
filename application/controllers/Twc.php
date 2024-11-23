@@ -177,6 +177,8 @@ class Twc extends CI_Controller
         $user_id = $this->session->userdata('user_id');
         $data['academic_years'] = $this->Sc_model->get_academic_filter_years();
         $data['scholarship_programs'] = $this->Twc_model->get_scholarship_programs_by_user($user_id);
+        $programs = $this->Applicant_model->get_programs();
+        $data['programs_track'] = $programs;
 
         $academic_year = $this->input->post('academic_year');
         $semester = $this->input->post('semester');
@@ -186,6 +188,7 @@ class Twc extends CI_Controller
         $campus = $this->input->post('campus');
         $status = $this->input->post('status');
         $scholarship_program = $this->input->post('scholarship_program');
+        $application_type = $this->input->post('application_type');
 
         // Prepare filters array
         $filters = array();
@@ -206,6 +209,9 @@ class Twc extends CI_Controller
         }
         if (!empty($campus)) {
             $filters['campus'] = $campus;
+        }
+        if (!empty($campus)) {
+            $filters['application_type'] = $campus;
         }
         if (!empty($status)) {
             $filters['status'] = $status;

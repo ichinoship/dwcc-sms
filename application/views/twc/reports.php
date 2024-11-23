@@ -105,6 +105,24 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2">
+                                            <select name="program" class="form-control w-100" id="program">
+                                                <option value="">Select Program</option>
+                                                <?php foreach ($programs_track as $program_strand): ?>
+                                                    <option value="<?= $program_strand->program ?>" <?= set_select('program', $program_strand->program); ?>>
+                                                        <?= $program_strand->program ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select name="application_type" class="form-control w-100">
+                                                <option value="">Select Application Type</option>
+                                                <option value="New Applicant" <?= ($this->input->post('application_type') == 'New Applicant') ? 'selected' : ''; ?>>New Applicant</option>
+                                                <option value="Renewal" <?= ($this->input->post('application_type') == 'Renewal') ? 'selected' : ''; ?>>Renewal</option>
+                                               
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
                                             <select name="status" class="form-control w-100">
                                                 <option value="">Select Status</option>
                                                 <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
@@ -130,6 +148,7 @@
                                         <th>Program</th>
                                         <th>Campus</th>
                                         <th>Scholarship Program</th>
+                                        <th>Application Type</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -147,6 +166,7 @@
                                                 <td><?= $applicant->program; ?></td>
                                                 <td><?= $applicant->campus; ?></td>
                                                 <td><?= $applicant->scholarship_program; ?></td>
+                                                <td><?= $applicant->application_type; ?></td>
                                                 <td class="status-column"><?= ucwords($applicant->status); ?></td>
 
                                             </tr>
@@ -304,7 +324,7 @@
         });
 
         // Apply filters on change
-        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="year"], select[name="campus"], select[name="status"], select[name="scholarship_program"]').on('change', function() {
+        $('select[name="academic_year"], select[name="semester"], select[name="program_type"], select[name="year"], select[name="campus"], select[name="status"], select[name="scholarship_program"], select[name="program"], select[name="application_type"]').on('change', function() {
             var academic_year = $('select[name="academic_year"]').val();
             var semester = $('select[name="semester"]').val();
             var program_type = $('select[name="program_type"]').val();
@@ -312,14 +332,18 @@
             var campus = $('select[name="campus"]').val();
             var scholarship_program = $('select[name="scholarship_program"]').val();
             var status = $('select[name="status"]').val();
+            var program = $('select[name="program"]').val();
+            var application_type = $('select[name="application_type"]').val();
 
             table.column(3).search(academic_year)
                 .column(4).search(semester)
                 .column(5).search(program_type)
                 .column(6).search(year)
+                .column(7).search(program)
                 .column(8).search(campus)
                 .column(9).search(scholarship_program)
-                .column(10).search(status)
+                .column(10).search(application_type)
+                .column(11).search(status)
                 .draw();
         });
 
@@ -332,7 +356,9 @@
             $('select[name="campus"]').val('');
             $('select[name="scholarship_program"]').val('');
             $('select[name="status"]').val('');
-
+            $('select[name="program"]').val('');
+            $('select[name="application_type"]').val('');
+            
             // Clear all search filters and redraw
             table.columns().search('').draw();
         });
