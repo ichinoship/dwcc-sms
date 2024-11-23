@@ -58,32 +58,11 @@
                                                 <option value="Grade School" <?= ($this->input->post('program_type') == 'Grade School') ? 'selected' : ''; ?>>Grade School</option>
                                             </select>
                                         </div>
-
                                     </div>
                                     <div class="row col-12">
                                         <div class="col-md-4 mb-2">
-                                            <select name="year" class="form-control w-100">
+                                            <select name="year" id="year" class="form-control w-100">
                                                 <option value="">Select Year</option>
-                                                <option value="5th" <?= ($this->input->post('year') == '5th') ? 'selected' : ''; ?>>5th</option>
-                                                <option value="4th" <?= ($this->input->post('year') == '4th') ? 'selected' : ''; ?>>4th</option>
-                                                <option value="3rd" <?= ($this->input->post('year') == '3rd') ? 'selected' : ''; ?>>3rd</option>
-                                                <option value="2nd" <?= ($this->input->post('year') == '2nd') ? 'selected' : ''; ?>>2nd</option>
-                                                <option value="1st" <?= ($this->input->post('year') == '1st') ? 'selected' : ''; ?>>1st</option>
-                                                <option value="Grade 12" <?= ($this->input->post('year') == 'Grade 12') ? 'selected' : ''; ?>>Grade 12</option>
-                                                <option value="Grade 11" <?= ($this->input->post('year') == 'Grade 11') ? 'selected' : ''; ?>>Grade 11</option>
-                                                <option value="Grade 10" <?= ($this->input->post('year') == 'Grade 10') ? 'selected' : ''; ?>>Grade 10</option>
-                                                <option value="Grade 9" <?= ($this->input->post('year') == 'Grade 9') ? 'selected' : ''; ?>>Grade 9</option>
-                                                <option value="Grade 8" <?= ($this->input->post('year') == 'Grade 8') ? 'selected' : ''; ?>>Grade 8</option>
-                                                <option value="Grade 7" <?= ($this->input->post('year') == 'Grade 7') ? 'selected' : ''; ?>>Grade 7</option>
-                                                <option value="Grade 6" <?= ($this->input->post('year') == 'Grade 6') ? 'selected' : ''; ?>>Grade 6</option>
-                                                <option value="Grade 5" <?= ($this->input->post('year') == 'Grade 5') ? 'selected' : ''; ?>>Grade 5</option>
-                                                <option value="Grade 4" <?= ($this->input->post('year') == 'Grade 4') ? 'selected' : ''; ?>>Grade 4</option>
-                                                <option value="Grade 3" <?= ($this->input->post('year') == 'Grade 3') ? 'selected' : ''; ?>>Grade 3</option>
-                                                <option value="Grade 2" <?= ($this->input->post('year') == 'Grade 2') ? 'selected' : ''; ?>>Grade 2</option>
-                                                <option value="Grade 1" <?= ($this->input->post('year') == 'Grade 1') ? 'selected' : ''; ?>>Grade 1</option>
-                                                <option value="Senior Kinder" <?= ($this->input->post('year') == 'Senior Kinder') ? 'selected' : ''; ?>>Senior Kinder</option>
-                                                <option value="Junior Kinder" <?= ($this->input->post('year') == 'Junior Kinder') ? 'selected' : ''; ?>>Junior Kinder</option>
-                                                <option value="Special Education" <?= ($this->input->post('year') == 'Special Education') ? 'selected' : ''; ?>>Special Education</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2">
@@ -111,7 +90,6 @@
                                                 <option value="">Select Application Type</option>
                                                 <option value="New Applicant" <?= ($this->input->post('application_type') == 'New Applicant') ? 'selected' : ''; ?>>New Applicant</option>
                                                 <option value="Renewal" <?= ($this->input->post('application_type') == 'Renewal') ? 'selected' : ''; ?>>Renewal</option>
-                                               
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2">
@@ -129,8 +107,6 @@
                                                 <option value="100" <?= ($this->input->post('discount') == '100') ? 'selected' : ''; ?>>100%</option>
                                             </select>
                                         </div>
-
-                                        
                                         <div class="col-md-4 mb-2">
                                             <select name="status" class="form-control w-100">
                                                 <option value="">Select Status</option>
@@ -380,6 +356,28 @@
                     });
                 }
             }
+        });
+    });
+    $('#program_type').on('change', function() {
+        var program_type = $(this).val();
+        var yearDropdown = $('#year');
+        yearDropdown.empty();
+
+        yearDropdown.append('<option value="">Select Year</option>');
+
+        var years = [];
+        if (program_type === 'College') {
+            years = ['5th', '4th', '3rd', '2nd', '1st'];
+        } else if (program_type === 'Senior High School') {
+            years = ['Grade 12', 'Grade 11'];
+        } else if (program_type === 'Junior High School') {
+            years = ['Grade 10', 'Grade 9', 'Grade 8', 'Grade 7'];
+        } else if (program_type === 'Grade School') {
+            years = ['Grade 6', 'Grade 5', 'Grade 4', 'Grade 3', 'Grade 2', 'Grade 1', 'Senior Kinder', 'Junior Kinder', 'Special Education'];
+        }
+
+        $.each(years, function(index, year) {
+            yearDropdown.append('<option value="' + year + '">' + year + '</option>');
         });
     });
 </script>
