@@ -36,7 +36,7 @@
                                         <i class="fas fa-graduation-cap"></i>
                                     </div>
                                     <a href="<?= site_url('sc/app_list/'.$program->program_code); ?>" class="small-box-footer">
-                                        View Applicants <i class="fas fa-arrow-circle-right"></i>
+                                        View Applicants <i class="fas fa-arrow-circle-right toogle-status" title="View"></i>
                                     </a>
                                 </div>
                             </div>

@@ -51,19 +51,21 @@
                                                 <td><?= $program->program; ?></td>
                                                 <td><?= $program->program_type; ?></td>
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm edit-btn"
+                                                    <button class="btn btn-primary btn-sm edit-btn toogle-status"
+                                                        title="Edit"
                                                         data-toggle="modal"
                                                         data-target="#editProgramModal"
                                                         data-id="<?= $program->program_id; ?>"
                                                         data-name="<?= $program->program; ?>"
                                                         data-type="<?= $program->program_type; ?>">
-                                                        <i class="fas fa-edit"></i>
+                                                        <i class="fas fa-edit toogle-status" title="Edit"></i>
                                                     </button>
-                                                    <button class="btn btn-danger btn-sm delete-btn"
+                                                    <button class="btn btn-danger btn-sm delete-btn toogle-status"
+                                                        title="Delete"
                                                         data-toggle="modal"
                                                         data-target="#deleteProgramModal"
                                                         data-id="<?= $program->program_id; ?>">
-                                                        <i class="fas fa-trash"></i>
+                                                        <i class="fas fa-trash toogle-status" title="Delete"></i>
                                                     </button>
                                                 </td>
                                             </tr>

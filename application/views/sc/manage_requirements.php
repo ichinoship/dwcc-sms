@@ -54,10 +54,10 @@
                                                 <td><?= $requirement['id']; ?></td>
                                                 <td><?= $requirement['requirement_name']; ?></td>
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm editRequirementBtn" data-id="<?= $requirement['id']; ?>" data-name="<?= $requirement['requirement_name']; ?>" data-toggle="modal" data-target="#editRequirementModal">
+                                                    <button class="btn btn-primary btn-sm editRequirementBtn toogle-status" title="Edit" data-id="<?= $requirement['id']; ?>" data-name="<?= $requirement['requirement_name']; ?>" data-toggle="modal" data-target="#editRequirementModal">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button class="btn btn-danger btn-sm deleteRequirementBtn" data-id="<?= $requirement['id']; ?>">
+                                                    <button class="btn btn-danger btn-sm deleteRequirementBtn toogle-status" title="Delete" data-id="<?= $requirement['id']; ?>">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </td>

@@ -48,9 +48,9 @@
                                                 <td>
                                                     <!-- Toggle Active/Inactive Buttons -->
                                                     <?php if ($semester->status == 'active'): ?>
-                                                        <button class="btn btn-danger" onclick="toggleStatus(<?php echo $semester->semester_id; ?>, 'inactive')"><i class="fas fa-times-circle"></i></button>
+                                                        <button class="btn btn-danger toogle-status" title="Deactivate" onclick="toggleStatus(<?php echo $semester->semester_id; ?>, 'inactive')"><i class="fas fa-times-circle"></i></button>
                                                     <?php else: ?>
-                                                        <button class="btn btn-success" onclick="toggleStatus(<?php echo $semester->semester_id; ?>, 'active')"><i class="fas fa-check-circle"></i></button>
+                                                        <button class="btn btn-success toogle-status" title="Activate" onclick="toggleStatus(<?php echo $semester->semester_id; ?>, 'active')"><i class="fas fa-check-circle"></i></button>
                                                     <?php endif; ?>
                                                 </td>
                                             </tr>

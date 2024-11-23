@@ -83,7 +83,7 @@
                                     <td><?= ucfirst($program->program_status); ?></td>
                                     <td>
                                         <!-- View Button -->
-                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#viewProgramModal"
+                                        <button class="btn btn-info btn-sm toogle-status" title="View" data-toggle="modal" data-target="#viewProgramModal"
                                             data-program-code="<?= $program->program_code; ?>"
                                             data-program-name="<?= $program->scholarship_program; ?>"
                                             data-campus="<?= $program->campus; ?>"
@@ -101,7 +101,7 @@
 
                                         $is_disabled = (strtotime($program->start_date) <= strtotime($current_date) && strtotime($program->end_date) > strtotime($current_date)) ? 'disabled' : '';
                                         ?>
-                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editProgramModal"
+                                        <button class="btn btn-warning btn-sm toogle-status" title="Edit" data-toggle="modal" data-target="#editProgramModal"
                                             data-program-code="<?= $program->program_code; ?>"
                                             data-program-name="<?= $program->scholarship_program; ?>"
                                             data-campus="<?= $program->campus; ?>"

@@ -50,11 +50,11 @@
                                                 <td><?php echo $year->academic_year; ?></td>
                                                 <td><?php echo ucfirst($year->year_status); ?></td>
                                                 <td>
-                                                    <a href="<?php echo site_url('sc/view_list/' . $year->school_year_id); ?>" class="btn btn-info btn-sm">
-                                                        <i class="fas fa-eye"></i>
+                                                    <a href="<?php echo site_url('sc/view_list/' . $year->school_year_id); ?>" class="btn btn-info btn-sm" >
+                                                        <i class="fas fa-eye toogle-status" title="View"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editYearModal" onclick="editSchoolYear('<?php echo $year->school_year_id; ?>', '<?php echo $year->academic_year; ?>')">
-                                                        <i class="fas fa-edit"></i>
+                                                        <i class="fas fa-edit toogle-status" title="Edit"></i>
                                                     </a>
                                                 </td>
                                             </tr>

@@ -89,10 +89,10 @@
                                             <td><?= ucwords($entry->status); ?></td>
                                             <td>
                                                 <a href="<?= site_url('sc/view_shortlist_applicant/' . $entry->applicant_no); ?>" class="btn btn-info btn-sm">
-                                                    <i class="fas fa-eye"></i>
+                                                    <i class="fas fa-eye toogle-status" title="View Application"></i>
                                                 </a>
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#evaluateModal" data-id="<?= $entry->applicant_no ?>" data-name="<?= htmlspecialchars($entry->firstname . ' ' . $entry->lastname) ?>" data-status="<?= $entry->status ?>" data-discount="<?= $entry->discount ?>">
-                                                    <i class="fas fa-edit"></i>
+                                                    <i class="fas fa-edit toogle-status" title="Evaluate"></i>
                                                 </button>
                                             </td>
                                         </tr>

@@ -50,10 +50,10 @@
                                         <td class="status-column"><?= ucwords($applicant->status); ?></td>
                                         <td>
                                             <a href="<?= site_url('twc/view_applicant/' . $applicant->applicant_no); ?>" class="btn btn-info btn-sm">
-                                                <i class="fas fa-eye"></i>
+                                                <i class="fas fa-eye toogle-status" title="View Application"></i>
                                             </a>
                                             <button class="btn btn-primary evaluate-btn btn-sm" data-id="<?= $applicant->applicant_no; ?>" data-toggle="modal" data-target="#evaluateModal">
-                                                <i class="fas fa-pencil-alt"></i>
+                                                <i class="fas fa-pencil-alt toogle-status" title="Evaluate Application"></i>
                                             </button>
                                         </td>
                                     </tr>

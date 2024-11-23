@@ -49,8 +49,8 @@
                                         <td><?= $entry->scholarship_program; ?></td>
                                         <td><?= ucfirst($entry->status); ?></td>
                                         <td>
-                                            <a href="<?= site_url('twc/view_shortlist_applicant/' . $entry->applicant_no); ?>" class="btn btn-info btn-sm">
-                                                <i class="fas fa-eye"></i>
+                                            <a href="<?= site_url('twc/view_shortlist_applicant/' . $entry->applicant_no); ?>" class="btn btn-info btn-sm toogle-status" title="View">
+                                                <i class="fas fa-eye toogle-status" title="View"></i>
                                             </a>
                                         </td>
                                     </tr>
