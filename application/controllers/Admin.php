@@ -191,13 +191,36 @@ class Admin extends CI_Controller
 
     public function decline_applicant($id)
     {
+        $applicant = $this->Admin_model->get_applicant_by_id($id);
+
         if ($this->Admin_model->update_applicant_status($id, 'declined')) {
+
+            $this->send_decline_email_notification($applicant->email, $applicant->firstname);
             $this->session->set_flashdata('success', 'Application declined successfully.');
         } else {
             $this->session->set_flashdata('error', 'Failed to decline application.');
         }
 
         redirect('admin/account_review');
+    }
+
+    private function send_decline_email_notification($email, $firstname)
+    {
+        $this->email->from('dwcc.sms@gmail.com', 'DWCC Scholarship Management System');
+        $this->email->to($email);
+        $this->email->subject('Account Status Update');
+        $this->email->message("
+        Dear $firstname, <br><br>
+        We regret to inform you that your account for the DWCC Scholarship has been declined. <br><br>
+        If you have any questions or would like further information, please feel free to contact us. <br><br>
+        Best regards,<br>
+        Divine Word College of Calapan<br>
+        Scholarship Management Team
+    ");
+
+        if (!$this->email->send()) {
+            log_message('error', 'Email not sent: ' . $this->email->print_debugger());
+        }
     }
 
     public function app_list()
@@ -303,7 +326,7 @@ class Admin extends CI_Controller
     }
 
     public function update_password()
-    {   
+    {
         $this->load->model('Profile_model');
         if ($this->session->userdata('user_type') != 'Admin') {
             $this->session->set_flashdata('error', 'Unauthorized access.');

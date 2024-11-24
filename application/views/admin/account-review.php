@@ -2,7 +2,6 @@
 <?php $this->load->view('includes/header'); ?>
 <?php $this->load->view('includes/sidebar'); ?>
 <title>Account Review</title>
-
 <!-- Content Wrapper -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -22,7 +21,6 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
@@ -32,19 +30,6 @@
                     <h3 class="card-title">Account Review</h3>
                 </div>
                 <div class="card-body">
-                    <?php if ($this->session->flashdata('success')): ?>
-                        <div class="alert text-center alert-success">
-                            <?= $this->session->flashdata('success'); ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if ($this->session->flashdata('error')): ?>
-                        <div class="alert text-center alert-danger">
-                            <?= $this->session->flashdata('error'); ?>
-                        </div>
-                    <?php endif; ?>
-
-                
                         <table id="applicantTable" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
@@ -82,11 +67,26 @@
         </div> <!-- /.container-fluid -->
     </div> <!-- /.content -->
 </div> <!-- /.content-wrapper -->
-
 <?php $this->load->view('includes/footer'); ?>
-
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    <?php if ($this->session->flashdata('success')): ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '<?= $this->session->flashdata('success'); ?>',
+            confirmButtonText: 'OK'
+        });
+    <?php elseif ($this->session->flashdata('error')): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '<?= $this->session->flashdata('error'); ?>',
+            confirmButtonText: 'OK'
+        });
+    <?php endif; ?>
+</script>
 <script>
     $(function() {
         var table = $('#applicantTable').DataTable({
@@ -112,9 +112,6 @@
                 });
             }
         });
-
-        // Append the DataTable buttons to a specific location
         table.buttons().container().appendTo('#applicantTable_wrapper .col-md-6:eq(0)');
     });
-
 </script>

@@ -29,6 +29,9 @@
             <p>Scholarship Management System</p>
           </div>
         </div>
+        <div class="text-center mb-3">
+          <h6><span class="font-weight-bold">User</span> Login</h6>
+        </div>
         <form action="<?php echo site_url('auth/login'); ?>" method="post">
           <div class="input-group mb-3">
             <input type="text" class="form-control <?php echo form_error('id_number') || $this->session->flashdata('error_id_number') ? 'is-invalid' : ''; ?>" name="id_number" id="id_number" placeholder="ID Number" value="<?= set_value('id_number'); ?>">

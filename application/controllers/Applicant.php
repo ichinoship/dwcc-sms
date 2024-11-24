@@ -185,6 +185,8 @@ class Applicant extends CI_Controller
         }
     }
 
+  
+
     public function update()
     {
         if (!$this->input->is_ajax_request()) {

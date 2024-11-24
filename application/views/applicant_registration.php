@@ -189,7 +189,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="address">Address <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control <?= form_error('address') ? 'is-invalid' : ''; ?>" id="address" name="address" placeholder="Address" value="<?= set_value('address'); ?>">
+                    <input type="text" class="form-control <?= form_error('address') ? 'is-invalid' : ''; ?>" id="address" name="address"  placeholder="Street Name, Barangay, City/Municipality, Province"  value="<?= set_value('address'); ?>">
                     <?= form_error('address', '<div class="invalid-feedback">', '</div>'); ?>
                   </div>
                 </div>
