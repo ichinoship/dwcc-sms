@@ -134,7 +134,7 @@
                 </div>
                 <div class="col-md-6 form-group">
                   <label for="program_type">Program Type <span class="text-danger">*</span></label>
-                  <select class="form-control <?= form_error('program_type') ? 'is-invalid' : ''; ?>" id="program_type" name="program_type" onchange="updateYearOptions(); updateProgramOptions();">
+                  <select class="form-control <?= form_error('program_type') ? 'is-invalid' : ''; ?>" id="program_type" name="program_type" onchange="updateYearOptions(); updateProgramOptions(); updateFields();">
                     <option value="" disabled selected>Select Program Type</option>
                     <option value="College" <?= set_select('program_type', 'College'); ?>>College</option>
                     <option value="Senior High School" <?= set_select('program_type', 'Senior High School'); ?>>Senior High School</option>
@@ -148,7 +148,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="year">Year Level <span class="text-danger">*</span></label>
-                    <select class="form-control <?= form_error('year') ? 'is-invalid' : ''; ?>" id="year" name="year">
+                    <select class="form-control <?= form_error('year') ? 'is-invalid' : ''; ?>" id="year" name="year" disabled>
                       <option value="" disabled selected>Select Year Level</option>
                       <option value="5th" <?= set_select('year', '5th'); ?>>5th</option>
                       <option value="4th" <?= set_select('year', '4th'); ?>>4th</option>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="col-md-6 form-group">
                   <label for="program">Program <span class="text-danger">*</span></label>
-                  <select name="program" id="program" class="form-control  <?= form_error('program') ? 'is-invalid' : ''; ?>">
+                  <select name="program" id="program" class="form-control  <?= form_error('program') ? 'is-invalid' : ''; ?>" disabled>
                     <option value="">Select Program</option>
                     <?php foreach ($programs as $program): ?>
                       <option value="<?= $program->program ?>" <?= set_select('program', $program->program); ?>>
@@ -253,6 +253,23 @@
         }
       });
     }
+
+    function updateFields() {
+      const programType = document.getElementById('program_type').value;
+      const yearDropdown = document.getElementById('year');
+      const programDropdown = document.getElementById('program');
+
+      if (programType) {
+        // Enable the fields if a program type is selected
+        yearDropdown.disabled = false;
+        programDropdown.disabled = false;
+      } else {
+        // Disable the fields if no program type is selected
+        yearDropdown.disabled = true;
+        programDropdown.disabled = true;
+      }
+    }
+
   </script>
 
   <script>
