@@ -344,7 +344,7 @@
                 .column(8).search(campus)
                 .column(9).search(scholarship_program)
                 .column(10).search(application_type)
-                .column(11).search(status)
+                .columns(11).search("^" + status + "$", true, false)
                 .draw();
         });
 
