@@ -45,7 +45,7 @@ class Twc extends CI_Controller
         $user_id = $this->session->userdata('user_id');
         $data['applicants'] = $this->Applicant_model->get_applicants_by_twc($user_id);
         $data['applicants'] = array_filter($data['applicants'], function ($applicant) {
-            return in_array($applicant->status, ['pending', 'not qualified']);
+            return in_array($applicant->status, ['pending']);
         });
         $this->load->view('twc/app_evaluation', $data);
     }
@@ -210,8 +210,8 @@ class Twc extends CI_Controller
         if (!empty($campus)) {
             $filters['campus'] = $campus;
         }
-        if (!empty($campus)) {
-            $filters['application_type'] = $campus;
+        if (!empty($application_type)) {
+            $filters['application_type'] = $application_type;
         }
         if (!empty($status)) {
             $filters['status'] = $status;
@@ -224,9 +224,6 @@ class Twc extends CI_Controller
         $data['applicants'] = array_filter($data['applicants'], function ($applicant) {
             return in_array($applicant->status, ['qualified', 'not qualified', 'conditional']);
         });
-
-
-
         $this->load->view('twc/reports', $data);
     }
 

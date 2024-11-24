@@ -110,9 +110,9 @@
                                         <div class="col-md-4 mb-2">
                                             <select name="status" class="form-control w-100">
                                                 <option value="">Select Status</option>
-                                                <option value="Qualified" <?= ($this->input->post('status') == 'Qualified') ? 'selected' : ''; ?>>Qualified</option>
-                                                <option value="Not Qualified" <?= ($this->input->post('status') == 'Not Qualified') ? 'selected' : ''; ?>>Not Qualified</option>
-                                                <option value="Conditional" <?= ($this->input->post('status') == 'Conditional') ? 'selected' : ''; ?>>Conditional</option>
+                                                <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
+                                                <option value="not qualified" <?= ($this->input->post('status') == 'not qualified') ? 'selected' : ''; ?>>Not Qualified</option>
+                                                <option value="conditional" <?= ($this->input->post('status') == 'conditional') ? 'selected' : ''; ?>>Conditional</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-end">
@@ -186,7 +186,7 @@
                         return "Scholarship-Reports";
                     },
                     customize: function(doc) {
-                        doc.pageMargins = [50, 115, 50, 115];
+                        doc.pageMargins = [20, 115, 20, 115];
 
                         doc.background = [{
                             image: 'data:image/png;base64,<?= base64_encode(file_get_contents(base_url("assets/images/format.png"))); ?>',
