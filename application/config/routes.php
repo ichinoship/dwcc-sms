@@ -2,8 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Login routes
-$route['default_controller'] = 'auth/login';
+$route['default_controller'] = 'auth/applicant_login';
 $route['auth/login'] = 'auth/login';
+$route['auth/applicant_login'] = 'auth/login_applicant';
 $route['auth/logout'] = 'auth/logout';
 
 // Admin routes
