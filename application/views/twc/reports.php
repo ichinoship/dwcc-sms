@@ -126,6 +126,7 @@
                                             <select name="status" class="form-control w-100">
                                                 <option value="">Select Status</option>
                                                 <option value="qualified" <?= ($this->input->post('status') == 'qualified') ? 'selected' : ''; ?>>Qualified</option>
+                                                <option value="not qualified" <?= ($this->input->post('status') == 'not qualified') ? 'selected' : ''; ?>>Not Qualified</option>
                                                 <option value="conditional" <?= ($this->input->post('status') == 'conditional') ? 'selected' : ''; ?>>Conditional</option>
                                             </select>
                                         </div>
