@@ -307,6 +307,8 @@
             var discount = $('select[name="discount"]').val();
             var status = $('select[name="status"]').val();
 
+            //console.log("Status:", status);
+
             table.columns(2).search(academic_year)
                 .columns(3).search(semester)
                 .columns(4).search(program_type)
@@ -315,7 +317,7 @@
                 .columns(7).search(program)
                 .columns(8).search(application_type)
                 .columns(9).search(discount)
-                .columns(10).search(status)
+                .columns(10).search("^" + status + "$", true, false)
                 .draw();
         });
 
