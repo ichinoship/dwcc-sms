@@ -11,7 +11,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <?php if (!empty($this->session->userdata('user_applicant_photo'))): ?>
-                    <img src="<?= base_url('uploads/' . $this->session->userdata('user_applicant_photo')); ?>" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px;">
+                    <img src="<?= base_url('uploads/' . $this->session->userdata('user_applicant_photo')); ?>" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px; object-fit:cover;">
                 <?php else: ?>
                     <i class="fas fa-user-circle text-white" style="font-size: 40px;"></i>
                 <?php endif; ?>

@@ -231,7 +231,7 @@ class Sc_model extends CI_Model
         $this->db->join('final_list', 'application_form.applicant_no = final_list.applicant_no', 'left');
         $this->db->where('final_list.applicant_no IS NULL');
         $this->db->where('school_year.year_status', 'active');
-        $this->db->where_in('application_form.status', ['qualified', 'not qualified', 'conditional']);
+        $this->db->where_in('application_form.status', ['qualified', 'conditional']);
 
         if ($scholarship_program) {
             $this->db->where('application_form.scholarship_program', $scholarship_program);

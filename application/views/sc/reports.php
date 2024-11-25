@@ -186,6 +186,11 @@
                         return "Scholarship-Reports";
                     },
                     customize: function(doc) {
+
+                        var exportData = $('#applicationsTable').DataTable().buttons.exportData({
+                            columns: ':visible'
+                        });
+
                         doc.pageMargins = [20, 115, 20, 115];
 
                         doc.background = [{
@@ -193,7 +198,6 @@
                             width: 624,
                             height: 830
                         }];
-
                         doc.content.splice(0, 0, {
                             text: 'SCHOLARSHIP REPORTS',
                             alignment: 'center',
@@ -201,7 +205,6 @@
                             bold: true,
                             margin: [0, 20, 0, 0]
                         });
-
                         doc.content.splice(1, 0, {
                             text: 'List of Scholarship Applicants',
                             alignment: 'center',
@@ -209,7 +212,6 @@
                             bold: false,
                             margin: [0, 0, 0, 20]
                         });
-
                         var currentDate = new Date().toLocaleDateString();
                         doc.content.splice(2, 0, {
                             text: `Date: ${currentDate}`,
@@ -217,10 +219,29 @@
                             fontSize: 10,
                             margin: [0, 0, 0, 10]
                         });
-
-                        var table = doc.content[3];
-                        if (table && table.table) {
-                            table.layout = {
+                        var tableBody = [];
+                        tableBody.push(exportData.header.map(header => ({
+                            text: header,
+                            bold: true,
+                            fillColor: '#A6D18A',
+                            color: '#000000',
+                            alignment: 'center'
+                        })));
+                        exportData.body.forEach(row => {
+                            tableBody.push(row.map(cell => ({
+                                text: cell,
+                                fillColor: '#FFFFFF',
+                                fontSize: 11,
+                                alignment: 'center'
+                            })));
+                        });
+                        doc.content[3] = {
+                            table: {
+                                headerRows: 1,
+                                body: tableBody,
+                                
+                            },
+                            layout: {
                                 hLineWidth: function() {
                                     return 0.5;
                                 },
@@ -245,22 +266,9 @@
                                 paddingBottom: function() {
                                     return 2;
                                 },
-                            };
-
-                            for (var i = 0; i < table.table.body.length; i++) {
-                                for (var j = 0; j < table.table.body[i].length; j++) {
-                                    table.table.body[i][j].fillColor = '#FFFFFF';
-                                    table.table.body[i][j].fontSize = 11;
-                                }
-                            }
-
-                            var header = table.table.body[0];
-                            for (var j = 0; j < header.length; j++) {
-                                header[j].fillColor = '#A6D18A';
-                                header[j].color = '#000000';
-                            }
-                        }
-
+                            },
+                            alignment: 'center' 
+                        };
                         doc.content.push({
                             text: 'Prepared by:',
                             alignment: 'left',
@@ -282,7 +290,6 @@
                             fontSize: 12,
                             bold: false
                         });
-
                     }
 
                 },

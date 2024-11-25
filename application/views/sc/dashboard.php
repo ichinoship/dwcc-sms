@@ -6,11 +6,13 @@
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row justify-content-center mb-4">
-                <div class="col text-center">
-                    <img src="<?php echo base_url('assets/images/dwcc-logo.png'); ?>" alt="School Logo" style="max-width: 100px; height: auto;">
+        <div class="row">
+            <div class="col-12 mt-1">
+                <div class="card bg-dark">
+                    <img src="<?= base_url('assets/images/sc-banner.svg'); ?>" alt="Logo" class="img-fluid">
                 </div>
             </div>
+        </div>
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">Program Overview</h1>
@@ -21,6 +23,7 @@
                     </ol>
                 </div>
             </div>
+            
         </div>
     </div>
 

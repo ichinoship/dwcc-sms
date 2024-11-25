@@ -298,10 +298,6 @@
                             bold: false
                         });
                     }
-                },
-                {
-                    extend: "colvis",
-                    text: "Column Visibility",
                 }
             ],
             initComplete: function() {

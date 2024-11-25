@@ -66,7 +66,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="id_number">ID Number <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control <?= form_error('id_number') ? 'is-invalid' : ''; ?>" id="id_number" name="id_number" placeholder="ID Number" value="<?= set_value('id_number'); ?>">
+                    <input type="number" class="form-control <?= form_error('id_number') ? 'is-invalid' : ''; ?>" id="id_number" name="id_number" placeholder="ID Number" value="<?= set_value('id_number'); ?>">
                     <?= form_error('id_number', '<div class="invalid-feedback">', '</div>'); ?>
                   </div>
                 </div>
