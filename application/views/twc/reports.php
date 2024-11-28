@@ -174,7 +174,7 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="8" class="text-center">No data found</td>
+                                            <td colspan="12" class="text-center">No data found</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>

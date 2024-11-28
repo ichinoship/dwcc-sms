@@ -160,7 +160,7 @@
 
                         var currentDate = new Date().toLocaleDateString();
                         doc.content.splice(2, 0, {
-                            text: `Date: ${currentDate}`,
+                            text: `Generated at ${currentDate}`,
                             alignment: 'right',
                             fontSize: 10,
                             margin: [0, 0, 0, 10]

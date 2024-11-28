@@ -29,8 +29,8 @@
             <p>Scholarship Management System</p>
           </div>
         </div>
-        <div class="text-center mb-3">
-          <h6><span class="font-weight-bold">User</span> Login</h6>
+        <div class="text-center font-weight-bold mb-3">
+          <h6>USER LOGIN</h6>
         </div>
         <form action="<?php echo site_url('auth/login'); ?>" method="post">
           <div class="input-group mb-3">
